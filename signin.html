@@ -2,56 +2,57 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In</title>
-  <link rel="stylesheet" href="style/signstyle.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="style/signstyle.css">
+    <link rel="icon" href="images/icon.png" type="image/png">
 
-  <!--Passwords-->
-  <script>
-    const passwordInput = document.getElementById('password-input');
-    const togglePassword = document.getElementById('toggle-password');
+    <!--Inputting Password-->
+    <script>
+        const passwordInput = document.getElementById('password-input');
+        const togglePassword = document.getElementById('toggle-password');
 
-    togglePassword.addEventListener('click', function () {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-      togglePassword.classList.toggle('active');
-    });
-  </script>
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('active');
+        });
+    </script>
 
 </head>
 
 <body>
 
-  <!--Home Button Image Div-->
-  <header>
-    <a href="index.html">
-      <img src="images/logo.png" id="logo">
-    </a>
-    <h2 class="signin-title">Sign In To Your Account!</h2>
-  </header>
+    <!--Home Button Image Div-->
+    <header>
+        <a href="index.html">
+            <img src="images/logo.png" id="logo">
+        </a>
+        <h2 class="signin-title">Sign In To Your Account!</h2>
+    </header>
 
-  <!--Sign In Div-->
-  <div class="signin-container">
-    <form class="signin-form">
-      <input type="text" placeholder="Username" class="textbox" required><br>
-      <input type="password" id="password-input" placeholder="Password" class="textbox" required>
-      <br>
-      <div class="remember-forget-container">
-        <div class="remember">
-          <input type="checkbox" id="remember-me">
-          <label for="remember-me">Remember Me</label>
-        </div>
-        <div class="forget">
-          <a href="forgotpassword.html">Forgot Password</a>
-        </div>
-      </div>
-      <div class="button-container">
-        <input type="button" class="button" value="Submit">
-        <input type="button" class="button" value="Register" onclick="window.location.href='register.html'">
-      </div>
-    </form>
-  </div>
+    <!--Sign In Div-->
+    <div class="signin-container">
+        <form class="signin-form">
+            <input type="text" placeholder="Username" class="textbox" required><br>
+            <input type="password" id="password-input" placeholder="Password" class="textbox" required>
+            <br>
+            <div class="remember-forget-container">
+                <div class="remember">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember Me</label>
+                </div>
+                <div class="forget">
+                    <a href="forgot.html">Forgot Password</a>
+                </div>
+            </div>
+            <div class="button-container">
+                <input type="button" class="button" value="Sign In" onclick="window.location.href='index.html'">
+                <input type="button" class="button" value="Register" onclick="window.location.href='register.html'">
+            </div>
+        </form>
+    </div>
 
 </body>
 
