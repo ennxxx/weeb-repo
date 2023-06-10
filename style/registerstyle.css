@@ -7,7 +7,7 @@ body {
     color: #FFFCFC;
     font-size: 14px;
     line-height: 18px;
-    background: linear-gradient(to bottom right, #FC8B12, #FE6705, #FE3B07);
+    background: linear-gradient(to bottom, #FC8B12, #FE6705, #FE3B07);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -24,13 +24,14 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
-    padding-bottom: 50px;
+    padding-bottom: 130px;
 }
 
 #logo {
     width: auto;
     height: 70px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 header .signin-container {
@@ -56,7 +57,70 @@ header a {
 
 /* Registration */
 
+h1 {
+    padding-bottom: 20px;
+}
+
+.register-container {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: rgba(44, 57, 75, 0.15);
+    border-radius: 10px;
+    width: 60%;
+}
+
+.registration-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Registration (Left) */
+
+.registration-left {
+    flex: 1;
+    margin-right: 20px;
+    padding-left: 20px;
+}
+
+.textbox {
+    width: 270px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#password-match-icon {
+    font-size: 16px;
+    padding-right: 15px;
+}
+
+/* Registration (Right) */
+
+.registration-right {
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+#girl {
+    width: auto;
+    height: 200px;
+    padding-top: 100px;
+    padding-right: 30px;
+    margin-left: -50px;
+}
+
+/* Submission */
+
+.registration-actions {
+    text-align: right;
+}
+
 #arrow {
     width: auto;
-    height: 40px;
+    height: 30px;
 }

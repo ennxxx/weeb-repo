@@ -25,10 +25,8 @@
 
                 if (password === confirmPassword) {
                     passwordMatchIcon.textContent = '✓';
-                    passwordMatchIcon.style.color = 'green';
                 } else {
                     passwordMatchIcon.textContent = '✕';
-                    passwordMatchIcon.style.color = 'red';
                 }
             }
 
@@ -43,7 +41,7 @@
 
     <!-- Header Div -->
     <header>
-        <a href="index.html">
+        <a href="home.html">
             <img src="images/logo2.png" id="logo">
         </a>
         <div class="signin-container">
@@ -55,22 +53,32 @@
     <!-- Registration Form Div -->
     <div class="register-container">
         <form class="registration-form">
-            <h2 class="signin-title">Register</h2>
+            <div class="registration-content">
+                <div class="registration-left">
+                    <h1 class="registration-title">Register</h1>
+                    <p>Enter your username</p>
+                    <input type="text" placeholder="Username" class="textbox" required><br>
+                    <p>Create a password</p>
+                    <input type="password" id="password-input" placeholder="Password" class="textbox" required><br>
+                    <input type="password" id="confirm-password-input" placeholder="Confirm Password" class="textbox"
+                        required>
+                    <span id="password-match-icon"></span><br>
+                </div>
+                <div class="registration-right">
+                    <img src="images/girl.png" id="girl">
+                </div>
+            </div>
 
-            <p>Enter your username</p>
-            <input type="text" placeholder="Username" class="textbox" required><br>
-
-            <p>Create a password</p>
-            <input type="password" id="password-input" placeholder="Password" class="textbox" required><br>
-            <input type="password" id="confirm-password-input" placeholder="Confirm Password" class="textbox" required>
-            <span id="password-match-icon"></span><br>
-
-            <a href="index.html" class="button">
-                <img src="images/arrow.png" id="arrow" />
-            </a>
-
+            <div class="registration-actions">
+                <a href="index.html">
+                    <img src="images/arrow.png" id="arrow">
+                </a>
+            </div>
         </form>
     </div>
+
+
+
 </body>
 
 </html>
