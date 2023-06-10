@@ -7,7 +7,7 @@ body {
     color: #FFFCFC;
     font-size: 14px;
     line-height: 18px;
-    background: linear-gradient(to bottom, #FC8B12, #FE6705, #FE3B07);
+    background: linear-gradient(to bottom, #FC8B12, #FE6705, #FE3B07, #FF3600);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -67,7 +67,7 @@ h1 {
     padding: 30px;
     background-color: rgba(44, 57, 75, 0.15);
     border-radius: 10px;
-    width: 60%;
+    width: 700px;
 }
 
 .registration-content {
