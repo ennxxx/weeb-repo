@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,28 +11,28 @@
   <script>  /*toggling of password*/
     const passwordInput = document.getElementById('password-input');
     const togglePassword = document.getElementById('toggle-password');
-  
-    togglePassword.addEventListener('click', function() {
+
+    togglePassword.addEventListener('click', function () {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);
       togglePassword.classList.toggle('active');
     });
   </script>
-  
+
 </head>
 
 <body>
-    <div class="logo-image-container">  <!--Home Button Image Div-->
-        <a href="index.html">
-        <img src="Images/lemp_logo.png" alt="Your Image">
-        </a>
-    </div>
+  <div class="logo-image-container"> <!--Home Button Image Div-->
+    <a href="index.html">
+      <img src="images/temp_logo.png" alt="Your Image">
+    </a>
+  </div>
   <div class="signin-container"> <!--Sign In Div-->
     <form class="signin-form">
       <h2 class="signin-title">Sign In To Your Account!</h2>
       <input type="text" placeholder="Username" class="textbox" required><br>
       <input type="password" id="password-input" placeholder="Password" class="textbox" required>
-          <br>
+      <br>
       <div class="remember-forget-container">
         <div class="remember">
           <input type="checkbox" id="remember-me">
@@ -52,4 +53,3 @@
 </body>
 
 </html>
-
