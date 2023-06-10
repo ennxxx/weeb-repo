@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign In</title>
   <link rel="stylesheet" href="style/signstyle.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora&display=swap">
 
-  <script>  /*toggling of password*/
+  <!--Passwords-->
+  <script>
     const passwordInput = document.getElementById('password-input');
     const togglePassword = document.getElementById('toggle-password');
 
@@ -22,14 +22,18 @@
 </head>
 
 <body>
-  <div class="logo-image-container"> <!--Home Button Image Div-->
+
+  <!--Home Button Image Div-->
+  <header>
     <a href="index.html">
-      <img src="images/temp_logo.png" alt="Your Image">
+      <img src="images/logo.png" id="logo">
     </a>
-  </div>
-  <div class="signin-container"> <!--Sign In Div-->
+    <h2 class="signin-title">Sign In To Your Account!</h2>
+  </header>
+
+  <!--Sign In Div-->
+  <div class="signin-container">
     <form class="signin-form">
-      <h2 class="signin-title">Sign In To Your Account!</h2>
       <input type="text" placeholder="Username" class="textbox" required><br>
       <input type="password" id="password-input" placeholder="Password" class="textbox" required>
       <br>
@@ -42,14 +46,13 @@
           <a href="forgotpassword.html">Forgot Password</a>
         </div>
       </div>
-      <div class="submit-container">
-        <button type="submit" class="signin-button">Sign In</button>
-      </div>
-      <div class="newbie-container">
-        <a href="register.html" class="register-button">Register</a>
+      <div class="button-container">
+        <input type="button" class="button" value="Submit">
+        <input type="button" class="button" value="Register" onclick="window.location.href='register.html'">
       </div>
     </form>
   </div>
+
 </body>
 
 </html>
