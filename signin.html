@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="style/signstyle.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora&display=swap">
+
+  <script>  /*toggling of password*/
+    const passwordInput = document.getElementById('password-input');
+    const togglePassword = document.getElementById('toggle-password');
+  
+    togglePassword.addEventListener('click', function() {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.classList.toggle('active');
+    });
+  </script>
+  
+</head>
+
+<body>
+    <div class="logo-image-container">  <!--Home Button Image Div-->
+        <a href="index.html">
+        <img src="Images/lemp_logo.png" alt="Your Image">
+        </a>
+    </div>
+  <div class="signin-container"> <!--Sign In Div-->
+    <form class="signin-form">
+      <h2 class="signin-title">Sign In To Your Account!</h2>
+      <input type="text" placeholder="Username" class="textbox" required><br>
+      <input type="password" id="password-input" placeholder="Password" class="textbox" required>
+          <br>
+      <div class="remember-forget-container">
+        <div class="remember">
+          <input type="checkbox" id="remember-me">
+          <label for="remember-me">Remember Me</label>
+        </div>
+        <div class="forget">
+          <a href="forgotpassword.html">Forgot Password</a>
+        </div>
+      </div>
+      <div class="submit-container">
+        <button type="submit" class="signin-button">Sign In</button>
+      </div>
+      <div class="newbie-container">
+        <a href="register.html" class="register-button">Register</a>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
+
