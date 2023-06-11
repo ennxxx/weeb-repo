@@ -5,43 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/indexstyle.css">
     <link rel="icon" href="images/icon.png" type="image/png">
 </head>
 
 <body>
-    <header class="header-container">
-        <div class="logo-image-container">
-            <a href="index.html">
-                <img src="images/temp_logo.png" alt="Your Image">
-            </a>
+    <nav>
+        <a href="index.html">
+            <img src="images/logo3.png" id="logo">
+        </a>
+        <div class="nav-buttons">
+            <a href="featured.html">Featured</a>
+            <a href="polls.html">Polls</a>
+            <a href="anime.html">Anime</a>
+            <a href="games.html">Games</a>
+            <div class="dropdown">
+                <a href="javascript:void(0);" id="user-dropdown">
+                    <img src="images/dropdown.png" id="profile">
+                </a>
+                <div class="dropdown-content">
+                    <a href="profile.html">My Profile</a>
+                    <a href="#">My Posts</a>
+                    <a href="signin.html">Log out</a>
+                </div>
+            </div>
+            <a href="signin.html" id="signin-link">Sign In</a>
         </div>
-        <nav class="nav-container">
-            <ul>
-                <li><a href="featured.html">Featured</a></li>
-                <li><a href="polls.html">Polls</a></li>
-                <li><a href="anime.html">Anime</a></li>
-                <li><a href="games.html">Games</a></li>
-                <li class="dropdown" id="userDropdown">
-                    <a href="javascript:void(0);" class="dropbtn">User123</a>
-                    <div class="dropdown-content">
-                        <a href="#">My Profile</a>
-                        <a href="#">My Posts</a>
-                        <a href="#">Log out</a>
-                    </div>
-                </li>
-                <li id="signinLink"><a href="signin.html">Sign In</a></li>
-            </ul>
-        </nav>
-    </header>
-    <br /><br />
+    </nav>
+
     <script>
         // Check user sign-in status
         var signedIn = true; // Replace with your sign-in logic
 
         // Show/hide dropdown and sign-in link based on sign-in status
-        var userDropdown = document.getElementById("userDropdown");
-        var signinLink = document.getElementById("signinLink");
+        var userDropdown = document.getElementById("user-dropdown");
+        var signinLink = document.getElementById("signin-link");
 
         if (signedIn) {
             userDropdown.style.display = "block";
@@ -51,6 +49,7 @@
             signinLink.style.display = "block";
         }
     </script>
+
 </body>
 
 </html>

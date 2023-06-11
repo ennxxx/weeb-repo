@@ -19,7 +19,6 @@
             togglePassword.classList.toggle('active');
         });
     </script>
-
 </head>
 
 <body>
@@ -44,7 +43,7 @@
                     <label for="remember-me">Remember Me</label>
                 </div>
                 <div class="forget">
-                    <a href="forgot.html">Forgot Password</a>
+                    <a href="#" id="forget-password">Forget Password?</a>
                 </div>
             </div>
             <div class="button-container">
@@ -53,6 +52,39 @@
             </div>
         </form>
     </div>
+
+    <!--Forget Password Div-->
+    <div id="popup">
+        <div class="popup-content">
+            <button id="close-button">✕</button>
+            <h2>Reset your password</h2>
+            <p> Enter your username associated with<br>
+                the account to reset your password.</p>
+            <form>
+                <input type="text" placeholder="Username" id="username">
+                <input type="submit" value="Reset" id="reset">
+            </form>
+        </div>
+    </div>
+
+    <!--Forget Password Popup-->
+    <script>
+
+        var forgetPasswordLink = document.getElementById('forget-password');
+        var popup = document.getElementById('popup');
+        var closeButton = document.getElementById('close-button');
+
+        // Open the pop-up window when the forget password link is clicked
+        forgetPasswordLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            popup.style.display = 'flex';
+        });
+
+        // Close the pop-up window when the user clicks the close button
+        closeButton.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+    </script>
 
 </body>
 
