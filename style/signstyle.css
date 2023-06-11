@@ -137,8 +137,13 @@ header {
   color: #DEE3E7;
 }
 
+.popup-content h2 {
+  margin-left: -15px;
+  margin-top: 0;
+  font-size: 20px;
+}
+
 .popup-content p,
-.popup-content h2,
 #username {
   margin-left: -15px;
   margin-top: 0;
@@ -157,8 +162,8 @@ header {
 }
 
 #reset {
-  background-color: #FF4C29;
-  border: 1px solid #E83D1B;
+  background-color: #1E883E;
+  border: 1px solid #016B25;
   color: #FFFCFC;
   border-radius: 4px;
   cursor: pointer;
