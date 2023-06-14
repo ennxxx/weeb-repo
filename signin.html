@@ -1,146 +1,91 @@
 <!DOCTYPE html>
-<html>
-<!--Fixed: Added a Carousel Section & PostnPoll Section-->
-    
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/indexstyle.css">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="style/signstyle.css">
     <link rel="icon" href="images/icon.png" type="image/png">
+
+    <!--Inputting Password-->
+    <script>
+        const passwordInput = document.getElementById('password-input');
+        const togglePassword = document.getElementById('toggle-password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('active');
+        });
+    </script>
 </head>
 
 <body>
-    <nav>
-        <a href="index.html">
-            <img src="images/logo3.png" id="logo">
+
+    <!--Home Button Image Div-->
+    <header>
+        <a href="home.html">
+            <img src="images/logo.png" id="logo">
         </a>
-        <div class="search-bar">
-            <input type="text" placeholder="Search Weeb Lib...">
-        </div>
-        <div class="nav-buttons">
-            <a href="featured.html">Featured</a>
-            <a href="polls.html">Polls</a>
-            <a href="anime.html">Anime</a>
-            <a href="games.html">Games</a>
-            <div class="dropdown">
-                <a href="javascript:void(0);" id="user-dropdown">
-                    <img src="images/dropdown.png" id="profile">
-                </a>
-                <div class="dropdown-content">
-                    <a href="profile.html">My Profile</a>
-                    <a href="#">My Posts</a>
-                    <a href="signin.html">Log out</a>
+        <h2 class="signin-title">Sign In To Your Account!</h2>
+    </header>
+
+    <!--Sign In Div-->
+    <div class="signin-container">
+        <form class="signin-form">
+            <input type="text" placeholder="Username" class="textbox" required><br>
+            <input type="password" id="password-input" placeholder="Password" class="textbox" required>
+            <br>
+            <div class="remember-forget-container">
+                <div class="remember">
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember Me</label>
+                </div>
+                <div class="forget">
+                    <a href="#" id="forget-password">Forget Password?</a>
                 </div>
             </div>
-            <a href="signin.html" id="signin-link">Sign In</a>
-        </div>
-    </nav>
-
-    <br/><br/><br/><br/><br/><br/>
-
-    <!-- Carousel section -->
-    <div class="container">
-        <div id="index-carousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
-                <li data-target="#index-carousel" data-slide-to="1"></li>
-                <li data-target="#index-carousel" data-slide-to="2"></li>
-                <li data-target="#index-carousel" data-slide-to="3"></li>
-            </ol>
-
-            <!-- Slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <div class="frame">
-                        <img src="images/carousel/images1.png" alt="main-pic">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="frame">
-                        <img src="images/carousel/images2.png" alt="pic-2">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="frame">
-                        <img src="images/carousel/images3.png" alt="pic-3">
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="frame">
-                        <img src="images/carousel/images4.png" alt="pic-4">
-                    </div>
-                </div>
+            <div class="button-container">
+                <input type="button" class="button" value="Sign In" onclick="window.location.href='index.html'">
+                <input type="button" class="button" value="Register" onclick="window.location.href='register.html'">
             </div>
+        </form>
+    </div>
 
-            <!-- Left and right controls -->
-            <a class="left carousel-control" href="#index-carousel" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#index-carousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-                <span class="sr-only">Next</span>
-            </a>
+    <!--Forget Password Div-->
+    <div id="popup">
+        <div class="popup-content">
+            <button id="close-button">✕</button>
+            <h2>Reset your password</h2>
+            <p> Enter your username associated with<br>
+                the account to reset your password.</p>
+            <form>
+                <input type="text" placeholder="Username" id="username">
+                <input type="submit" value="Reset" id="reset">
+            </form>
         </div>
     </div>
 
-
-    <br/><br/><br/><br/><br/>
-    <!--Post section & Polls-->
-<div class="postnpoll-section">
-    <!--Post Section-->
-    <div class="post-section">
-        
-        <div class="write-post">
-            <textarea placeholder="Write your post here..." rows="2"></textarea>
-            <div class="post-buttons">
-                <button class="button-post">Post</button>
-                <button class="button-cancel">Cancel</button>
-                <button class="button-upload">Upload Image</button>
-                <button class="button-embed">Embed Link</button>
-            </div>
-        </div>
-        <br/><br/>
-        <div class="previous-posts">
-            <h2>Previous Posts</h2>
-            <div class="post">
-                <p>This is a sample post.</p>
-            </div>
-            <div class="post">
-                <p>This is another sample post.</p>
-            </div>
-        </div>
-    </div>
-    <div class="poll-section">
-        <h2>Top Users of the Month</h2>
-        <div class="poll-container">
-            <!-- Display top users here -->
-        </div>
-    </div>
-</div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--Forget Password Popup-->
     <script>
-        // Check user sign-in status
-        var signedIn = true; // Replace with your sign-in logic
 
-        // Show/hide dropdown and sign-in link based on sign-in status
-        var userDropdown = document.getElementById("user-dropdown");
-        var signinLink = document.getElementById("signin-link");
+        var forgetPasswordLink = document.getElementById('forget-password');
+        var popup = document.getElementById('popup');
+        var closeButton = document.getElementById('close-button');
 
-        if (signedIn) {
-            userDropdown.style.display = "block";
-            signinLink.style.display = "none";
-        } else {
-            userDropdown.style.display = "none";
-            signinLink.style.display = "block";
-        }
+        // Open the pop-up window when the forget password link is clicked
+        forgetPasswordLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            popup.style.display = 'flex';
+        });
+
+        // Close the pop-up window when the user clicks the close button
+        closeButton.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
     </script>
+
 </body>
 
 </html>
