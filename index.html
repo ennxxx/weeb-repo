@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--Fixed: Added a Carousel Section & Post n Poll Section-->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +38,7 @@
         </div>
     </nav>
 
-    <br/><br/><br/><br/><br/><br/>
+    <br /><br /><br /><br /><br /><br />
 
     <!-- Carousel section -->
     <div class="container">
@@ -87,46 +88,46 @@
     </div>
 
 
-    <br/><br/><br/><br/><br/>
+    <br /><br /><br /><br /><br />
     <!--Post section & Polls-->
-<div class="postnpoll-section">
-    <!--Post Section-->
-    <div class="post-section">
-        
-        <div class="write-post">
-            <textarea placeholder="Write your post here..." rows="2"></textarea>
-            <div class="post-buttons">
-                <button class="button-post">Post</button>
-                <button class="button-cancel">Cancel</button>
-                <button class="button-upload">Upload Image</button>
-                <button class="button-embed">Embed Link</button>
+    <div class="postnpoll-section">
+        <!--Post Section-->
+        <div class="post-section">
+
+            <div class="write-post">
+                <textarea placeholder="Write your post here..." rows="2"></textarea>
+                <div class="post-buttons">
+                    <button class="button-post">Post</button>
+                    <button class="button-cancel">Cancel</button>
+                    <button class="button-upload">Upload Image</button>
+                    <button class="button-embed">Embed Link</button>
+                </div>
+            </div>
+            <br /><br />
+            <div class="previous-posts">
+                <h2>Previous Posts</h2>
+                <div class="post">
+                    <p>This is a sample post.</p>
+                </div>
+                <div class="post">
+                    <p>This is another sample post.</p>
+                </div>
             </div>
         </div>
-        <br/><br/>
-        <div class="previous-posts">
-            <h2>Previous Posts</h2>
-            <div class="post">
-                <p>This is a sample post.</p>
-            </div>
-            <div class="post">
-                <p>This is another sample post.</p>
+        <div class="poll-section">
+            <h2>Top Users of the Month</h2>
+            <div class="poll-container">
+                <!-- Display top users here -->
             </div>
         </div>
     </div>
-    <div class="poll-section">
-        <h2>Top Users of the Month</h2>
-        <div class="poll-container">
-            <!-- Display top users here -->
-        </div>
-    </div>
-</div>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
         // Check user sign-in status
-        var signedIn = true; // Replace with your sign-in logic
+        var signedIn = false; // Replace with your sign-in logic
 
         // Show/hide dropdown and sign-in link based on sign-in status
         var userDropdown = document.getElementById("user-dropdown");
