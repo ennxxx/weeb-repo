@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!--Fixed: Added a Carousel Section & Post n Poll Section-->
 
 <head>
     <meta charset="UTF-8">
@@ -42,9 +41,10 @@
         </div>
     </nav>
 
-    <!-- Carousel section -->
+    <!-- Carousel -->
     <div class="carousel-container">
         <div id="index-carousel" class="carousel slide" data-ride="carousel">
+
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <!-- Left and right controls -->
+            <!-- Controls -->
             <a class="left carousel-control" href="#index-carousel" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="sr-only">Previous</span>
@@ -89,42 +89,83 @@
         </div>
     </div>
 
-    <!-- <div class="postnpoll-section">
-        <div class="post-section">
+    <!-- Main Content -->
+    <div class="postpoll-container">
 
-            <div class="write-post">
-                <textarea placeholder="Write your post here..." rows="2"></textarea>
-                <div class="post-buttons">
-                    <button class="button-post">Post</button>
-                    <button class="button-cancel">Cancel</button>
-                    <button class="button-upload">Upload Image</button>
-                    <button class="button-embed">Embed Link</button>
+        <!-- Posts -->
+        <div class="posts-container">
+
+            <!-- Sample User -->
+            <div class="user-post-container">
+                <img src="images/profile.png" id="post-profile">
+                <a href="create-post.html" class="post-textbox">Write a post...</a>
+            </div>
+
+            <!-- Sample Post -->
+            <div class="post-container">
+                <div class="vote">
+                    <img src="images/upvote.png" id="upvote">
+                    <p id="num-votes">45</p>
+                    <img src="images/downvote.png" id="downvote">
+                </div>
+                <div class="content">
+                    <div class="post-content">
+                        <h4 id="title">Best Agent on Ascent?</h4>
+                        <p id="author">by <span>cornbrip69</span></p>
+                        <p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                        <img src="images/sample.png" id="sample">
+                    </div>
+                    <div class="post-actions">
+                        <img src="images/comment.png" id="comment">
+                        <p>12 Comments</p>
+                        <img src="images/share.png" id="share">
+                        <p>Share</p>
+                        <img src="images/save.png" id="save">
+                    </div>
                 </div>
             </div>
-            <br /><br />
-            <div class="previous-posts">
-                <h2>Previous Posts</h2>
-                <div class="post">
-                    <p>This is a sample post.</p>
+
+            <!-- Another Sample Post -->
+            <div class="post-container">
+                <div class="vote">
+                    <img src="images/upvote.png" id="upvote">
+                    <p id="num-votes">45</p>
+                    <img src="images/downvote.png" id="downvote">
                 </div>
-                <div class="post">
-                    <p>This is another sample post.</p>
+                <div class="content">
+                    <div class="post-content">
+                        <h4 id="title">Best Agent on Ascent?</h4>
+                        <p id="author">by <span>cornbrip69</span></p>
+                        <p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                        <img src="images/sample.png" id="sample">
+                    </div>
+                    <div class="post-actions">
+                        <img src="images/comment.png" id="comment">
+                        <p>12 Comments</p>
+                        <img src="images/share.png" id="share">
+                        <p>Share</p>
+                        <img src="images/save.png" id="save">
+                    </div>
                 </div>
             </div>
+
         </div>
-        <div class="poll-section">
-            <h2>Top Users of the Month</h2>
-            <div class="poll-container">
-            </div>
+
+        <!-- Polls -->
+        <div class="polls-container">
+            <h4>Check this out</h4>
+            <hr>
+            <h4>Polls</h4>
+            <hr>
         </div>
-    </div> -->
+    </div>
 
     <script>
-
-        // Check user sign-in status
-        var signedIn = true; // Replace with your sign-in logic
-
-        // Show/hide dropdown and sign-in link based on sign-in status
+        var signedIn = true;
         var userDropdown = document.getElementById("user-dropdown");
         var signinLink = document.getElementById("signin-link");
 
