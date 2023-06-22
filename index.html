@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="style/indexstyle.css">
     <link rel="icon" href="images/icon.png" type="image/png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -24,9 +27,10 @@
             <a href="polls.html">Polls</a>
             <a href="anime.html">Anime</a>
             <a href="games.html">Games</a>
+            <img src="images/profile.png" id="profile">
             <div class="dropdown">
                 <a href="javascript:void(0);" id="user-dropdown">
-                    <img src="images/dropdown.png" id="profile">
+                    <img src="images/dropdown.png" id="dropdown">
                 </a>
                 <div class="dropdown-content">
                     <a href="profile.html">My Profile</a>
@@ -38,10 +42,8 @@
         </div>
     </nav>
 
-    <br /><br /><br /><br /><br /><br />
-
     <!-- Carousel section -->
-    <div class="container">
+    <div class="carousel-container">
         <div id="index-carousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -87,11 +89,7 @@
         </div>
     </div>
 
-
-    <br /><br /><br /><br /><br />
-    <!--Post section & Polls-->
-    <div class="postnpoll-section">
-        <!--Post Section-->
+    <!-- <div class="postnpoll-section">
         <div class="post-section">
 
             <div class="write-post">
@@ -117,17 +115,14 @@
         <div class="poll-section">
             <h2>Top Users of the Month</h2>
             <div class="poll-container">
-                <!-- Display top users here -->
             </div>
         </div>
-    </div>
+    </div> -->
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
+
         // Check user sign-in status
-        var signedIn = false; // Replace with your sign-in logic
+        var signedIn = true; // Replace with your sign-in logic
 
         // Show/hide dropdown and sign-in link based on sign-in status
         var userDropdown = document.getElementById("user-dropdown");
@@ -141,6 +136,7 @@
             signinLink.style.display = "block";
         }
     </script>
+
 </body>
 
 </html>
