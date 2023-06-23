@@ -21,7 +21,6 @@ body {
   justify-content: space-between;
 }
 .view-main{
-  background-color: cyan;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -150,18 +149,16 @@ input[type="text"]::placeholder {
 }
 
 .view-container {
-  padding: 5px;
-  background-color: green;
   border-radius: 5px;
   margin: 5px;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .view-post {
-  flex: 3;
-  margin: 25px;
+  flex: 4;
+  margin: 15px;
   padding: 5px;
-  background-color: pink;
   display: flex;
   flex-direction: column;
 }
@@ -170,24 +167,151 @@ input[type="text"]::placeholder {
   flex: 1;
   margin: 30px;
   padding: 5px;
-  background-color: pink;
   display: flex;
+  background-color: pink;
   justify-content: center;
   align-items: center;
 }
 
 .actual-post {
   margin: 5px;
-  padding: 5px;
-  height:400px;
-  background-color: blue;
+  padding: 20px;
+  height:650px;
   flex-grow: 1;
 }
 
 .view-comments {
   margin: 5px;
   padding: 5px;
-  background-color: yellow;
+  border-radius: 20px;
+  background-color: #EEF1F4;
   text-align: center;
   flex-grow: 1;
+}
+
+/* Posts */
+
+.post-container {
+  height: 100%;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  flex-direction: row;  
+}
+
+.vote {
+  display: inline-flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 5px;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+.upvote,
+.downvote {
+  width: 30px;
+  height: auto;
+}
+
+.upvote-button,
+.downvote-button {
+  margin: 0 auto;
+  border: none;
+  padding: 0;
+}
+
+.num-votes {
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  align-self: flex-start;
+  padding: 0;
+}
+
+.post-content {
+  margin: 15px;
+  margin-top: 25px;
+  margin-right: 40px;
+  text-align: left;
+}
+
+.title {
+  margin-bottom: 3px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.author {
+  margin-bottom: 25px;
+  font-family: 'Open Sans';
+}
+
+.text {
+  margin-bottom: 15px;
+  font-family: 'Open Sans';
+}
+
+.sample {
+  width: 100%;
+  height: 25%;
+
+}
+
+.post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+  margin-right: 40px;
+}
+
+.comment,
+.share {
+  width: auto;
+  height: 25px;
+  margin-right: -5px;
+}
+
+.share {
+  margin-left: 15px;
+}
+
+.comment-button,
+.share-button {
+  border: none;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.save {
+  height: 25px;
+}
+
+.save-button {
+  margin-left: auto;
+  border: none;
+  padding: 0;
+}
+
+.post-actions p {
+  font-weight: bold;
+  color: #A2AAB4;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* for making post link */
+.post-clickable {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-clickable:hover,
+.post-clickable:focus,
+.post-clickable:active {
+    text-decoration: none;
+    color: black;
 }
