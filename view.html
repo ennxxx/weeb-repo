@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Post</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/viewstyle.css">
+    <link rel="icon" href="images/icon.png" type="image/png">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="view-main">
+        <nav>
+            <a href="index.html">
+                <img src="images/logo/logo3.png" id="logo">
+            </a>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Weeb Lib...">
+            </div>
+            <div class="nav-buttons">
+                <a href="featured.html">Featured</a>
+                <a href="polls.html">Polls</a>
+                <a href="anime.html">Anime</a>
+                <a href="games.html">Games</a>
+                <img src="images/profile.png" id="profile">
+                <div class="dropdown">
+                    <a href="javascript:void(0);" id="user-dropdown">
+                        <img src="images/navbar/dropdown.png" id="dropdown">
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="profile.html">My Profile</a>
+                        <a href="#">My Posts</a>
+                        <a href="signin.html">Log out</a>
+                    </div>
+                </div>
+                <a href="signin.html" id="signin-link">Sign In</a>
+            </div>
+        </nav>
+
+        <div class="view-container">
+            <div class="view-post">
+                <div class="actual-post">
+                    text area
+                </div> 
+                <div class="view-comments">
+                    comments sheesh frfr no cyap kewk
+                    safa
+
+                    safasfsa<br><br><br><br><br><br><br><br>
+                    fsafsafas
+
+
+                    fsafsafas
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+
+                    <br>
+                    <br>
+
+                    fsagnalb
+                </div>
+            </div>
+            <div class="view-rightside">
+                    <p>hi</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var signedIn = true;
+        var userDropdown = document.getElementById("user-dropdown");
+        var signinLink = document.getElementById("signin-link");
+
+        if (signedIn) {
+            userDropdown.style.display = "block";
+            signinLink.style.display = "none";
+        } else {
+            userDropdown.style.display = "none";
+            signinLink.style.display = "block";
+        }
+    </script>
+1
+
+</body>
+
+</html>
