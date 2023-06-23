@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    
-    <link rel="stylesheet" href="style/indexstyle.css">    <!--CSS File for Index-->
-    <link rel="stylesheet" type="text/css" href="style/writepostpopup.css"> <!--CSS File for Index-->
-
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="icon" href="images/icon.png" type="image/png">
-   
-  
+    <script src="js/index.js"></script>
+
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files for Index -->
+    <link rel="stylesheet" href="style/writepost.css">
+    <link rel="stylesheet" href="style/indexstyle.css">
 </head>
 
 <body>
-    <!--Navigation Bar-->
+    <!-- Navigation Bar -->
     <nav>
         <a href="index.html">
-            <img src="images/logo3.png" id="logo">
+            <img src="images/logo/logo3.png" id="logo">
         </a>
         <div class="search-bar">
             <input type="text" placeholder="Search Weeb Lib...">
@@ -35,7 +35,7 @@
             <img src="images/profile.png" id="profile">
             <div class="dropdown">
                 <a href="javascript:void(0);" id="user-dropdown">
-                    <img src="images/dropdown.png" id="dropdown">
+                    <img src="images/navbar/dropdown.png" id="dropdown">
                 </a>
                 <div class="dropdown-content">
                     <a href="profile.html">My Profile</a>
@@ -101,66 +101,188 @@
         <!-- Posts -->
         <div class="posts-container">
 
-            <!-- Write a Post Pop-Up Section -->
-            <!--
-                Changes Done:
-                 1. Created a JS file for the popup section
-                 2. Placed the popup Window already in html
-            -->
+            <!-- Sample User -->
             <div class="user-post-container">
-                <img src="images/profile.png" id="post-profile">
-                <a href="#" class="post-textbox" id="openPopup">Write a post...</a> <!--Current Issue: Alignment of the boxes (Not Ideal)-->
-                <script src="writepost.js"></script>   
+                <img src="images/profile.png" class="post-profile">
+                <a href="#" class="post-textbox" id="openPopup">Write a post...</a>
             </div>
 
-            <!-- Sample Post -->
+            <!-- Sample Post 1 -->
             <div class="post-container">
                 <div class="vote">
-                    <img src="images/upvote.png" id="upvote">
-                    <p id="num-votes">45</p>
-                    <img src="images/downvote.png" id="downvote">
+                    <button class="upvote-button">
+                        <img src="images/post/upvote.png" class="upvote">
+                    </button>
+                    <p class="num-votes">45</p>
+                    <button class="downvote-button">
+                        <img src="images/post/downvote.png" class="downvote">
+                    </button>
                 </div>
                 <div class="content">
                     <div class="post-content">
-                        <h4 id="title">Best Agent on Ascent?</h4>
-                        <p id="author">by <span>cornbrip69</span></p>
-                        <p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        <h4 class="title">Best Agent on Ascent?</h4>
+                        <p class="author">by <span>cornbrip69</span></p>
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
-                        <img src="images/sample.png" id="sample">
+                        <img src="images/post/sample.png" class="sample">
                     </div>
                     <div class="post-actions">
-                        <img src="images/comment.png" id="comment">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
                         <p>12 Comments</p>
-                        <img src="images/share.png" id="share">
+                        <button class="share-button">
+                            <img src="images/post/share.png" class="share">
+                        </button>
                         <p>Share</p>
-                        <img src="images/save.png" id="save">
+                        <button class="save-button">
+                            <img src="images/post/save.png" class="save">
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Another Sample Post -->
+            <!-- Sample Post 2 -->
             <div class="post-container">
                 <div class="vote">
-                    <img src="images/upvote.png" id="upvote">
-                    <p id="num-votes">45</p>
-                    <img src="images/downvote.png" id="downvote">
+                    <button class="upvote-button">
+                        <img src="images/post/upvote.png" class="upvote">
+                    </button>
+                    <p class="num-votes">45</p>
+                    <button class="downvote-button">
+                        <img src="images/post/downvote.png" class="downvote">
+                    </button>
                 </div>
                 <div class="content">
                     <div class="post-content">
-                        <h4 id="title">Best Agent on Ascent?</h4>
-                        <p id="author">by <span>cornbrip69</span></p>
-                        <p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        <h4 class="title">Best Agent on Ascent?</h4>
+                        <p class="author">by <span>cornbrip69</span></p>
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                             sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
                             veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
-                        <img src="images/sample.png" id="sample">
+                        <img src="images/post/sample.png" class="sample">
                     </div>
                     <div class="post-actions">
-                        <img src="images/comment.png" id="comment">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
                         <p>12 Comments</p>
-                        <img src="images/share.png" id="share">
+                        <button class="share-button">
+                            <img src="images/post/share.png" class="share">
+                        </button>
                         <p>Share</p>
-                        <img src="images/save.png" id="save">
+                        <button class="save-button">
+                            <img src="images/post/save.png" class="save">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Post 3 -->
+            <div class="post-container">
+                <div class="vote">
+                    <button class="upvote-button">
+                        <img src="images/post/upvote.png" class="upvote">
+                    </button>
+                    <p class="num-votes">45</p>
+                    <button class="downvote-button">
+                        <img src="images/post/downvote.png" class="downvote">
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="post-content">
+                        <h4 class="title">Best Agent on Ascent?</h4>
+                        <p class="author">by <span>cornbrip69</span></p>
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                        <img src="images/post/sample.png" class="sample">
+                    </div>
+                    <div class="post-actions">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
+                        <p>12 Comments</p>
+                        <button class="share-button">
+                            <img src="images/post/share.png" class="share">
+                        </button>
+                        <p>Share</p>
+                        <button class="save-button">
+                            <img src="images/post/save.png" class="save">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Post 4 -->
+            <div class="post-container">
+                <div class="vote">
+                    <button class="upvote-button">
+                        <img src="images/post/upvote.png" class="upvote">
+                    </button>
+                    <p class="num-votes">45</p>
+                    <button class="downvote-button">
+                        <img src="images/post/downvote.png" class="downvote">
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="post-content">
+                        <h4 class="title">Best Agent on Ascent?</h4>
+                        <p class="author">by <span>cornbrip69</span></p>
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                        <img src="images/post/sample.png" class="sample">
+                    </div>
+                    <div class="post-actions">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
+                        <p>12 Comments</p>
+                        <button class="share-button">
+                            <img src="images/post/share.png" class="share">
+                        </button>
+                        <p>Share</p>
+                        <button class="save-button">
+                            <img src="images/post/save.png" class="save">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Post 5 -->
+            <div class="post-container">
+                <div class="vote">
+                    <button class="upvote-button">
+                        <img src="images/post/upvote.png" class="upvote">
+                    </button>
+                    <p class="num-votes">45</p>
+                    <button class="downvote-button">
+                        <img src="images/post/downvote.png" class="downvote">
+                    </button>
+                </div>
+                <div class="content">
+                    <div class="post-content">
+                        <h4 class="title">Best Agent on Ascent?</h4>
+                        <p class="author">by <span>cornbrip69</span></p>
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                        <img src="images/post/sample.png" class="sample">
+                    </div>
+                    <div class="post-actions">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
+                        <p>12 Comments</p>
+                        <button class="share-button">
+                            <img src="images/post/share.png" class="share">
+                        </button>
+                        <p>Share</p>
+                        <button class="save-button">
+                            <img src="images/post/save.png" class="save">
+                        </button>
                     </div>
                 </div>
             </div>
@@ -175,20 +297,6 @@
             <hr>
         </div>
     </div>
-
-    <script>
-        var signedIn = true;
-        var userDropdown = document.getElementById("user-dropdown");
-        var signinLink = document.getElementById("signin-link");
-
-        if (signedIn) {
-            userDropdown.style.display = "block";
-            signinLink.style.display = "none";
-        } else {
-            userDropdown.style.display = "none";
-            signinLink.style.display = "block";
-        }
-    </script>
 
 </body>
 

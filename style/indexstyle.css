@@ -297,6 +297,7 @@ input[type="text"]::placeholder {
   font-size: 20px;
   font-weight: bold;
   align-self: flex-start;
+  padding: 0;
 }
 
 .post-content {
@@ -350,6 +351,8 @@ input[type="text"]::placeholder {
 .comment-button,
 .share-button {
   border: none;
+  padding: 0;
+  margin-right: 10px;
 }
 
 .save {
@@ -365,7 +368,8 @@ input[type="text"]::placeholder {
 .post-actions p {
   font-weight: bold;
   color: #A2AAB4;
-  margin: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 /* Polls */
