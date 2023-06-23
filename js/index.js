@@ -110,6 +110,10 @@ document.addEventListener("DOMContentLoaded",function() {
 			document.body.removeChild(popup);
 		});
 
+		// Create the title heading 
+		var titleHeading = document.createElement('h2');
+		titleHeading.textContent = 'Create a post'; // Set the heading text
+
 		// Create a spacer element for spacing between title input and close button
 		var spacer = document.createElement('div');
 		spacer.className = 'spacer';
@@ -119,6 +123,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		var titleInput = document.createElement('input');
 		titleInput.type = 'text';
 		titleInput.placeholder = 'Title';
+		titleInput.className = 'title-input';
 
 		// Create the container for content elements
 		var contentWrapper = document.createElement('div');
@@ -129,20 +134,16 @@ document.addEventListener("DOMContentLoaded",function() {
 		formatToolbar.className = 'format-toolbar';
 		formatToolbar.innerHTML = `
 			<div class="format-group">
-			<input type="checkbox" id="boldCheckbox">
-			<label for="boldCheckbox"><b>B</b></label>
+				<input type="checkbox" id="boldCheckbox">
+				<label for="boldCheckbox"><b>B</b></label>
 			</div>
 			<div class="format-group">
-			<input type="checkbox" id="italicCheckbox">
-			<label for="italicCheckbox"><i>I</i></label>
+				<input type="checkbox" id="italicCheckbox">
+				<label for="italicCheckbox"><i>I</i></label>
 			</div>
 			<div class="format-group">
-			<input type="checkbox" id="underlineCheckbox">
-			<label for="underlineCheckbox"><u>U</u></label>
-			</div>
-			<div class="format-group">
-			<input type="checkbox" id="bulletCheckbox">
-			<label for="bulletCheckbox"><i class="fas fa-list-ul"></i></label>
+				<input type="checkbox" id="underlineCheckbox">
+				<label for="underlineCheckbox"><u>U</u></label>
 			</div>
 		`;
 
@@ -233,6 +234,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		contentWrapper.appendChild(pollInput);
 
 		// Append the title input, content wrapper, submit button, and overlay to the popup container
+		popup.insertBefore(titleHeading, popup.firstChild);
 		popup.appendChild(closeButton);
 		popup.appendChild(titleInput);
 		popup.appendChild(contentWrapper);
