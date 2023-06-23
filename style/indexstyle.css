@@ -236,7 +236,7 @@ input[type="text"]::placeholder {
   margin-bottom: 25px;
 }
 
-#post-profile {
+.post-profile {
   width: auto;
   height: 35px;
   display: block;
@@ -279,14 +279,20 @@ input[type="text"]::placeholder {
   margin-right: 10px;
 }
 
-#upvote,
-#downvote {
+.upvote,
+.downvote {
   width: 30px;
   height: auto;
-  margin: 0 auto;
 }
 
-#num-votes {
+.upvote-button,
+.downvote-button {
+  margin: 0 auto;
+  border: none;
+  padding: 0;
+}
+
+.num-votes {
   margin: 10px 0;
   font-size: 20px;
   font-weight: bold;
@@ -300,23 +306,23 @@ input[type="text"]::placeholder {
   text-align: left;
 }
 
-#title {
+.title {
   margin-bottom: 3px;
   font-size: 20px;
   font-weight: bold;
 }
 
-#author {
+.author {
   margin-bottom: 25px;
   font-family: 'Open Sans';
 }
 
-#text {
+.text {
   margin-bottom: 15px;
   font-family: 'Open Sans';
 }
 
-#sample {
+.sample {
   width: 100%;
   height: auto;
 }
@@ -330,21 +336,30 @@ input[type="text"]::placeholder {
   margin-right: 40px;
 }
 
-#comment,
-#share {
+.comment,
+.share {
   width: auto;
   height: 25px;
-  margin-right: 5px;
+  margin-right: -5px;
 }
 
-#share {
+.share {
   margin-left: 15px;
-  margin-right: 0;
 }
 
-#save {
-  margin-left: auto;
+.comment-button,
+.share-button {
+  border: none;
+}
+
+.save {
   height: 25px;
+}
+
+.save-button {
+  margin-left: auto;
+  border: none;
+  padding: 0;
 }
 
 .post-actions p {
