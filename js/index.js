@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded",function() {
 
+
 // .________________________.
 // ||			           ||
 // ||        Sign In       ||
@@ -61,9 +62,14 @@ document.addEventListener("DOMContentLoaded",function() {
 		downvoteButton.addEventListener("click", downvotePost);
 
 		function upvotePost() {
-			if (upvoteImage.src.includes("upvote.png") || downvoteImage.src.includes("c-downvoted.png")) {
+			if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+				upvoteImage.src = "images/post/clicked/c-upvoted.png";
+				numVotes.textContent++;
+			} 
+			else if (downvoteImage.src.includes("c-downvoted.png")) {
 				upvoteImage.src = "images/post/clicked/c-upvoted.png";
 				downvoteImage.src = "images/post/downvote.png"
+				numVotes.textContent++;
 				numVotes.textContent++;
 			} else {
 				upvoteImage.src = "images/post/upvote.png";
@@ -72,11 +78,18 @@ document.addEventListener("DOMContentLoaded",function() {
 		}
 
 		function downvotePost() {
-			if (downvoteImage.src.includes("downvote.png") || upvoteImage.src.includes("c-upvoted.png")) {
+			if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
 				downvoteImage.src = "images/post/clicked/c-downvoted.png";
 				upvoteImage.src = "images/post/upvote.png";
 				numVotes.textContent--;
-			} else {
+			}
+			else if (upvoteImage.src.includes("c-upvoted.png")) {
+				downvoteImage.src = "images/post/clicked/c-downvoted.png";
+				upvoteImage.src = "images/post/upvote.png";
+				numVotes.textContent--;
+				numVotes.textContent--;
+			}
+			else {
 				downvoteImage.src = "images/post/downvote.png";
 				numVotes.textContent++;
 			}
