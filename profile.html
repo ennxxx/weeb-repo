@@ -5,12 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/profilestyle.css">
     <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/profile.js"></script>
 
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="style/profilestyle.css">
+    <link rel="stylesheet" href="style/navbar.css">
 </head>
 
 <body>
@@ -52,20 +57,6 @@
 
         </div>
     </div>
-
-    <script>
-        var signedIn = true;
-        var userDropdown = document.getElementById("user-dropdown");
-        var signinLink = document.getElementById("signin-link");
-
-        if (signedIn) {
-            userDropdown.style.display = "block";
-            signinLink.style.display = "none";
-        } else {
-            userDropdown.style.display = "none";
-            signinLink.style.display = "block";
-        }
-    </script>
 </body>
 
 </html>
