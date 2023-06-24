@@ -346,27 +346,39 @@ document.addEventListener("DOMContentLoaded",function() {
         upvoteButton.addEventListener("click", upvotePost);
         downvoteButton.addEventListener("click", downvotePost);
 
-        function upvotePost() {
-            if (upvoteImage.src.includes("upvote.png") || downvoteImage.src.includes("c-downvoted.png")) {
-                upvoteImage.src = "images/post/clicked/c-upvoted.png";
-                downvoteImage.src = "images/post/downvote.png"
-                numVotes.textContent++;
-            } else {
-                upvoteImage.src = "images/post/upvote.png";
-                numVotes.textContent--;
-            }
-        }
+		function upvotePost() {
+			if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+				upvoteImage.src = "images/post/clicked/c-upvoted.png";
+				numVotes.textContent++;
+			} 
+			else if (downvoteImage.src.includes("c-downvoted.png")) {
+				upvoteImage.src = "images/post/clicked/c-upvoted.png";
+				downvoteImage.src = "images/post/downvote.png"
+				numVotes.textContent++;
+				numVotes.textContent++;
+			} else {
+				upvoteImage.src = "images/post/upvote.png";
+				numVotes.textContent--;
+			}
+		}
 
-        function downvotePost() {
-            if (downvoteImage.src.includes("downvote.png") || upvoteImage.src.includes("c-upvoted.png")) {
-                downvoteImage.src = "images/post/clicked/c-downvoted.png";
-                upvoteImage.src = "images/post/upvote.png";
-                numVotes.textContent--;
-            } else {
-                downvoteImage.src = "images/post/downvote.png";
-                numVotes.textContent++;
-            }
-        }
+		function downvotePost() {
+			if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
+				downvoteImage.src = "images/post/clicked/c-downvoted.png";
+				upvoteImage.src = "images/post/upvote.png";
+				numVotes.textContent--;
+			}
+			else if (upvoteImage.src.includes("c-upvoted.png")) {
+				downvoteImage.src = "images/post/clicked/c-downvoted.png";
+				upvoteImage.src = "images/post/upvote.png";
+				numVotes.textContent--;
+				numVotes.textContent--;
+			}
+			else {
+				downvoteImage.src = "images/post/downvote.png";
+				numVotes.textContent++;
+			}
+		}
     });
 
 
