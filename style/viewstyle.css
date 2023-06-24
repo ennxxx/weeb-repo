@@ -317,7 +317,7 @@ input[type="text"]::placeholder {
 }
 
 /* for writing comment */
-.post-profile {
+.post-profile{
   width: auto;
   height: 45px;
   display: block;
@@ -352,4 +352,37 @@ input[type="text"]::placeholder {
   padding: 0;
   margin-right: 10px;
   margin-left: 10px;
+}
+
+.single-comment-main{
+  margin: 20px;
+}
+.single-comment{
+  display: flex; 
+  margin: 5px;
+}
+
+.sc-picture {
+  width: auto;
+  height: 45px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.sc-right{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  background-color: pink;
+  margin-left: 5px;
+}
+.sc-body{
+  flex: 1;
+  margin-left: 5px;
+  margin: 10px;
+  width: 100%;
 }
