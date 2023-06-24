@@ -175,6 +175,7 @@ body {
 
 .text {
   margin-bottom: 15px;
+  line-height: 1.5;
   font-family: 'Open Sans';
 }
 
@@ -188,8 +189,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 15px;
-  margin-right: 40px;
+  margin: 20px 40px 20px 15px;
 }
 
 .comment,
