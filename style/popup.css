@@ -1,0 +1,207 @@
+/* ---- POST SECTION -----*/
+
+.user-post-container {
+    /* Create Post */
+    width: 95%;
+    border-radius: 20px;
+    border: 0.75px solid #2C394B;
+    padding: 10px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.post-profile {
+    /* Image DP of User */
+    width: auto;
+    height: 35px;
+    display: block;
+    border-radius: 50%;
+    border: 0.75px solid #2C394B;
+}
+
+.post-textbox {
+    text-align: left, center;
+    margin: 0;
+    margin-left: 20px;
+    color: #8F8D8D;
+    font-weight: 200;
+    font-family: 'Open Sans';
+    text-decoration: none;
+}
+
+.post-textbox:hover {
+    text-decoration: none;
+}
+
+/*---- POPUP SECTION ---- */
+
+#overlay {
+    /* Shadow Overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+#popup {
+    /*Popup Display */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 30px 30px 30px 30px;
+    z-index: 9999;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    text-align: left;
+}
+
+#title-container {
+    /*Title Display */
+    position: relative;
+}
+
+#title-count {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    color: #999;
+}
+
+
+#title {
+    /* Title Input Format */
+    width: 96%;
+    height: 10%;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-family: 'Inter', serif;
+}
+
+#toolbar {
+    /*Toolbar Format*/
+    width: 96%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f6f7f8;
+    border: 1px solid #d6dadc;
+    border-radius: 5px;
+    padding: 6px;
+}
+
+#content {
+    /* Input Text Format*/
+    width: 96%;
+    min-height: 200px;
+    padding: 12px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    resize: vertical;
+}
+
+
+
+#url {
+    /*Format for the URL textbox*/
+    margin-left: 5px;
+    width: 89%;
+    height: 20px;
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* ---- MODIFICATION FOR ICONS -----*/
+
+#close {
+    /* Close Button (To do: Replace the Icon)*/
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    color: #666;
+}
+
+.toolbar-buttons {
+    /* Toolbar Icons */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-right: 20px;
+}
+
+#popup-submit {
+    /*Submit Button*/
+    background-color: #FF4C29;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+
+/* ---- ANIMATION FOR ICONS -----*/
+
+.toolbar-buttons:hover {
+    /*toolbar animations*/
+    background-color: #d6dadc;
+}
+
+#popup-submit:hover {
+    /*submit button animation*/
+    background-color: #fc3d16;
+}
+
+.resizable {
+    /*Makes the images resize to the textbox's size*/
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* ---- Text Modifications -----*/
+
+/* Popup Header */
+#popup h2 {
+    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    color: #2C394B;
+}

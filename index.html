@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="icon" href="images/icon.png" type="image/png">
-    
+    <script src="js/post.js"></script>
+    <script src="js/index.js"></script>
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -15,6 +16,7 @@
 
     <!-- CSS Files for Index -->
     <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/popup.css">
     <link rel="stylesheet" href="style/indexstyle.css">
 </head>
 
@@ -104,35 +106,39 @@
             <!-- Sample User -->
             <div class="user-post-container">
                 <img src="images/profile.png" class="post-profile">
-                <a href="javascript:void(0)" onclick="openPopup();">Open Popup</a>
+                <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
                 <div id="overlay" style="display: none;"></div>
                 <div id="popup" style="display: none;">
-                  <span id="close" onclick="closePopup()">X</span>
-                  <h2> Create Post </h2>
-                  <div id="title-container">
-                    <textarea id="title" placeholder="Title" maxlength="50" oninput="checkTitleLength()"></textarea>
-                    <span id="title-count">0/50</span>
-                  </div>
-                  
-                  <div id="toolbar">
-                    <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
-                    <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
-                    <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-                    <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png" alt="Bullet Form"></button>
-                    <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png" alt="Insert Image"></button>
-                  </div>
-                  
-                  <div id="content" contenteditable="true" placeholder="Content" style="border: 1px solid #ccc; padding: 5px;"></div>
-                  <br>
-                  
-                  <div>
-                    <label for="url">URL:</label>
-                    <input type="text" id="url" placeholder="Enter URL">
-                  </div>
-                  <br>
-                  
-                  <button id="popup-submit" onclick="submitForm()">Submit</button>
-                  <span id="submit-message"></span>
+                    <span id="close" onclick="closePopup()">X</span>
+                    <h2>Create a post</h2>
+                    <div id="title-container">
+                        <textarea id="title" placeholder="Title" maxlength="50" oninput="checkTitleLength()"></textarea>
+                        <span id="title-count">0/50</span>
+                    </div>
+
+                    <div id="toolbar">
+                        <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
+                        <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
+                        <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
+                        <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png"
+                                alt="Bullet Form"></button>
+                        <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png"
+                                alt="Insert Image"></button>
+                    </div>
+
+                    <div id="content" contenteditable="true" placeholder="Content"
+                        style="border: 1px solid #ccc; padding: 5px;"></div>
+                    <br>
+
+                    <div>
+                        <label for="url">URL:</label>
+                        <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
+                    </div>
+                    <br>
+                    <div id="submit-container" style="display: flex; justify-content: flex-end; margin-right: 20px;">
+                        <button id="popup-submit">Submit</button>
+                        <span id="submit-message"></span>
+                    </div>
                 </div>
             </div>
 
@@ -336,92 +342,6 @@
         <hr>
     </div>
     </div>
-
-<script src="js/index.js"></script>
-<script>
-    // .________________________.
-    // ||			           ||
-    // ||      Write Post      ||
-    // ||______________________||
-    // '			            '
-    
-    function openPopup() {
-    	document.getElementById("overlay").style.display = "block";
-    	document.getElementById("popup").style.display = "block";
-      }
-    
-      function closePopup() {
-    	document.getElementById("overlay").style.display = "none";
-    	document.getElementById("popup").style.display = "none";
-      }
-    
-      function makeBold() {
-    	document.execCommand('bold', false, null);
-      }
-    
-      function makeUnderline() {
-    	document.execCommand('underline', false, null);
-      }
-    
-      function makeItalic() {
-    	document.execCommand('italic', false, null);
-      }
-    
-      function makeBullet() {
-    	document.execCommand('insertUnorderedList', false, null);
-      }
-    
-      function insertImage() {
-    	var input = document.createElement('input');
-    	input.type = 'file';
-    	input.accept = 'image/*';
-    	input.addEventListener('change', handleFileSelection);
-    	input.click();
-    
-    	function handleFileSelection(event) {
-    	  var file = event.target.files[0];
-    	  if (file) {
-    		var reader = new FileReader();
-    		reader.onload = function() {
-    		  var imageUrl = reader.result;
-    		  var imgElement = document.createElement("img");
-    		  imgElement.src = imageUrl;
-    		  imgElement.classList.add("resizable"); // Add the 'resizable' class
-    		  document.getElementById("content").appendChild(imgElement);
-    		};
-    		reader.readAsDataURL(file);
-    	  }
-    	}
-      }
-    
-      function checkTitleLength() {
-    	var titleInput = document.getElementById("title");
-    	var title = titleInput.value;
-    	var maxLength = parseInt(titleInput.getAttribute("maxlength"));
-    	var countElement = document.getElementById("title-count");
-    	var count = title.length;
-    
-    	countElement.textContent = count + "/" + maxLength;
-    
-    	if (count > maxLength) {
-    	  titleInput.value = title.slice(0, maxLength); // Trim the title to the maximum length
-    	  countElement.style.color = "red";
-    	} else {
-    	  countElement.style.color = "#999";
-    	}
-      }
-    
-    function submitForm() {
-    var title = document.getElementById("title").value;
-    var content = document.getElementById("content").innerHTML;
-    var url = document.getElementById("url").value;
-    console.log('Title:', title);
-    console.log('Content:', content);
-    console.log('URL:', url);
-    document.getElementById("submit-message").innerHTML = "Post Submitted!";
-    document.getElementById("submit-message").style.color = "green";
-    }
-</script>
 </body>
 
 </html>
