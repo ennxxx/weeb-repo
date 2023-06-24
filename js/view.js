@@ -125,40 +125,42 @@ document.addEventListener("DOMContentLoaded",function() {
     const postComments = document.querySelector('.view-comments');
 
     if (postId == "1") {
-        postContent.innerHTML = '<div class="post-container">' +
-                                    '<div class="vote">'+
-                                        '<button class="upvote-button">'+
-                                            '<img src="images/post/upvote.png" class="upvote">'+
-                                        '</button>'+
-                                        '<p class="num-votes">45</p>'+
-                                        '<button class="downvote-button">'+
-                                            '<img src="images/post/downvote.png" class="downvote">'+
-                                        '</button>'+
-                                    '</div>'+
-                                    '<div class="content">'+
-                                        '<div class="post-content">'+
-                                            '<h4 class="title">Best Agent on Ascent?</h4>'+
-                                            '<p class="author">by <span>cornbrip69</span></p>'+
-                                            '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
-                                                'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
-                                                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/sample.png" class="sample">'+
-                                        '</div>'+
-                                        '<div class="post-actions">'+
-                                            '<button class="comment-button">'+
-                                                '<img src="images/post/comment.png" class="comment">'+
-                                            '</button>'+
-                                            '<p>12 Comments</p>'+
-                                            '<button class="share-button">'+
-                                                '<img src="images/post/share.png" class="share">'+
-                                            '</button>'+
-                                            '<p>Share</p>'+
-                                            '<button class="save-button">'+
-                                                '<img src="images/post/save.png" class="save">'+
-                                            '</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>';
+        postContent.innerHTML = `<div class="post-container">
+                                    <div class="vote">
+                                        <button class="upvote-button">
+                                            <img src="images/post/upvote.png" class="upvote">
+                                        </button>
+                                        <p class="num-votes">45</p>
+                                        <button class="downvote-button">
+                                            <img src="images/post/downvote.png" class="downvote">
+                                        </button>
+                                    </div>
+                                    <div class="content">
+                                        <div class="post-content">
+                                            <h4 class="title">Demon Slayer mid-tier?</h4>
+                                            <p class="author">by <a href="profile.html">pocchi</a></p>
+                                            <p class="text">Despite its visually stunning animation and action sequences, Demon Slayer
+                                                fails to explore significant thematic depth. It primarily focuses on the battle between
+                                                good and evil, neglecting opportunities to delve into complex societal, moral, or
+                                                philosophical themes. The absence of deeper thematic exploration prevents it from
+                                                resonating on a profound and hought-provoking level. So why did I watch it? Inosuke.</p>
+                                            <img src="images/inosuke.jpeg" class="sample">
+                                        </div>
+                                        <div class="post-actions">
+                                            <button class="comment-button">
+                                                <img src="images/post/comment.png" class="comment">
+                                            </button>
+                                            <p>12 Comments</p>
+                                            <button class="share-button">
+                                                <img src="images/post/share.png" class="share">
+                                            </button>
+                                            <p>Share</p>
+                                            <button class="save-button">
+                                                <img src="images/post/save.png" class="save">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>`;
         postComments.innerHTML = 'Comments for Post 1';
     } else if (postId === '2') {
         postContent.innerHTML = '<div class="post-container">' +
