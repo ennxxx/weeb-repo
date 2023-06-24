@@ -21,34 +21,38 @@ document.addEventListener("DOMContentLoaded",function() {
 		signinLink.style.display = "block";
 	}
 
-	// .________________________.
+// .________________________.
 // ||			           ||
-// ||    Follow Button     ||
+// ||    Change Profile    ||
 // ||______________________||
 // '			            '
 
-	var followButton = document.getElementById("follow-button");
-	var isFollowed = true; // Set the initial state to followed
+var changeButton = document.querySelector("#change-image-btn");
+changeButton.addEventListener("click", changeProfile);
 
-	// Initial state of the button
-	updateButtonText();
-
-	// Attach click event listener to the button
-	followButton.addEventListener("click", function() {
-		isFollowed = !isFollowed; // Toggle the follow state
-		updateButtonText();
+function changeProfile() {
+	var mediaInput = document.createElement("input");
+	mediaInput.type = "file";
+	mediaInput.accept = "image/*";
+	mediaInput.style.display = "none";
+  
+	mediaInput.addEventListener("change", function (event) {
+	  var file = event.target.files[0];
+	  var reader = new FileReader();
+  
+	  reader.onload = function (e) {
+		var newProfilePic = document.getElementById("profile-pic");
+		newProfilePic.src = e.target.result;
+		var newProfile = document.getElementById("profile");
+		newProfile.src = e.target.result;
+	  };
+  
+	  reader.readAsDataURL(file);
 	});
+  
+	mediaInput.click();
+  }
 
-	// Function to update the button text based on the follow state
-	function updateButtonText() {
-		if (isFollowed) {
-			followButton.value = "Follow";
-			followButton.classList.add("clicked");
-		} else {
-			followButton.value = "Unfollow";
-			followButton.classList.remove("clicked");
-		}
-	}
 
 // .________________________.
 // ||			           ||
