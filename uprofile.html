@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/profile.js"></script>
+    <script src="js/post.js"></script>
+
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="style/profilestyle.css">
+    <link rel="stylesheet" href="style/popup.css">
+    <link rel="stylesheet" href="style/navbar.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">
+            <img src="images/logo/logo3.png" id="logo">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Weeb Lib...">
+        </div>
+        <div class="nav-buttons">
+            <a href="featured.html">Featured</a>
+            <a href="polls.html">Polls</a>
+            <a href="anime.html">Anime</a>
+            <a href="games.html">Games</a>
+            <img src="images/profile.png" id="profile">
+            <div class="dropdown">
+                <a href="javascript:void(0);" id="user-dropdown">
+                    <img src="images/navbar/dropdown.png" id="dropdown">
+                </a>
+                <div class="dropdown-content">
+                    <a href="profile.html">My Profile</a>
+                    <a href="#">My Posts</a>
+                    <a href="signin.html">Log out</a>
+                </div>
+            </div>
+            <a href="signin.html" id="signin-link">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Profile Content -->
+    <div id="content-container">
+        <div id="profile-container">
+            <div id="image-container">
+                <img src="images/profile.png" id="profile-pic">
+                <button id="change-image-btn"></button>
+            </div>
+            <h2 id="name">Jane Doe</h2>
+            <h4 id="username">u/username</h4>
+            <p id="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin egestas magna velit.</p>
+            <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+            <div id="followers-container">
+                <img src="images/profile/followers.png">
+                <p><span class="bold">3</span> followers • <span class="bold">2</span> following</p>
+            </div>
+        </div>
+        <div id="overview-container">
+
+            <!-- Filter Buttons -->
+            <div id="filters-container">
+                <button class="filter" data-filter="overview">Overview</button>
+                <button class="filter" data-filter="posts">Posts</button>
+                <button class="filter" data-filter="comments">Comments</button>
+                <button class="filter" data-filter="upvoted">Upvoted</button>
+                <button class="filter" data-filter="downvoted">Downvoted</button>
+                <button class="filter" data-filter="saved">Saved</button>
+            </div>
+            <hr>
+
+            <!-- Overview -->
+            <div id="overview-view">
+
+                <!-- Create a Post -->
+                <div class="user-post-container">
+                    <img src="images/profile.png" class="post-profile">
+                    <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
+                    <div id="overlay" style="display: none;"></div>
+                    <div id="popup" style="display: none;">
+                        <span id="close" onclick="closePopup()">✕</span>
+                        <h2>Create a post</h2>
+                        <div id="title-container">
+                            <textarea id="title" placeholder="Title" maxlength="50"
+                                oninput="checkTitleLength()"></textarea>
+                            <span id="title-count">0/50</span>
+                        </div>
+
+                        <div id="toolbar">
+                            <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
+                            <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
+                            <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
+                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png"
+                                    alt="Bullet Form"></button>
+                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png"
+                                    alt="Insert Image"></button>
+                        </div>
+
+                        <div id="content" contenteditable="true" placeholder="Content"
+                            style="border: 1px solid #ccc; padding: 5px;"></div>
+                        <br>
+
+                        <div>
+                            <label for="url">URL:</label>
+                            <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
+                        </div>
+                        <br>
+                        <div id="submit-container"
+                            style="display: flex; justify-content: flex-end; margin-right: 20px;">
+                            <button id="popup-submit">Submit</button>
+                            <span id="submit-message"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts -->
+            <div id="posts-view">
+                FILLER POSTS
+            </div>
+
+            <!-- Comments -->
+            <div id="comments-view">
+                FILLER COMMMENTS
+            </div>
+
+            <!-- Upvotes -->
+            <div id="upvoted-view">
+                FILLER UPVOTES
+            </div>
+
+            <!-- Downvotes -->
+            <div id="downvoted-view">
+                FILLER DOWNVOTES
+            </div>
+
+            <!-- Saved -->
+            <div id="saved-view">
+                FILLER SAVES
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

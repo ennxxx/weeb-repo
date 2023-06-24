@@ -7,7 +7,6 @@
     <title>Profile</title>
     <link rel="icon" href="images/icon.png" type="image/png">
     <script src="js/profile.js"></script>
-    <script src="js/post.js"></script>
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -16,7 +15,6 @@
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="style/profilestyle.css">
-    <link rel="stylesheet" href="style/popup.css">
     <link rel="stylesheet" href="style/navbar.css">
 </head>
 
@@ -41,7 +39,7 @@
                     <img src="images/navbar/dropdown.png" id="dropdown">
                 </a>
                 <div class="dropdown-content">
-                    <a href="profile.html">My Profile</a>
+                    <a href="uprofile.html">My Profile</a>
                     <a href="#">My Posts</a>
                     <a href="signin.html">Log out</a>
                 </div>
@@ -53,85 +51,42 @@
     <!-- Profile Content -->
     <div id="content-container">
         <div id="profile-container">
-            <div id="image-container">
-                <img src="images/profile.png" id="profile-pic">
-                <button id="change-image-btn"></button>
-            </div>
-            <h2 id="name">Jane Doe</h2>
-            <h4 id="username">u/username</h4>
-            <p id="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin egestas magna velit.</p>
-            <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+            <img src="images/profile2.jpg" id="profile-pic">
+            <h2 id="name">Pochacco</h2>
+            <h4 id="username">u/pocchi</h4>
+            <p id="bio">Sleepy and always in need of cofee.</p>
+            <input type="button" id="follow-button" value="Follow">
             <div id="followers-container">
                 <img src="images/profile/followers.png">
-                <p><span class="bold">3</span> followers • <span class="bold">2</span> following</p>
+                <p><span class="bold">7</span> followers • <span class="bold">2</span> following</p>
             </div>
         </div>
+
         <div id="overview-container">
+
+            <!-- Filter Buttons -->
             <div id="filters-container">
                 <button class="filter" data-filter="overview">Overview</button>
                 <button class="filter" data-filter="posts">Posts</button>
                 <button class="filter" data-filter="comments">Comments</button>
-                <button class="filter" data-filter="upvoted">Upvoted</button>
-                <button class="filter" data-filter="downvoted">Downvoted</button>
-                <button class="filter" data-filter="saved">Saved</button>
             </div>
             <hr>
+
+            <!-- Overview -->
             <div id="overview-view">
-                <div class="user-post-container">
-                    <img src="images/profile.png" class="post-profile">
-                    <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
-                    <div id="overlay" style="display: none;"></div>
-                    <div id="popup" style="display: none;">
-                        <span id="close" onclick="closePopup()">✕</span>
-                        <h2>Create a post</h2>
-                        <div id="title-container">
-                            <textarea id="title" placeholder="Title" maxlength="50"
-                                oninput="checkTitleLength()"></textarea>
-                            <span id="title-count">0/50</span>
-                        </div>
-
-                        <div id="toolbar">
-                            <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
-                            <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
-                            <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png"
-                                    alt="Bullet Form"></button>
-                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png"
-                                    alt="Insert Image"></button>
-                        </div>
-
-                        <div id="content" contenteditable="true" placeholder="Content"
-                            style="border: 1px solid #ccc; padding: 5px;"></div>
-                        <br>
-
-                        <div>
-                            <label for="url">URL:</label>
-                            <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
-                        </div>
-                        <br>
-                        <div id="submit-container"
-                            style="display: flex; justify-content: flex-end; margin-right: 20px;">
-                            <button id="popup-submit">Submit</button>
-                            <span id="submit-message"></span>
-                        </div>
-                    </div>
-                </div>
+                FILLER OVERVIEW
             </div>
+
+            <!-- Posts -->
             <div id="posts-view">
-                posts
+                FILLER POSTS
             </div>
+
+            <!-- Comments -->
             <div id="comments-view">
-                comments
+                FILLER COMMMENTS
             </div>
-            <div id="upvoted-view">
-                upvoted
-            </div>
-            <div id="downvoted-view">
-                downvoted
-            </div>
-            <div id="saved-view">
-                saved
-            </div>
+
         </div>
     </div>
 </body>

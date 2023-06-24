@@ -97,6 +97,24 @@ body {
     font-size: 16px;
 }
 
+#follow-button {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 10px;
+    width: 100%;
+    color: #FFFCFC;
+    background-color: #6C8CA4;
+    border: 1px solid #537086;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#follow-button.clicked {
+    background-color: #1E883E;
+    border: 1px solid #016B25;
+}
+
 #edit-button:hover {
     color: #FFFCFC;
     background-color: #1E883E;

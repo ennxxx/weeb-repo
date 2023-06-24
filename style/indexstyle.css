@@ -28,6 +28,7 @@ body {
 
 
 /* ---- CAROUSEL SECTION -----*/
+
 .carousel-container {
   /* Carousel */
   width: 70%;
@@ -168,7 +169,7 @@ body {
 }
 
 .author {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font-family: 'Open Sans';
 }
 
