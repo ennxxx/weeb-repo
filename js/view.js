@@ -8,9 +8,104 @@ function restoreDefaultText(element) {
     if (element.value === '') {
       element.value = "    Write a Comment...";
     }
-  }
+}
+
+    // ._____________________________________.
+    // ||			                        ||
+    // ||   code for updating comment page  ||
+    // ||___________________________________||
+    // '			                         '
+
+
+const User = function(name) {
+    this.name = name;
+    this.lname = this.name.toLowerCase();
+    this.uname = this.name.toUpperCase();
+    this.nav = "#nav-" + this.lname;
+    this.img = "./images/" + name + ".png";
+}
+
+const Comment = function(user, content){
+    this.user = user;
+    this.content = content;
+}
+
+let comments = [];
+let comCtr = 0;
+let currentUser = new User("profile");
 
 document.addEventListener("DOMContentLoaded",function() {
+
+    document.querySelector(".submit-button")?.addEventListener("click", function(e){
+        e.preventDefault();
+
+        const content = document.querySelector(".comment-area").value;
+        if (comCtr === 0) {
+            document.querySelector(".view-comments").textContent = "";
+        }
+        let comment = new Comment(currentUser, content);
+        comments.push(comment);
+        comCtr++;
+        
+        refreshDisplay(comments.reverse());
+        resetCreateComment();
+        document.querySelector(".comment-area").value = "    Write a Comment...";
+    })
+
+    
+    function refreshDisplay(displayedComments) {
+		const commentsContainer = document.querySelector(".view-comments")
+		commentsContainer.innerHTML = ""; // Clear post-container
+		displayComments(displayedComments);
+	}
+    function displayComments(newComment) {
+		// Clear post-container and add each post inside newPosts inside it instead
+		newComment.forEach(function(comment) {
+			displayComment(comment);
+		});
+	}
+    function displayComment(newComment) {
+		const commContainer = document.querySelector(".view-comments");
+		
+		const commMain = document.createElement("div");
+		const singleComment = document.createElement("div");
+		const scLeft = document.createElement("div");
+		const scRight = document.createElement("div");
+		const scPic = document.createElement("img");
+		const scRightCont = document.createElement("div");
+		const scBody = document.createElement("div");
+
+		// Add classes to your created elements so you don't have to style repeatedly
+		// HINT: You can use $(element1).addClass("class-name");
+		commMain.className = "single-comment-main";
+		singleComment.className = "single-comment";
+		scLeft.className = "sc-left";
+		scRight.className = "sc-right";
+		scPic.className = "sc-picture";
+		scRightCont.className = "sc-right-content";
+		scBody.className = "sc-body";
+
+		// Set the proper hierarchy of the created elements
+		// HINT: $(element1).append(element2); will place element2 within element1
+		commMain.appendChild(singleComment);
+		singleComment.appendChild(scLeft);
+		singleComment.appendChild(scRight);
+		scLeft.appendChild(scPic);
+		scRight.appendChild(scRightCont);
+		scRightCont.appendChild(scBody);
+
+		// Set the proper content/values to the correct elements/tags
+		// HINT: You can use $(element2).text("Text to Add"); OR $(imgElement).attr("src", "./images/user.png");
+		scPic.src = newComment.user.img;
+		scBody.innerText = newComment.content;
+	
+		commContainer.appendChild(commMain);
+	}
+    function resetCreateComment() {
+        const content = document.querySelector('.comment-area');
+
+        content.value = "";
+	}
 
     // ._____________________________________.
     // ||			                        ||
