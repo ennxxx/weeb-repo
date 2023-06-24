@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded",function() {
         comments.push(comment);
         comCtr++;
         
-        refreshDisplay(comments.reverse());
+        refreshDisplay(comments);
         resetCreateComment();
         document.querySelector(".comment-area").value = "    Write a Comment...";
     })
@@ -60,9 +60,9 @@ document.addEventListener("DOMContentLoaded",function() {
 	}
     function displayComments(newComment) {
 		// Clear post-container and add each post inside newPosts inside it instead
-		newComment.forEach(function(comment) {
-			displayComment(comment);
-		});
+        for (let i = newComment.length - 1; i >= 0; i--) {
+            displayComment(newComment[i]);
+        }
 	}
     function displayComment(newComment) {
 		const commContainer = document.querySelector(".view-comments");
@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		const scRight = document.createElement("div");
 		const scPic = document.createElement("img");
 		const scRightCont = document.createElement("div");
+        const scName = document.createElement("div");
 		const scBody = document.createElement("div");
 
 		// Add classes to your created elements so you don't have to style repeatedly
@@ -83,6 +84,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		scRight.className = "sc-right";
 		scPic.className = "sc-picture";
 		scRightCont.className = "sc-right-content";
+        scName.className = "sc-name";
 		scBody.className = "sc-body";
 
 		// Set the proper hierarchy of the created elements
@@ -91,12 +93,15 @@ document.addEventListener("DOMContentLoaded",function() {
 		singleComment.appendChild(scLeft);
 		singleComment.appendChild(scRight);
 		scLeft.appendChild(scPic);
-		scRight.appendChild(scRightCont);
-		scRightCont.appendChild(scBody);
+		scRight.appendChild(scName);
+        scRight.appendChild(scRightCont);
+        scRightCont.appendChild(scBody);
+        
 
 		// Set the proper content/values to the correct elements/tags
 		// HINT: You can use $(element2).text("Text to Add"); OR $(imgElement).attr("src", "./images/user.png");
 		scPic.src = newComment.user.img;
+        scName.innerHTML = newComment.user.name;
 		scBody.innerText = newComment.content;
 	
 		commContainer.appendChild(commMain);
