@@ -20,135 +20,9 @@ body {
   text-align: center;
   justify-content: space-between;
 }
-.view-main{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-/* Navigation Bar */
-nav {
-  background-color: #2C394B;
-  top: 0;
-  width: 100%;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 5px;
-}
-
-#logo {
-  width: auto;
-  height: 100px;
-  margin: 0;
-  padding-left: 15px;
-}
-
-/* Search Bar */
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  flex-grow: 1;
-  margin-left: 40px;
-  margin-right: 40px;
-}
-
-input[type="text"] {
-  flex-grow: 1;
-  width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  padding-left: 45px;
-  border-radius: 5px;
-  border: 1px solid #858E99;
-  background-color: transparent;
-  background-image: url('../images/navbar/search.png');
-  background-repeat: no-repeat;
-  background-size: 20px 20px;
-  background-position: 10px center;
-  color: #DEE3E7;
-}
-
-input[type="text"]::placeholder {
-  color: #DEE3E7;
-}
-
-/* Navigation Buttons */
-
-.nav-buttons {
-  display: flex;
-  flex-direction: row;
-  margin: 0;
-  padding-right: 10px;
-  align-items: center;
-  justify-content: flex-start;
-  margin-left: 10px;
-}
-
-.nav-buttons a {
-  text-decoration: none;
-  color: #FFFCFC;
-  padding: 10px;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-#signinlink {
-  margin-left: 10px;
-}
-
-#signin-link:hover {
-  color: #FF4C29;
-}
-
-/* Profile Dropdown */
-
-#profile {
-  width: auto;
-  height: 35px;
-  display: block;
-  border-radius: 50%;
-  border: 1px solid white;
-  margin-left: 20px;
-  margin-right: 5px;
-}
-
-#dropdown {
-  width: auto;
-  height: 20px;
-  display: block;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-  left: -100px;
-}
-
-.dropdown-content a {
-  color: #2C394B;
-  padding: 12px 16px;
-  text-decoration: none;
-  font-weight: 300;
-  display: block;
-  text-align: left;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #FF4C29;
-  color: #FFFCFC;
-}
 
 .view-container {
+  margin-top: -250px;
   border-radius: 5px;
   margin: 5px;
   display: flex;
@@ -177,11 +51,12 @@ input[type="text"]::placeholder {
   margin: 5px;
   padding: 20px;
   flex-grow: 1;
+  width: 100%;
 }
 
 .view-comments {
-  margin: 5px;
-  padding: 5px;
+  padding: 20px;
+  margin: 10px 10px 20px 20px;
   border-radius: 20px;
   background-color: #EEF1F4;
   text-align: center;
@@ -195,7 +70,7 @@ input[type="text"]::placeholder {
   border-radius: 20px;
   background-color: #EEF1F4;
   display: flex;
-  flex-direction: row;  
+  flex-direction: row;
 }
 
 .vote {
@@ -311,12 +186,12 @@ input[type="text"]::placeholder {
 .post-clickable:hover,
 .post-clickable:focus,
 .post-clickable:active {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 /* for writing comment */
-.post-profile{
+.post-profile {
   width: auto;
   height: 45px;
   display: block;
@@ -325,27 +200,32 @@ input[type="text"]::placeholder {
   margin-right: 5px;
 }
 
-.add-comment{
+.add-comment {
   border-radius: 20px;
   background-color: #EEF1F4;
   display: flex;
   justify-content: center;
-  padding: 10px;
-  margin: 5px;
+  align-items: center;
+  padding: 20px;
+  margin: 10px 10px 20px 20px;
 }
 
-.comment-area{
+.comment-area {
   width: 100%;
-  padding: 6px;
+  padding: 10px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 20px;
+  border-radius: 10px;
+  margin-left: 5px;
+  color: #8F8D8D;
+  text-align: left;
 }
 
 .submit-comment {
   width: auto;
   height: 35px;
 }
+
 .submit-button {
   border: none;
   padding: 0;
@@ -353,11 +233,12 @@ input[type="text"]::placeholder {
   margin-left: 10px;
 }
 
-.single-comment-main{
+.single-comment-main {
   margin: 20px;
 }
-.single-comment{
-  display: flex; 
+
+.single-comment {
+  display: flex;
   margin: 5px;
 }
 
@@ -371,7 +252,7 @@ input[type="text"]::placeholder {
   margin-left: 5px;
 }
 
-.sc-right{
+.sc-right {
   display: flex;
   width: 100%;
   margin-left: 5px;
@@ -379,20 +260,21 @@ input[type="text"]::placeholder {
   justify-content: left;
 }
 
-.sc-name{
+.sc-name {
   flex: 2;
   font-size: 11px;
   text-align: left;
   margin-left: 10px;
 }
-.sc-right-content{
+
+.sc-right-content {
   flex: 8;
   background-color: pink;
   padding: 10px;
   border-radius: 15px;
-} 
+}
 
-.sc-body{
+.sc-body {
   margin-left: 5px;
   text-align: left;
 
