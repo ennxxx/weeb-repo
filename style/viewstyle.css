@@ -375,14 +375,26 @@ input[type="text"]::placeholder {
 .sc-right{
   display: flex;
   width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  background-color: pink;
   margin-left: 5px;
+  flex-direction: column;
+  justify-content: left;
 }
+
+.sc-name{
+  flex: 2;
+  font-size: 11px;
+  text-align: left;
+  margin-left: 10px;
+}
+.sc-right-content{
+  flex: 8;
+  background-color: pink;
+  padding: 10px;
+  border-radius: 15px;
+} 
+
 .sc-body{
-  flex: 1;
   margin-left: 5px;
-  margin: 10px;
-  width: 100%;
+  text-align: left;
+
 }
