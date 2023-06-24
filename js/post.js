@@ -44,15 +44,16 @@
     }
   }
   
-  // Handle popup submit
-  document.getElementById("popup-submit").addEventListener("click", function () {
+  // Submit button
+  function submitForm() {
     var title = document.getElementById("title").value;
     var content = document.getElementById("content").innerHTML;
     var url = document.getElementById("url").value;
-  
-    // Perform any additional logic for submitting the popup data
-  
-    // Close the popup after submission
-    closePopup();
-  });
+    console.log('Title:', title);
+    console.log('Content:', content);
+    console.log('URL:', url);
+    document.getElementById("submit-message").innerHTML = "Post Submitted!";
+    document.getElementById("submit-message").style.color = "green";
+}
+
   

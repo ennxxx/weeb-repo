@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="icon" href="images/icon.png" type="image/png">
-    <script src="js/post.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/post.js"></script>
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -15,9 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- CSS Files for Index -->
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/popup.css">
     <link rel="stylesheet" href="style/indexstyle.css">
+    <link rel="stylesheet" href="style/popup.css">
+    <link rel="stylesheet" href="style/navbar.css">
 </head>
 
 <body>
@@ -31,7 +31,7 @@
         </div>
         <div class="nav-buttons">
             <a href="featured.html">Featured</a>
-            <a href="#polls">Polls</a>
+            <a href="polls.html">Polls</a>
             <a href="anime.html">Anime</a>
             <a href="games.html">Games</a>
             <img src="images/profile.png" id="profile">
@@ -103,7 +103,7 @@
         <!-- Posts -->
         <div class="posts-container">
 
-            <!-- Sample User -->
+            <!-- Create a Post -->
             <div class="user-post-container">
                 <img src="images/profile.png" class="post-profile">
                 <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
@@ -135,12 +135,11 @@
                         <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
                     </div>
                     <br>
-                    <div id="submit-container" style="display: flex; justify-content: flex-end; margin-right: 20px;">
-                        <button id="popup-submit">Submit</button>
-                        <span id="submit-message"></span>
-                    </div>
+                    <button id="popup-submit" onclick="submitForm()">Submit</button>
+                    <span id="submit-message"></span>
                 </div>
             </div>
+
 
             <!-- Sample Post 1 -->
             <div class="post-container">
@@ -153,40 +152,32 @@
                         <img src="images/post/downvote.png" class="downvote">
                     </button>
                 </div>
-                <div class="content">
-                    <div class="post-content">
-                        <a href="view.html?id=1" class="post-clickable">
-                        <h4 class="title">Demon Slayer mid-tier?</h4>
-                        </a>
-                        <p class="author">by <a href="profile.html">pocchi</a></p>
-                        <a href="view.html?id=1" class="post-clickable">
-                        <p class="text">Despite its visually stunning animation and action sequences, Demon Slayer
-                            fails to explore significant thematic depth. It primarily focuses on the battle between
-                            good and evil, neglecting opportunities to delve into complex societal, moral, or
-                            philosophical themes. The absence of deeper thematic exploration prevents it from
-                            resonating on a profound and hought-provoking level. So why did I watch it? Inosuke.</p>
-                        <img src="images/inosuke.jpeg" class="sample">
-                        </a>
-                    </div>
-                    <div class="post-actions">
-                        <a href="view.html?id=1" class="post-clickable">
-                        <button class="comment-button">
-                            <img src="images/post/comment.png" class="comment">
-                        </button>
-                        </a>
-                        <p>12 Comments</p>
-                        
-                        <button class="share-button">
-                            <img src="images/post/share.png" class="share">
-                        </button>
-                        <p>Share</p>
-                        <button class="save-button">
-                            <img src="images/post/save.png" class="save">
-                        </button>
-                    </div>
+                <a href="view.html?id=1" class="post-clickable">
+                    <div class="content">
+                        <div class="post-content">
+                            <h4 class="title">Best Agent on Ascent?</h4>
+                            <p class="author">by <span>cornbrip69</span></p>
+                            <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>
+                            <img src="images/post/sample.png" class="sample">
+                        </div>
+                </a>
+                <div class="post-actions">
+                    <button class="comment-button">
+                        <img src="images/post/comment.png" class="comment">
+                    </button>
+                    <p>12 Comments</p>
+                    <button class="share-button">
+                        <img src="images/post/share.png" class="share">
+                    </button>
+                    <p>Share</p>
+                    <button class="save-button">
+                        <img src="images/post/save.png" class="save">
+                    </button>
                 </div>
             </div>
-        
+        </div>
 
         <!-- Sample Post 2 -->
         <div class="post-container">
@@ -346,10 +337,11 @@
     <div class="polls-container">
         <h4>Check this out</h4>
         <hr>
-        <h4 id="polls">Polls</h4>
+        <h4>Polls</h4>
         <hr>
     </div>
     </div>
+
 </body>
 
 </html>
