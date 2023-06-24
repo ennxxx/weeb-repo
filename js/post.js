@@ -1,17 +1,15 @@
-// Open popup
-function openPopup() {
-    document.getElementById("overlay").style.display = "";
-    document.getElementById("popup").style.display = "";
-}
+  // Open popup
+  function openPopup() {
+      document.getElementById("overlay").style.display = "";
+      document.getElementById("popup").style.display = "";
+  }
 
-  
   // Close popup
   function closePopup() {
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popup").style.display = "none";
-}
+  }
 
-  
   // Check title length
   function checkTitleLength() {
     var title = document.getElementById("title").value;
