@@ -372,6 +372,18 @@ input[type="text"]::placeholder {
   margin-bottom: 5px;
 }
 
+.post-clickable {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-clickable:hover,
+.post-clickable:focus,
+.post-clickable:active {
+    text-decoration: none;
+    color: black;
+}
+
 /* Polls */
 
 .polls-container h4 {
