@@ -23,8 +23,9 @@ const User = function(name) {
     this.lname = this.name.toLowerCase();
     this.uname = this.name.toUpperCase();
     this.nav = "#nav-" + this.lname;
-    this.img = "./images/" + name + ".png";
+    this.img = "images\\" + name + ".png";
 }
+
 
 const Comment = function(user, content){
     this.user = user;
@@ -34,6 +35,8 @@ const Comment = function(user, content){
 let comments = [];
 let comCtr = 0;
 let currentUser = new User("profile");
+
+
 
 document.addEventListener("DOMContentLoaded",function() {
 
@@ -50,11 +53,16 @@ document.addEventListener("DOMContentLoaded",function() {
         
         refreshDisplay(comments);
         resetCreateComment();
-        CheckCommentButtons();
-        document.querySelector(".comment-area").value = "Write a Comment...";
+        document.querySelector(".comment-area").value = "    Write a Comment...";
     })
 
-    
+    window.onload = () => {
+        let initComment = new Comment(new User("MamaMo"), "Tama na kaka anime mo!");
+        comments.push(initComment);
+        comCtr++;
+        refreshDisplay(comments);
+    }
+
     function refreshDisplay(displayedComments) {
 		const commentsContainer = document.querySelector(".view-comments")
 		commentsContainer.innerHTML = ""; // Clear post-container
@@ -118,11 +126,19 @@ document.addEventListener("DOMContentLoaded",function() {
 
 		commContainer.appendChild(commMain);
 	}
+
     function resetCreateComment() {
         const content = document.querySelector('.comment-area');
 
         content.value = "";
 	}
+
+    document.addEventListener("visibilitychange", function() {
+        var activeElement = document.activeElement;
+        if (activeElement && activeElement.tagName === "INPUT") {
+          activeElement.blur();
+        } 
+      });
 
     // ._____________________________________.
     // ||			                        ||

@@ -37,16 +37,6 @@ body {
   flex-direction: column;
 }
 
-.view-rightside {
-  flex: 1;
-  margin: 30px;
-  padding: 5px;
-  display: flex;
-  background-color: pink;
-  justify-content: center;
-  align-items: center;
-}
-
 .actual-post {
   margin: 5px;
   padding: 20px;
@@ -279,7 +269,7 @@ body {
 
 .sc-right-content {
   flex: 8;
-  background-color: pink;
+  background-color: #fffcfc;
   padding: 10px;
   border-radius: 15px;
 }
@@ -287,7 +277,21 @@ body {
 .sc-body {
   margin-left: 5px;
   text-align: left;
+}
 
+.view-rightside {
+  width: fit-content;
+  height: fit-content;
+  margin: 20px;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 5%;
+  outline: #234779; 
+  outline-style: auto;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 .sc-vote {
@@ -315,4 +319,34 @@ body {
   font-size: 15px;
   font-weight: bold;
   height: 10px;
+}
+
+
+
+.rule {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.rule-info {
+  margin-left: 5px;
+  text-align: left;
+  padding-left: 5%;
+  word-wrap: initial;
+  margin-bottom: 8px;
+}
+
+.rule-info h4 {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.rule-info p {
+  margin-top: -5px;
+  padding-left: 5%;
+  font-family: 'Open Sans';
+  font-style: italic;
 }
