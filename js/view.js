@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                                 good and evil, neglecting opportunities to delve into complex societal, moral, or
                                                 philosophical themes. The absence of deeper thematic exploration prevents it from
                                                 resonating on a profound and hought-provoking level. So why did I watch it? Inosuke.</p>
-                                            <img src="images/inosuke.jpeg" class="sample">
+                                            <img src="images/post/media/sample2.jpeg" class="sample">
                                         </div>
                                         <div class="post-actions">
                                             <button class="comment-button">
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                             '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
                                                 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
                                                 'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/sample.png" class="sample">'+
+                                            '<img src="images/post/media/sample1.png" class="sample">'+
                                         '</div>'+
                                         '<div class="post-actions">'+
                                             '<button class="comment-button">'+
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                             '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
                                                 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
                                                 'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/sample.png" class="sample">'+
+                                            '<img src="images/post/media/sample1.png" class="sample">'+
                                         '</div>'+
                                         '<div class="post-actions">'+
                                             '<button class="comment-button">'+
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                             '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
                                                 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
                                                 'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/sample.png" class="sample">'+
+                                            '<img src="images/post/media/sample1.png" class="sample">'+
                                         '</div>'+
                                         '<div class="post-actions">'+
                                             '<button class="comment-button">'+
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                             '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
                                                 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
                                                 'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/sample.png" class="sample">'+
+                                            '<img src="images/post/media/sample1.png" class="sample">'+
                                         '</div>'+
                                         '<div class="post-actions">'+
                                             '<button class="comment-button">'+
