@@ -244,7 +244,7 @@ body {
 }
 
 .single-comment-main {
-  margin: 20px;
+  margin: 23px;
 }
 
 .single-comment {
@@ -288,4 +288,31 @@ body {
   margin-left: 5px;
   text-align: left;
 
+}
+
+.sc-vote {
+  display: flex;
+  flex-direction: row;
+  height: 15px;
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
+.sc-upvote,
+.sc-downvote {
+  width: 13px;
+  height: 15px;
+}
+
+.sc-upvote-button,
+.sc-downvote-button {
+  border: none;
+  height: 13px;
+  
+}
+
+.sc-num-votes {
+  font-size: 15px;
+  font-weight: bold;
+  height: 10px;
 }
