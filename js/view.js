@@ -1,12 +1,13 @@
 /* For comment text area */
 function clearDefaultText(element) {
-    if (element.value === element.defaultValue) {
-      element.value = '';
+    if (element.value.trim() === element.getAttribute('data-default-value')) {
+        element.value = '';
     }
 }
+
 function restoreDefaultText(element) {
-    if (element.value === '') {
-      element.value = "    Write a Comment...";
+    if (element.value.trim() === '') {
+        element.value = element.getAttribute('data-default-value');
     }
 }
 
