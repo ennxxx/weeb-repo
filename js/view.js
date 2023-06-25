@@ -390,25 +390,4 @@ document.addEventListener("DOMContentLoaded",function() {
     // ||______________________||
     // '			            '
 
-    
-
-    // ._________________________.
-    // ||			            ||
-    // ||       drop down       ||
-    // ||_______________________||
-    // '			             '
-
-    var signedIn = true;
-    var userDropdown = document.getElementById("user-dropdown");
-    var signinLink = document.getElementById("signin-link");
-
-    if (signedIn) {
-        userDropdown.style.display = "block";
-        signinLink.style.display = "none";
-    } else {
-        userDropdown.style.display = "none";
-        signinLink.style.display = "block";
-    }
-
-
 });

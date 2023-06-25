@@ -144,3 +144,21 @@ nav {
     background-color: #FF4C29;
     color: #FFFCFC;
 }
+
+/* Scroll Button */
+
+.scroll-up-button {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: transparent;
+    border: none;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.scroll-up {
+    width: 40px;
+    height: 40px;
+}

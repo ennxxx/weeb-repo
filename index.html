@@ -8,6 +8,7 @@
     <link rel="icon" href="images/icon.png" type="image/png">
     <script src="js/index.js"></script>
     <script src="js/post.js"></script>
+    <script src="js/navbar.js"></script>
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -347,7 +348,6 @@
                             </button>
                         </a>
                         <p>12 Comments</p>
-
                         <button class="share-button">
                             <img src="images/post/share.png" class="share">
                         </button>
@@ -363,12 +363,117 @@
 
         <!-- Polls -->
         <div class="polls-container">
-            <h4>Check this out</h4>
+
+            <!-- Check This Out -->
+            <h3>Check this out</h3>
             <hr>
-            <h4>Polls</h4>
+            <div class="check-container">
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile1.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="user-profiles/profile1.html">Pochacco</a></h5>
+                        <p><a href="user-profiles/profile1.html">u/pocchi</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile2.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="user-profiles/profile2.html">Johann</a></h5>
+                        <p><a href="user-profiles/profile2.html">u/Latad_is_Life</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile3.jpeg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="user-profiles/profile3.html">Eugene</a></h5>
+                        <p><a href="user-profiles/profile3.html">u/DedInComSci</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+            </div>
+
+            <!-- Top Post -->
+            <h3>Top Post</h3>
             <hr>
+            <div class="top-post-container">
+                <div class="top-user">
+                    <img src="images/profile/profile-pics/profile4.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="user-profiles/profile4.html">Nigel</a></h5>
+                        <p><a href="user-profiles/profile4.html">u/cornbrip69</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <img src="images/post/media/sample1.png" class="sample">
+                <div class="top-post-text">
+                    <a href="view.html?id=6" class="post-clickable">
+                        <h5>Best Agent on Ascent?</h5>
+                    </a>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing...</p>
+                </div>
+                <div class="top-post-actions">
+                    <a href="view.html?id=6" class="post-clickable">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
+                    </a>
+                    <button class="share-button">
+                        <img src="images/post/share.png" class="share">
+                    </button>
+                    <button class="save-button">
+                        <img src="images/post/save.png" class="save">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Waifus of the Month -->
+            <h3><a href="polls.html" id="poll-link">Waifus of the Month</a></h3>
+            <hr>
+            <div class="waifus-container">
+                <div class="waifu">
+                    <img src="images/waifus/kafka.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Kafka</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/makima.jpeg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Makima</h4>
+                        <p>Chainsaw Man</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/himeko.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Himeko</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/esdeath.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Esdeath</h4>
+                        <p>Akame Ga Kill!</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/megumi.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Megumi</h4>
+                        <p>Shokugeki no Souma</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <button class="scroll-up-button">
+        <img src="images/scroll-up.png" class="scroll-up">
+    </button>
 
 </body>
 

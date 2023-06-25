@@ -104,12 +104,11 @@ body {
 }
 
 .posts-container {
-  /*post container*/
   width: 70%;
+  margin-right: 30px;
 }
 
 .polls-container {
-  /*poll container*/
   width: 30%;
 }
 
@@ -245,11 +244,131 @@ body {
   color: black;
 }
 
-/* Polls */
+/* Polls Container */
 
-.polls-container h4 {
+.polls-container h3 {
   text-align: left;
-  font-size: 20px;
   font-weight: bold;
   margin-bottom: -5px;
+  margin-top: 0;
+}
+
+/* Check This Out */
+
+.check-container {
+  margin-bottom: 40px;
+}
+
+.check-users {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+
+.name-container {
+  margin-left: 10px;
+  text-align: left;
+}
+
+.name-container a {
+  color: #2C394B;
+}
+
+.name-container h5,
+.name-container p {
+  padding: 0;
+  margin: 0;
+}
+
+.name-container h5 {
+  font-weight: bold;
+}
+
+.follow-btn {
+  border: none;
+  background-color: transparent;
+  font-weight: 600;
+  color: #6C8CA4;
+  margin-left: auto;
+}
+
+.follow-btn:hover {
+  color: #2C394B;
+}
+
+/* Top Post */
+
+.top-post-container {
+  margin-bottom: 40px;
+  border-radius: 10px;
+  background-color: #EEF1F4;
+  text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.top-user {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.top-post-text {
+  margin: 20px;
+}
+
+.top-post-text h5 {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.top-post-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 20px 15px 20px;
+}
+
+/* Waifus of the Month */
+
+.waifu {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.waifu-image {
+  width: auto;
+  height: 90px;
+  display: block;
+  border-radius: 50%;
+  border: 0.75px solid #2C394B;
+}
+
+.waifu-info {
+  margin-left: 20px;
+  text-align: left;
+}
+
+.waifu-info h4 {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.waifu-info p {
+  margin-top: -5px;
+  font-family: 'Open Sans';
+  font-style: italic;
+}
+
+#poll-link {
+  color: #2C394B;
+}
+
+#poll-link:hover {
+  color: #337AB7;
+  text-decoration: none;
 }
