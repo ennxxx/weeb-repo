@@ -220,4 +220,22 @@ hr {
     text-decoration: none;
 }
 
-/* Content */
+/* Empty Content */
+
+.empty-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 50vh;
+}
+
+.empty-icon {
+    height: 100px;
+    width: auto;
+}
+
+.empty-text {
+    color: #A2AAB4;
+    font-weight: bold;
+}
