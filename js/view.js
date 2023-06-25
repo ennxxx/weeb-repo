@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded",function() {
         
         refreshDisplay(comments);
         resetCreateComment();
+        CheckCommentButtons();
         document.querySelector(".comment-area").value = "Write a Comment...";
     })
 
@@ -76,9 +77,12 @@ document.addEventListener("DOMContentLoaded",function() {
 		const scRightCont = document.createElement("div");
         const scName = document.createElement("div");
 		const scBody = document.createElement("div");
+        const scVote = document.createElement("div");
+        const scUp = document.createElement("button");
+        const scNumVote = document.createElement("p");
+        const scDown = document.createElement("button");
+        
 
-		// Add classes to your created elements so you don't have to style repeatedly
-		// HINT: You can use $(element1).addClass("class-name");
 		commMain.className = "single-comment-main";
 		singleComment.className = "single-comment";
 		scLeft.className = "sc-left";
@@ -87,24 +91,31 @@ document.addEventListener("DOMContentLoaded",function() {
 		scRightCont.className = "sc-right-content";
         scName.className = "sc-name";
 		scBody.className = "sc-body";
+        scVote.className = "sc-vote";
+        scUp.className = "sc-upvote-button";
+        scNumVote.className = "sc-num-votes";
+        scDown.className = "sc-downvote-button";
 
-		// Set the proper hierarchy of the created elements
-		// HINT: $(element1).append(element2); will place element2 within element1
+	
 		commMain.appendChild(singleComment);
 		singleComment.appendChild(scLeft);
 		singleComment.appendChild(scRight);
 		scLeft.appendChild(scPic);
 		scRight.appendChild(scName);
         scRight.appendChild(scRightCont);
+        scRight.appendChild(scVote)
         scRightCont.appendChild(scBody);
+        scVote.appendChild(scUp);
+        scVote.appendChild(scNumVote);
+        scVote.appendChild(scDown);
         
-
-		// Set the proper content/values to the correct elements/tags
-		// HINT: You can use $(element2).text("Text to Add"); OR $(imgElement).attr("src", "./images/user.png");
 		scPic.src = newComment.user.img;
         scName.innerHTML = newComment.user.name;
 		scBody.innerText = newComment.content;
-	
+        scUp.innerHTML = `<img src="images/post/upvote.png" class="sc-upvote"></img>`;
+        scDown.innerHTML = `<img src="images/post/downvote.png" class="sc-downvote"></img>`;
+        scNumVote.innerText = 0;
+
 		commContainer.appendChild(commMain);
 	}
     function resetCreateComment() {
@@ -470,5 +481,62 @@ document.addEventListener("DOMContentLoaded",function() {
 			}
 		}
     });
+
+    // .________________________________.
+    // ||			                   ||
+    // ||     Comment Vote Buttons     ||
+    // ||______________________________||
+    // '			                    '
+    function CheckCommentButtons(){
+        var upvoteButtons = document.querySelectorAll(".sc-upvote-button");
+        var downvoteButtons = document.querySelectorAll(".sc-downvote-button");
+        var numVotesList = document.querySelectorAll(".sc-num-votes");
+
+        upvoteButtons.forEach(function (upvoteButton, index) {
+            var downvoteButton = downvoteButtons[index];
+            var numVotes = numVotesList[index];
+
+            var upvoteImage = upvoteButton.querySelector(".sc-upvote");
+            var downvoteImage = downvoteButton.querySelector(".sc-downvote");
+            console.log('testnig');
+            upvoteButton.addEventListener("click", upvotePost);
+            downvoteButton.addEventListener("click", downvotePost);
+
+            function upvotePost() {
+                if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+                    upvoteImage.src = "images/post/clicked/c-upvoted.png";
+                    numVotes.textContent++;
+                    console.log('testnig');
+                } 
+                else if (downvoteImage.src.includes("c-downvoted.png")) {
+                    upvoteImage.src = "images/post/clicked/c-upvoted.png";
+                    downvoteImage.src = "images/post/downvote.png"
+                    numVotes.textContent++;
+                    numVotes.textContent++;
+                } else {
+                    upvoteImage.src = "images/post/upvote.png";
+                    numVotes.textContent--;
+                }
+            }
+
+            function downvotePost() {
+                if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
+                    downvoteImage.src = "images/post/clicked/c-downvoted.png";
+                    upvoteImage.src = "images/post/upvote.png";
+                    numVotes.textContent--;
+                }
+                else if (upvoteImage.src.includes("c-upvoted.png")) {
+                    downvoteImage.src = "images/post/clicked/c-downvoted.png";
+                    upvoteImage.src = "images/post/upvote.png";
+                    numVotes.textContent--;
+                    numVotes.textContent--;
+                }
+                else {
+                    downvoteImage.src = "images/post/downvote.png";
+                    numVotes.textContent++;
+                }
+            }
+        });
+    }
 
 });
