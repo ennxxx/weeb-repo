@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/games.js"></script>
+    <script src="js/navbar.js"></script>
+
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files for Index -->
+    <link rel="stylesheet" href="style/gamestyle.css">
+    <link rel="stylesheet" href="style/navbar.css">
+</head>
+
+<body>
+      <!-- Navigation Bar -->
+      <nav>
+        <a href="index.html">
+            <img src="images/logo/logo3.png" id="logo">
+        </a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Weeb Lib..." id="search-text">
+        </div>
+        <div class="nav-buttons">
+            <a href="featured.html">Featured</a>
+            <a href="polls.html">Polls</a>
+            <a href="anime.html">Anime</a>
+            <a href="games.html">Games</a>
+            <img src="images/profile.png" id="profile">
+            <div class="dropdown">
+                <a href="javascript:void(0);" id="user-dropdown">
+                    <img src="images/navbar/dropdown.png" id="dropdown">
+                </a>
+                <div class="dropdown-content">
+                    <a href="main-profile.html">My Profile</a>
+                    <a href="#">My Posts</a>
+                    <a href="signin.html">Log out</a>
+                </div>
+            </div>
+            <a href="signin.html" id="signin-link">Sign In</a>
+        </div>
+    </nav>
+    
+  <div class="gaming-container">
+    <div class="section">
+      <h1 id="font-gamingsec">Computer Games</h1>
+      <p>This is the content of section 1.</p>
+
+      <div id="computer-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <a href="games pages/valorant.html" class="slide-div">
+              <img src="images/games-main/computer/valorant.png" alt="Valorant">
+            </a>
+            <a href="games pages/cod.html" class="slide-div">
+              <img src="images/games-main/computer/cod.png" alt="Call of Duty">
+            </a>
+            <a href="games pages/stardew.html" class="slide-div">
+              <img src="images/games-main/computer/stardew.png" alt="Stardew">
+            </a>
+            <a href="games pages/dotatwo.html" class="slide-div">
+              <img src="images/games-main/computer/dota2.png" alt="Dota 2">
+            </a>
+            <a href="games pages/minecraft.html" class="slide-div">
+              <img src="images/games-main/computer/minecraft.png" alt="Minecraft">
+            </a>
+          </div>
+          <div class="item">
+            <a href="games pages/farlight.html" class="slide-div">
+              <img src="images/games-main/computer/farlight.png" alt="Farlight">
+            </a>
+            <a href="games pages/fortnite.html" class="slide-div">
+              <img src="images/games-main/computer/fortnite.png" alt="Fortnite">
+            </a>
+            <a href="games pages/genshin.html" class="slide-div">
+              <img src="images/games-main/computer/genshin.png" alt="Genshin">
+            </a>
+            <a href="games pages/last_of_us.html" class="slide-div">
+              <img src="images/games-main/computer/last_of_us.png" alt="Last of Us">
+            </a>
+            <a href="games pages/lol.html" class="slide-div">
+              <img src="images/games-main/computer/lol.png" alt="League of Legends">
+            </a>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#computer-carousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#computer-carousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+
+      <br/><br/>
+      <h1 id="font-gamingsec">Mobile Games</h1>
+      <p>This is the content of section 1.</p>
+
+      <div id="mobile-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="item active">
+            <a href="games pages/afk.html" class="slide-div">
+              <img src="images/games-main/mobile/afk_arena.png" alt="Afk Arena">
+            </a>
+            <a href="games pages/among_us.html" class="slide-div">
+              <img src="images/games-main/mobile/among_us.png" alt="Among Us">
+            </a>
+            <a href="games pages/ml.html" class="slide-div">
+              <img src="images/games-main/mobile/mobile_legends.png" alt="Mobile Legends">
+            </a>
+            <a href="games pages/pokemon_go.html" class="slide-div">
+              <img src="images/games-main/mobile/pokemon_go.png" alt="Pokemon Go">
+            </a>
+            <a href="games pages/arknights.html" class="slide-div">
+              <img src="images/games-main/mobile/arknights.png" alt="Arknights">
+            </a>
+          </div>
+          <div class="item">
+            <a href="games pages/coc.html" class="slide-div">
+              <img src="images/games-main/mobile/clash_of_clans.png" alt="Clash Of Clans">
+            </a>
+            <a href="games pages/food_fantasy.html" class="slide-div">
+              <img src="images/games-main/mobile/food_fantasy.png" alt="Food Fantasy">
+            </a>
+            <a href="games pages/honkai.html" class="slide-div">
+              <img src="images/games-main/mobile/honkai.png" alt="honkai">
+            </a>
+            <a href="games pages/mystic.html" class="slide-div">
+              <img src="images/games-main/mobile/mystic_messenger.png" alt="Mystic Messenger">
+            </a>
+            <a href="games pages/wild_rift.html" class="slide-div">
+              <img src="images/games-main/mobile/wild_rift.png" alt="Wild Rift">
+            </a>
+          </div>
+        </div>
+        <a class="left carousel-control" href="#mobile-carousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#mobile-carousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Section 2</h3>
+      <p>This is the content of section 2.</p>
+    </div>
+  </div>
+
+
+</body>
+</html>
+
