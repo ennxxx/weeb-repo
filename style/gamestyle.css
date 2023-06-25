@@ -1,0 +1,86 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/INTER.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OPENSANS.ttf') format('truetype');
+}
+
+.gaming-container {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  padding-bottom: 30px;
+  justify-content: space-between;
+}
+
+.section {
+  padding: 20px;
+  
+}
+
+.section:first-child {
+  width:  70%;
+  margin-right: 20px;
+}
+
+.section:last-child {
+  width: 25%;
+}
+
+#font-gamingsec{
+    font-weight: bold;
+    font-size: 50px;
+    color: #2C394B;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 300px; 
+    overflow: hidden;
+  }
+  
+  .slide {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .slide-div {
+    display: inline-block;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .slide-div img {
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s;
+  }
+  
+  .slide-div:hover img {
+    filter: brightness(70%);
+  }
+
+  .carousel-control {
+    font-size: 10px;
+    width: 5px;
+    height: 5px;
+    top: 50%;
+    margin: 5px;
+    border-radius: 50%;
+    
+    color: #2C394B;
+  }
+
+  .carousel-control:hover{
+    color: #FF4C29;
+  }
+
+  
+
+
+  
