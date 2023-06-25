@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded",function() {
         
         refreshDisplay(comments);
         resetCreateComment();
-        document.querySelector(".comment-area").value = "    Write a Comment...";
+        document.querySelector(".comment-area").value = "Write a Comment...";
     })
 
     
