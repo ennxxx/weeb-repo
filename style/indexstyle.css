@@ -26,7 +26,6 @@ body {
   justify-content: space-between;
 }
 
-
 /* ---- CAROUSEL SECTION -----*/
 
 .carousel-container {
@@ -124,13 +123,11 @@ body {
 }
 
 .vote {
-  display: inline-flex;
-  align-items: flex-start;
+  display: flex;
+  align-items: center;
   flex-direction: column;
   padding: 5px;
-  margin-top: 20px;
-  margin-left: 15px;
-  margin-right: 10px;
+  margin: 20px 15px 0 10px;
 }
 
 .upvote,
@@ -141,16 +138,18 @@ body {
 
 .upvote-button,
 .downvote-button {
-  margin: 0 auto;
   border: none;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .num-votes {
   margin: 10px 0;
   font-size: 20px;
   font-weight: bold;
-  align-self: flex-start;
+  align-self: center;
   padding: 0;
 }
 

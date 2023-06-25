@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                                 good and evil, neglecting opportunities to delve into complex societal, moral, or
                                                 philosophical themes. The absence of deeper thematic exploration prevents it from
                                                 resonating on a profound and hought-provoking level. So why did I watch it? Inosuke.</p>
-                                            <img src="images/post/media/sample2.jpeg" class="sample">
+                                            <img src="images/post/media/sample1.jpeg" class="sample">
                                         </div>
                                         <div class="post-actions">
                                             <button class="comment-button">
@@ -163,149 +163,232 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>`;
         postComments.innerHTML = 'Comments for Post 1';
     } else if (postId === '2') {
-        postContent.innerHTML = '<div class="post-container">' +
-                                    '<div class="vote">'+
-                                        '<button class="upvote-button">'+
-                                            '<img src="images/post/upvote.png" class="upvote">'+
-                                        '</button>'+
-                                        '<p class="num-votes">45</p>'+
-                                        '<button class="downvote-button">'+
-                                            '<img src="images/post/downvote.png" class="downvote">'+
-                                        '</button>'+
-                                    '</div>'+
-                                    '<div class="content">'+
-                                        '<div class="post-content">'+
-                                            '<h4 class="title">Best Agent on Ascent?</h4>'+
-                                            '<p class="author">by <span>cornbrip69</span></p>'+
-                                            '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
-                                                'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
-                                                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/media/sample1.png" class="sample">'+
-                                        '</div>'+
-                                        '<div class="post-actions">'+
-                                            '<button class="comment-button">'+
-                                                '<img src="images/post/comment.png" class="comment">'+
-                                            '</button>'+
-                                            '<p>12 Comments</p>'+
-                                            '<button class="share-button">'+
-                                                '<img src="images/post/share.png" class="share">'+
-                                            '</button>'+
-                                            '<p>Share</p>'+
-                                            '<button class="save-button">'+
-                                                '<img src="images/post/save.png" class="save">'+
-                                            '</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>';
+        postContent.innerHTML = `<div class="post-container">
+                                <div class="vote">
+                                    <button class="upvote-button">
+                                        <img src="images/post/upvote.png" class="upvote">
+                                    </button>
+                                    <p class="num-votes">43</p>
+                                    <button class="downvote-button">
+                                        <img src="images/post/downvote.png" class="downvote">
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <div class="post-content">
+                                        <h4 class="title">Should I play Genshin again?</h4>
+                                        <p class="author">by <a href="user-profiles/profile3.html">DedInComSci</a></p>
+                                        <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like MMDs,
+                                            fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
+                                            YouTube. It's rekindling my interest like never before!
+                                            <br><br>
+                                            To give you some background, I gave Genshin a shot last year but ended up dropping it
+                                            because I was also engrossed in playing Honkai Impact (which I still do, by the way).
+                                            Back then, I thought managing the gacha systems in both games would be overwhelming, not
+                                            to mention the occasional negativity aimed at Genshin players. However, things have
+                                            changed for me now.
+                                            <br><br>
+                                            Recently, I've been bombarded with a flood of amazing Genshin content, and it's making
+                                            me seriously consider jumping back into the game. The only thing that's giving me second
+                                            thoughts is the game's free-to-play aspect. How feasible is it to enjoy the game without
+                                            spending a fortune? Is Genshin Impact worth giving another shot?
+                                        </p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="comment-button">
+                                            <img src="images/post/comment.png" class="comment">
+                                        </button>
+                                        <p>30 Comments</p>
+                                        <button class="share-button">
+                                            <img src="images/post/share.png" class="share">
+                                        </button>
+                                        <p>Share</p>
+                                        <button class="save-button">
+                                            <img src="images/post/save.png" class="save">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
         postComments.innerHTML = 'Comments for Post 2';
     } else if (postId === '3') {
-        postContent.innerHTML = '<div class="post-container">' +
-                                    '<div class="vote">'+
-                                        '<button class="upvote-button">'+
-                                            '<img src="images/post/upvote.png" class="upvote">'+
-                                        '</button>'+
-                                        '<p class="num-votes">45</p>'+
-                                        '<button class="downvote-button">'+
-                                            '<img src="images/post/downvote.png" class="downvote">'+
-                                        '</button>'+
-                                    '</div>'+
-                                    '<div class="content">'+
-                                        '<div class="post-content">'+
-                                            '<h4 class="title">Best Agent on Ascent?</h4>'+
-                                            '<p class="author">by <span>cornbrip69</span></p>'+
-                                            '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
-                                                'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
-                                                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/media/sample1.png" class="sample">'+
-                                        '</div>'+
-                                        '<div class="post-actions">'+
-                                            '<button class="comment-button">'+
-                                                '<img src="images/post/comment.png" class="comment">'+
-                                            '</button>'+
-                                            '<p>12 Comments</p>'+
-                                            '<button class="share-button">'+
-                                                '<img src="images/post/share.png" class="share">'+
-                                            '</button>'+
-                                            '<p>Share</p>'+
-                                            '<button class="save-button">'+
-                                                '<img src="images/post/save.png" class="save">'+
-                                            '</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>';
+        postContent.innerHTML = `<div class="post-container">
+                                <div class="vote">
+                                    <button class="upvote-button">
+                                        <img src="images/post/upvote.png" class="upvote">
+                                    </button>
+                                    <p class="num-votes">29</p>
+                                    <button class="downvote-button">
+                                        <img src="images/post/downvote.png" class="downvote">
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <div class="post-content">
+                                        <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
+                                        <p class="author">by <a href="user-profiles/profile5.html">IAmLoaf21</a></p>
+                                        <p class="text">As a Kafka lover this is still the hardest question ... As much as I love
+                                            Himeko, Kafka has awakened something in me.</p>
+                                        <img src="images/post/media/sample3.jpg" class="sample">
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="comment-button">
+                                            <img src="images/post/comment.png" class="comment">
+                                        </button>
+                                        <p>12 Comments</p>
+                                        <button class="share-button">
+                                            <img src="images/post/share.png" class="share">
+                                        </button>
+                                        <p>Share</p>
+                                        <button class="save-button">
+                                            <img src="images/post/save.png" class="save">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
         postComments.innerHTML = 'Comments for Post 3';
     } else if (postId === '4') {
-        postContent.innerHTML = '<div class="post-container">' +
-                                    '<div class="vote">'+
-                                        '<button class="upvote-button">'+
-                                            '<img src="images/post/upvote.png" class="upvote">'+
-                                        '</button>'+
-                                        '<p class="num-votes">45</p>'+
-                                        '<button class="downvote-button">'+
-                                            '<img src="images/post/downvote.png" class="downvote">'+
-                                        '</button>'+
-                                    '</div>'+
-                                    '<div class="content">'+
-                                        '<div class="post-content">'+
-                                            '<h4 class="title">Best Agent on Ascent?</h4>'+
-                                            '<p class="author">by <span>cornbrip69</span></p>'+
-                                            '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
-                                                'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
-                                                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/media/sample1.png" class="sample">'+
-                                        '</div>'+
-                                        '<div class="post-actions">'+
-                                            '<button class="comment-button">'+
-                                                '<img src="images/post/comment.png" class="comment">'+
-                                            '</button>'+
-                                            '<p>12 Comments</p>'+
-                                            '<button class="share-button">'+
-                                                '<img src="images/post/share.png" class="share">'+
-                                            '</button>'+
-                                            '<p>Share</p>'+
-                                            '<button class="save-button">'+
-                                                '<img src="images/post/save.png" class="save">'+
-                                            '</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>';
+        postContent.innerHTML = `<div class="post-container">
+                                <div class="vote">
+                                    <button class="upvote-button">
+                                        <img src="images/post/upvote.png" class="upvote">
+                                    </button>
+                                    <p class="num-votes">25</p>
+                                    <button class="downvote-button">
+                                        <img src="images/post/downvote.png" class="downvote">
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <div class="post-content">
+                                        <h4 class="title">Lotad BEST POKEMON!</h4>
+                                        <p class="author">by <a href="user-profiles/profile2.html">Lotad_is_Life</a></p>
+                                        <p class="text">Hey, fellow crafters! I gotta spill the beans about Lotad 'cause it's, like,
+                                            the sickest Pokémon in Minecraft! Here's why Lotad is the absolute BEST:<br><br>
+
+                                            Water Splash Master: Lotad is all about those water moves,
+                                            fam! It can use Water
+                                            Gun and
+                                            Bubble Beam to soak enemies like a pro. No one stands a chance against its splashy
+                                            powers!<br><br>
+
+                                            Epic Minecraft Skin: Have you seen Lotad's skin? It's legit
+                                            awesome! The lil'
+                                            blue body
+                                            and the leafy headgear are perfect for any Minecraft adventure. Your pals will be jelly,
+                                            trust me!<br><br>
+
+                                            Grass Block Surfing: Lotad's got mad skills on land too! It
+                                            can walk on water and
+                                            even
+                                            surf on grass blocks. It's like riding the coolest wave in Minecraft history.
+                                            Cowabunga!<br><br>
+
+                                            Evolution Quest: Lotad's evolutions are like leveling up in
+                                            Minecraft. It can
+                                            become
+                                            Lombre and then evolve into Ludicolo, and each stage is more epic than the last. It's
+                                            like unlocking secret power-ups!<br><br>
+
+                                            Rainy Day MVP: Yo, check this out! Lotad's got a hidden
+                                            ability called Rain Dish.
+                                            When
+                                            it's raining in Minecraft, it regenerates its HP like a boss. It's like having a
+                                            built-in healing potion!
+                                        </p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="comment-button">
+                                            <img src="images/post/comment.png" class="comment">
+                                        </button>
+                                        <p>10 Comments</p>
+                                        <button class="share-button">
+                                            <img src="images/post/share.png" class="share">
+                                        </button>
+                                        <p>Share</p>
+                                        <button class="save-button">
+                                            <img src="images/post/save.png" class="save">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
         postComments.innerHTML = 'Comments for Post 4';
     } else if (postId === '5') {
-        postContent.innerHTML = '<div class="post-container">' +
-                                    '<div class="vote">'+
-                                        '<button class="upvote-button">'+
-                                            '<img src="images/post/upvote.png" class="upvote">'+
-                                        '</button>'+
-                                        '<p class="num-votes">45</p>'+
-                                        '<button class="downvote-button">'+
-                                            '<img src="images/post/downvote.png" class="downvote">'+
-                                        '</button>'+
-                                    '</div>'+
-                                    '<div class="content">'+
-                                        '<div class="post-content">'+
-                                            '<h4 class="title">Best Agent on Ascent?</h4>'+
-                                            '<p class="author">by <span>cornbrip69</span></p>'+
-                                            '<p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit,'+
-                                                'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim'+
-                                                'veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo...</p>'+
-                                            '<img src="images/post/media/sample1.png" class="sample">'+
-                                        '</div>'+
-                                        '<div class="post-actions">'+
-                                            '<button class="comment-button">'+
-                                                '<img src="images/post/comment.png" class="comment">'+
-                                            '</button>'+
-                                            '<p>12 Comments</p>'+
-                                            '<button class="share-button">'+
-                                                '<img src="images/post/share.png" class="share">'+
-                                            '</button>'+
-                                            '<p>Share</p>'+
-                                            '<button class="save-button">'+
-                                                '<img src="images/post/save.png" class="save">'+
-                                            '</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>';
-        postComments.innerHTML = 'Comments for Post 5<br><br><br><br><br><br><br><br><br>sadge';
+        postContent.innerHTML = `<div class="post-container">
+                                <div class="vote">
+                                    <button class="upvote-button">
+                                        <img src="images/post/upvote.png" class="upvote">
+                                    </button>
+                                    <p class="num-votes">12</p>
+                                    <button class="downvote-button">
+                                        <img src="images/post/downvote.png" class="downvote">
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <div class="post-content">
+                                        <h4 class="title">Best Agent on Ascent?</h4>
+                                        <p class="author">by <a href="main-profile.html">shellyace</a></p>
+                                        <p class="text">Hey fellow Valorant enthusiasts! After countless hours of gameplay and
+                                            intense battles on the Ascent map, I've finally discovered the ultimate agent that
+                                            dominates this battlefield. Drum roll, please... It's none other than Jett! Her mobility
+                                            and versatility make her the queen of Ascent, allowing for epic plays and outmaneuvering
+                                            opponents. Give her a try and witness the chaos she unleashes! #AscentQueen #JettMain
+                                            #GetReadyToAscend</p>
+                                        <img src="images/post/media/sample5.png" class="sample">
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="comment-button">
+                                            <img src="images/post/comment.png" class="comment">
+                                        </button>
+                                        <p>12 Comments</p>
+                                        <button class="share-button">
+                                            <img src="images/post/share.png" class="share">
+                                        </button>
+                                        <p>Share</p>
+                                        <button class="save-button">
+                                            <img src="images/post/save.png" class="save">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+        postComments.innerHTML = 'Comments for Post 5';
+    } else if (postId === '6') {
+    postContent.innerHTML = `<div class="post-container">
+                                <div class="vote">
+                                    <button class="upvote-button">
+                                        <img src="images/post/upvote.png" class="upvote">
+                                    </button>
+                                    <p class="num-votes">98</p>
+                                    <button class="downvote-button">
+                                        <img src="images/post/downvote.png" class="downvote">
+                                    </button>
+                                </div>
+                                <div class="content">
+                                    <div class="post-content">
+                                        <h4 class="title">Komi Can't Communicate</h4>
+                                        <p class="author">by <a href="user-profiles/profile4.html">cornbrip69</a></p>
+                                        <p class="text">Before this season started there was a lot of hype around this show. 
+                                        Honestly, I initially brushed off "Komi Can't Communicate" as your typical slice-of-life school story, 
+                                        but oh boy, was I in for a surprise! This show is an absolute delight, radiating with its own unique 
+                                        charm. Every episode leaves me with a big smile on my face. Not only is the source material fantastic, 
+                                        but the adaptation itself is flawless. OLM Studio has poured so much love and attention into every 
+                                        detail, and it truly makes a world of difference. Trust me, if you haven't given this show a chance 
+                                        yet, do yourself a favor and dive right in. It's an experience that's definitely worth every minute 
+                                        of your time!</p>
+                                        <img src="images/post/media/top-sample.jpeg" class="sample">
+                                    </div>
+                                    <div class="post-actions">
+                                        <button class="comment-button">
+                                            <img src="images/post/comment.png" class="comment">
+                                        </button>
+                                        <p>2 Comments</p>
+                                        <button class="share-button">
+                                            <img src="images/post/share.png" class="share">
+                                        </button>
+                                        <p>Share</p>
+                                        <button class="save-button">
+                                            <img src="images/post/save.png" class="save">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+    postComments.innerHTML = 'Comments for Post 6';
     }
 
     // .________________________.
@@ -382,12 +465,5 @@ document.addEventListener("DOMContentLoaded",function() {
 			}
 		}
     });
-
-
-    // .________________________.
-    // ||			           ||
-    // ||      Write Post      ||
-    // ||______________________||
-    // '			            '
 
 });
