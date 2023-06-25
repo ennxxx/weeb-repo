@@ -190,6 +190,7 @@ body {
   margin: 20px 40px 20px 15px;
 }
 
+.edit,
 .comment,
 .share {
   width: auto;
@@ -199,6 +200,17 @@ body {
 
 .share {
   margin-left: 15px;
+}
+
+#edit-post {
+  margin-right: 15px;
+}
+
+.edit-button {
+  border: none;
+  padding: 0;
+  margin-right: 7px;
+  margin-top: -5px;
 }
 
 .comment-button {

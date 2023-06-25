@@ -129,7 +129,6 @@ body {
 .sample {
   width: 100%;
   height: 25%;
-
 }
 
 .post-actions {
@@ -141,6 +140,7 @@ body {
   margin-right: 40px;
 }
 
+.edit,
 .comment,
 .share {
   width: auto;
@@ -150,6 +150,17 @@ body {
 
 .share {
   margin-left: 15px;
+}
+
+#edit-post {
+  margin-right: 15px;
+}
+
+.edit-button {
+  border: none;
+  padding: 0;
+  margin-right: 7px;
+  margin-top: -5px;
 }
 
 .comment-button,

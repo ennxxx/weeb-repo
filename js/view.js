@@ -333,6 +333,10 @@ document.addEventListener("DOMContentLoaded",function() {
                                         <img src="images/post/media/sample5.png" class="sample">
                                     </div>
                                     <div class="post-actions">
+                                        <button class="edit-button">
+                                            <img src="images/post/edit.png" class="edit">
+                                        </button>
+                                        <p id="edit-post">Edit Post</p>
                                         <button class="comment-button">
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
