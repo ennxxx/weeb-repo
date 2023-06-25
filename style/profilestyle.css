@@ -151,6 +151,12 @@ body {
 
 /* Filter Buttons */
 
+hr {
+    border: none;
+    height: 0.5px;
+    background-color: #DEE3E7;
+}
+
 #filters-container {
     display: flex;
     justify-content: space-between;

@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Edit Profile</title>
     <link rel="icon" href="images/icon.png" type="image/png">
     <script src="js/profile.js"></script>
+    <script src="js/edit.js"></script>
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -14,7 +15,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="style/profilestyle.css">
+    <link rel="stylesheet" href="style/editstyle.css">
     <link rel="stylesheet" href="style/navbar.css">
 </head>
 
@@ -48,47 +49,29 @@
         </div>
     </nav>
 
-    <!-- Profile Content -->
     <div id="content-container">
-        <div id="profile-container">
-            <img src="images/profile2.jpg" id="profile-pic">
-            <h2 id="name">Pochacco</h2>
-            <h4 id="username">u/pocchi</h4>
-            <p id="bio">Sleepy and always in need of cofee.</p>
-            <input type="button" id="follow-button" value="Follow">
-            <div id="followers-container">
-                <img src="images/profile/followers.png">
-                <p><span class="bold">7</span> followers • <span class="bold">2</span> following</p>
+        <h1>Edit Profile</h1>
+        <hr>
+        <div id="edit-container">
+            <div id="image-container">
+                <img src="images/profile.png" id="profile-pic">
+                <button id="change-image-btn"></button>
             </div>
-        </div>
-
-        <div id="overview-container">
-
-            <!-- Filter Buttons -->
-            <div id="filters-container">
-                <button class="filter" data-filter="overview">Overview</button>
-                <button class="filter" data-filter="posts">Posts</button>
-                <button class="filter" data-filter="comments">Comments</button>
+            <div id="info-container">
+                <h3>Display name</h3>
+                <p>Set a display name. This does not change your username.</p>
+                <input type="text" placeholder="Display name" id="new-name" required>
+                <h3>Bio</h3>
+                <p>A brief description of yourself shown on your profile.</p>
+                <input type="text" placeholder="Bio" id="new-bio" required>
+                <div id="button-container">
+                    <input type="button" id="save" value="Save">
+                    <input type="button" id="cancel" value="Cancel" onclick="window.location.href='uprofile.html'">
+                </div>
             </div>
-            <hr>
-
-            <!-- Overview -->
-            <div id="overview-view">
-                FILLER OVERVIEW
-            </div>
-
-            <!-- Posts -->
-            <div id="posts-view">
-                FILLER POSTS
-            </div>
-
-            <!-- Comments -->
-            <div id="comments-view">
-                FILLER COMMMENTS
-            </div>
-
         </div>
     </div>
+
 </body>
 
 </html>
