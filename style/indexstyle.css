@@ -153,6 +153,10 @@ body {
   padding: 0;
 }
 
+.content{
+  width: 95%;
+}
+
 .post-content {
   margin: 15px;
   margin-top: 25px;
