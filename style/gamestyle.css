@@ -58,11 +58,16 @@
   .slide-div img {
     width: 100%;
     height: auto;
+    margin-top: 5%;
     transition: filter 0.3s;
+    transition: filter 0.3s;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
   }
   
   .slide-div:hover img {
     filter: brightness(70%);
+    transform: translateY(-10px);
   }
 
   .carousel-control {
