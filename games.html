@@ -1,63 +1,68 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Games</title>
-  <link rel="icon" href="images/icon.png" type="image/png">
-  <script src="js/games.js"></script>
-  <script src="js/navbar.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/games.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/post.js"></script>
 
-  <!-- Bootstrap and Ajax-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Include the Font Awesome library -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <!-- CSS Files for Index -->
-  <link rel="stylesheet" href="style/gamestyle.css">
-  <link rel="stylesheet" href="style/navbar.css">
+    <!-- CSS Files for Index -->
+    <link rel="stylesheet" href="style/gamestyle.css">
+    <link rel="stylesheet" href="style/indexstyle.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/popup.css">
+    <link rel="stylesheet" href="style/footer.css">
 </head>
 
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <a href="index.html">
-      <img src="images/logo/logo3.png" id="logo">
-    </a>
-    <div class="search-bar">
-      <input type="text" placeholder="Search Weeb Lib..." id="search-text">
-    </div>
-    <div class="nav-buttons">
-      <a href="wip.html">Featured</a>
-      <a href="wip.html">Polls</a>
-      <a href="anime.html">Anime</a>
-      <a href="games.html">Games</a>
-      <img src="images/profile.png" id="profile">
-      <div class="dropdown">
-        <a href="javascript:void(0);" id="user-dropdown">
-          <img src="images/navbar/dropdown.png" id="dropdown">
+      <!-- Navigation Bar -->
+      <nav>
+        <a href="index.html">
+            <img src="images/logo/logo3.png" id="logo">
         </a>
-        <div class="dropdown-content">
-          <a href="main-profile.html">My Profile</a>
-          <a href="#">My Posts</a>
-          <a href="signin.html">Log out</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Weeb Lib..." id="search-text">
         </div>
-      </div>
-      <a href="signin.html" id="signin-link">Sign In</a>
-    </div>
-  </nav>
-
+        <div class="nav-buttons">
+            <a href="featured.html">Featured</a>
+            <a href="polls.html">Polls</a>
+            <a href="anime.html">Anime</a>
+            <a href="games.html">Games</a>
+            <img src="images/profile.png" id="profile">
+            <div class="dropdown">
+                <a href="javascript:void(0);" id="user-dropdown">
+                    <img src="images/navbar/dropdown.png" id="dropdown">
+                </a>
+                <div class="dropdown-content">
+                    <a href="main-profile.html">My Profile</a>
+                    <a href="#">My Posts</a>
+                    <a href="signin.html">Log out</a>
+                </div>
+            </div>
+            <a href="signin.html" id="signin-link">Sign In</a>
+        </div>
+    </nav>
+    
   <div class="gaming-container">
     <div class="section">
       <h1 id="font-gamingsec">Computer Games</h1>
-      <p>This is the content of section 1.</p>
-
       <div id="computer-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="item active">
             <a href="games pages/valorant.html" class="slide-div">
-              <img src="images/games-main/computer/valorant.png" alt="Valorant">
+                <img src="images/games-main/computer/valorant.png" alt="Valorant">
             </a>
             <a href="games pages/cod.html" class="slide-div">
               <img src="images/games-main/computer/cod.png" alt="Call of Duty">
@@ -98,10 +103,8 @@
         </a>
       </div>
 
-      <br /><br />
+      <br/><br/>
       <h1 id="font-gamingsec">Mobile Games</h1>
-      <p>This is the content of section 1.</p>
-
       <div id="mobile-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
           <div class="item active">
@@ -148,12 +151,110 @@
       </div>
     </div>
     <div class="section">
-      <h3>Section 2</h3>
-      <p>This is the content of section 2.</p>
+      <h3 class = "section-title">Top Post this Week!</h3>
+      <hr>
+      <!-- Top Post -->
+      <div class="top-post-container">
+          <div class="top-user">
+              <img src="images/profile.png" class="post-profile">
+              <div class="name-container">
+                  <h5><a href="main-profile.html">Cinnamoroll</a></h5>
+                  <p><a href="main-profile.html">u/shellyace</a></p>
+              </div>
+              <button class="follow-btn">Follow</button>
+          </div>
+          <img src="images/post/media/game-sample.jpg" class="sample">
+          <div class="top-post-text">
+              <a href="view.html?id=7" class="post-clickable">
+                  <h5>Hot Take: Zen is Better than 707</h5>
+              </a>
+              <p class="text">The year was 2016 and every girl with an interest to anime became 
+                a member of the mystic messenger cult...
+              </p>
+          </div>
+          <div class="top-post-actions">
+              <a href="view.html?id=7" class="post-clickable">
+                  <button class="comment-button">
+                      <img src="images/post/comment.png" class="comment">
+                  </button>
+              </a>
+              <button class="share-button">
+                  <img src="images/post/share.png" class="share">
+              </button>
+              <button class="save-button">
+                  <img src="images/post/save.png" class="save">
+              </button>
+          </div>
+      </div>
+      <!-- Top Contributors -->
+      <h3 class = "section-title">Top Contributors This Month!</h3>
+      <hr>
+      <div class="check-container">
+          <div class="check-users">
+              <img src="images/profile/profile-pics/profile1.jpg" class="post-profile">
+              <div class="name-container">
+                  <h5><a href="user-profiles/profile1.html">Pochacco</a></h5>
+                  <p><a href="user-profiles/profile1.html">u/pocchi</a></p>
+              </div>
+              <button class="follow-btn">Follow</button>
+          </div>
+          <div class="check-users">
+              <img src="images/profile/profile-pics/profile2.jpg" class="post-profile">
+              <div class="name-container">
+                  <h5><a href="user-profiles/profile2.html">Johann</a></h5>
+                  <p><a href="user-profiles/profile2.html">u/Lotad_is_Life</a></p>
+              </div>
+              <button class="follow-btn">Follow</button>
+          </div>
+          <div class="check-users">
+              <img src="images/profile/profile-pics/profile3.jpeg" class="post-profile">
+              <div class="name-container">
+                  <h5><a href="user-profiles/profile3.html">Eugene</a></h5>
+                  <p><a href="user-profiles/profile3.html">u/DedInComSci</a></p>
+              </div>
+              <button class="follow-btn">Follow</button>
+          </div>
+      </div>
     </div>
   </div>
 
+  <button class="scroll-up-button">
+    <img src="images/scroll-up.png" class="scroll-up">
+  </button>
+
+  <footer>
+    <br/><br/>
+    <div id="footer-logo">
+      <img src="images/logo/logo.png" alt="Logo">
+    </div>
+    <br/><br/>
+    <div class="tabs">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">My Profile</a></li>
+        <li><a href="#">Games</a></li>
+        <li><a href="#">Anime</a></li>
+        <li><a href="#">Polls</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">About Us </a></li>
+      </ul>
+    </div>
+    <br/><br/>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-discord"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitch"></i></a>
+    </div>
+    <br/><br/>
+    <div class="copyright">
+      <p>All rights reserved. &copy; 2023</p>
+    </div>
+    <br/><br/><br/><br/>
+  </footer>
+  
 
 </body>
-
 </html>
+
