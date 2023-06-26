@@ -95,6 +95,7 @@ body {
   padding: 0;
 }
 
+
 .post-content {
   margin: 25px 40px 30px 15px;
   text-align: left;
@@ -320,6 +321,13 @@ body {
   font-weight: bold;
   height: 10px;
 }
+
+.sc-reply-button{
+  border: none;
+  height: 13px;
+  margin-left: 20px;
+}
+
 
 
 
