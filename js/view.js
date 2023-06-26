@@ -291,6 +291,9 @@ document.addEventListener("DOMContentLoaded",function() {
             initComment = new Comment(new User("MamaMo"), "Bakit niyo tinatawag na mommy yan? Anak ba kayo niyan?");
             comments.push(initComment);
             comCtr++;
+            initComment = new Comment(new User("cornbrip69"), "frfr no cap, not even trolling sheeshhhh");
+            comments.push(initComment);
+            comCtr++;
             refreshDisplay(comments);
         }
     } else if (postId === '4') {
