@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                     <div class="content">
                                         <div class="post-content">
                                             <h4 class="title">Demon Slayer mid-tier?</h4>
-                                            <p class="author">by <a href="user-profiles/profile1.html">pocchi</a></p>
+                                            <p class="author">by <a href="profile1.html">pocchi</a></p>
                                             <p class="text">Despite its visually stunning animation and action sequences, Demon Slayer
                                                 fails to explore significant thematic depth. It primarily focuses on the battle between
                                                 good and evil, neglecting opportunities to delve into complex societal, moral, or
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Should I play Genshin again?</h4>
-                                        <p class="author">by <a href="user-profiles/profile3.html">DedInComSci</a></p>
+                                        <p class="author">by <a href="profile3.html">DedInComSci</a></p>
                                         <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like MMDs,
                                             fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
                                             YouTube. It's rekindling my interest like never before!
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
-                                        <p class="author">by <a href="user-profiles/profile5.html">IAmLoaf21</a></p>
+                                        <p class="author">by <a href="profile5.html">IAmLoaf21</a></p>
                                         <p class="text">As a Kafka lover this is still the hardest question ... As much as I love
                                             Himeko, Kafka has awakened something in me.</p>
                                         <img src="images/post/media/sample3.jpg" class="sample">
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Lotad BEST POKEMON!</h4>
-                                        <p class="author">by <a href="user-profiles/profile2.html">Lotad_is_Life</a></p>
+                                        <p class="author">by <a href="profile2.html">Lotad_is_Life</a></p>
                                         <p class="text">Hey, fellow crafters! I gotta spill the beans about Lotad 'cause it's, like,
                                             the sickest Pokémon in Minecraft! Here's why Lotad is the absolute BEST:<br><br>
 
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Komi Can't Communicate</h4>
-                                        <p class="author">by <a href="user-profiles/profile4.html">cornbrip69</a></p>
+                                        <p class="author">by <a href="profile4.html">cornbrip69</a></p>
                                         <p class="text">Before this season started there was a lot of hype around this show. 
                                         Honestly, I initially brushed off "Komi Can't Communicate" as your typical slice-of-life school story, 
                                         but oh boy, was I in for a surprise! This show is an absolute delight, radiating with its own unique 
