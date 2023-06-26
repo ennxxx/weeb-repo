@@ -54,32 +54,30 @@ const User = function(name) {
   this.img = "./images/" + name + ".png";
 }
 
-const Post = function(user, content, title, text, url){
+const Post = function(user, content, title, url){
   this.user = user;
   this.content = content;
   this.title = title;
-  this.text = text;
   this.img = url;
 }
 
 let posts = [];
 let postCtr = 0;
-let currentUser = new User("profile");
+let currentUser = new User("shellyace");
 
 document.addEventListener("DOMContentLoaded",function() {
   document.querySelector("#popup-submit")?.addEventListener("click", function(e){
     e.preventDefault();
 
     const content = document.querySelector("#content").innerHTML;
-    const title = document.getElementById("title").value;
-    const text= document.getElementById("content").value;
+    const title = document.getElementById("title").value;  const text= document.getElementById("content").value;
     const url = document.getElementById("url").value;
     
-    let post = new Post(currentUser, content, title, text, url);
+    let post = new Post(currentUser, content, title, url);
     posts.push(post);
     postCtr++;
     console.log(posts[0].user.name);
-    refreshDisplay(posts);
+    refreshDisplay(post);
     resetCreatePost();
     document.getElementById("submit-message").innerHTML = "Post Submitted!";
     document.getElementById("submit-message").style.color = "green";
@@ -88,18 +86,20 @@ document.addEventListener("DOMContentLoaded",function() {
   })
 
 
-  function refreshDisplay(displayedPosts) {
+  
+});
+function refreshDisplay(displayedPosts) {
   const postsContainer = document.querySelector(".posts-container")
-  postsContainer.innerHTML = ""; // Clear post-container
+  //postsContainer.innerHTML = ""; // Clear post-container
   displayPosts(displayedPosts);
 
   }
   function displayPosts(newPost) {
     
   // Clear post-container and add each post inside newPosts inside it instead
-    for (let i = newPost.length - 1; i >= 0; i--) {
-      displayPost(newPost[i]);
-    }
+    //for (let i = newPost.length - 1; i >= 0; i--) {
+      displayPost(newPost/*[i]*/);
+    //}
   }
   function displayPost(newPost) {
     const postContainer = document.querySelector(".posts-container");
@@ -196,4 +196,3 @@ document.addEventListener("DOMContentLoaded",function() {
     url.value = "";
     titleCtr.innerText = "0/50";
   }
-});
