@@ -102,13 +102,17 @@ body {
   justify-content: space-between;
 }
 
-.posts-container {
-  width: 70%;
+.left-post{
+  width: 65%;
   margin-right: 30px;
 }
 
-.polls-container {
-  width: 30%;
+.posts-container {
+  margin-right: 25px;
+}
+
+.polls-container {  
+  width: 35%;
 }
 
 /* Posts */
