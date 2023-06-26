@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded",function() {
         const scUp = document.createElement("button");
         const scNumVote = document.createElement("p");
         const scDown = document.createElement("button");
+        const scReplyBtn = document.createElement("button");
         
 
 		commMain.className = "single-comment-main";
@@ -97,6 +98,8 @@ document.addEventListener("DOMContentLoaded",function() {
         scUp.className = "sc-upvote-button";
         scNumVote.className = "sc-num-votes";
         scDown.className = "sc-downvote-button";
+        scReplyBtn.className = "sc-reply-button";
+      
 
 	
 		commMain.appendChild(singleComment);
@@ -110,13 +113,15 @@ document.addEventListener("DOMContentLoaded",function() {
         scVote.appendChild(scUp);
         scVote.appendChild(scNumVote);
         scVote.appendChild(scDown);
-        
+        scVote.appendChild(scReplyBtn);
+  
 		scPic.src = newComment.user.img;
         scName.innerHTML = newComment.user.name;
 		scBody.innerText = newComment.content;
         scUp.innerHTML = `<img src="images/post/upvote.png" class="sc-upvote"></img>`;
         scDown.innerHTML = `<img src="images/post/downvote.png" class="sc-downvote"></img>`;
         scNumVote.innerText = 0;
+        scReplyBtn.innerText = "Reply";
 
 		commContainer.appendChild(commMain);
 	}
