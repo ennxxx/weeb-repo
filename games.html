@@ -1,52 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
-    <script src="js/games.js"></script>
-    <script src="js/navbar.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games</title>
+  <link rel="icon" href="images/icon.png" type="image/png">
+  <script src="js/games.js"></script>
+  <script src="js/navbar.js"></script>
 
-    <!-- Bootstrap and Ajax-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Bootstrap and Ajax-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <!-- CSS Files for Index -->
-    <link rel="stylesheet" href="style/gamestyle.css">
-    <link rel="stylesheet" href="style/navbar.css">
+  <!-- CSS Files for Index -->
+  <link rel="stylesheet" href="style/gamestyle.css">
+  <link rel="stylesheet" href="style/navbar.css">
 </head>
 
 <body>
-      <!-- Navigation Bar -->
-      <nav>
-        <a href="index.html">
-            <img src="images/logo/logo3.png" id="logo">
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">
+      <img src="images/logo/logo3.png" id="logo">
+    </a>
+    <div class="search-bar">
+      <input type="text" placeholder="Search Weeb Lib..." id="search-text">
+    </div>
+    <div class="nav-buttons">
+      <a href="wip.html">Featured</a>
+      <a href="wip.html">Polls</a>
+      <a href="anime.html">Anime</a>
+      <a href="games.html">Games</a>
+      <img src="images/profile.png" id="profile">
+      <div class="dropdown">
+        <a href="javascript:void(0);" id="user-dropdown">
+          <img src="images/navbar/dropdown.png" id="dropdown">
         </a>
-        <div class="search-bar">
-            <input type="text" placeholder="Search Weeb Lib..." id="search-text">
+        <div class="dropdown-content">
+          <a href="main-profile.html">My Profile</a>
+          <a href="#">My Posts</a>
+          <a href="signin.html">Log out</a>
         </div>
-        <div class="nav-buttons">
-            <a href="featured.html">Featured</a>
-            <a href="polls.html">Polls</a>
-            <a href="anime.html">Anime</a>
-            <a href="games.html">Games</a>
-            <img src="images/profile.png" id="profile">
-            <div class="dropdown">
-                <a href="javascript:void(0);" id="user-dropdown">
-                    <img src="images/navbar/dropdown.png" id="dropdown">
-                </a>
-                <div class="dropdown-content">
-                    <a href="main-profile.html">My Profile</a>
-                    <a href="#">My Posts</a>
-                    <a href="signin.html">Log out</a>
-                </div>
-            </div>
-            <a href="signin.html" id="signin-link">Sign In</a>
-        </div>
-    </nav>
-    
+      </div>
+      <a href="signin.html" id="signin-link">Sign In</a>
+    </div>
+  </nav>
+
   <div class="gaming-container">
     <div class="section">
       <h1 id="font-gamingsec">Computer Games</h1>
@@ -97,7 +98,7 @@
         </a>
       </div>
 
-      <br/><br/>
+      <br /><br />
       <h1 id="font-gamingsec">Mobile Games</h1>
       <p>This is the content of section 1.</p>
 
@@ -154,5 +155,5 @@
 
 
 </body>
-</html>
 
+</html>

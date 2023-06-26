@@ -11,6 +11,16 @@
     document.getElementById("popup").style.display = "none";
   }
 
+  function openEditPopup() {
+    document.getElementById('edit-overlay').style.display = 'block';
+    document.getElementById('edit-post-popup').style.display = 'block';
+}
+
+function closeEditPopup() {
+    document.getElementById('edit-overlay').style.display = 'none';
+    document.getElementById('edit-post-popup').style.display = 'none';
+}
+
   // Check title length
   function checkTitleLength() {
     var title = document.getElementById("title").value;
