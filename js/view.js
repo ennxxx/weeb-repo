@@ -27,7 +27,6 @@ const User = function(name) {
     this.img = "images\\profile\\profile-pics\\" + name + ".png";
 }
 
-
 const Comment = function(user, content){
     this.user = user;
     this.content = content;
@@ -36,8 +35,6 @@ const Comment = function(user, content){
 let comments = [];
 let comCtr = 0;
 let currentUser = new User("Cinnamoroll");
-
-
 
 document.addEventListener("DOMContentLoaded",function() {
 
@@ -68,6 +65,7 @@ document.addEventListener("DOMContentLoaded",function() {
             displayComment(newComment[i]);
         }
 	}
+
     function displayComment(newComment) {
 		const commContainer = document.querySelector(".view-comments");
 		
@@ -84,7 +82,6 @@ document.addEventListener("DOMContentLoaded",function() {
         const scNumVote = document.createElement("p");
         const scDown = document.createElement("button");
         
-
 		commMain.className = "single-comment-main";
 		singleComment.className = "single-comment";
 		scLeft.className = "sc-left";
@@ -98,7 +95,6 @@ document.addEventListener("DOMContentLoaded",function() {
         scNumVote.className = "sc-num-votes";
         scDown.className = "sc-downvote-button";
 
-	
 		commMain.appendChild(singleComment);
 		singleComment.appendChild(scLeft);
 		singleComment.appendChild(scRight);
@@ -160,7 +156,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                     <div class="content">
                                         <div class="post-content">
                                             <h4 class="title">Demon Slayer mid-tier?</h4>
-                                            <p class="author">by <a href="profile.html">pocchi</a></p>
+                                            <p class="author">by <a href="user-profiles/profile1.html">pocchi</a></p>
                                             <p class="text">Despite its visually stunning animation and action sequences, Demon Slayer
                                                 fails to explore significant thematic depth. It primarily focuses on the battle between
                                                 good and evil, neglecting opportunities to delve into complex societal, moral, or
@@ -539,7 +535,8 @@ document.addEventListener("DOMContentLoaded",function() {
     // ||     Comment Vote Buttons     ||
     // ||______________________________||
     // '			                    '
-    function CheckCommentButtons(){
+    
+    function CheckCommentButtons() {
         var upvoteButtons = document.querySelectorAll(".sc-upvote-button");
         var downvoteButtons = document.querySelectorAll(".sc-downvote-button");
         var numVotesList = document.querySelectorAll(".sc-num-votes");

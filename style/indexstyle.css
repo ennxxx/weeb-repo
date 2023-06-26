@@ -94,7 +94,6 @@ body {
 /* ---- POST AND POLL SECTION -----*/
 
 .postpoll-container {
-  /* Posts and Poll */
   width: 70%;
   margin: 0 auto;
   padding-bottom: 30px;
@@ -103,11 +102,12 @@ body {
 }
 
 .left-post {
+  width: 70%;
   margin-right: 30px;
 }
 
 .polls-container {
-  width: 35%;
+  width: 30%;
 }
 
 /* Posts */
