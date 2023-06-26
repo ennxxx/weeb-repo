@@ -459,6 +459,50 @@ document.addEventListener("DOMContentLoaded",function() {
                             </div>`;
     postComments.innerHTML = 'Comments for Post 6';
     }
+	else if (postId === '7') {
+        postContent.innerHTML = `<div class="post-container">
+                                    <div class="vote">
+                                        <button class="upvote-button">
+                                            <img src="images/post/upvote.png" class="upvote">
+                                        </button>
+                                        <p class="num-votes">70</p>
+                                        <button class="downvote-button">
+                                            <img src="images/post/downvote.png" class="downvote">
+                                        </button>
+                                    </div>
+                                    <div class="content">
+                                        <div class="post-content">
+                                            <h4 class="title">Hot Take: Zen is Better than 707</h4>
+                                            <p class="author">by <a href="main-profile.html">shellyace</a></p>
+                                            <p class="text">
+                                            The year was 2016 and every girl with an interest to anime became a member of the mystic messenger cult. It was crazy, the game lasts for approximately
+                                            eleven days to play (can increase if you choose to play again to get another character story or ending). In those eleven days, sleep became optional as
+                                            the game required you to be awake at 2am and 4am every night. But it was a fun game, especially when I played Zen's route. Zen's character profile is rather
+                                            typical in an otome game. He's a popular actor with a huge number of following,charming and caring and really looks good in black. I dunno, for me, I really
+                                            prefer his caring and sweet personality compared to the other candidates. For example, let's compare him with 707's character. 707 gained extreme popularity
+                                            as he's mainly the most complex character in the story. For starters, he frequently breaks the 4th wall, making it canon that he's aware that they are in a 
+                                            game. Aside from that, he's smart and witty —However, the man is not ideal to date. He likes evading stuff to the main character leaving her in the dark multiple
+                                            times! Anyway, fight me on this but Zen is definitely better in terms of dating our mc. 
+                                            </p>
+                                            <img src="images/post/media/game-sample.jpg" class="sample">
+                                        </div>
+                                        <div class="post-actions">
+                                            <button class="comment-button">
+                                                <img src="images/post/comment.png" class="comment">
+                                            </button>
+                                            <p>2 Comments</p>
+                                            <button class="share-button">
+                                                <img src="images/post/share.png" class="share">
+                                            </button>
+                                            <p>Share</p>
+                                            <button class="save-button">
+                                                <img src="images/post/save.png" class="save">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>`;
+        postComments.innerHTML = 'Comments for Post 6';
+        }
 
     // .________________________.
     // ||			           ||
