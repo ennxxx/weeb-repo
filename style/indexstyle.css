@@ -102,16 +102,11 @@ body {
   justify-content: space-between;
 }
 
-.left-post{
-  width: 65%;
+.left-post {
   margin-right: 30px;
 }
 
-.posts-container {
-  margin-right: 25px;
-}
-
-.polls-container {  
+.polls-container {
   width: 35%;
 }
 
@@ -157,7 +152,7 @@ body {
   padding: 0;
 }
 
-.content{
+.content {
   width: 95%;
 }
 
