@@ -11,6 +11,7 @@ function restoreDefaultText(element) {
     }
 }
 
+
     // ._____________________________________.
     // ||			                        ||
     // ||   code for updating comment page  ||
@@ -23,7 +24,7 @@ const User = function(name) {
     this.lname = this.name.toLowerCase();
     this.uname = this.name.toUpperCase();
     this.nav = "#nav-" + this.lname;
-    this.img = "images\\" + name + ".png";
+    this.img = "images\\profile\\profile-pics\\" + name + ".png";
 }
 
 
@@ -34,7 +35,7 @@ const Comment = function(user, content){
 
 let comments = [];
 let comCtr = 0;
-let currentUser = new User("profile");
+let currentUser = new User("Cinnamoroll");
 
 
 
@@ -55,13 +56,6 @@ document.addEventListener("DOMContentLoaded",function() {
         resetCreateComment();
         document.querySelector(".comment-area").value = "    Write a Comment...";
     })
-
-    window.onload = () => {
-        let initComment = new Comment(new User("MamaMo"), "Tama na kaka anime mo!");
-        comments.push(initComment);
-        comCtr++;
-        refreshDisplay(comments);
-    }
 
     function refreshDisplay(displayedComments) {
 		const commentsContainer = document.querySelector(".view-comments")
@@ -190,6 +184,15 @@ document.addEventListener("DOMContentLoaded",function() {
                                     </div>
                                 </div>`;
         postComments.innerHTML = 'Comments for Post 1';
+        window.onload = () => {
+            let initComment = new Comment(new User("MamaMo"), "Tama na kaka anime mo!");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("Cinnamoroll"), "'Wag mo ko pakialaman Ma! Bakit ka ba nasa website namin!?");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '2') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -237,6 +240,12 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 2';
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "Genshin Impact? More like Chores Simulator!!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '3') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -272,6 +281,18 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 3';
+        window.onload = () => {
+            let initComment = new Comment(new User("m0mmieKafka"), "100% agreeing with you, my brother in Christ. Mommie Kafka FTW!");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("Cinnamoroll"), "I mean... WHY CHOOSE JUST ONE MOMMY!??!?");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("MamaMo"), "Bakit niyo tinatawag na mommy yan? Anak ba kayo niyan?");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '4') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -337,6 +358,12 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 4';
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "NERDDDD ALERRTTTTTT!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '5') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -379,7 +406,13 @@ document.addEventListener("DOMContentLoaded",function() {
                                     </div>
                                 </div>
                             </div>`;
-        postComments.innerHTML = 'Comments for Post 5';
+        postComments.innerHTML = 'Comments for Post 5'; 
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "What are you even saying!? The era of Jett was over ever since they nerfed her dash and ultimate. It's Phoenix' time to shine now, one flash and boom! Enemies can't even fight back! Get gud Noob!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '6') {
     postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
