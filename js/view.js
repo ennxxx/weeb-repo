@@ -11,6 +11,7 @@ function restoreDefaultText(element) {
     }
 }
 
+
     // ._____________________________________.
     // ||			                        ||
     // ||   code for updating comment page  ||
@@ -23,7 +24,7 @@ const User = function(name) {
     this.lname = this.name.toLowerCase();
     this.uname = this.name.toUpperCase();
     this.nav = "#nav-" + this.lname;
-    this.img = "./images/" + name + ".png";
+    this.img = "images\\profile\\profile-pics\\" + name + ".png";
 }
 
 const Comment = function(user, content){
@@ -33,7 +34,7 @@ const Comment = function(user, content){
 
 let comments = [];
 let comCtr = 0;
-let currentUser = new User("profile");
+let currentUser = new User("Cinnamoroll");
 
 document.addEventListener("DOMContentLoaded",function() {
 
@@ -50,11 +51,9 @@ document.addEventListener("DOMContentLoaded",function() {
         
         refreshDisplay(comments);
         resetCreateComment();
-        CheckCommentButtons();
-        document.querySelector(".comment-area").value = "Write a Comment...";
+        document.querySelector(".comment-area").value = "    Write a Comment...";
     })
 
-    
     function refreshDisplay(displayedComments) {
 		const commentsContainer = document.querySelector(".view-comments")
 		commentsContainer.innerHTML = ""; // Clear post-container
@@ -66,6 +65,7 @@ document.addEventListener("DOMContentLoaded",function() {
             displayComment(newComment[i]);
         }
 	}
+
     function displayComment(newComment) {
 		const commContainer = document.querySelector(".view-comments");
 		
@@ -81,8 +81,8 @@ document.addEventListener("DOMContentLoaded",function() {
         const scUp = document.createElement("button");
         const scNumVote = document.createElement("p");
         const scDown = document.createElement("button");
+        const scReplyBtn = document.createElement("button");
         
-
 		commMain.className = "single-comment-main";
 		singleComment.className = "single-comment";
 		scLeft.className = "sc-left";
@@ -95,8 +95,9 @@ document.addEventListener("DOMContentLoaded",function() {
         scUp.className = "sc-upvote-button";
         scNumVote.className = "sc-num-votes";
         scDown.className = "sc-downvote-button";
+        scReplyBtn.className = "sc-reply-button";
+      
 
-	
 		commMain.appendChild(singleComment);
 		singleComment.appendChild(scLeft);
 		singleComment.appendChild(scRight);
@@ -108,21 +109,31 @@ document.addEventListener("DOMContentLoaded",function() {
         scVote.appendChild(scUp);
         scVote.appendChild(scNumVote);
         scVote.appendChild(scDown);
-        
+        scVote.appendChild(scReplyBtn);
+  
 		scPic.src = newComment.user.img;
         scName.innerHTML = newComment.user.name;
 		scBody.innerText = newComment.content;
         scUp.innerHTML = `<img src="images/post/upvote.png" class="sc-upvote"></img>`;
         scDown.innerHTML = `<img src="images/post/downvote.png" class="sc-downvote"></img>`;
         scNumVote.innerText = 0;
+        scReplyBtn.innerText = "Reply";
 
 		commContainer.appendChild(commMain);
 	}
+
     function resetCreateComment() {
         const content = document.querySelector('.comment-area');
 
         content.value = "";
 	}
+
+    document.addEventListener("visibilitychange", function() {
+        var activeElement = document.activeElement;
+        if (activeElement && activeElement.tagName === "INPUT") {
+          activeElement.blur();
+        } 
+      });
 
     // ._____________________________________.
     // ||			                        ||
@@ -150,7 +161,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                     <div class="content">
                                         <div class="post-content">
                                             <h4 class="title">Demon Slayer mid-tier?</h4>
-                                            <p class="author">by <a href="profile.html">pocchi</a></p>
+                                            <p class="author">by <a href="profile1.html">pocchi</a></p>
                                             <p class="text">Despite its visually stunning animation and action sequences, Demon Slayer
                                                 fails to explore significant thematic depth. It primarily focuses on the battle between
                                                 good and evil, neglecting opportunities to delve into complex societal, moral, or
@@ -174,6 +185,15 @@ document.addEventListener("DOMContentLoaded",function() {
                                     </div>
                                 </div>`;
         postComments.innerHTML = 'Comments for Post 1';
+        window.onload = () => {
+            let initComment = new Comment(new User("MamaMo"), "Tama na kaka anime mo!");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("Cinnamoroll"), "'Wag mo ko pakialaman Ma! Bakit ka ba nasa website namin!?");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '2') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -188,7 +208,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Should I play Genshin again?</h4>
-                                        <p class="author">by <a href="user-profiles/profile3.html">DedInComSci</a></p>
+                                        <p class="author">by <a href="profile3.html">DedInComSci</a></p>
                                         <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like MMDs,
                                             fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
                                             YouTube. It's rekindling my interest like never before!
@@ -221,6 +241,12 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 2';
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "Genshin Impact? More like Chores Simulator!!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '3') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -235,7 +261,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
-                                        <p class="author">by <a href="user-profiles/profile5.html">IAmLoaf21</a></p>
+                                        <p class="author">by <a href="profile5.html">IAmLoaf21</a></p>
                                         <p class="text">As a Kafka lover this is still the hardest question ... As much as I love
                                             Himeko, Kafka has awakened something in me.</p>
                                         <img src="images/post/media/sample3.jpg" class="sample">
@@ -256,6 +282,21 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 3';
+        window.onload = () => {
+            let initComment = new Comment(new User("m0mmieKafka"), "100% agreeing with you, my brother in Christ. Mommie Kafka FTW!");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("Cinnamoroll"), "I mean... WHY CHOOSE JUST ONE MOMMY!??!?");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("MamaMo"), "Bakit niyo tinatawag na mommy yan? Anak ba kayo niyan?");
+            comments.push(initComment);
+            comCtr++;
+            initComment = new Comment(new User("cornbrip69"), "frfr no cap, not even trolling sheeshhhh");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '4') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -270,7 +311,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Lotad BEST POKEMON!</h4>
-                                        <p class="author">by <a href="user-profiles/profile2.html">Lotad_is_Life</a></p>
+                                        <p class="author">by <a href="profile2.html">Lotad_is_Life</a></p>
                                         <p class="text">Hey, fellow crafters! I gotta spill the beans about Lotad 'cause it's, like,
                                             the sickest Pokémon in Minecraft! Here's why Lotad is the absolute BEST:<br><br>
 
@@ -321,6 +362,12 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
         postComments.innerHTML = 'Comments for Post 4';
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "NERDDDD ALERRTTTTTT!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '5') {
         postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -363,7 +410,13 @@ document.addEventListener("DOMContentLoaded",function() {
                                     </div>
                                 </div>
                             </div>`;
-        postComments.innerHTML = 'Comments for Post 5';
+        postComments.innerHTML = 'Comments for Post 5'; 
+        window.onload = () => {
+            let initComment = new Comment(new User("G3nsh1nSuckz"), "What are you even saying!? The era of Jett was over ever since they nerfed her dash and ultimate. It's Phoenix' time to shine now, one flash and boom! Enemies can't even fight back! Get gud Noob!");
+            comments.push(initComment);
+            comCtr++;
+            refreshDisplay(comments);
+        }
     } else if (postId === '6') {
     postContent.innerHTML = `<div class="post-container">
                                 <div class="vote">
@@ -378,7 +431,7 @@ document.addEventListener("DOMContentLoaded",function() {
                                 <div class="content">
                                     <div class="post-content">
                                         <h4 class="title">Komi Can't Communicate</h4>
-                                        <p class="author">by <a href="user-profiles/profile4.html">cornbrip69</a></p>
+                                        <p class="author">by <a href="profile4.html">cornbrip69</a></p>
                                         <p class="text">Before this season started there was a lot of hype around this show. 
                                         Honestly, I initially brushed off "Komi Can't Communicate" as your typical slice-of-life school story, 
                                         but oh boy, was I in for a surprise! This show is an absolute delight, radiating with its own unique 
@@ -406,50 +459,6 @@ document.addEventListener("DOMContentLoaded",function() {
                             </div>`;
     postComments.innerHTML = 'Comments for Post 6';
     }
-    else if (postId === '7') {
-        postContent.innerHTML = `<div class="post-container">
-                                    <div class="vote">
-                                        <button class="upvote-button">
-                                            <img src="images/post/upvote.png" class="upvote">
-                                        </button>
-                                        <p class="num-votes">70</p>
-                                        <button class="downvote-button">
-                                            <img src="images/post/downvote.png" class="downvote">
-                                        </button>
-                                    </div>
-                                    <div class="content">
-                                        <div class="post-content">
-                                            <h4 class="title">Hot Take: Zen is Better than 707</h4>
-                                            <p class="author">by <a href="main-profile.html">shellyace</a></p>
-                                            <p class="text">
-                                            The year was 2016 and every girl with an interest to anime became a member of the mystic messenger cult. It was crazy, the game lasts for approximately
-                                            eleven days to play (can increase if you choose to play again to get another character story or ending). In those eleven days, sleep became optional as
-                                            the game required you to be awake at 2am and 4am every night. But it was a fun game, especially when I played Zen's route. Zen's character profile is rather
-                                            typical in an otome game. He's a popular actor with a huge number of following,charming and caring and really looks good in black. I dunno, for me, I really
-                                            prefer his caring and sweet personality compared to the other candidates. For example, let's compare him with 707's character. 707 gained extreme popularity
-                                            as he's mainly the most complex character in the story. For starters, he frequently breaks the 4th wall, making it canon that he's aware that they are in a 
-                                            game. Aside from that, he's smart and witty —However, the man is not ideal to date. He likes evading stuff to the main character leaving her in the dark multiple
-                                            times! Anyway, fight me on this but Zen is definitely better in terms of dating our mc. 
-                                            </p>
-                                            <img src="images/post/media/game-sample.jpg" class="sample">
-                                        </div>
-                                        <div class="post-actions">
-                                            <button class="comment-button">
-                                                <img src="images/post/comment.png" class="comment">
-                                            </button>
-                                            <p>2 Comments</p>
-                                            <button class="share-button">
-                                                <img src="images/post/share.png" class="share">
-                                            </button>
-                                            <p>Share</p>
-                                            <button class="save-button">
-                                                <img src="images/post/save.png" class="save">
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>`;
-        postComments.innerHTML = 'Comments for Post 6';
-        }
 
     // .________________________.
     // ||			           ||
@@ -531,7 +540,8 @@ document.addEventListener("DOMContentLoaded",function() {
     // ||     Comment Vote Buttons     ||
     // ||______________________________||
     // '			                    '
-    function CheckCommentButtons(){
+    
+    function CheckCommentButtons() {
         var upvoteButtons = document.querySelectorAll(".sc-upvote-button");
         var downvoteButtons = document.querySelectorAll(".sc-downvote-button");
         var numVotesList = document.querySelectorAll(".sc-num-votes");
