@@ -6,6 +6,7 @@
 
   // Close popup
   function closePopup() {
+    document.getElementById("submit-message").innerHTML = "";
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popup").style.display = "none";
   }
@@ -82,8 +83,7 @@ document.addEventListener("DOMContentLoaded",function() {
     resetCreatePost();
     document.getElementById("submit-message").innerHTML = "Post Submitted!";
     document.getElementById("submit-message").style.color = "green";
-    voteBtns();
-    saveBtn();
+    
     
   })
 
@@ -134,9 +134,9 @@ document.addEventListener("DOMContentLoaded",function() {
     spDown.className = "downvote-button";
     spContent.className = "content";
     spPostContent.className = "post-content";
-    spclickable1.className = "post-post-clickable";
-    spclickable2.className = "post-post-clickable";
-    spclickable3.className = "post-post-clickable";
+    spclickable1.className = "post-clickable";
+    spclickable2.className = "post-clickable";
+    spclickable3.className = "post-clickable";
     spTitle.className = "title";
     spAuthor.className = "author";
     spText.className = "text";
@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded",function() {
     spclickable2.appendChild(spText);
     spclickable2.appendChild(spSample);
     spPostAction.appendChild(spclickable3);
+    spPostAction.appendChild(spCommentBtn);
     spPostAction.appendChild(spCommentNum);
     spPostAction.appendChild(spShareBtn);
     spPostAction.appendChild(spShare);
@@ -174,12 +175,13 @@ document.addEventListener("DOMContentLoaded",function() {
     spTitle.innerText = newPost.title;
     spText.innerHTML = newPost.content;
     spSample.src = newPost.img;
-    spAuthor.innerText = "by " + newPost.user.name;
-    spCommentBtn.innerHTML = `<img src="images/post/comment.png" class="comment"></img>`;
-    spCommentNum.innerText = "12 Comments";
+    spAuthor.innerHTML =` by <a href="main-profile.html">` + newPost.user.name + `</a>`;
+    spCommentBtn.innerHTML = `<img src="images/post/comment.png" class="comment">`;
+    spCommentNum.innerText = "0 Comments";
     spShareBtn.innerHTML=`<img src="images/post/share.png" class="share">`;
     spShare.innerText = "Share";
     spSaveBtn.innerHTML=`<img src="images/post/save.png" class="save">`;
+    
     
     postContainer.appendChild(postMain);
   }
@@ -194,81 +196,4 @@ document.addEventListener("DOMContentLoaded",function() {
     url.value = "";
     titleCtr.innerText = "0/50";
   }
-
-// ._______________________________.
-// ||			                        ||
-// ||    Copy of Vote Buttons     ||
-// ||_____________________________||
-// '			                         '
-function voteBtns(){
-	var upvoteButtons = document.querySelectorAll(".upvote-button");
-	var downvoteButtons = document.querySelectorAll(".downvote-button");
-	var numVotesList = document.querySelectorAll(".num-votes");
-
-	upvoteButtons.forEach(function (upvoteButton, index) {
-		var downvoteButton = downvoteButtons[index];
-		var numVotes = numVotesList[index];
-
-		var upvoteImage = upvoteButton.querySelector(".upvote");
-		var downvoteImage = downvoteButton.querySelector(".downvote");
-
-		upvoteButton.addEventListener("click", upvotePost);
-		downvoteButton.addEventListener("click", downvotePost);
-
-		function upvotePost() {
-			if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
-				upvoteImage.src = "images/post/clicked/c-upvoted.png";
-				numVotes.textContent++;
-			} 
-			else if (downvoteImage.src.includes("c-downvoted.png")) {
-				upvoteImage.src = "images/post/clicked/c-upvoted.png";
-				downvoteImage.src = "images/post/downvote.png"
-				numVotes.textContent++;
-				numVotes.textContent++;
-			} else {
-				upvoteImage.src = "images/post/upvote.png";
-				numVotes.textContent--;
-			}
-		}
-
-		function downvotePost() {
-			if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
-				downvoteImage.src = "images/post/clicked/c-downvoted.png";
-				upvoteImage.src = "images/post/upvote.png";
-				numVotes.textContent--;
-			}
-			else if (upvoteImage.src.includes("c-upvoted.png")) {
-				downvoteImage.src = "images/post/clicked/c-downvoted.png";
-				upvoteImage.src = "images/post/upvote.png";
-				numVotes.textContent--;
-				numVotes.textContent--;
-			}
-			else {
-				downvoteImage.src = "images/post/downvote.png";
-				numVotes.textContent++;
-			}
-		}
-	});
-}
-// .______________________________.
-// ||			                       ||
-// ||     Copy of Save Post      ||
-// ||____________________________||
-// '			                        '
-function saveBtn(){
-	var saveButtons = document.querySelectorAll(".save-button");
-
-	saveButtons.forEach(function (saveButton) {
-		var saveImage = saveButton.querySelector(".save");
-		saveButton.addEventListener("click", savePost);
-
-		function savePost() {
-			if (saveImage.src.includes("save.png")) {
-				saveImage.src = "images/post/clicked/c-saved.png";
-			} else {
-				saveImage.src = "images/post/save.png";
-			}
-		}
-	});
-}
 });
