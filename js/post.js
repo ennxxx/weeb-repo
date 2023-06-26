@@ -1,4 +1,4 @@
-  // Open popup
+    // Open popup
   function openPopup() {
       document.getElementById("overlay").style.display = "";
       document.getElementById("popup").style.display = "";
@@ -40,9 +40,8 @@
   // Insert image
   function insertImage() {
     var url = prompt("Enter the URL of the image:");
-    if (url) {
-      document.execCommand("insertImage", false, url);
-    }
+   
+    return url;
   }
   
   // Submit button
@@ -75,11 +74,12 @@ document.addEventListener("DOMContentLoaded",function() {
     const title = document.getElementById("title").value;
     const text= document.getElementById("content").value;
     const url = document.getElementById("url").value;
+    
     let post = new Post(currentUser, content, title, text, url);
     posts.push(post);
     postCtr++;
-    
-    refreshDisplay(post);
+    console.log(posts[0].user.name);
+    refreshDisplay(posts);
     resetCreatePost();
     document.getElementById("submit-message").innerHTML = "Post Submitted!";
     document.getElementById("submit-message").style.color = "green";
@@ -90,18 +90,18 @@ document.addEventListener("DOMContentLoaded",function() {
 
   function refreshDisplay(displayedPosts) {
   const postsContainer = document.querySelector(".posts-container")
-  //commentsContainer.innerHTML = ""; // Clear post-container
+  postsContainer.innerHTML = ""; // Clear post-container
   displayPosts(displayedPosts);
 
   }
   function displayPosts(newPost) {
     
   // Clear post-container and add each post inside newPosts inside it instead
-  
-    displayComment(newPost);
-
+    for (let i = newPost.length - 1; i >= 0; i--) {
+      displayPost(newPost[i]);
+    }
   }
-  function displayComment(newPost) {
+  function displayPost(newPost) {
     const postContainer = document.querySelector(".posts-container");
   
     const postMain = document.createElement("div");
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded",function() {
     spTitle.className = "title";
     spAuthor.className = "author";
     spText.className = "text";
-    spSample.className = "postsample";
+    spSample.className = "sample";
     spPostAction.className = "post-actions";
     spCommentBtn.className = "comment-button";
     spCommentNum.className = "comment-num";
