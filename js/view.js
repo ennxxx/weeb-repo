@@ -433,13 +433,14 @@ document.addEventListener("DOMContentLoaded",function() {
                                         <h4 class="title">Komi Can't Communicate</h4>
                                         <p class="author">by <a href="profile4.html">cornbrip69</a></p>
                                         <p class="text">Before this season started there was a lot of hype around this show. 
-                                        Honestly, I initially brushed off "Komi Can't Communicate" as your typical slice-of-life school story, 
-                                        but oh boy, was I in for a surprise! This show is an absolute delight, radiating with its own unique 
-                                        charm. Every episode leaves me with a big smile on my face. Not only is the source material fantastic, 
-                                        but the adaptation itself is flawless. OLM Studio has poured so much love and attention into every 
-                                        detail, and it truly makes a world of difference. Trust me, if you haven't given this show a chance 
-                                        yet, do yourself a favor and dive right in. It's an experience that's definitely worth every minute 
-                                        of your time!</p>
+                                        and tbh, I initially brushed off "Komi Can't Communicate" as your rom-com school story, 
+                                        but sheeshhh was I wrong. This show is an absolute masterpiece frfr, the show has its own unique 
+                                        charm. Every episode leaves me with a smile on my face and a light feeling in my heart tlga. Not 
+                                        only is the source material fantastic, i've read the manga and can confirm, but the adaptation itself
+                                        is also top-notch. OLM Studio really has poured so much love and attention into every detail, and it truly
+                                        shows. Trust me pareh, if you haven't given this show a chance yet, do yourself a favor and watch it na. 
+                                        It's an experience that's definitely worth every minute of your time! Shoutout to mr <a href="profile2.html">u/Lotad_is_Life</a> for
+                                        recommending me this masterpiece frfr no cap</p>
                                         <img src="images/post/media/top-sample.jpeg" class="sample">
                                     </div>
                                     <div class="post-actions">
@@ -458,6 +459,15 @@ document.addEventListener("DOMContentLoaded",function() {
                                 </div>
                             </div>`;
     postComments.innerHTML = 'Comments for Post 6';
+    window.onload = () => {
+        let initComment = new Comment(new User("Cornbrip69"), "hey wdym, ur the one recommending it to me haiya this guy");
+        comments.push(initComment);
+        comCtr++; 
+        initComment = new Comment(new User("Johann"), "komi is mid/overrated frfr");
+        comments.push(initComment);
+        comCtr++;
+        refreshDisplay(comments);
+    }
     }
 	else if (postId === '7') {
         postContent.innerHTML = `<div class="post-container">
@@ -501,7 +511,14 @@ document.addEventListener("DOMContentLoaded",function() {
                                         </div>
                                     </div>
                                 </div>`;
-        postComments.innerHTML = 'Comments for Post 6';
+        postComments.innerHTML = 'Comments for Post 7';
+        let initComment = new Comment(new User("Cornbrip69"), "idk who these are but no. HAHAHAHA");
+        comments.push(initComment);
+        comCtr++; 
+        initComment = new Comment(new User("Pochacco"), "basta zen is my numba wan 😩😩")
+        comments.push(initComment);
+        comCtr++;
+        refreshDisplay(comments);
         }
 
     // .________________________.
