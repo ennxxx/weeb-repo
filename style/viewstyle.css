@@ -279,8 +279,9 @@ body {
   text-align: left;
 }
 
+  /* Sidebar */
 .view-rightside {
-  width: fit-content;
+  max-width: 350px;
   height: fit-content;
   margin-right: 30px;
   margin-top: 50px;
