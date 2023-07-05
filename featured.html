@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Featured</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/post.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/test.js"></script>
+
+
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files for Index -->
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/indexstyle.css">
+    <link rel="stylesheet" href="style/popup.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/pollsstyle.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <script>insertNav();</script>
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+        <div id="index-carousel" class="carousel slide" data-ride="carousel">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#index-carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#index-carousel" data-slide-to="1"></li>
+                <li data-target="#index-carousel" data-slide-to="2"></li>
+                <li data-target="#index-carousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <div class="frame">
+                        <img src="images/carousel/images1.png" alt="main-pic">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="images/carousel/images2.png" alt="pic-2">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="images/carousel/images3.png" alt="pic-3">
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="frame">
+                        <img src="images/carousel/images4.png" alt="pic-4">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#index-carousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#index-carousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="postpoll-container">
+
+        <!-- left post -->
+        <div class="left-post">
+
+            <!-- Posts -->
+            <div class="posts-container">
+                <!-- Sample Post 1 -->
+                <div class="post-container">
+                    <div class="content">
+                        <div class="post-content">
+                            <div id="poll1" class="poll-group">
+                                <div class="poll-content">
+                                    <h4 class="title">Best Slice of Life Anime</h4>
+                                    <br>
+                                    <p class="text">Participate in our poll for the best slice of life anime series! 
+                                        <br><br>Share your favorite shows, characters, and standout moments that have touched your heart. Engage with fellow fans, discover new slice of life gems, and celebrate the beauty of these relatable and heartwarming narratives. Let's delve into the enchanting world of slice of life anime together and determine the ultimate series that captures the essence of everyday life!
+                                    </p>
+                                    <br>
+                                    <div id="poll-item1" class="poll-item">
+                                        <div class="pi-container">
+                                            <span class="pi-ranking">#1</span>
+                                            <span class="pi-image-container"><img src="images/polls/kon.png" alt="K-On"> </span>
+                                            <span class="pi-title">K-On!</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="poll-item2" class="poll-item">
+                                        <div class="pi-container">
+                                            <span class="pi-ranking">#2</span>
+                                            <span class="pi-image-container"><img src="images/polls/toradora.png" alt="Toradora"> </span>
+                                            <span class="pi-title">Toradora</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="poll-item3" class="poll-item">
+                                        <div class="pi-container">
+                                            <span class="pi-ranking">#3</span>
+                                            <span class="pi-image-container"><img src="images/polls/hyouka.png" alt="Hyouka"> </span>
+                                            <span class="pi-title">Hyouka</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="poll-item4" class="poll-item">
+                                        <div class="pi-container">
+                                            <span class="pi-ranking">#4</span>
+                                            <span class="pi-image-container"><img src="images/polls/snafu.png" alt="SNAFU"> </span>
+                                            <span class="pi-title">OreGairu</span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="poll-item5" class="poll-item">
+                                        <div class="pi-container">
+                                            <span class="pi-ranking">#5</span>
+                                            <span class="pi-image-container"><img src="images/polls/anohana.png" alt="Anohana"> </span>
+                                            <span class="pi-title">Anohana</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Polls -->
+        <div class="polls-container">
+
+            <!-- Check This Out -->
+            <h3>Check this out</h3>
+            <hr>
+            <div class="check-container">
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile1.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="profile1.html">Pochacco</a></h5>
+                        <p><a href="profile1.html">u/pocchi</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile2.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="profile2.html">Johann</a></h5>
+                        <p><a href="profile2.html">u/Lotad_is_Life</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <div class="check-users">
+                    <img src="images/profile/profile-pics/profile3.jpeg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="profile3.html">Eugene</a></h5>
+                        <p><a href="profile3.html">u/DedInComSci</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+            </div>
+
+            <!-- Top Post -->
+            <h3>Top Post</h3>
+            <hr>
+            <div class="top-post-container">
+                <div class="top-user">
+                    <img src="images/profile/profile-pics/profile4.jpg" class="post-profile">
+                    <div class="name-container">
+                        <h5><a href="profile4.html">Nigel</a></h5>
+                        <p><a href="profile4.html">u/cornbrip69</a></p>
+                    </div>
+                    <button class="follow-btn">Follow</button>
+                </div>
+                <img src="images/post/media/top-sample.jpeg" class="sample">
+                <div class="top-post-text">
+                    <a href="view.html?id=6" class="post-clickable">
+                        <h5>Komi Can't Communicate</h5>
+                    </a>
+                    <p class="text">Before this season started there was a lot of hype around this show..</p>
+                </div>
+                <div class="top-post-actions">
+                    <a href="view.html?id=6" class="post-clickable">
+                        <button class="comment-button">
+                            <img src="images/post/comment.png" class="comment">
+                        </button>
+                    </a>
+                    <button class="share-button">
+                        <img src="images/post/share.png" class="share">
+                    </button>
+                    <button class="save-button">
+                        <img src="images/post/save.png" class="save">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Waifus of the Month -->
+            <h3><a href="polls.html" id="poll-link">Waifus of the Month</a></h3>
+            <hr>
+            <div class="waifus-container">
+                <div class="waifu">
+                    <img src="images/waifus/kafka.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Kafka</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/makima.jpeg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Makima</h4>
+                        <p>Chainsaw Man</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/himeko.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Himeko</h4>
+                        <p>Honkai Star Rail</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/esdeath.png" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Esdeath</h4>
+                        <p>Akame Ga Kill!</p>
+                    </div>
+                </div>
+                <div class="waifu">
+                    <img src="images/waifus/megumi.jpg" class="waifu-image">
+                    <div class="waifu-info">
+                        <h4>Megumi</h4>
+                        <p>Shokugeki no Souma</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-up-button">
+        <img src="images/scroll-up.png" class="scroll-up">
+    </button>
+
+    <!-- Footer -->
+    <script>insertFooter();</script>
+
+</body>
+
+</html>
