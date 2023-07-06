@@ -8,8 +8,8 @@ function insertNav() {
         <input type="text" placeholder="Search Weeb Lib..." id="search-text">
     </div>
     <div class="nav-buttons">
-        <a href="wip.html">Featured</a>
-        <a href="wip.html">Polls</a>
+        <a href="featured.html">Featured</a>
+        <a href="polls.html">Polls</a>
         <a href="anime.html">Anime</a>
         <a href="games.html">Games</a>
         <img src="images/profile.png" id="profile">
@@ -42,7 +42,7 @@ function insertFooter() {
             <li><a href="main-profile.html">My Profile</a></li>
             <li><a href="games.html">Games</a></li>
             <li><a href="anime.html">Anime</a></li>
-            <li><a href="wip.html">Polls</a></li>
+            <li><a href="polls.html">Polls</a></li>
             <li><a href="wip.html">Privacy Policy</a></li>
             <li><a href="wip.html">About Us </a></li>
         </ul>
