@@ -386,3 +386,12 @@ body {
   color: #337AB7;
   text-decoration: none;
 }
+
+.featured-container {
+  width: 100%;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
