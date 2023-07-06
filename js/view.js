@@ -24,7 +24,7 @@ const User = function(name) {
     this.lname = this.name.toLowerCase();
     this.uname = this.name.toUpperCase();
     this.nav = "#nav-" + this.lname;
-    this.img = "images\\profile\\profile-pics\\" + name + ".png";
+    this.img = "images\\profile\\" + name + ".png";
 }
 
 const Comment = function(user, content){

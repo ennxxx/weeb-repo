@@ -5,12 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="icon" href="images/icons/icon.png" type="image/png">
     <script src="js/post.js"></script>
     <script src="js/index.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/test.js"></script>
-
 
     <!-- Bootstrap and Ajax-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -27,6 +26,7 @@
 </head>
 
 <body>
+
     <!-- Navigation Bar -->
     <script>insertNav();</script>
 
@@ -46,22 +46,22 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <div class="frame">
-                        <img src="images/carousel/images1.png" alt="main-pic">
+                        <img src="images/carousel/home/1.png" alt="main-pic">
                     </div>
                 </div>
                 <div class="item">
                     <div class="frame">
-                        <img src="images/carousel/images2.png" alt="pic-2">
+                        <img src="images/carousel/home/2.png" alt="pic-2">
                     </div>
                 </div>
                 <div class="item">
                     <div class="frame">
-                        <img src="images/carousel/images3.png" alt="pic-3">
+                        <img src="images/carousel/home/3.png" alt="pic-3">
                     </div>
                 </div>
                 <div class="item">
                     <div class="frame">
-                        <img src="images/carousel/images4.png" alt="pic-4">
+                        <img src="images/carousel/home/4.png" alt="pic-4">
                     </div>
                 </div>
             </div>
@@ -81,12 +81,12 @@
     <!-- Main Content -->
     <div class="postpoll-container">
 
-        <!-- left post -->
+        <!-- Posts -->
         <div class="left-post">
 
             <!-- Create a Post -->
             <div class="user-post-container">
-                <img src="images/profile.png" class="post-profile">
+                <img src="images/profile/cinnamoroll.png" class="post-profile">
                 <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
                 <div id="overlay" style="display: none;"></div>
                 <div id="popup" style="display: none;">
@@ -101,9 +101,9 @@
                         <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
                         <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
                         <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-                        <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png"
+                        <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/icons/bullet.png"
                                 alt="Bullet Form"></button>
-                        <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png"
+                        <button class="toolbar-buttons" onclick="insertImage()"><img src="images/icons/image.png"
                                 alt="Insert Image"></button>
                     </div>
 
@@ -123,7 +123,8 @@
 
             <!-- Posts -->
             <div class="posts-container">
-                <!-- Sample Post 1 -->
+
+                <!-- Sample Post -->
                 <div class="post-container">
                     <div class="vote">
                         <button class="upvote-button">
@@ -139,7 +140,7 @@
                             <a href="view.html?id=1" class="post-clickable">
                                 <h4 class="title">Demon Slayer mid-tier?</h4>
                             </a>
-                            <p class="author">by <a href="profile1.html">pocchi</a></p>
+                            <p class="author">by <a href="sample-profile.html">pocchi</a></p>
                             <a href="view.html?id=1" class="post-clickable">
                                 <p class="text">Despite its visually stunning animation and action sequences, Demon
                                     Slayer
@@ -170,240 +171,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Sample Post 2 -->
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">43</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=2" class="post-clickable">
-                                <h4 class="title">Should I play Genshin again?</h4>
-                            </a>
-                            <p class="author">by <a href="profile3.html">DedInComSci</a></p>
-                            <a href="view.html?id=2" class="post-clickable">
-                                <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like
-                                    MMDs,
-                                    fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
-                                    YouTube. It's rekindling my interest like never before!
-                                    <br><br>
-                                    To give you some background, I gave Genshin a shot last year but ended up dropping
-                                    it
-                                    because I was also engrossed in playing Honkai Impact (which I still do, by the
-                                    way).
-                                    Back then, I thought managing the gacha systems in both games would be overwhelming,
-                                    not
-                                    to mention the occasional negativity aimed at Genshin players. However, things have
-                                    changed for me now.
-                                    <br><br>
-                                    Recently, I've been bombarded with a flood of amazing Genshin content, and it's
-                                    making
-                                    me seriously consider jumping back into the game. The only thing that's giving me
-                                    second
-                                    thoughts is the game's free-to-play aspect. How feasible is it to enjoy the game
-                                    without
-                                    spending a fortune? Is Genshin Impact worth giving another shot?
-                                </p>
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=2" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>30 Comments</p>
-
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Sample Post 3 -->
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">29</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=3" class="post-clickable">
-                                <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
-                            </a>
-                            <p class="author">by <a href="profile5.html">IAmLoaf21</a></p>
-                            <a href="view.html?id=3" class="post-clickable">
-                                <p class="text">As a Kafka lover this is still the hardest question ... As much as I
-                                    love
-                                    Himeko, Kafka has awakened something in me.</p>
-                                <img src="images/post/media/sample3.jpg" class="sample">
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=3" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>12 Comments</p>
-
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sample Post 4 -->
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">25</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=4" class="post-clickable">
-                                <h4 class="title">Lotad BEST POKEMON!</h4>
-                            </a>
-                            <p class="author">by <a href="profile2.html">Lotad_is_Life</a></p>
-                            <a href="view.html?id=4" class="post-clickable">
-                                <p class="text">Hey, fellow crafters! I gotta spill the beans about Lotad 'cause it's,
-                                    like,
-                                    the sickest Pokémon in Minecraft! Here's why Lotad is the absolute BEST:<br><br>
-
-                                    Water Splash Master: Lotad is all about those water moves,
-                                    fam! It can use Water
-                                    Gun and
-                                    Bubble Beam to soak enemies like a pro. No one stands a chance against its splashy
-                                    powers!<br><br>
-
-                                    Epic Minecraft Skin: Have you seen Lotad's skin? It's legit
-                                    awesome! The lil'
-                                    blue body
-                                    and the leafy headgear are perfect for any Minecraft adventure. Your pals will be
-                                    jelly,
-                                    trust me!<br><br>
-
-                                    Grass Block Surfing: Lotad's got mad skills on land too! It
-                                    can walk on water and
-                                    even
-                                    surf on grass blocks. It's like riding the coolest wave in Minecraft history.
-                                    Cowabunga!<br><br>
-
-                                    Evolution Quest: Lotad's evolutions are like leveling up in
-                                    Minecraft. It can
-                                    become
-                                    Lombre and then evolve into Ludicolo, and each stage is more epic than the last.
-                                    It's
-                                    like unlocking secret power-ups!<br><br>
-
-                                    Rainy Day MVP: Yo, check this out! Lotad's got a hidden
-                                    ability called Rain Dish.
-                                    When
-                                    it's raining in Minecraft, it regenerates its HP like a boss. It's like having a
-                                    built-in healing potion!
-                                </p>
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=4" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>10 Comments</p>
-
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sample Post 5 -->
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">12</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=5" class="post-clickable">
-                                <h4 class="title">Best Agent on Ascent?</h4>
-                            </a>
-                            <p class="author">by <a href="main-profile.html">shellyace</a></p>
-                            <a href="view.html?id=5" class="post-clickable">
-                                <p class="text">Hey fellow Valorant enthusiasts! After countless hours of gameplay and
-                                    intense battles on the Ascent map, I've finally discovered the ultimate agent that
-                                    dominates this battlefield. Drum roll, please... It's none other than Jett! Her
-                                    mobility
-                                    and versatility make her the queen of Ascent, allowing for epic plays and
-                                    outmaneuvering
-                                    opponents. Give her a try and witness the chaos she unleashes! #AscentQueen
-                                    #JettMain
-                                    #GetReadyToAscend</p>
-                                <img src="images/post/media/sample5.png" class="sample">
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <button class="edit-button">
-                                <img src="images/post/edit.png" class="edit">
-                            </button>
-                            <p id="edit-post">Edit Post</p>
-                            <a href="view.html?id=5" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>12 Comments</p>
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
-
         </div>
 
         <!-- Polls -->
@@ -414,26 +182,26 @@
             <hr>
             <div class="check-container">
                 <div class="check-users">
-                    <img src="images/profile/profile-pics/profile1.jpg" class="post-profile">
+                    <img src="images/profile/Pochacco.png" class="post-profile">
                     <div class="name-container">
-                        <h5><a href="profile1.html">Pochacco</a></h5>
-                        <p><a href="profile1.html">u/pocchi</a></p>
+                        <h5><a href="sample-profile.html">Pochacco</a></h5>
+                        <p><a href="sample-profile.html">u/pocchi</a></p>
                     </div>
                     <button class="follow-btn">Follow</button>
                 </div>
                 <div class="check-users">
-                    <img src="images/profile/profile-pics/profile2.jpg" class="post-profile">
+                    <img src="images/profile/Johann.png" class="post-profile">
                     <div class="name-container">
-                        <h5><a href="profile2.html">Johann</a></h5>
-                        <p><a href="profile2.html">u/Lotad_is_Life</a></p>
+                        <h5><a href=#>Johann</a></h5>
+                        <p><a href=#>u/Lotad_is_Life</a></p>
                     </div>
                     <button class="follow-btn">Follow</button>
                 </div>
                 <div class="check-users">
-                    <img src="images/profile/profile-pics/profile3.jpeg" class="post-profile">
+                    <img src="images/profile/DedInComSci.png" class="post-profile">
                     <div class="name-container">
-                        <h5><a href="profile3.html">Eugene</a></h5>
-                        <p><a href="profile3.html">u/DedInComSci</a></p>
+                        <h5><a href=#>Eugene</a></h5>
+                        <p><a href=#>u/DedInComSci</a></p>
                     </div>
                     <button class="follow-btn">Follow</button>
                 </div>
@@ -444,10 +212,10 @@
             <hr>
             <div class="top-post-container">
                 <div class="top-user">
-                    <img src="images/profile/profile-pics/profile4.jpg" class="post-profile">
+                    <img src="images/profile/cornbrip69.png" class="post-profile">
                     <div class="name-container">
-                        <h5><a href="profile4.html">Nigel</a></h5>
-                        <p><a href="profile4.html">u/cornbrip69</a></p>
+                        <h5><a href=#>Nigel</a></h5>
+                        <p><a href=#>u/cornbrip69</a></p>
                     </div>
                     <button class="follow-btn">Follow</button>
                 </div>
@@ -517,7 +285,7 @@
     </div>
 
     <button class="scroll-up-button">
-        <img src="images/scroll-up.png" class="scroll-up">
+        <img src="images/icons/scroll.png" class="scroll-up">
     </button>
 
     <!-- Footer -->

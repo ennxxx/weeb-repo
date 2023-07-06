@@ -54,7 +54,7 @@ body {
     position: absolute;
     bottom: 0px;
     right: 0px;
-    background: url("../images/profile/pic-changer.png") no-repeat;
+    background: url("../images/icons/pic-edit.png") no-repeat;
     background-size: contain;
     width: 70px;
     height: 70px;

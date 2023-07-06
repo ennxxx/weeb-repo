@@ -12,10 +12,10 @@ function insertNav() {
         <a href="polls.html">Polls</a>
         <a href="anime.html">Anime</a>
         <a href="games.html">Games</a>
-        <img src="images/profile.png" id="profile">
+        <img src="images/profile/cinnamoroll.png" id="profile">
         <div class="dropdown">
             <a href="javascript:void(0);" id="user-dropdown">
-                <img src="images/navbar/dropdown.png" id="dropdown">
+                <img src="images/icons/dropdown.png" id="dropdown">
             </a>
             <div class="dropdown-content">
                 <a href="main-profile.html">My Profile</a>
@@ -33,13 +33,13 @@ function insertFooter() {
     <footer>
     <br /><br />
     <div id="footer-logo">
-        <img src="images/logo/logo.png" alt="Logo">
+        <img src="images/logo/logo1.png" alt="Logo">
     </div>
     <br /><br />
     <div class="tabs">
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="main-profile.html">My Profile</a></li>
+            <li><a href="main-profile.html">Profile</a></li>
             <li><a href="games.html">Games</a></li>
             <li><a href="anime.html">Anime</a></li>
             <li><a href="polls.html">Polls</a></li>

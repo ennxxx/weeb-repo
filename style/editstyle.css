@@ -68,7 +68,7 @@ hr {
     bottom: 20px;
     right: 30px;
     transform: translate(50%, -50%);
-    background: url("../images/profile/pic-changer.png") no-repeat;
+    background: url("../images/icons/pic-edit.png") no-repeat;
     background-size: contain;
     width: 25%;
     height: 25%;

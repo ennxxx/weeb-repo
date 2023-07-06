@@ -5,20 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Post</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style/viewstyle.css">
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/gamestyle.css">
-    <link rel="stylesheet" href="style/footer.css">
-    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="icon" href="images/icons/icon.png" type="image/png">
     <script src="js/view.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/test.js"></script>
 
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="style/viewstyle.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/gamestyle.css">
+    <link rel="stylesheet" href="style/footer.css">
 </head>
 
 <body>
@@ -32,11 +35,11 @@
             <div class="actual-post">
             </div>
             <div class="add-comment">
-                <img src="images/profile.png" class="post-profile">
+                <img src="images/profile/cinnamoroll.png" class="post-profile">
                 <textarea class="comment-area" onclick="clearDefaultText(this)" onblur="restoreDefaultText(this)"
                     data-default-value="Write a Comment...">Write a Comment...</textarea>
                 <button class="submit-button">
-                    <img src="images/comment/send.png" class="submit-comment">
+                    <img src="images/icons/send.png" class="submit-comment">
                 </button>
             </div>
             <div class="view-comments">
@@ -84,7 +87,7 @@
 
     <!-- Footer -->
     <script>insertFooter();</script>
-    
+
 </body>
 
 </html>

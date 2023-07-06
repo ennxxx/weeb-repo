@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
-    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="icon" href="images/icons/icon.png" type="image/png">
     <script src="js/profile.js"></script>
     <script src="js/post.js"></script>
     <script src="js/edit.js"></script>
@@ -38,7 +38,7 @@
     <div id="content-container">
         <div id="profile-container">
             <div id="image-container">
-                <img src="images/profile.png" id="profile-pic">
+                <img src="images/profile/cinnamoroll.png" id="profile-pic">
                 <button id="change-image-btn"></button>
             </div>
             <h2 id="name">Cinnamoroll</h2>
@@ -47,7 +47,7 @@
             </p>
             <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
             <div id="followers-container">
-                <img src="images/profile/followers.png">
+                <img src="images/icons/followers.png">
                 <p><span class="bold">3</span> followers • <span class="bold">2</span> following</p>
             </div>
         </div>
@@ -69,7 +69,7 @@
 
                 <!-- Create a Post -->
                 <div class="user-post-container">
-                    <img src="images/profile.png" class="post-profile">
+                    <img src="images/profile/cinnamoroll.png" class="post-profile">
                     <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
                     <div id="overlay" style="display: none;"></div>
                     <div id="popup" style="display: none;">
@@ -85,9 +85,9 @@
                             <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
                             <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
                             <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/bullet_icon.png"
+                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/icons/bullet.png"
                                     alt="Bullet Form"></button>
-                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/image_icon.png"
+                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/icons/image.png"
                                     alt="Insert Image"></button>
                         </div>
 
@@ -105,6 +105,7 @@
                     </div>
                 </div>
 
+                <!-- Sample Post -->
                 <div class="post-container">
                     <div class="vote">
                         <button class="upvote-button">
@@ -120,7 +121,7 @@
                             <a href="view.html?id=1" class="post-clickable">
                                 <h4 class="title">Demon Slayer mid-tier?</h4>
                             </a>
-                            <p class="author">by <a href="profile1.html">pocchi</a></p>
+                            <p class="author">by <a href="sample-profile.html">pocchi</a></p>
                             <a href="view.html?id=1" class="post-clickable">
                                 <p class="text">Despite its visually stunning animation and action sequences, Demon
                                     Slayer
@@ -135,108 +136,6 @@
                         </div>
                         <div class="post-actions">
                             <a href="view.html?id=1" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>12 Comments</p>
-
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">43</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=2" class="post-clickable">
-                                <h4 class="title">Should I play Genshin again?</h4>
-                            </a>
-                            <p class="author">by <a href="profile3.html">DedInComSci</a></p>
-                            <a href="view.html?id=2" class="post-clickable">
-                                <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like
-                                    MMDs,
-                                    fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
-                                    YouTube. It's rekindling my interest like never before!
-                                    <br><br>
-                                    To give you some background, I gave Genshin a shot last year but ended up dropping
-                                    it
-                                    because I was also engrossed in playing Honkai Impact (which I still do, by the
-                                    way).
-                                    Back then, I thought managing the gacha systems in both games would be overwhelming,
-                                    not
-                                    to mention the occasional negativity aimed at Genshin players. However, things have
-                                    changed for me now.
-                                    <br><br>
-                                    Recently, I've been bombarded with a flood of amazing Genshin content, and it's
-                                    making
-                                    me seriously consider jumping back into the game. The only thing that's giving me
-                                    second
-                                    thoughts is the game's free-to-play aspect. How feasible is it to enjoy the game
-                                    without
-                                    spending a fortune? Is Genshin Impact worth giving another shot?
-                                </p>
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=2" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>30 Comments</p>
-
-                            <button class="share-button">
-                                <img src="images/post/share.png" class="share">
-                            </button>
-                            <p>Share</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">29</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=3" class="post-clickable">
-                                <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
-                            </a>
-                            <p class="author">by <a href="profile5.html">IAmLoaf21</a></p>
-                            <a href="view.html?id=3" class="post-clickable">
-                                <p class="text">As a Kafka lover this is still the hardest question ... As much as I
-                                    love
-                                    Himeko, Kafka has awakened something in me.</p>
-                                <img src="images/post/media/sample3.jpg" class="sample">
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=3" class="post-clickable">
                                 <button class="comment-button">
                                     <img src="images/post/comment.png" class="comment">
                                 </button>
@@ -326,26 +225,12 @@
                         </button>
                     </div>
                 </div>
-                <div class="comment-container">
-                    <div class="comment-details">
-                        <img src="images/post/comment.png" class="comment-filter">
-                        <p><span id="comment-username">shellyace</span> commented on <span id="comment-post-title">Demon
-                                Slayer mid-tier?</span> • Posted by pocchi</p>
-                    </div>
-                    <div class="comment-content">
-                        <i>shellyace</i><br>
-                        We get it, you're a supremacist who only reads manga.<br>
-                        <button class="reply-button">
-                            Reply
-                        </button>
-                    </div>
-                </div>
             </div>
 
             <!-- Upvotes -->
             <div id="upvoted-view">
                 <div class="empty-container">
-                    <img src="images/profile/empty.png" class="empty-icon">
+                    <img src="images/icons/empty.png" class="empty-icon">
                     <h2 class="empty-text">Looks like there's nothing here</h2>
                 </div>
             </div>
@@ -353,7 +238,7 @@
             <!-- Downvotes -->
             <div id="downvoted-view">
                 <div class="empty-container">
-                    <img src="images/profile/empty.png" class="empty-icon">
+                    <img src="images/icons/empty.png" class="empty-icon">
                     <h2 class="empty-text">Looks like there's nothing here</h2>
                 </div>
             </div>
@@ -361,7 +246,7 @@
             <!-- Saved -->
             <div id="saved-view">
                 <div class="empty-container">
-                    <img src="images/profile/empty.png" class="empty-icon">
+                    <img src="images/icons/empty.png" class="empty-icon">
                     <h2 class="empty-text">Looks like there's nothing here</h2>
                 </div>
             </div>
@@ -369,7 +254,7 @@
     </div>
 
     <button class="scroll-up-button">
-        <img src="images/scroll-up.png" class="scroll-up">
+        <img src="images/icons/scroll.png" class="scroll-up">
     </button>
 
     <!-- Footer -->
