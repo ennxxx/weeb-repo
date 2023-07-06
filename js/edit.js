@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded",function() {
     
 // .________________________.
-// ||			                 ||
+// ||			           ||
 // ||    Change Profile    ||
 // ||______________________||
-// '			                  ' 
+// '			            ' 
 
 var changeButton = document.querySelector("#change-image-btn");
 changeButton.addEventListener("click", changeProfile);

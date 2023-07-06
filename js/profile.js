@@ -41,33 +41,29 @@ document.addEventListener("DOMContentLoaded",function() {
 	selectedContainer.style.display = "block";
 }
 
-
 // .________________________.
 // ||			           ||
-// ||    Follow Button     ||
+// ||     Follow Button    ||
 // ||______________________||
 // '			            '
 
 	var followButton = document.getElementById("follow-button");
-	var isFollowed = true; // Set the initial state to followed
+	var isFollowed = false;
 
-	// Initial state of the button
 	updateButtonText();
 
-	// Attach click event listener to the button
 	followButton.addEventListener("click", function() {
-		isFollowed = !isFollowed; // Toggle the follow state
+		isFollowed = !isFollowed;
 		updateButtonText();
 	});
 
-	// Function to update the button text based on the follow state
 	function updateButtonText() {
 		if (isFollowed) {
-			followButton.value = "Follow";
-			followButton.classList.add("clicked");
-		} else {
 			followButton.value = "Unfollow";
 			followButton.classList.remove("clicked");
+		} else {
+			followButton.value = "Follow";
+			followButton.classList.add("clicked");
 		}
 	}
 });

@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded",function() {
 
 // .________________________.
-// ||			             ||
+// ||			                 ||
 // ||        Sign In       ||
 // ||______________________||
-// '			            '
+// '			                  '
     
     var signedIn = true;
     var userDropdown = document.getElementById("user-dropdown");
@@ -22,10 +22,10 @@ document.addEventListener("DOMContentLoaded",function() {
     }
 
 // .________________________.
-// ||			           ||
+// ||			                 ||
 // ||        Scroll        ||
 // ||______________________||
-// '			            '
+// '			                  '
     
     window.onscroll = function() {
         scrollFunction();

@@ -1,25 +1,97 @@
-    // Open popup
+document.addEventListener("DOMContentLoaded",function() {
+
+  // .________________________.
+  // ||			                 ||
+  // ||      Save Post       ||
+  // ||______________________||
+  // '			                  '
+    var saveButtons = document.querySelectorAll(".save-button");
+  
+    saveButtons.forEach(function (saveButton) {
+      var saveImage = saveButton.querySelector(".save");
+      saveButton.addEventListener("click", savePost);
+  
+      function savePost() {
+        if (saveImage.src.includes("save.png")) {
+          saveImage.src = "images/post/clicked/c-saved.png";
+        } else {
+          saveImage.src = "images/post/save.png";
+        }
+      }
+    });
+  
+  // .________________________.
+  // ||			                 ||
+  // ||     Vote Buttons     ||
+  // ||______________________||
+  // '			                  '
+  
+    var upvoteButtons = document.querySelectorAll(".upvote-button");
+    var downvoteButtons = document.querySelectorAll(".downvote-button");
+    var numVotesList = document.querySelectorAll(".num-votes");
+  
+    upvoteButtons.forEach(function (upvoteButton, index) {
+      var downvoteButton = downvoteButtons[index];
+      var numVotes = numVotesList[index];
+  
+      var upvoteImage = upvoteButton.querySelector(".upvote");
+      var downvoteImage = downvoteButton.querySelector(".downvote");
+  
+      upvoteButton.addEventListener("click", upvotePost);
+      downvoteButton.addEventListener("click", downvotePost);
+  
+      function upvotePost() {
+        if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+          upvoteImage.src = "images/post/clicked/c-upvoted.png";
+          numVotes.textContent++;
+        } 
+        else if (downvoteImage.src.includes("c-downvoted.png")) {
+          upvoteImage.src = "images/post/clicked/c-upvoted.png";
+          downvoteImage.src = "images/post/downvote.png"
+          numVotes.textContent++;
+          numVotes.textContent++;
+        } else {
+          upvoteImage.src = "images/post/upvote.png";
+          numVotes.textContent--;
+        }
+      }
+  
+      function downvotePost() {
+        if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
+          downvoteImage.src = "images/post/clicked/c-downvoted.png";
+          upvoteImage.src = "images/post/upvote.png";
+          numVotes.textContent--;
+        }
+        else if (upvoteImage.src.includes("c-upvoted.png")) {
+          downvoteImage.src = "images/post/clicked/c-downvoted.png";
+          upvoteImage.src = "images/post/upvote.png";
+          numVotes.textContent--;
+          numVotes.textContent--;
+        }
+        else {
+          downvoteImage.src = "images/post/downvote.png";
+          numVotes.textContent++;
+        }
+      }
+    });
+  });
+
+// .________________________.
+// ||			                 ||
+// ||      Create Post     ||
+// ||______________________||
+// '			
+
   function openPopup() {
       document.getElementById("overlay").style.display = "";
       document.getElementById("popup").style.display = "";
   }
 
-  // Close popup
   function closePopup() {
     document.getElementById("submit-message").innerHTML = "";
     document.getElementById("overlay").style.display = "none";
     document.getElementById("popup").style.display = "none";
   }
-
-  function openEditPopup() {
-    document.getElementById('edit-overlay').style.display = 'block';
-    document.getElementById('edit-post-popup').style.display = 'block';
-}
-
-function closeEditPopup() {
-    document.getElementById('edit-overlay').style.display = 'none';
-    document.getElementById('edit-post-popup').style.display = 'none';
-}
 
   // Check title length
   function checkTitleLength() {
@@ -53,8 +125,12 @@ function closeEditPopup() {
    
     return url;
   }
-  
-  // Submit button
+
+// .________________________.
+// ||			                 ||
+// ||      User Info       ||
+// ||______________________||
+// '			
 
 const User = function(name) {
   this.name = name;
@@ -75,6 +151,12 @@ let posts = [];
 let postCtr = 0;
 let currentUser = new User("shellyace");
 
+// .________________________.
+// ||			                 ||
+// ||    Submit Button     ||
+// ||______________________||
+// '			
+
 document.addEventListener("DOMContentLoaded",function() {
   document.querySelector("#popup-submit")?.addEventListener("click", function(e){
     e.preventDefault();
@@ -91,13 +173,9 @@ document.addEventListener("DOMContentLoaded",function() {
     resetCreatePost();
     document.getElementById("submit-message").innerHTML = "Post Submitted!";
     document.getElementById("submit-message").style.color = "green";
-    
-    
   })
-
-
-  
 });
+
 function refreshDisplay(displayedPosts) {
   const postsContainer = document.querySelector(".posts-container")
   //postsContainer.innerHTML = ""; // Clear post-container
@@ -105,15 +183,15 @@ function refreshDisplay(displayedPosts) {
 
   }
   function displayPosts(newPost) {
-    
   // Clear post-container and add each post inside newPosts inside it instead
     //for (let i = newPost.length - 1; i >= 0; i--) {
       displayPost(newPost/*[i]*/);
     //}
   }
-  function displayPost(newPost) {
-    const postContainer = document.querySelector(".posts-container");
   
+  function displayPost(newPost) {
+
+    const postContainer = document.querySelector(".posts-container");
     const postMain = document.createElement("div");
     const spVote = document.createElement("div");
     const spUp = document.createElement("button");
@@ -158,7 +236,6 @@ function refreshDisplay(displayedPosts) {
     spShare.className = "share";
     spSaveBtn.className = "save-button";
 
-
     postMain.appendChild(spVote);
     postMain.appendChild(spContent);
     spVote.appendChild(spUp);
@@ -192,9 +269,9 @@ function refreshDisplay(displayedPosts) {
     spShare.innerText = "Share";
     spSaveBtn.innerHTML=`<img src="images/post/save.png" class="save">`;
     
-    
     postContainer.appendChild(postMain);
   }
+
   function resetCreatePost() {
     const content = document.querySelector('#content');
     const title = document.querySelector('#title');

@@ -11,13 +11,11 @@ function restoreDefaultText(element) {
     }
 }
 
-
-    // ._____________________________________.
-    // ||			                        ||
-    // ||   code for updating comment page  ||
-    // ||___________________________________||
-    // '			                         '
-
+// ._______________________________.
+// ||			                  ||
+// ||     Update Comment Page     ||
+// ||_____________________________||
+// '			                   '
 
 const User = function(name) {
     this.name = name;
@@ -67,8 +65,8 @@ document.addEventListener("DOMContentLoaded",function() {
 	}
 
     function displayComment(newComment) {
+
 		const commContainer = document.querySelector(".view-comments");
-		
 		const commMain = document.createElement("div");
 		const singleComment = document.createElement("div");
 		const scLeft = document.createElement("div");
@@ -97,7 +95,6 @@ document.addEventListener("DOMContentLoaded",function() {
         scDown.className = "sc-downvote-button";
         scReplyBtn.className = "sc-reply-button";
       
-
 		commMain.appendChild(singleComment);
 		singleComment.appendChild(scLeft);
 		singleComment.appendChild(scRight);
@@ -135,11 +132,11 @@ document.addEventListener("DOMContentLoaded",function() {
         } 
       });
 
-    // ._____________________________________.
-    // ||			                        ||
-    // ||   Checks which post called view   ||
-    // ||___________________________________||
-    // '			                         '
+    // ._____________________________.
+    // ||			                ||
+    // ||   Checks Posts for View   ||
+    // ||___________________________||
+    // '			                 '
 
     const url = new URLSearchParams(window.location.search);
     const postId = url.get('id');

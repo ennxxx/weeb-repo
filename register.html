@@ -5,35 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="style/registerstyle.css">
     <link rel="icon" href="images/icons/icon.png" type="image/png">
+    <script src="js/login.js"></script>
+    <link rel="stylesheet" href="style/registerstyle.css">
 
-    <!--Password Confirmation-->
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-
-            /* Declaration of Variables */
-            const passwordInput = document.getElementById('password-input');
-            const confirmPasswordInput = document.getElementById('confirm-password-input');
-            const passwordMatchIcon = document.getElementById('password-match-icon');
-
-            /* Function for checking if both passwords match */
-            function checkPasswordMatch() {
-                const password = passwordInput.value;
-                const confirmPassword = confirmPasswordInput.value;
-
-                if (password === confirmPassword) {
-                    passwordMatchIcon.textContent = '✓';
-                } else {
-                    passwordMatchIcon.textContent = '✕';
-                }
-            }
-
-            /* Getting the input */
-            passwordInput.addEventListener('input', checkPasswordMatch);
-            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
-        });
-    </script>
 </head>
 
 <body>
