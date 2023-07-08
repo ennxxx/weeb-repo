@@ -50,14 +50,14 @@ hr {
 
 #image-container {
     width: 30%;
-    min-width: 300px;
-    max-width: 300px;
+    width: 300px;
+    height: 300px;
     position: relative;
 }
 
 #profile-pic {
-    width: 100%;
-    height: auto;
+    width: 300px;
+    height: 300px;
     display: block;
     border-radius: 50%;
     border: 0.75px solid #2C394B;
@@ -65,8 +65,8 @@ hr {
 
 #change-image-btn {
     position: absolute;
-    bottom: 20px;
-    right: 30px;
+    bottom: -30px;
+    right: 20px;
     transform: translate(50%, -50%);
     background: url("../images/icons/pic-edit.png") no-repeat;
     background-size: contain;
