@@ -43,7 +43,7 @@ function insertFooter() {
             <li><a href="games.html">Games</a></li>
             <li><a href="anime.html">Anime</a></li>
             <li><a href="polls.html">Polls</a></li>
-            <li><a href="wip.html">Privacy Policy</a></li>
+            <li><a href="policy.html">Privacy Policy</a></li>
             <li><a href="wip.html">About Us </a></li>
         </ul>
     </div>
