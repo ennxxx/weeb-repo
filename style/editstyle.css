@@ -49,7 +49,6 @@ hr {
 /* Profile Picture */
 
 #image-container {
-    width: 30%;
     width: 300px;
     height: 300px;
     position: relative;
@@ -108,14 +107,18 @@ hr {
 }
 
 #new-bio {
-    padding: 10px 10px 60px 10px;
+    padding: 10px;
     color: #8F8D8D;
     border: 1px solid #8F8D8D;
     border-radius: 5px;
     width: 100%;
+    height: 100px;
     font-family: 'Open Sans';
     margin-bottom: 30px;
+    resize: vertical;
+    box-sizing: border-box;
 }
+
 
 #button-container {
     display: flex;
