@@ -1,283 +1,140 @@
 @font-face {
-  font-family: 'Inter';
-  src: url('../fonts/INTER.ttf') format('truetype');
+	font-family: 'Inter';
+	src: url('../fonts/INTER.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Open Sans';
-  src: url('../fonts/OPENSANS.ttf') format('truetype');
+	font-family: 'Open Sans';
+	src: url('../fonts/OPENSANS.ttf') format('truetype');
 }
 
 body {
-  color: #2C394B;
-  font-size: 14px;
-  line-height: 18px;
-  background-color: #FFFCFC;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', serif;
-  justify-content: center;
-  text-align: center;
-  justify-content: space-between;
+	color: #2C394B;
+	font-size: 14px;
+	line-height: 18px;
+	background-color: #FFFCFC;
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', serif;
+	justify-content: center;
+	text-align: center;
+	justify-content: space-between;
 }
 
-.view-container {
-  border-radius: 5px;
-  margin: 5px;
-  display: flex;
-  flex-wrap: wrap;
+.content-container {
+	display: flex;
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px 20px 30px 20px;
+	justify-content: space-between;
 }
 
-.view-poll {
-  flex: 4;
-  margin: 15px;
-  padding: 5px;
-  display: flex;
-  flex-direction: column;
-}
-
-.actual-poll {
-  margin: 5px;
-  padding: 20px;
-  flex-grow: 1;
-  width: 100%;
-}
-
-.view-comments {
-  padding: 20px;
-  margin: 10px 10px 20px 20px;
-  border-radius: 20px;
-  background-color: #EEF1F4;
-  text-align: center;
-  flex-grow: 1;
-}
-
-/* polls */
+/* Poll Container */
 
 .poll-container {
-  height: 100%;
-  border-radius: 20px;
-  background-color: #EEF1F4;
-  display: flex;
-  flex-direction: row;
-  padding: 10px;
+	width: 70%;
+	text-align: left;
 }
 
-.vote {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 5px;
-  margin: 20px 15px 0 10px;
+.poll-container h2 {
+	font-size: 36px;
+	font-weight: 600;
 }
 
-.upvote,
-.downvote {
-  width: 30px;
-  height: auto;
+.poll-container p {
+	font-size: 16px;
+	line-height: 1.5;
 }
 
-.upvote-button,
-.downvote-button {
-  border: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.poll-title {
+	font-size: 30px;
+	font-weight: 500;
+	margin-top: 40px;
 }
 
-.num-votes {
-  margin: 10px 0;
-  font-size: 20px;
-  font-weight: bold;
-  align-self: center;
-  padding: 0;
+.bold {
+	font-weight: 500;
 }
 
-
-.poll-content {
-  margin: 25px 40px 30px 15px;
-  text-align: left;
+hr {
+	border: none;
+	height: 0.5px;
+	background-color: #DEE3E7;
 }
 
-.title {
-  margin-bottom: 3px;
-  font-size: 32px;
-  font-weight: bold;
-}
+/* Actual Polls */
 
-.author {
-  margin-bottom: 20px;
-  font-family: 'Open Sans';
-}
-
-.text {
-  margin-bottom: 15px;
-  font-family: 'Open Sans';
-  text-align: justify;
-}
-
-.sample {
-  width: 100%;
-  height: 25%;
-}
-
-.poll-actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 15px;
-  margin-right: 40px;
-}
-
-.edit,
-.comment,
-.share {
-  width: auto;
-  height: 25px;
-  margin-right: -5px;
-}
-
-.share {
-  margin-left: 15px;
-}
-
-#edit-poll {
-  margin-right: 15px;
-}
-
-.edit-button {
-  border: none;
-  padding: 0;
-  margin-right: 7px;
-  margin-top: -5px;
-}
-
-.comment-button,
-.share-button {
-  border: none;
-  padding: 0;
-  margin-right: 10px;
-}
-
-.save {
-  height: 25px;
-}
-
-.save-button {
-  margin-left: auto;
-  border: none;
-  padding: 0;
-}
-
-.poll-actions p {
-  font-weight: bold;
-  color: #A2AAB4;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-/* for making poll link */
-.poll-clickable {
-  text-decoration: none;
-  color: inherit;
-}
-
-.poll-clickable:hover,
-.poll-clickable:focus,
-.poll-clickable:active {
-  text-decoration: none;
-  color: black;
-}
-
-.pi-container {
-  height: 100px;
-  border-radius: 20px;
-  background-color: #ffd4a3;
-  padding: 10px;
-  padding-top: 10px;
-  align-content: middle;  
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pi-title {
-  text-align: center;
-  margin-bottom: 3px;
-  font-size: 36px;
-  font-weight: bold;
-  flex-grow: 4;
-  padding-right: 75px;
+.poll-item {
+	display: flex;
+	background-color: #FF4C29;
+	border-radius: 15px;
+	margin: 20px 0;
+	align-items: center;
 }
 
 .pi-ranking {
-  padding-left: 50px;
-  padding-right: 50px;
-  margin-bottom: 3px;
-  font-size: 30px;
-  font-weight: bold;
-  flex-grow: 1;
-  transform: skew(-20deg);
+	font-size: 30px;
+	color: #FFFCFC;
+	margin: auto 40px;
 }
 
 .pi-image-container {
-  max-height: 100px;
-  flex-grow: 2;
-  overflow: hidden;
+	width: 350px;
+	height: 90px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
 }
 
-.pi-image-container img {
-  max-height: 100px;
-  width: 220px;
-  border-radius: 20px;
+.life-poll-img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	margin-top: 70px;
 }
 
-.view-rightside {
-  max-width: 350px;
-  height: fit-content;
-  margin-right: 30px;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #2C394B;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
+.waifu-poll-img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	margin-top: 180px;
 }
 
-.view-rightside h3 {
-  font-weight: bold;
-  font-size: 26px;
-  color: #e249c1;
+.pi-title {
+	font-size: 30px;
+	color: #FFFCFC;
+	margin: auto auto;
 }
 
-.sidebar-item {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 5px;
-  align-items: center;
+/* Sidebar */
+
+.sidebar-container {
+	width: 30%;
+	height: 640px;
+	margin-left: 80px;
+	border-radius: 20px;
+	border: 1px solid #2C394B;
+	background-color: transparent;
 }
 
-.sidebar-info {
-  margin-left: 5px;
-  text-align: left;
-  padding-left: 5%;
-  word-wrap: initial;
-  margin-bottom: 8px;
+.sidebar-container h3 {
+	font-weight: 600;
+	font-size: 26px;
+	color: #1E883E;
+}
+
+.sidebar-items {
+	margin: 30px;
+	text-align: left;
 }
 
 .sidebar-info h4 {
-  margin-top: 8px;
-  font-weight: bold;
-  font-size: 20px;
+	margin-bottom: 10px;
+	padding: 0;
 }
 
 .sidebar-info p {
-  margin-top: -5px;
-  padding-left: 5%;
-  font-family: 'Open Sans';
-  font-style: italic;
+	margin-bottom: 25px;
+	padding: 0;
+	line-height: 1.5;
 }

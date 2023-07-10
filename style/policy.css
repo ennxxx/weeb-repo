@@ -23,11 +23,10 @@ body {
 
 #policy-container {
     display: flex;
-    flex-direction: row;
-    margin: 70px 120px 70px 120px;
-    padding: 0 20px;
-    max-width: 100%;
-    box-sizing: border-box;
+    width: 85%;
+    margin: 0 auto;
+    padding: 20px 20px 30px 20px;
+    justify-content: space-between;
 }
 
 /* Jump Section */
@@ -55,7 +54,7 @@ body {
 #policy-info {
     width: 80%;
     text-align: left;
-    margin-left: 60px;
+    margin-left: 10px;
 }
 
 hr {
