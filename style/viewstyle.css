@@ -97,8 +97,9 @@ body {
 }
 
 .post-content {
-	margin: 25px 40px 30px 15px;
+	margin: 15px 40px 30px 15px;
 	text-align: left;
+	line-height: 1.5;
 }
 
 .title {
