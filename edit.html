@@ -18,9 +18,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="style/navbar.css">
-    <link rel="stylesheet" href="style/footer.css">
-    <link rel="stylesheet" href="style/editstyle.css">
+    <link rel="stylesheet" href="style/all.css">
+
 
 </head>
 
@@ -29,7 +28,7 @@
     <!-- Navigation Bar -->
     <script>insertNav();</script>
 
-    <div id="content-container">
+    <div id="edit-content-container">
         <h1>Edit Profile</h1>
         <hr>
         <div id="edit-container">
@@ -45,7 +44,7 @@
                 <p>A brief description of yourself shown on your profile.</p>
                 <textarea placeholder="Bio" id="new-bio" required></textarea>
                 <div id="button-container">
-                    <input type="button" id="save" value="Save">
+                    <input type="button" id="save-edit-btn" value="Save">
                     <input type="button" id="cancel" value="Cancel" onclick="window.location.href='main-profile.html'">
                 </div>
             </div>
