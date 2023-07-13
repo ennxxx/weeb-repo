@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="style/signstyle.css">
+    <link rel="stylesheet" href="style/all.css">
     <link rel="icon" href="images/icons/icon.png" type="image/png">
 
     <!--Inputting Password-->
@@ -21,7 +21,7 @@
     </script>
 </head>
 
-<body>
+<body id="signin-body">
 
     <!--Home Button Image Div-->
     <header>
@@ -54,9 +54,9 @@
     </div>
 
     <!--Forget Password Div-->
-    <div id="popup">
-        <div class="popup-content">
-            <button id="close-button">✕</button>
+    <div id="forget-popup">
+        <div class="forget-popup-content">
+            <button id="forget-close-button">✕</button>
             <h2>Reset your password</h2>
             <p> Enter your username associated with<br>
                 the account to reset your password.</p>
@@ -70,8 +70,8 @@
     <!--Forget Password Popup-->
     <script>
         var forgetPasswordLink = document.getElementById('forget-password');
-        var popup = document.getElementById('popup');
-        var closeButton = document.getElementById('close-button');
+        var popup = document.getElementById('forget-popup');
+        var closeButton = document.getElementById('forget-close-button');
 
         // Open the pop-up window when the forget password link is clicked
         forgetPasswordLink.addEventListener('click', function (e) {
