@@ -210,8 +210,6 @@ function refreshDisplay(displayedPosts) {
     const spPostAction = document.createElement("div");
     const spCommentBtn = document.createElement("button");
     const spCommentNum = document.createElement("p");
-    const spShareBtn = document.createElement("button");
-    const spShare = document.createElement("p");
     const spSaveBtn = document.createElement("button");
 
   
@@ -232,8 +230,6 @@ function refreshDisplay(displayedPosts) {
     spPostAction.className = "post-actions";
     spCommentBtn.className = "comment-button";
     spCommentNum.className = "comment-num";
-    spShareBtn.className = "share-button";
-    spShare.className = "share";
     spSaveBtn.className = "save-button";
 
     postMain.appendChild(spVote);
@@ -252,8 +248,6 @@ function refreshDisplay(displayedPosts) {
     spPostAction.appendChild(spclickable3);
     spPostAction.appendChild(spCommentBtn);
     spPostAction.appendChild(spCommentNum);
-    spPostAction.appendChild(spShareBtn);
-    spPostAction.appendChild(spShare);
     spPostAction.appendChild(spSaveBtn);
     
     spNumVote.innerText = 0;
@@ -265,8 +259,6 @@ function refreshDisplay(displayedPosts) {
     spAuthor.innerHTML =` by <a href="main-profile.html">` + newPost.user.name + `</a>`;
     spCommentBtn.innerHTML = `<img src="images/post/comment.png" class="comment">`;
     spCommentNum.innerText = "0 Comments";
-    spShareBtn.innerHTML=`<img src="images/post/share.png" class="share">`;
-    spShare.innerText = "Share";
     spSaveBtn.innerHTML=`<img src="images/post/save.png" class="save">`;
     
     postContainer.appendChild(postMain);

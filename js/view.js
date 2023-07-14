@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded",function() {
     const postComments = document.querySelector('.view-comments');
 
     if (postId == "1") {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-post-container">
                                     <div class="vote">
                                         <button class="upvote-button">
                                             <img src="images/post/upvote.png" class="upvote">
@@ -171,10 +171,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                                 <img src="images/post/comment.png" class="comment">
                                             </button>
                                             <p>12 Comments</p>
-                                            <button class="share-button">
-                                                <img src="images/post/share.png" class="share">
-                                            </button>
-                                            <p>Share</p>
                                             <button class="save-button">
                                                 <img src="images/post/save.png" class="save">
                                             </button>
@@ -192,7 +188,7 @@ document.addEventListener("DOMContentLoaded",function() {
             refreshDisplay(comments);
         }
     } else if (postId === '2') {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-post-container">
                                 <div class="vote">
                                     <button class="upvote-button">
                                         <img src="images/post/upvote.png" class="upvote">
@@ -227,10 +223,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
                                         <p>30 Comments</p>
-                                        <button class="share-button">
-                                            <img src="images/post/share.png" class="share">
-                                        </button>
-                                        <p>Share</p>
                                         <button class="save-button">
                                             <img src="images/post/save.png" class="save">
                                         </button>
@@ -245,7 +237,7 @@ document.addEventListener("DOMContentLoaded",function() {
             refreshDisplay(comments);
         }
     } else if (postId === '3') {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-post-container">
                                 <div class="vote">
                                     <button class="upvote-button">
                                         <img src="images/post/upvote.png" class="upvote">
@@ -268,10 +260,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
                                         <p>12 Comments</p>
-                                        <button class="share-button">
-                                            <img src="images/post/share.png" class="share">
-                                        </button>
-                                        <p>Share</p>
                                         <button class="save-button">
                                             <img src="images/post/save.png" class="save">
                                         </button>
@@ -295,7 +283,7 @@ document.addEventListener("DOMContentLoaded",function() {
             refreshDisplay(comments);
         }
     } else if (postId === '4') {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-post-container">
                                 <div class="vote">
                                     <button class="upvote-button">
                                         <img src="images/post/upvote.png" class="upvote">
@@ -348,10 +336,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
                                         <p>10 Comments</p>
-                                        <button class="share-button">
-                                            <img src="images/post/share.png" class="share">
-                                        </button>
-                                        <p>Share</p>
                                         <button class="save-button">
                                             <img src="images/post/save.png" class="save">
                                         </button>
@@ -366,7 +350,7 @@ document.addEventListener("DOMContentLoaded",function() {
             refreshDisplay(comments);
         }
     } else if (postId === '5') {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-post-container">
                                 <div class="vote">
                                     <button class="upvote-button">
                                         <img src="images/post/upvote.png" class="upvote">
@@ -397,10 +381,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
                                         <p>12 Comments</p>
-                                        <button class="share-button">
-                                            <img src="images/post/share.png" class="share">
-                                        </button>
-                                        <p>Share</p>
                                         <button class="save-button">
                                             <img src="images/post/save.png" class="save">
                                         </button>
@@ -415,7 +395,7 @@ document.addEventListener("DOMContentLoaded",function() {
             refreshDisplay(comments);
         }
     } else if (postId === '6') {
-    postContent.innerHTML = `<div class="post-container">
+    postContent.innerHTML = `<div class="view-post-container">
                                 <div class="vote">
                                     <button class="upvote-button">
                                         <img src="images/post/upvote.png" class="upvote">
@@ -445,10 +425,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
                                         <p>2 Comments</p>
-                                        <button class="share-button">
-                                            <img src="images/post/share.png" class="share">
-                                        </button>
-                                        <p>Share</p>
                                         <button class="save-button">
                                             <img src="images/post/save.png" class="save">
                                         </button>
@@ -467,7 +443,7 @@ document.addEventListener("DOMContentLoaded",function() {
     }
     }
 	else if (postId === '7') {
-        postContent.innerHTML = `<div class="post-container">
+        postContent.innerHTML = `<div class="view-view-post-container">
                                     <div class="vote">
                                         <button class="upvote-button">
                                             <img src="images/post/upvote.png" class="upvote">
@@ -498,10 +474,6 @@ document.addEventListener("DOMContentLoaded",function() {
                                                 <img src="images/post/comment.png" class="comment">
                                             </button>
                                             <p>2 Comments</p>
-                                            <button class="share-button">
-                                                <img src="images/post/share.png" class="share">
-                                            </button>
-                                            <p>Share</p>
                                             <button class="save-button">
                                                 <img src="images/post/save.png" class="save">
                                             </button>
