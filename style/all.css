@@ -805,7 +805,6 @@ hr {
   border-radius: 4px;
 }
 
-
 /* ---- ANIMATION FOR ICONS -----*/
 
 .toolbar-buttons:hover {
@@ -823,7 +822,6 @@ hr {
   max-width: 100%;
   height: auto;
 }
-
 
 /* ---- Text Modifications -----*/
 
@@ -1016,33 +1014,12 @@ h1 {
 
 /* Profile Picture */
 
-#image-container {
-  width: 30%;
-  min-width: 300px;
-  max-width: 300px;
-  position: relative;
-}
-
 #profile-pic {
   width: 100%;
   height: auto;
   display: block;
   border-radius: 50%;
   border: 0.75px solid #2C394B;
-}
-
-#change-image-btn {
-  position: absolute;
-  bottom: 20px;
-  right: 30px;
-  transform: translate(50%, -50%);
-  background: url("../images/icons/pic-edit.png") no-repeat;
-  background-size: contain;
-  width: 25%;
-  height: 25%;
-  border: none;
-  cursor: pointer;
-  z-index: 1;
 }
 
 /* Profile Information */
@@ -1279,40 +1256,6 @@ a:hover {
   margin: auto auto;
 }
 
-/* Sidebar */
-
-.sidebar-container {
-  width: 30%;
-  height: 640px;
-  margin-left: 80px;
-  border-radius: 20px;
-  border: 1px solid #2C394B;
-  background-color: transparent;
-}
-
-.sidebar-container h3 {
-  font-weight: 600;
-  font-size: 26px;
-  color: #1E883E;
-}
-
-.sidebar-items {
-  margin: 30px;
-  text-align: left;
-}
-
-.sidebar-info h4 {
-  margin-bottom: 10px;
-  padding: 0;
-}
-
-.sidebar-info p {
-  margin-bottom: 25px;
-  padding: 0;
-  line-height: 1.5;
-}
-
-
 /*------------------- SPECIFICATIONS FOR THE PROFILE PAGE --------------------*/
 
 #content-container {
@@ -1332,8 +1275,9 @@ a:hover {
 }
 
 #image-container {
+  width: 260px;
+  height: 250px;
   position: relative;
-  display: inline-block;
 }
 
 #profile-pic {
@@ -1967,25 +1911,6 @@ header {
   text-align: left;
 }
 
-.view-rightside {
-  max-width: 350px;
-  height: fit-content;
-  margin-right: 30px;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #2C394B;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
-}
-
-.view-rightside h3 {
-  font-weight: 600;
-  font-size: 26px;
-  color: #1E883E;
-}
-
 .sc-vote {
   display: flex;
   flex-direction: row;
@@ -2020,6 +1945,37 @@ header {
   margin-left: 20px;
 }
 
+/* General: Right Containers */
+
+.polls-rightside {
+  width: 30%;
+  height: fit-content;
+  margin-left: 70px;
+  border-radius: 20px;
+  border: 1px solid #2C394B;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.view-rightside {
+  max-width: 350px;
+  height: fit-content;
+  margin-right: 30px;
+  margin-top: 50px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #2C394B;
+  background-color: transparent;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightside-title {
+  font-weight: 600;
+  font-size: 26px;
+  color: #1E883E;
+}
+
 .rule {
   display: flex;
   flex-direction: row;
@@ -2036,15 +1992,14 @@ header {
 }
 
 .rule-info h4 {
-  margin-top: 15px;
+  margin-top: 20px;
   font-weight: bold;
   font-size: 16px;
 }
 
 .rule-info p {
-  margin-top: -20px;
-  padding: 0;
-  line-height: 2;
+  margin-top: -10px;
+  line-height: 1.5;
   font-family: 'Open Sans';
   font-style: italic;
 }
