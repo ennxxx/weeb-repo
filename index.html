@@ -85,88 +85,12 @@
                 <div class="user-post-container">
                     <img src="images/profile/cinnamoroll.png" class="post-profile">
                     <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
-                    <div id="overlay" style="display: none;"></div>
-                    <div id="popup" style="display: none;">
-                        <span id="close" onclick="closePopup()">✕</span>
-                        <h2>Create a post</h2>
-                        <div id="title-container">
-                            <textarea id="title" placeholder="Title" maxlength="50"
-                                oninput="checkTitleLength()"></textarea>
-                            <span id="title-count">0/50</span>
-                        </div>
-
-                        <div id="toolbar">
-                            <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
-                            <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
-                            <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/icons/bullet.png"
-                                    alt="Bullet Form"></button>
-                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/icons/image.png"
-                                    alt="Insert Image"></button>
-                        </div>
-
-                        <div id="content" contenteditable="true" placeholder="Content"
-                            style="border: 1px solid #ccc; padding: 5px;"></div>
-                        <br>
-
-                        <div>
-                            <label for="url">URL:</label>
-                            <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
-                        </div>
-                        <br>
-                        <button id="popup-submit">Submit</button>
-                        <span id="submit-message"></span>
-                    </div>
+                    <script>openCreatePost();</script>
                 </div>
 
                 <!-- Posts -->
                 <div class="posts-container">
-
-                    <!-- Sample Post -->
-                    <div class="post-container">
-                        <div class="vote">
-                            <button class="upvote-button">
-                                <img src="images/post/upvote.png" class="upvote">
-                            </button>
-                            <p class="num-votes">67</p>
-                            <button class="downvote-button">
-                                <img src="images/post/downvote.png" class="downvote">
-                            </button>
-                        </div>
-                        <div class="content">
-                            <div class="post-content">
-                                <a href="view.html?id=1" class="post-clickable">
-                                    <h4 class="title">Demon Slayer mid-tier?</h4>
-                                </a>
-                                <p class="author">by <a href="sample-profile.html">pocchi</a></p>
-                                <a href="view.html?id=1" class="post-clickable">
-                                    <p class="text">Despite its visually stunning animation and action sequences, Demon
-                                        Slayer
-                                        fails to explore significant thematic depth. It primarily focuses on the battle
-                                        between
-                                        good and evil, neglecting opportunities to delve into complex societal, moral,
-                                        or
-                                        philosophical themes. The absence of deeper thematic exploration prevents it
-                                        from
-                                        resonating on a profound and hought-provoking level. So why did I watch it?
-                                        Inosuke.
-                                    </p>
-                                    <img src="images/post/media/sample1.jpeg" class="sample">
-                                </a>
-                            </div>
-                            <div class="post-actions">
-                                <a href="view.html?id=1" class="post-clickable">
-                                    <button class="comment-button">
-                                        <img src="images/post/comment.png" class="comment">
-                                    </button>
-                                </a>
-                                <p class="comment-num">12 Comments</p>
-                                <button class="save-button">
-                                    <img src="images/post/save.png" class="save">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <script>insertFillerPost();</script>
                 </div>
             </div>
 
