@@ -25,21 +25,21 @@ document.addEventListener("DOMContentLoaded",function() {
 	overviewContainer.style.display = "block";
 
 	function clickFilter() {
-	var filterType = this.getAttribute("data-filter");
+		var filterType = this.getAttribute("data-filter");
 
-	filterButtons.forEach(function(button) {
-		button.classList.remove("clicked");
-	});
+		filterButtons.forEach(function(button) {
+			button.classList.remove("clicked");
+		});
 
-	this.classList.add("clicked");
+		this.classList.add("clicked");
 
-	containers.forEach(function(container) {
-		container.style.display = "none";
-	});
+		containers.forEach(function(container) {
+			container.style.display = "none";
+		});
 
-	var selectedContainer = document.getElementById(filterType + "-view");
-	selectedContainer.style.display = "block";
-}
+		var selectedContainer = document.getElementById(filterType + "-view");
+		selectedContainer.style.display = "block";
+	}
 
 // .________________________.
 // ||			           ||

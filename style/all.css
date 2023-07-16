@@ -1034,7 +1034,6 @@ hr {
 .comment-container {
   border-radius: 10px;
   border: 0.75px solid #858E99;
-  margin-top: 10px;
   margin-bottom: 25px;
   padding: 20px;
 }
@@ -2043,4 +2042,71 @@ header {
 .sc-edited {
   font-size: 11px;
   color: #1E883E;
+}
+
+/*------------------- SPECIFICATIONS FOR THE SEARCH PAGE ---------------------*/
+
+.search-title {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.search-title h2 {
+  color: #2C394B;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+#search-query {
+  font-weight: 300;
+}
+
+.search-overview {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-filters {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.search-filters h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.search-filter {
+  margin-top: 20px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+  background-color: transparent;
+  text-align: left;
+}
+
+.search-filter.clicked {
+  font-weight: 500;
+  color: #FF4C29
+}
+
+.search-finds {
+  width: 80%;
+  border-left: 1px solid #DEE3E7;
+  padding-left: 50px;
+}
+
+.search-user {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 0.75px solid #858E99;
+  margin-bottom: 20px;
+  padding: 20px;
 }

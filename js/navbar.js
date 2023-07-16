@@ -23,6 +23,23 @@ document.addEventListener("DOMContentLoaded",function() {
 
 // .________________________.
 // ||			                 ||
+// ||        Search        ||
+// ||______________________||
+// '			                  '
+    
+    var searchInput = document.getElementById("search-text");
+
+    searchInput.addEventListener("keyup", function(event) {
+
+        if (event.keyCode === 13) {
+            var searchQuery = searchInput.value;
+            var searchResultsURL = "search.html?query=" + encodeURIComponent(searchQuery);
+            window.location.href = searchResultsURL;
+        }
+    });
+
+// .________________________.
+// ||			                 ||
 // ||        Scroll        ||
 // ||______________________||
 // '			                  '
