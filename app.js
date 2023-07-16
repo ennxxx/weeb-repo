@@ -242,8 +242,8 @@ app.engine('hbs', exphbs.engine({
         },
         substring: helpers.substring
     }
-
 }));
+
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
@@ -364,4 +364,4 @@ app.post("/reply", (req, res) => {
   } 
 });
 
-app.listen(3000, () => console.log("Express app is now listening..."));
+app.listen(3000, () => console.log("Server is running on port 3000"));
