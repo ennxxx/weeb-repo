@@ -1,0 +1,14 @@
+{
+  "name": "weeb-repo-node",
+  "version": "0.1.0",
+  "description": "A Reddit-like website that focuses on anime and manga.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
