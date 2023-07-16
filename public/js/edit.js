@@ -1,8 +1,10 @@
 // .________________________.
 // ||			           ||
-// ||    Change Profile    ||
+// ||     Edit Profile     ||
 // ||______________________||
 // '			            ' 
+
+/* Change Profile Picture */
 
 document.addEventListener("DOMContentLoaded", function() {
     var changeButton = document.querySelector("#change-image-btn");
