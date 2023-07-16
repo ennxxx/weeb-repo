@@ -1984,6 +1984,14 @@ header {
   text-align: left;
 }
 
+.sc-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .sc-vote {
   display: flex;
   flex-direction: row;
@@ -2012,8 +2020,27 @@ header {
   margin-top: 3px;
 }
 
-.sc-reply-button {
+.sc-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-reply-button,
+.sc-edit-button,
+.sc-delete-button {
   border: none;
   height: 13px;
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.sc-edited {
+  font-size: 11px;
+  color: #1E883E;
 }

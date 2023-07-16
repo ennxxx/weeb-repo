@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // .________________________.
-    // ||			           ||
+    // ||			                 ||
     // ||       Register       ||
     // ||______________________||
-    // '			            '
+    // '			                  '
   
     /* Declaration of Variables */
     const passwordInput = document.getElementById('password-input');
