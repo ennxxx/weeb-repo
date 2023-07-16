@@ -12,6 +12,84 @@
 
 /*----- General Elements: Header, Footer, & Scroll Up Icon -----*/
 
+/*----------- Specifications for the Main Container ------------*/
+
+.row-content-container {
+  display: flex;
+  flex-direction: row;
+  margin: 70px 150px;
+  padding: 0 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.column-content-container {
+  margin: 70px 150px;
+  padding: 0 20px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Note: View conflicts with the general content containers */
+.view-container {
+  display: flex;
+  width: 85%;
+  margin: -60px auto 0 auto;
+  padding: 20px 20px 30px 20px;
+}
+
+/*------------- Specifications for the Righside -------------*/
+/* This is for rightside containers in Polls and View Post */
+
+.polls-rightside {
+  width: 30%;
+  height: fit-content;
+  margin-left: 70px;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+}
+
+.view-rightside {
+  width: 320px;
+  height: fit-content;
+  margin-right: 30px;
+  margin-top: 50px;
+  border-radius: 20px;
+  background-color: #EEF1F4;
+}
+
+/* Elements of the Rightside */
+
+.rightside-title-container {
+  background-color: #6C8CA4;
+  text-align: center;
+  border-radius: 20px 20px 0 0;
+  padding: 15px;
+}
+
+.rightside-title-container h4 {
+  color: #FFFCFC;
+  padding: 0;
+  margin: 0;
+}
+
+.rightside-content {
+  text-align: left;
+  padding: 10px 30px;
+  border-top: 1px solid #DEE3E7;
+}
+
+.rightside-content h4 {
+  font-size: 16px;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.rightside-content p {
+  margin: 15px 0;
+  padding: 0;
+}
+
 /*------------- Specifications for the Header -------------*/
 /* Contains Navigation Container (Logo, Search Bar, Links) */
 
@@ -255,12 +333,11 @@ hr {
 
 .carousel-container {
   /* Carousel */
-  width: 70%;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 20px;
   position: relative;
-  margin-bottom: 35px;
+  margin-bottom: 50px;
 }
 
 .carousel-inner {
@@ -319,7 +396,6 @@ hr {
 /* ---- POST AND POLL SECTION -----*/
 
 .postpoll-container {
-  width: 70%;
   margin: 0 auto;
   padding-bottom: 30px;
   display: flex;
@@ -834,13 +910,6 @@ hr {
 }
 
 /*--------- SPECIFICATIONS FOR ANIME & GAME SECTION ---------*/
-.anime-container {
-  display: flex;
-  width: 85%;
-  margin: 0 auto;
-  padding: 20px 20px 30px 20px;
-  justify-content: space-between;
-}
 
 #anime-section {
   width: 75%;
@@ -866,14 +935,6 @@ hr {
 /*---- Gaming Section Specifications----*/
 
 /* Body */
-
-.gaming-container {
-  display: flex;
-  width: 85%;
-  margin: 0 auto;
-  padding: 20px 20px 30px 20px;
-  justify-content: space-between;
-}
 
 #gaming-section {
   width: 75%;
@@ -993,10 +1054,6 @@ hr {
 
 /*--------------- SPECIFICATIONS FOR EDITING PROFILE DETAILS -----------------*/
 
-#edit-content-container {
-  margin: 100px;
-}
-
 h1 {
   text-align: left;
   font-weight: 600;
@@ -1020,6 +1077,19 @@ h1 {
   display: block;
   border-radius: 50%;
   border: 0.75px solid #2C394B;
+}
+
+#edit-change-image-btn {
+  position: absolute;
+  bottom: 40px;
+  right: 0px;
+  background: url("../images/icons/pic-edit.png") no-repeat;
+  background-size: contain;
+  width: 60px;
+  height: 60px;
+  border: none;
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* Profile Information */
@@ -1120,14 +1190,6 @@ a:hover {
 }
 
 /* --------------- SPECIFICATION FOR PRIVACY POLICY SECTION ---------------------- */
-
-#policy-container {
-  display: flex;
-  width: 85%;
-  margin: 0 auto;
-  padding: 20px 20px 30px 20px;
-  justify-content: space-between;
-}
 
 /* Jump Section */
 
@@ -1258,15 +1320,6 @@ a:hover {
 
 /*------------------- SPECIFICATIONS FOR THE PROFILE PAGE --------------------*/
 
-#content-container {
-  display: flex;
-  flex-direction: row;
-  margin: 70px 120px 70px 120px;
-  padding: 0 20px;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
 /* Profile */
 
 #profile-container {
@@ -1290,7 +1343,7 @@ a:hover {
 
 #change-image-btn {
   position: absolute;
-  bottom: 0px;
+  bottom: -10px;
   right: 0px;
   background: url("../images/icons/pic-edit.png") no-repeat;
   background-size: contain;
@@ -1791,13 +1844,6 @@ header {
   text-align: center;
 }
 
-.view-container {
-  display: flex;
-  width: 85%;
-  margin: -60px auto 0 auto;
-  padding: 20px 20px 30px 20px;
-}
-
 .view-post {
   flex: 4;
   margin: 15px;
@@ -1943,63 +1989,4 @@ header {
   border: none;
   height: 13px;
   margin-left: 20px;
-}
-
-/* General: Right Containers */
-
-.polls-rightside {
-  width: 30%;
-  height: fit-content;
-  margin-left: 70px;
-  border-radius: 20px;
-  border: 1px solid #2C394B;
-  background-color: transparent;
-  padding: 10px;
-}
-
-.view-rightside {
-  max-width: 350px;
-  height: fit-content;
-  margin-right: 30px;
-  margin-top: 50px;
-  padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #2C394B;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
-}
-
-.rightside-title {
-  font-weight: 600;
-  font-size: 26px;
-  color: #1E883E;
-}
-
-.rule {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 5px;
-  align-items: center;
-}
-
-.rule-info {
-  margin-left: 5px;
-  text-align: left;
-  padding-left: 5%;
-  word-wrap: initial;
-  margin-bottom: 8px;
-}
-
-.rule-info h4 {
-  margin-top: 20px;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.rule-info p {
-  margin-top: -10px;
-  line-height: 1.5;
-  font-family: 'Open Sans';
-  font-style: italic;
 }
