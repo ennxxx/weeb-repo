@@ -1,0 +1,33 @@
+<div class="single-comment-main" id="{{this.comID}}">
+    <div class="comID" style="display: none;">{{this.comID}}</div>
+    <div class="single-comment">
+        <div class="sc-left">
+            <img class="sc-picture" src="/static/images/profile/{{profpic}}">
+        </div>
+        <div class="sc-right">
+            <div class="sc-name">{{author}}</div>
+            <div class="sc-right-content">
+                <div class="sc-body">{{content}}</div>
+            </div>
+            <div class="sc-vote">
+                <button class="sc-upvote-button">
+                    <img src="/static/images/post/upvote.png" class="sc-upvote">
+                </button>
+                <p class="sc-num-votes">0</p>
+                <button class="sc-downvote-button">
+                    <img src="/static/images/post/downvote.png" class="sc-downvote">
+                </button>
+                <button class="sc-reply-button">Reply</button>
+                
+            </div>
+            <div class="reply-form" style="display:none;">
+                <textarea class="reply-area" rows="1" placeholder="Write a reply"></textarea>
+                <button class="submit-reply">Submit</button>
+            </div>
+            <div class="replies">
+                <!-- Replies will be appended here -->
+                
+                </div>
+        </div>
+    </div>
+</div>

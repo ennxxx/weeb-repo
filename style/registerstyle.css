@@ -1,0 +1,126 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/INTER.ttf') format('truetype');
+}
+
+body {
+    color: #FFFCFC;
+    font-size: 14px;
+    line-height: 18px;
+    background: linear-gradient(to bottom, #FC8B12, #FE6705, #FE3B07, #FF3600);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', serif;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Header */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 130px;
+}
+
+#logo {
+    width: auto;
+    height: 70px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+header .signin-container {
+    display: flex;
+    align-items: center;
+}
+
+header p,
+header a {
+    margin: 0;
+}
+
+header p {
+    margin-right: 10px;
+}
+
+header a {
+    margin-right: 30px;
+    color: #FFFCFC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Registration */
+
+h1 {
+    padding-bottom: 20px;
+}
+
+.register-container {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: rgba(44, 57, 75, 0.15);
+    border-radius: 10px;
+    width: 700px;
+}
+
+.registration-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Registration (Left) */
+
+.registration-left {
+    flex: 1;
+    margin-right: 20px;
+    padding-left: 20px;
+}
+
+.textbox {
+    width: 270px;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#password-match-icon {
+    font-size: 16px;
+    padding-right: 15px;
+}
+
+/* Registration (Right) */
+
+.registration-right {
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+#girl {
+    width: auto;
+    height: 200px;
+    padding-top: 100px;
+    padding-right: 30px;
+    margin-left: -50px;
+}
+
+/* Submission */
+
+.registration-actions {
+    text-align: right;
+}
+
+#arrow {
+    width: auto;
+    height: 30px;
+}

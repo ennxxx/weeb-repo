@@ -67,7 +67,38 @@
                 <div class="user-post-container">
                     <img src="images/profile/cinnamoroll.png" class="post-profile">
                     <a href="javascript:void(0)" onclick="openPopup();" class="post-textbox">Write a post</a>
-                    <script>openCreatePost();</script>
+                    <div id="overlay" style="display: none;"></div>
+                    <div id="popup" style="display: none;">
+                        <span id="close" onclick="closePopup()">✕</span>
+                        <h2>Create a post</h2>
+                        <div id="title-container">
+                            <textarea id="title" placeholder="Title" maxlength="50"
+                                oninput="checkTitleLength()"></textarea>
+                            <span id="title-count">0/50</span>
+                        </div>
+
+                        <div id="toolbar">
+                            <button class="toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
+                            <button class="toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
+                            <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
+                            <button class="toolbar-buttons" onclick="makeBullet()"><img src="images/icons/bullet.png"
+                                    alt="Bullet Form"></button>
+                            <button class="toolbar-buttons" onclick="insertImage()"><img src="images/icons/image.png"
+                                    alt="Insert Image"></button>
+                        </div>
+
+                        <div id="content" contenteditable="true" placeholder="Content"
+                            style="border: 1px solid #ccc; padding: 5px;"></div>
+                        <br>
+
+                        <div>
+                            <label for="url">URL:</label>
+                            <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
+                        </div>
+                        <br>
+                        <button id="popup-submit">Submit</button>
+                        <span id="submit-message"></span>
+                    </div>
                 </div>
 
                 <!-- Posts -->
@@ -155,8 +186,7 @@
                             <button class="edit-button" onclick="openEditPopup()">
                                 <img src="images/post/edit.png" class="edit">
                             </button>
-                            <script>openEditPost();</script>
-                            <p class="edit-post">Edit Post</p>
+                            <p id="edit-post">Edit Post</p>
                             <a href="view.html?id=5" class="post-clickable">
                                 <button class="comment-button">
                                     <img src="images/post/comment.png" class="comment">

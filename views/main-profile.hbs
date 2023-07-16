@@ -1,0 +1,83 @@
+<script src="/static/js/post.js"></script>
+<script src="/static/js/edit.js"></script>
+<script src="/static/js/profile.js"></script>
+
+<!-- CSS File for Index -->
+<link rel="stylesheet" href="/static/style/all.css">
+ <!-- Profile Content -->
+    <div id="content-container">
+        <div id="profile-container">
+            <div id="image-container">
+                <img src="/static/images/profile.png" id="profile-pic">
+                <button id="change-image-btn"></button>
+            </div>
+            <h2 id="name">Cinnamoroll</h2>
+            <h4 id="username">u/shellyace</h4>
+            <p id="bio">"meron ka bang mga emotional baggage?"<br><br>"i prefer to carry small bags."
+            </p>
+            <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+            <div id="followers-container">
+                <img src="/static/images/profile/followers.png">
+                <p><span class="bold">3</span> followers • <span class="bold">2</span> following</p>
+            </div>
+        </div>
+        <div id="overview-container">
+            <!-- Filter Buttons -->
+            <div id="filters-container">
+                {{#each filters}}
+                    <button class="filter" data-filter="{{this}}">{{this}}</button>
+                {{/each}}
+            </div>
+
+            <hr>
+
+            <!-- Overview -->
+            <div id="overview-view">
+                {{#each posts}}
+                {{> post this}}
+                {{/each}}
+            </div>
+
+            <!-- Posts -->
+            <div id="posts-view">
+                {{#each posts}}
+                {{> post this}}
+                {{/each}}
+            </div>
+
+            <!-- Comments -->
+            <div id="comments-view">
+                {{#each commentPosts}}
+                {{> post this}}
+                {{/each}}
+            </div>
+
+            <!-- Upvotes -->
+            <div id="upvoted-view">
+                <div class="empty-container">
+                    <img src="/static/images/profile/empty.png" class="empty-icon">
+                    <h2 class="empty-text">Looks like there's nothing here</h2>
+                </div>
+            </div>
+
+            <!-- Downvotes -->
+            <div id="downvoted-view">
+                <div class="empty-container">
+                    <img src="/static/images/profile/empty.png" class="empty-icon">
+                    <h2 class="empty-text">Looks like there's nothing here</h2>
+                </div>
+            </div>
+
+            <!-- Saved -->
+            <div id="saved-view">
+                <div class="empty-container">
+                    <img src="/static/images/profile/empty.png" class="empty-icon">
+                    <h2 class="empty-text">Looks like there's nothing here</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-up-button">
+        <img src="/static/images/scroll-up.png" class="scroll-up">
+    </button>

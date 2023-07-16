@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="icon" href="images/icon.png" type="image/png">
+    <script src="js/profile.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/test.js"></script>
+    <script src="js/test.js"></script>
+
+    <!-- Bootstrap and Ajax-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="style/footer.css">
+    <link rel="stylesheet" href="style/indexstyle.css">
+    <link rel="stylesheet" href="style/profilestyle.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/comment.css">
+</head>
+
+<body>
+
+   <!-- Navigation Bar -->
+   <script>insertNav();</script>
+
+    <!-- Profile Content -->
+    <div id="content-container">
+        <div id="profile-container">
+            <img src="images/profile/profile-pics/profile3.jpeg" id="profile-pic">
+            <h2 id="name">Winnie</h2>
+            <h4 id="username">u/DedInComSci</h4>
+            <p id="bio">I ordered a pizza last YEAR and it hasn't come yet hahaha. i also haven't felt genuine happiness
+                since 2012.</p>
+            <input type="button" id="follow-button" value="Follow">
+            <div id="followers-container">
+                <img src="images/profile/followers.png">
+                <p><span class="bold">7</span> followers • <span class="bold">2</span> following</p>
+            </div>
+        </div>
+
+        <div id="overview-container">
+
+            <!-- Filter Buttons -->
+            <div id="filters-container">
+                <button class="filter" data-filter="overview">Overview</button>
+                <button class="filter" data-filter="posts">Posts</button>
+                <button class="filter" data-filter="comments">Comments</button>
+            </div>
+            <hr>
+
+            <!-- Overview -->
+            <div id="overview-view">
+                <div class="post-container">
+                    <div class="vote">
+                        <button class="upvote-button">
+                            <img src="images/post/upvote.png" class="upvote">
+                        </button>
+                        <p class="num-votes">29</p>
+                        <button class="downvote-button">
+                            <img src="images/post/downvote.png" class="downvote">
+                        </button>
+                    </div>
+                    <div class="content">
+                        <div class="post-content">
+                            <a href="view.html?id=3" class="post-clickable">
+                                <h4 class="title">The Ultimate Showdown: Kafka or Himeko?</h4>
+                            </a>
+                            <p class="author">by <a href="profile5.html">IAmLoaf21</a></p>
+                            <a href="view.html?id=3" class="post-clickable">
+                                <p class="text">As a Kafka lover this is still the hardest question ... As much as I
+                                    love
+                                    Himeko, Kafka has awakened something in me.</p>
+                                <img src="images/post/media/sample3.jpg" class="sample">
+                            </a>
+                        </div>
+                        <div class="post-actions">
+                            <a href="view.html?id=3" class="post-clickable">
+                                <button class="comment-button">
+                                    <img src="images/post/comment.png" class="comment">
+                                </button>
+                            </a>
+                            <p>12 Comments</p>
+
+                            <button class="share-button">
+                                <img src="images/post/share.png" class="share">
+                            </button>
+                            <p>Share</p>
+                            <button class="save-button">
+                                <img src="images/post/save.png" class="save">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-container">
+                    <div class="vote">
+                        <button class="upvote-button">
+                            <img src="images/post/upvote.png" class="upvote">
+                        </button>
+                        <p class="num-votes">98</p>
+                        <button class="downvote-button">
+                            <img src="images/post/downvote.png" class="downvote">
+                        </button>
+                    </div>
+                    <div class="content">
+                        <div class="post-content">
+                            <a href="view.html?id=6" class="post-clickable">
+                                <h4 class="title">Komi Can't Communicate</h4>
+                            </a>
+                            <p class="author">by <a href="profile4.html">cornbrip69</a></p>
+                            <a href="view.html?id=6" class="post-clickable">
+                                <p class="text">Before this season started there was a lot of hype around this show.
+                                    Honestly, I initially brushed off "Komi Can't Communicate" as your typical
+                                    slice-of-life
+                                    school story,
+                                    but oh boy, was I in for a surprise! This show is an absolute delight, radiating
+                                    with
+                                    its own unique
+                                    charm. Every episode leaves me with a big smile on my face. Not only is the source
+                                    material fantastic,
+                                    but the adaptation itself is flawless. OLM Studio has poured so much love and
+                                    attention
+                                    into every
+                                    detail, and it truly makes a world of difference. Trust me, if you haven't given
+                                    this
+                                    show a chance
+                                    yet, do yourself a favor and dive right in. It's an experience that's definitely
+                                    worth
+                                    every minute
+                                    of your time!</p>
+                                <img src="images/post/media/top-sample.jpeg" class="sample">
+                            </a>
+                        </div>
+                        <div class="post-actions">
+                            <a href="view.html?id=6" class="post-clickable">
+                                <button class="comment-button">
+                                    <img src="images/post/comment.png" class="comment">
+                                </button>
+                            </a>
+                            <p>2 Comments</p>
+                            <button class="share-button">
+                                <img src="images/post/share.png" class="share">
+                            </button>
+                            <p>Share</p>
+                            <button class="save-button">
+                                <img src="images/post/save.png" class="save">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts -->
+            <div id="posts-view">
+                <div class="post-container">
+                    <div class="vote">
+                        <button class="upvote-button">
+                            <img src="images/post/upvote.png" class="upvote">
+                        </button>
+                        <p class="num-votes">43</p>
+                        <button class="downvote-button">
+                            <img src="images/post/downvote.png" class="downvote">
+                        </button>
+                    </div>
+                    <div class="content">
+                        <div class="post-content">
+                            <a href="view.html?id=2" class="post-clickable">
+                                <h4 class="title">Should I play Genshin again?</h4>
+                            </a>
+                            <p class="author">by <a href="profile3.html">DedInComSci</a></p>
+                            <a href="view.html?id=2" class="post-clickable">
+                                <p class="text">Lately, I've been stumbling upon tons of Genshin-related stuff like
+                                    MMDs,
+                                    fan comics, breathtaking artwork, and mind-blowing MVs featuring the characters on
+                                    YouTube. It's rekindling my interest like never before!
+                                    <br><br>
+                                    To give you some background, I gave Genshin a shot last year but ended up dropping
+                                    it
+                                    because I was also engrossed in playing Honkai Impact (which I still do, by the
+                                    way).
+                                    Back then, I thought managing the gacha systems in both games would be overwhelming,
+                                    not
+                                    to mention the occasional negativity aimed at Genshin players. However, things have
+                                    changed for me now.
+                                    <br><br>
+                                    Recently, I've been bombarded with a flood of amazing Genshin content, and it's
+                                    making
+                                    me seriously consider jumping back into the game. The only thing that's giving me
+                                    second
+                                    thoughts is the game's free-to-play aspect. How feasible is it to enjoy the game
+                                    without
+                                    spending a fortune? Is Genshin Impact worth giving another shot?
+                                </p>
+                            </a>
+                        </div>
+                        <div class="post-actions">
+                            <a href="view.html?id=2" class="post-clickable">
+                                <button class="comment-button">
+                                    <img src="images/post/comment.png" class="comment">
+                                </button>
+                            </a>
+                            <p>30 Comments</p>
+
+                            <button class="share-button">
+                                <img src="images/post/share.png" class="share">
+                            </button>
+                            <p>Share</p>
+                            <button class="save-button">
+                                <img src="images/post/save.png" class="save">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments -->
+            <div id="comments-view">
+                <div class="empty-container">
+                    <img src="images/profile/empty.png" class="empty-icon">
+                    <h2 class="empty-text">Looks like there's nothing here</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button class="scroll-up-button">
+        <img src="images/scroll-up.png" class="scroll-up">
+    </button>
+
+    <!-- Footer -->
+    <script>insertFooter();</script>
+
+</body>
+
+</html>
