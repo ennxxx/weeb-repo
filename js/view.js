@@ -312,10 +312,11 @@ document.addEventListener("DOMContentLoaded",function() {
                                         <img src="images/post/media/sample5.png" class="sample">
                                     </div>
                                     <div class="post-actions">
-                                        <button class="edit-button">
+                                        <button class="edit-button" a href="javascript:void(0)" onclick="openEditPopup()">
                                             <img src="images/post/edit.png" class="edit">
                                         </button>
-                                        <p id="edit-post">Edit Post</p>
+                                        <script>openEditPost();</script>
+                                        <p class="edit-post">Edit Post</p>
                                         <button class="comment-button">
                                             <img src="images/post/comment.png" class="comment">
                                         </button>
