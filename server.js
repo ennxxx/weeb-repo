@@ -73,24 +73,12 @@ server.listen(3000, 'localhost', () => {
 });
 */
 
-import 'express';
-import 'express-handlebars';
-import * as helpers from './helpers.js';
-import 'dotenv/config';
-import { connectToMongo, getDb } from './db/conn.js';
-const app = express();
+const express = require('express');
+const exphbs = require('express-handlebars');
+const helpers = require('./helpers.js');
+const dotenv = require('dotenv');
+dotenv.config();
 
-connectToMongo((err) => {
-  if (err) {
-    console.log("May Error Puta");
-    console.error(err);
-    process.exit();
-  }
-  console.log("Connected to MongoDB!");
-  // Do stuff here daw
-  const db = getDb();
-  // app.listen is hir supposedly? so dulo na to?
-});
 
 const posts = [
     {
@@ -243,7 +231,7 @@ const posts = [
 
 ];
 
-
+const app = express();
 
 app.use("/static", express.static("public"));
 
