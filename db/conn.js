@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
 
-const mongoURI = process.env.MONGO_URI;
+
+const mongoURI = process.env.MONGODB_URI;
 const client = new MongoClient(mongoURI);
 
 export function connectToMongo (callback) {

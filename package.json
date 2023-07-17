@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A Reddit-like website that focuses on anime and manga.",
   "main": "app.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
