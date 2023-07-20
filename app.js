@@ -80,7 +80,7 @@ app.get("/view/:id", (req, res) => {
 
 app.get("/main-profile", (req, res) => {
 
-  const filters = ['overview', 'posts', 'comments', 'upvoted', 'downvoted', 'saved'];
+  const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
 
   res.render("main-profile", {
     posts: posts,
