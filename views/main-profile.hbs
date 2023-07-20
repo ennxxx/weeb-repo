@@ -21,11 +21,10 @@
         <!-- Filter Buttons -->
         <div id="filters-container">
             {{#each filters}}
-                <button class="filter" data-filter="{{this}}">{{this}}</button>
+            <button class="filter" data-filter="{{this}}">{{this}}</button>
             {{/each}}
         </div>
-
-        <hr>
+        <hr id="filter-hr">
 
         <!-- Overview -->
         <div id="overview-view">
@@ -46,7 +45,7 @@
 
         <!-- Posts -->
         <div id="posts-view">
-             <div class="posts-container">
+            <div class="posts-container">
                 {{#each posts}}
                 {{> post this}}
                 {{/each}}
@@ -55,7 +54,7 @@
 
         <!-- Comments -->
         <div id="comments-view">
-             <div class="posts-container">
+            <div class="posts-container">
                 {{#each commentPosts}}
                 {{> post this}}
                 {{/each}}

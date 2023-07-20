@@ -431,7 +431,7 @@ hr {
   background-color: #EEF1F4;
   display: flex;
   flex-direction: row;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   padding: 15px;
 }
 
@@ -504,7 +504,7 @@ hr {
   margin-right: -5px;
 }
 
-#edit-post {
+.edit-post {
   margin-right: 15px;
 }
 
@@ -745,7 +745,8 @@ hr {
 
 /*---------------- SPECIFICATIONS FOR THE POP-UP for Create Post --------------*/
 
-#overlay {
+#overlay,
+#edit-overlay {
   /* Shadow Overlay */
   position: fixed;
   top: 0;
@@ -756,7 +757,8 @@ hr {
   z-index: 999;
 }
 
-#popup {
+#popup,
+#edit-popup {
   /*Popup Display */
   position: fixed;
   top: 50%;
@@ -773,12 +775,14 @@ hr {
   text-align: left;
 }
 
-#title-container {
+#title-container,
+#edit-title-container {
   /*Title Display */
   position: relative;
 }
 
-#title-count {
+#title-count,
+#edit-title-count {
   position: absolute;
   top: 5px;
   right: 20px;
@@ -788,8 +792,8 @@ hr {
   color: #999;
 }
 
-
-#title {
+#title,
+#edit-title {
   /* Title Input Format */
   width: 96%;
   height: 10%;
@@ -801,7 +805,8 @@ hr {
   font-family: 'Inter', serif;
 }
 
-#toolbar {
+#toolbar,
+#edit-toolbar {
   /*Toolbar Format*/
   width: 96%;
   display: flex;
@@ -814,7 +819,8 @@ hr {
   padding: 6px;
 }
 
-#content {
+#content,
+#edit-content {
   /* Input Text Format*/
   width: 96%;
   min-height: 200px;
@@ -826,7 +832,8 @@ hr {
   resize: vertical;
 }
 
-#url {
+#url,
+#edit-url {
   /*Format for the URL textbox*/
   margin-left: 5px;
   width: 89%;
@@ -840,7 +847,8 @@ hr {
 
 /* ------- MODIFICATION FOR ICONS -----*/
 
-#close {
+#close,
+#edit-close {
   /* Close Button (To do: Replace the Icon)*/
   position: absolute;
   top: 15px;
@@ -854,7 +862,8 @@ hr {
   color: #666;
 }
 
-.toolbar-buttons {
+.toolbar-buttons,
+.edit-toolbar-buttons {
   /* Toolbar Icons */
   display: inline-flex;
   align-items: center;
@@ -870,8 +879,15 @@ hr {
   margin-right: 20px;
 }
 
-#popup-submit {
-  /*Submit Button*/
+#edit-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+#popup-submit,
+#edit-popup-submit,
+#edit-popup-delete {
+  /*Submit and Delete Button*/
   background-color: #FF4C29;
   color: #ffffff;
   border: none;
@@ -879,6 +895,16 @@ hr {
   font-size: 16px;
   cursor: pointer;
   border-radius: 4px;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+#edit-popup-submit:hover {
+  background-color: #1E883E;
+}
+
+#edit-popup-delete:hover {
+  background-color: #2C394B;
 }
 
 /* ---- ANIMATION FOR ICONS -----*/
@@ -901,7 +927,8 @@ hr {
 
 /* ---- Text Modifications -----*/
 
-#popup h2 {
+#popup h2,
+#edit-popup h2 {
   /* Popup Header */
   font-size: 24px;
   margin-top: 5px;
@@ -1007,7 +1034,6 @@ hr {
 .comment-container {
   border-radius: 10px;
   border: 0.75px solid #858E99;
-  margin-top: 10px;
   margin-bottom: 25px;
   padding: 20px;
 }
@@ -1957,6 +1983,14 @@ header {
   text-align: left;
 }
 
+.sc-footer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .sc-vote {
   display: flex;
   flex-direction: row;
@@ -1985,8 +2019,94 @@ header {
   margin-top: 3px;
 }
 
-.sc-reply-button {
+.sc-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sc-reply-button,
+.sc-edit-button,
+.sc-delete-button {
   border: none;
   height: 13px;
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.sc-edited {
+  font-size: 11px;
+  color: #1E883E;
+}
+
+/*------------------- SPECIFICATIONS FOR THE SEARCH PAGE ---------------------*/
+
+.search-title {
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.search-title h2 {
+  color: #2C394B;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+#search-query {
+  font-weight: 300;
+}
+
+.search-overview {
+  display: flex;
+  flex-direction: row;
+}
+
+.search-filters {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.search-filters h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.search-filter {
+  margin-top: 20px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 300;
+  background-color: transparent;
+  text-align: left;
+}
+
+.search-filter.clicked {
+  font-weight: 500;
+  color: #FF4C29
+}
+
+.search-finds {
+  width: 80%;
+  border-left: 1px solid #DEE3E7;
+  padding-left: 50px;
+}
+
+.search-user {
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border: 0.75px solid #858E99;
+  margin-bottom: 20px;
+  padding: 20px;
 }
