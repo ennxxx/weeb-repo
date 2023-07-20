@@ -1,5 +1,6 @@
 <script src="/static/js/profile.js"></script>
 <script src="/static/js/edit.js"></script>
+
 <!-- Profile Content -->
 <div class="row-content-container">
     <div id="profile-container">
@@ -21,14 +22,13 @@
         <!-- Filter Buttons -->
         <div id="filters-container">
             {{#each filters}}
-                <button class="filter" data-filter="{{this}}">{{this}}</button>
+            <button class="filter" data-filter="{{this}}">{{this}}</button>
             {{/each}}
         </div>
-
-        <hr>
+        <hr id="filter-hr">
 
         <!-- Overview -->
-        <div id="overview-view">
+        <div id="Overview-view">
 
             <!-- Create a Post -->
             <div class="user-post-container">
@@ -45,8 +45,8 @@
         </div>
 
         <!-- Posts -->
-        <div id="posts-view">
-             <div class="posts-container">
+        <div id="Posts-view">
+            <div class="posts-container">
                 {{#each posts}}
                 {{> post this}}
                 {{/each}}
@@ -54,8 +54,8 @@
         </div>
 
         <!-- Comments -->
-        <div id="comments-view">
-             <div class="posts-container">
+        <div id="Comments-view">
+            <div class="posts-container">
                 {{#each commentPosts}}
                 {{> post this}}
                 {{/each}}
@@ -63,7 +63,7 @@
         </div>
 
         <!-- Upvotes -->
-        <div id="upvoted-view">
+        <div id="Upvoted-view">
             <div class="empty-container">
                 <img src="/static/images/icons/empty.png" class="empty-icon">
                 <h2 class="empty-text">Looks like there's nothing here</h2>
@@ -71,7 +71,7 @@
         </div>
 
         <!-- Downvotes -->
-        <div id="downvoted-view">
+        <div id="Downvoted-view">
             <div class="empty-container">
                 <img src="/static/images/icons/empty.png" class="empty-icon">
                 <h2 class="empty-text">Looks like there's nothing here</h2>
@@ -79,7 +79,7 @@
         </div>
 
         <!-- Saved -->
-        <div id="saved-view">
+        <div id="Saved-view">
             <div class="empty-container">
                 <img src="/static/images/icons/empty.png" class="empty-icon">
                 <h2 class="empty-text">Looks like there's nothing here</h2>
