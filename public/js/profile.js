@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		button.addEventListener("click", clickFilter);
 	});
 
-	var overviewButton = document.querySelector(".filter[data-filter='overview']");
+	var overviewButton = document.querySelector(".filter[data-filter='Overview']");
 	overviewButton.classList.add("clicked");
 
 	var containers = document.querySelectorAll("#overview-container > div[id$='-view']");
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		container.style.display = "none";
 	});
 
-	var overviewContainer = document.getElementById("overview-view");
+	var overviewContainer = document.getElementById("Overview-view");
 	overviewContainer.style.display = "block";
 
 	async function clickFilter() {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded",function() {
         });
 
         // Render userPosts in the comments view container
-        var commentsViewContainer = document.getElementById("comments-view");
+        var commentsViewContainer = document.getElementById("Comments-view");
         commentsViewContainer.innerHTML = ""; // Clear previous content
 
         userPosts.forEach(function(post) {
