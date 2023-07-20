@@ -21,7 +21,7 @@ connectToMongo((err) => {
 const app = express();
 const dbName = process.env.DB_NAME;
 const mongoURI = process.env.MONGODB_URI;
-
+const db = getDb();
 
 async function importData() {
   try {
@@ -44,6 +44,7 @@ async function importData() {
 }
 
 importData();
+const posts = db.collection("PostsCollection");
 
 app.use("/static", express.static("public"));
 
