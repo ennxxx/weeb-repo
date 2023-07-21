@@ -253,6 +253,27 @@ async function importData() {
       }
     });
 
+    app.post("/vote", (req, res) => {
+      try {
+        const collection = getDb().collection("PostsCollection");
+        const posts = await collection.find().toArray();
+     
+        //console.log("POST Request to /vote received.");
+        const votes = req.body.votes;
+        const id = req.body.postID;
+      
+        if (votes && id) {
+          posts[id].voteCtr = votes; 
+          res.status(200);
+        } else {
+          res.status(400);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
     app.listen(3000, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
