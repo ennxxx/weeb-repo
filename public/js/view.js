@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded",function() {
         const content = document.querySelector(".comment-area").value;
         const author = currentUser.name;
         const profpic = currentUser.name + ".png";
-        const id = document.querySelector(".postID").innerText;
+        const post_id = document.querySelector(".post_id").innerText;
     
-        const jString = JSON.stringify({content, author, profpic, id});
+        const jString = JSON.stringify({content, author, profpic, post_id});
         
         const response = await fetch("/comment", {
             method: 'POST',
