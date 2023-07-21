@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded",function() {
     var parentPost = upvoteButton.closest(".post-container"); // Get the closest parent post container
     var downvoteButton = parentPost.querySelector(".downvote-button");
     var numVotes = parentPost.querySelector(".num-votes");
-    var postID = parentPost.id;
+    var post_id = parentPost.post_id;
 
     var upvoteImage = upvoteButton.querySelector(".upvote");
     var downvoteImage = downvoteButton.querySelector(".downvote");
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded",function() {
         upvoteImage.src = "/static/images/post/upvote.png";
         numVotes.textContent--;
       }
-      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), postID});
+      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
       const response = await fetch("/vote", {
       method: 'POST',
       body: jString,
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded",function() {
         downvoteImage.src = "/static/images/post/downvote.png";
         numVotes.textContent++;
       }
-      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), postID});
+      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
       const response = await fetch("/vote", {
       method: 'POST',
       body: jString,
