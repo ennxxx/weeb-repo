@@ -179,7 +179,7 @@ async function importData() {
             content: content,
             image: image,
             comments: [],
-            id: posts.length
+            id: posts.length,
             voteCtr: 0,
             comCtr: 0
           };
@@ -261,9 +261,8 @@ async function importData() {
       }
     });
     
-    
-
-    app.post("/vote", (req, res) => {
+    // This route is used for voting.
+    app.post("/vote", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
         const posts = await collection.find().toArray();
