@@ -174,6 +174,8 @@ async function importData() {
             image: image,
             comments: [],
             id: posts.length
+            voteCtr: 0,
+            comCtr: 0
           };
           posts.push(newPost);
           res.status(200);
@@ -208,6 +210,7 @@ async function importData() {
             reply: []
           };
           posts[id].comments.push(newComment);
+          posts[id].comCtr = posts[id].comments.length;
           res.status(200);
           res.redirect("/view/:id");
         }
