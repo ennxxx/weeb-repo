@@ -243,12 +243,12 @@ document.addEventListener("DOMContentLoaded",function() {
   // '			                  '
   
   var upvoteButtons = document.querySelectorAll(".upvote-button");
-  var downvoteButtons = document.querySelectorAll(".downvote-button");
-  var numVotesList = document.querySelectorAll(".num-votes");
 
   upvoteButtons.forEach(function (upvoteButton, index) {
-    var downvoteButton = downvoteButtons[index];
-    var numVotes = numVotesList[index];
+    var parentPost = upvoteButton.closest(".post-container"); // Get the closest parent post container
+    var downvoteButton = parentPost.querySelector(".downvote-button");
+    var numVotes = parentPost.querySelector(".num-votes");
+    var postID = parentPost.id;
 
     var upvoteImage = upvoteButton.querySelector(".upvote");
     var downvoteImage = downvoteButton.querySelector(".downvote");
@@ -270,6 +270,19 @@ document.addEventListener("DOMContentLoaded",function() {
         upvoteImage.src = "/static/images/post/upvote.png";
         numVotes.textContent--;
       }
+      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), postID});
+      const response = await fetch("/vote", {
+      method: 'POST',
+      body: jString,
+      headers: {
+          "Content-Type": "application/json"
+      }
+      });
+      console.log(response);
+      if (response.status == 200)
+          location.reload();
+      else
+          console.error("Bad request");
     }
 
     function downvotePost() {
@@ -288,6 +301,19 @@ document.addEventListener("DOMContentLoaded",function() {
         downvoteImage.src = "/static/images/post/downvote.png";
         numVotes.textContent++;
       }
+      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), postID});
+      const response = await fetch("/vote", {
+      method: 'POST',
+      body: jString,
+      headers: {
+          "Content-Type": "application/json"
+      }
+      });
+      console.log(response);
+      if (response.status == 200)
+          location.reload();
+      else
+          console.error("Bad request");
     }
   });
 });
