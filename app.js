@@ -106,14 +106,14 @@ async function importData() {
     });
 
     // This route renders the view page.
-    app.get("/view/:id", async (req, res) => {
-      const id = req.params.id;
+    app.get("/view/:post_id", async (req, res) => {
+      const post_id = req.params.post_id;
       try {
         const collection = getDb().collection("PostsCollection");
         const posts = await collection.find().toArray();
 
         res.render("view", {
-          post: posts[id]
+          post: posts[post_id]
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -179,7 +179,7 @@ async function importData() {
             content: content,
             image: image,
             comments: [],
-            id: posts.length,
+            post_id: posts.length,
             voteCtr: 0,
             comCtr: 0
           };
@@ -206,18 +206,18 @@ async function importData() {
         console.log("POST Request to /post received.");
         console.log(req.body);
         const { author, content, profpic } = req.body;
-        const id = req.body.id;
+        const post_id = req.body.post_id;
 
         if (author && content && id) {
           const newComment = {
             author: author,
             content: content,
             profpic: profpic,
-            comID: posts[id].comments.length,
+            comID: posts[post_id].comments.length,
             reply: []
           };
-          posts[id].comments.push(newComment);
-          posts[id].comCtr = posts[id].comments.length;
+          posts[post_id].comments.push(newComment);
+          posts[post_id].comCtr = posts[post_id].comments.length;
           res.status(200);
           res.redirect("/view/:id");
         }
@@ -269,10 +269,10 @@ async function importData() {
      
         //console.log("POST Request to /vote received.");
         const votes = req.body.votes;
-        const id = req.body.postID;
+        const post_id = req.body.post_id;
       
         if (votes && id) {
-          posts[id].voteCtr = votes; 
+          posts[post_id].voteCtr = votes; 
           res.status(200);
         } else {
           res.status(400);
