@@ -11,7 +11,7 @@ import fs from 'fs';
 import { connectToMongo, getDb } from './db/conn.js';
 import * as helpers from './helpers.js';
 
-// Connects the app to the MongoDB database.
+// Function that connects the app to the MongoDB database.
 connectToMongo((err) => {
   // If there is an error, print it out and exit the process.
   if (err) {
@@ -26,9 +26,11 @@ connectToMongo((err) => {
 
 // Creates an  instance of the express app.
 const app = express();
+
 // Retrieves the database name and MongoDB URI from the .env file.
 const dbName = process.env.DB_NAME;
 const mongoURI = process.env.MONGODB_URI;
+
 // Creates a variable that stores the database.
 const db = getDb();
 
@@ -54,18 +56,19 @@ async function importData() {
         console.log(`Post with id ${post.post_id} already exists. Skipping insertion.`);
       }
     }
-
   } catch (error) {
     console.error('Error importing data:', error);
   }
 }
 
-// Make the importData function call await using an async IIFE
+// The body of the code, put inside an async IIFE to allow for async manipulation of the db.
 (async () => {
   try {
+    // Connect to the MongoDB database
     await connectToMongo();
     console.log("Connected to MongoDB!");
 
+    // Waits for the data to be imported before starting the Express server.
     await importData();
 
     // Start the Express server after importing the data
@@ -80,11 +83,12 @@ async function importData() {
       }
     }));
 
-
+    // The following lines of code set up the Express server and handlebars.
     app.use("/static", express.static("public"));
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
+    // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
@@ -101,6 +105,7 @@ async function importData() {
       }
     });
 
+    // This route renders the view page.
     app.get("/view/:id", async (req, res) => {
       const id = req.params.id;
       try {
@@ -116,6 +121,7 @@ async function importData() {
       }
     });
 
+    // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
@@ -132,7 +138,7 @@ async function importData() {
       }
     });
 
-
+    // This route renders the comments part of the profile page.
     app.get("/profile/comments", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
@@ -158,7 +164,7 @@ async function importData() {
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
-
+    // This route is used for creating posts.
     app.post("/post", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
@@ -191,6 +197,7 @@ async function importData() {
       }
     });
 
+    // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
@@ -223,6 +230,7 @@ async function importData() {
       }
     });
 
+    // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
@@ -252,6 +260,8 @@ async function importData() {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+    
+    
 
     app.post("/vote", (req, res) => {
       try {
@@ -274,6 +284,7 @@ async function importData() {
       }
     });
 
+    // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
