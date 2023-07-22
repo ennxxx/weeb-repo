@@ -206,7 +206,7 @@ async function importData(data) {
       try {
         const posts = await Post.find();
 
-        console.log("POST Request to /post received.");
+        console.log("POST Request to /comment received.");
         console.log(req.body);
         const { content, author, profpic, post_id } = req.body;
 
