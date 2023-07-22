@@ -28,7 +28,6 @@ const modelMap = {
 // Creates an  instance of the express app.
 const app = express();
 
-
 // This function imports the data from the a file into the database.
 async function importData(data) {
   try {
@@ -39,17 +38,28 @@ async function importData(data) {
     const Model = modelMap[data];
 
     for (const doc of jsonData) {
-      // Check if a document with the same "data_id" already exists in the collection
-      const existingDoc = await Model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
+      try {
+        // Check if a document with the same "data_id" already exists in the collection
+        const existingDoc = await Model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
 
-      if (!existingDoc) {
-        // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
-        const result = await Model.create(doc);
-        console.log(`${data} with id ${doc[`${data}_id`]} inserted.`);
-      } else {
-        console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
+        if (!existingDoc) {
+          // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
+          const result = await Model.create(doc);
+          console.log(`${data} with id ${doc[`${data}_id`]} inserted.`);
+        } else {
+          console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
+        }
+      } catch (error) {
+        // Check if the error is a duplicate key error (error code 11000)
+        if (error.code === 11000) {
+          console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
+        } else {
+          // If it's another type of error, log the error message
+          console.error(`Error inserting ${data} with id ${doc[`${data}_id`]}: ${error.message}`);
+        }
       }
     }
+    console.log(`${data}s import complete.`);
   } catch (error) {
     console.error('Error importing data:', error);
   }
@@ -74,7 +84,10 @@ async function importData(data) {
           return string.toUpperCase();
         },
         substring: helpers.substring
-      }
+      },
+      runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+      },
     }));
 
     // The following lines of code set up the Express server and handlebars.
@@ -85,8 +98,7 @@ async function importData(data) {
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         res.render("index", {
           title: 'Home',
@@ -103,8 +115,7 @@ async function importData(data) {
     app.get("/view/:post_id", async (req, res) => {
       const post_id = req.params.post_id;
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         res.render("view", {
           post: posts[post_id]
@@ -119,8 +130,7 @@ async function importData(data) {
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         res.render("main-profile", {
           posts: posts,
@@ -135,8 +145,7 @@ async function importData(data) {
     // This route renders the comments part of the profile page.
     app.get("/profile/comments", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
         const user = req.body;
         console.log(user);
         var postsByAuthor = posts.filter(function (post) {
@@ -161,8 +170,7 @@ async function importData(data) {
     // This route is used for creating posts.
     app.post("/post", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
         console.log("POST Request to /post received.");
         console.log(req.body);
         const { title, author, content, image } = req.body;
@@ -194,8 +202,7 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         console.log("POST Request to /post received.");
         console.log(req.body);
@@ -227,8 +234,7 @@ async function importData(data) {
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         console.log("POST Request to /post received.");
         const { author, replyContent, profpic } = req.body;
@@ -258,8 +264,7 @@ async function importData(data) {
     // This route is used for voting.
     app.post("/vote", async (req, res) => {
       try {
-        const collection = getDb().collection("PostsCollection");
-        const posts = await collection.find().toArray();
+        const posts = await Post.find();
 
         //console.log("POST Request to /vote received.");
         const votes = req.body.votes;
