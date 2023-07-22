@@ -2,6 +2,7 @@
 import express from 'express';
 import exphbs from 'express-handlebars';
 import mongoose from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 
 // Import environment variables from .env file. and fs module.
 import 'dotenv/config';
@@ -9,8 +10,8 @@ import fs from 'fs';
 
 // Import functions from other local files.
 import * as helpers from './helpers.js';
-import { User } from './db/schemas.js';
-import { Post } from './db/schemas.js';
+import { User } from './model/schemas.js';
+import { Post } from './model/schemas.js';
 
 mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
   useNewUrlParser: true,
@@ -36,15 +37,20 @@ async function importData(data) {
     const dataToParse = fs.readFileSync('public/JSONs/' + data + 's.json');
     const jsonData = JSON.parse(dataToParse);
     const model = modelMap[data];
-    
-        for (const doc of jsonData) {
-          try {
-            // Check if a document with the same "data_id" already exists in the collection
-            const existingDoc = await model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
-    
-            if (!existingDoc) {
-              // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
-              const result = await model.create(doc);
+
+    for (const doc of jsonData) {
+      try {
+        // Convert the '_id' field to the correct format (string representation of 'ObjectId')
+        if (doc._id && doc._id['$oid']) {
+          doc._id = doc._id['$oid'];
+        }
+
+        // Check if a document with the same "data_id" already exists in the collection
+        const existingDoc = await model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
+
+        if (!existingDoc) {
+          // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
+          const result = await model.create(doc);
           console.log(`${data} with id ${doc[`${data}_id`]} inserted.`);
         } else {
           console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
@@ -65,6 +71,10 @@ async function importData(data) {
   }
 }
 
+
+
+
+
 // The body of the code, put inside an async to allow for async manipulation of the db.
 (async () => {
   try {
@@ -73,7 +83,6 @@ async function importData(data) {
     // As of now it only imports the data for posts and users.
     await importData('user');
     await importData('post');
-
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -98,7 +107,7 @@ async function importData(data) {
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');
 
         res.render("index", {
           title: 'Home',
@@ -115,7 +124,7 @@ async function importData(data) {
     app.get("/view/:post_id", async (req, res) => {
       const post_id = req.params.post_id;
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');
 
         res.render("view", {
           title: posts[post_id].title,
@@ -131,7 +140,7 @@ async function importData(data) {
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');
 
         res.render("main-profile", {
           title: "My Profile",
@@ -147,7 +156,7 @@ async function importData(data) {
     // This route renders the comments part of the profile page.
     app.get("/profile-comments", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');
         const user = req.body;
         console.log(user);
         var postsByAuthor = posts.filter(function (post) {
@@ -181,7 +190,7 @@ async function importData(data) {
     // This route is used for creating posts.
     app.post("/post", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');
         console.log("POST Request to /post received.");
         console.log(req.body);
         const { title, author, content, image } = req.body;
@@ -213,7 +222,7 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');;
 
         console.log("POST Request to /comment received.");
         console.log(req.body);
@@ -245,7 +254,7 @@ async function importData(data) {
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');;
 
         console.log("POST Request to /post received.");
         const { author, replyContent, profpic } = req.body;
@@ -275,7 +284,7 @@ async function importData(data) {
     // This route is used for voting.
     app.post("/vote", async (req, res) => {
       try {
-        const posts = await Post.find();
+        const posts = await Post.find().populate('author');;
 
         //console.log("POST Request to /vote received.");
         const votes = req.body.votes;

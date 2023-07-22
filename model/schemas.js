@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 
-// Define the user schema.
 const userSchema = new mongoose.Schema({
     user_id: { type: Number, required: true, unique: true },
     profile_pic: { type: String },
@@ -8,33 +8,32 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true },
     bio: { type: String },
     followers_info: { type: String },
+    postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }], 
 });
 
 const User = mongoose.model('User', userSchema);
 
 export { User };
 
-// Define the comment schema
 const commentSchema = new mongoose.Schema({
-    author: { type: String },
-    content: { type: String },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
+    content: { type: String }, 
     profpic: { type: String },
     comID: { type: Number },
-    reply: [{
-        author: { type: String },
-        content: { type: String },
-        profpic: { type: String }
-    }]
+    reply: [], 
 });
+
 
 // Define the post schema
 const postSchema = new mongoose.Schema({
     post_id: { type: Number, unique: true },
     title: { type: String },
-    author: { type: String },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     content: { type: String },
     image: { type: String },
-    comments: [commentSchema]
+    comments: [commentSchema],
+    voteCtr: { type: Number },
+    comCtr: { type: Number }
 });
 
 const Post = mongoose.model('Post', postSchema);
