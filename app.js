@@ -165,7 +165,16 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-
+    app.get('/register', (req, res) => {
+      res.render('register', {
+         noLayout: true 
+        });
+    });
+    app.get('/signin', (req, res) => {
+      res.render('signin',{ 
+        noLayout: true 
+      });
+    });
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 

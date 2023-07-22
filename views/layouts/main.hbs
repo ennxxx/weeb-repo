@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
     
+    {{#if noLayout}}
+    {{!-- If noLayout exists, render the content without the main layout --}}
+    {{{body}}}
+    {{else}}
     <head>
         <title> {{title}} </title>
         {{!-- <script src="{{script}}" defer> </script> --}}
@@ -28,4 +32,5 @@
         {{{ body }}}
         <script>insertFooter();</script>
     </body>
+    {{/if}}
 </html>
