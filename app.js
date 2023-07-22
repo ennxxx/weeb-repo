@@ -133,6 +133,8 @@ async function importData(data) {
         const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find();
 
+        const filterPosts = posts.filter((post) => post.author === currentUser.username);
+        const filterComments = posts.filter((post) => post.post_id === desiredPostId);
         res.render("main-profile", {
           title: "My Profile",
           posts: posts,
@@ -145,7 +147,7 @@ async function importData(data) {
     });
 
     // This route renders the comments part of the profile page.
-    app.get("/profile/comments", async (req, res) => {
+    app.get("/profile-comments", async (req, res) => {
       try {
         const posts = await Post.find();
         const user = req.body;

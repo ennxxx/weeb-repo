@@ -43,12 +43,11 @@ document.addEventListener("DOMContentLoaded",function() {
 	// Add logic to load posts with user's comments (currently not working)
     if (filterType === "comments") {
         // Assume you have access to a variable `posts` containing the posts data from the server
-		currentUser='Nigel'
-		const jString = JSON.stringify({currentUser});
+		
+		
         
         const response = await fetch("/profile/comments", {
             method: 'POST',
-            body: jString,
             headers: {
                 "Content-Type": "application/json"
             }
@@ -59,24 +58,6 @@ document.addEventListener("DOMContentLoaded",function() {
               location.reload();
           else
               console.error("Bad request");
-
-        // Filter posts that have comments from the user
-        var userPosts = posts.filter(function(post) {
-            return post.comments.some(function(comment) {
-                return comment.user === "Nigel"; // Replace "user123" with the actual user ID
-            });
-        });
-
-        // Render userPosts in the comments view container
-        var commentsViewContainer = document.getElementById("Comments-view");
-        commentsViewContainer.innerHTML = ""; // Clear previous content
-
-        userPosts.forEach(function(post) {
-            var postElement = document.createElement("div");
-            postElement.classList.add("post");
-            postElement.textContent = post.title; // Customize the content as needed
-            commentsViewContainer.appendChild(postElement);
-        });
     }
 }
 
