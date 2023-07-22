@@ -19,10 +19,10 @@ function insertNav() {
             </a>
             <div class="dropdown-content">
                 <a href="/main-profile">My Profile</a>
-                <a href="/static/signin.html">Log out</a>
+                <a href="/signin">Log out</a>
             </div>
         </div>
-        <a href="/static/signin.html" id="signin-link">Sign In</a>
+        <a href="/signin" id="signin-link">Sign In</a>
     </div>
 </nav>
     `);
