@@ -118,6 +118,7 @@ async function importData(data) {
         const posts = await Post.find();
 
         res.render("view", {
+          title: posts[post_id].title,
           post: posts[post_id]
         });
       } catch (error) {
