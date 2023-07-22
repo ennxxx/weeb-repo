@@ -19,7 +19,7 @@ const commentSchema = new mongoose.Schema({
     author: { type: String },
     content: { type: String },
     profpic: { type: String },
-    comID: { type: Number, unique: true },
+    comID: { type: Number },
     reply: [{
         author: { type: String },
         content: { type: String },
