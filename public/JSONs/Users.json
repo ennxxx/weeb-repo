@@ -1,5 +1,6 @@
 [
     {
+      "user_id": "0",
       "profile-pic": "images/profile/profile-pics/profile1.jpg",
       "name": "Pochacco",
       "username": "u/pocchi",
@@ -8,6 +9,7 @@
       "followers-info": "7 followers • 2 following"
     },
     {
+      "user_id": "1",
       "profile-pic": "images/profile/profile-pics/profile2.jpg",
       "name": "Johann",
       "username": "u/Lotad_is_Life",
@@ -16,6 +18,7 @@
       "followers-info": "7 followers • 2 following"
     },
     {
+      "user_id": "2",
       "profile-pic": "images/profile/profile-pics/profile3.jpeg",
       "name": "Winnie",
       "username": "u/DedInComSci",
@@ -24,6 +27,7 @@
       "followers-info": "7 followers • 2 following"
     },
     {
+      "user_id": "3",
       "profile-pic": "images/profile/profile-pics/profile4.jpg",
       "name": "Nigel",
       "username": "u/cornbrip69",
@@ -32,6 +36,7 @@
       "followers-info": "7 followers • 2 following"
     },
     {
+      "user_id": "4",
       "profile-pic": "images/profile/profile-pics/profile5.jpeg",
       "name": "Ced",
       "username": "u/IAmLoaf21",

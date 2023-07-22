@@ -34,26 +34,26 @@ const mongoURI = process.env.MONGODB_URI;
 // Creates a variable that stores the database.
 const db = getDb();
 
-// This function imports the data from the JSON file into the database.
-// RIGHT NOW IT ONLY IMPORTS THE POSTS JSON FILE
-async function importData() {
+// This function imports the data from the a file into the database.
+async function importData(data) {
   try {
-    // Declaration of the data to be manipulated.
-    const collectionName = "PostsCollection";
-    const dataToParse = fs.readFileSync('public/JSONs/Posts.json');
-    const jsonData = JSON.parse(dataToParse);
-    const collection = db.collection(collectionName);
 
-    for (const post of jsonData) {
-      // Check if a document with the same post_id already exists in the collection
-      const existingID = await collection.findOne({ post_id: post.post_id });
+    // Declaration of the data to be manipulated.
+    let collectionName = data + "sCollection";
+    let dataToParse = fs.readFileSync('public/JSONs/' + data + 's.json');
+    let jsonData = JSON.parse(dataToParse);
+    let collection = db.collection(collectionName);
+
+    for (const doc of jsonData) {
+      // Check if a document with the same "data"_id already exists in the collection
+      const existingID = await collection.findOne({ [`${data}_id`]: doc[`${data}_id`] });
 
       if (!existingID) {
-        // If the document with the same post_id doesn't exist, insert the JSON data into the collection
-        const result = await collection.insertOne(post);
-        console.log(`Post with id ${post.post_id} inserted.`);
+        // If the document with the same "data"_id doesn't exist, insert the JSON data into the collection
+        const result = await collection.insertOne(doc);
+        console.log(`${data} with id ${doc[`${data}_id`]} inserted.`);
       } else {
-        console.log(`Post with id ${post.post_id} already exists. Skipping insertion.`);
+        console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
       }
     }
   } catch (error) {
@@ -61,7 +61,7 @@ async function importData() {
   }
 }
 
-// The body of the code, put inside an async IIFE to allow for async manipulation of the db.
+// The body of the code, put inside an async to allow for async manipulation of the db.
 (async () => {
   try {
     // Connect to the MongoDB database
@@ -69,7 +69,9 @@ async function importData() {
     console.log("Connected to MongoDB!");
 
     // Waits for the data to be imported before starting the Express server.
-    await importData();
+    // As of now it only imports the data for posts and users.
+    await importData("post");
+    await importData("user");
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
