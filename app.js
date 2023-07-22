@@ -205,10 +205,9 @@ async function importData() {
 
         console.log("POST Request to /post received.");
         console.log(req.body);
-        const { author, content, profpic } = req.body;
-        const post_id = req.body.post_id;
+        const {content, author, profpic, post_id} = req.body;
 
-        if (author && content && id) {
+        if (author && content && post_id) {
           const newComment = {
             author: author,
             content: content,
@@ -218,8 +217,9 @@ async function importData() {
           };
           posts[post_id].comments.push(newComment);
           posts[post_id].comCtr = posts[post_id].comments.length;
+          console.log(posts[post_id].comments);
           res.status(200);
-          res.redirect("/view/:id");
+          res.redirect("/view/:post_id");
         }
         else {
           res.status(400);
@@ -238,19 +238,19 @@ async function importData() {
 
         console.log("POST Request to /post received.");
         const { author, replyContent, profpic } = req.body;
-        const id = req.body.id;
+        const post_id = req.body.post_id;
 
         const newReply = {
           author: author,
           content: replyContent,
           profpic: profpic,
-          comID: posts[id].comments.length,
+          comID: posts[post_id].comments.length,
           reply: []
         };
-        if (newReply && id) {
-          posts[id].comments.push(newComment);
+        if (newReply && post_id) {
+          posts[post_id].comments.push(newComment);
           res.status(200);
-          res.redirect("/view/:id");
+          res.redirect("/view/:post_id");
         }
         else {
           res.status(400);
@@ -271,7 +271,7 @@ async function importData() {
         const votes = req.body.votes;
         const post_id = req.body.post_id;
       
-        if (votes && id) {
+        if (votes && post_id) {
           posts[post_id].voteCtr = votes; 
           res.status(200);
         } else {

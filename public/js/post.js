@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded",function() {
     upvoteButton.addEventListener("click", upvotePost);
     downvoteButton.addEventListener("click", downvotePost);
 
-    function upvotePost() {
+    async function upvotePost() {
       if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
         upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
         numVotes.textContent++;
@@ -285,7 +285,7 @@ document.addEventListener("DOMContentLoaded",function() {
           console.error("Bad request");
     }
 
-    function downvotePost() {
+    async function downvotePost() {
       if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
         downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
         upvoteImage.src = "/static/images/post/upvote.png";
