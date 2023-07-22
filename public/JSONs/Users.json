@@ -1,47 +1,42 @@
 [
-    {
-      "user_id": "0",
-      "profile-pic": "images/profile/profile-pics/profile1.jpg",
-      "name": "Pochacco",
-      "username": "u/pocchi",
-      "bio": "Hindi gumana ang manifesting kaya gagamit na tayo ng dahas.",
-      "follow-button": "Follow",
-      "followers-info": "7 followers • 2 following"
-    },
-    {
-      "user_id": "1",
-      "profile-pic": "images/profile/profile-pics/profile2.jpg",
-      "name": "Johann",
-      "username": "u/Lotad_is_Life",
-      "bio": "My dream is to build a paradise for undead in this academy, and then we'll spend a life of degeneracy together!",
-      "follow-button": "Follow",
-      "followers-info": "7 followers • 2 following"
-    },
-    {
-      "user_id": "2",
-      "profile-pic": "images/profile/profile-pics/profile3.jpeg",
-      "name": "Winnie",
-      "username": "u/DedInComSci",
-      "bio": "I ordered a pizza last YEAR and it hasn't come yet hahaha. i also haven't felt genuine happiness since 2012.",
-      "follow-button": "Follow",
-      "followers-info": "7 followers • 2 following"
-    },
-    {
-      "user_id": "3",
-      "profile-pic": "images/profile/profile-pics/profile4.jpg",
-      "name": "Nigel",
-      "username": "u/cornbrip69",
-      "bio": "honor student ka lang, tiktoker ako. ano'ng maagagawa ng medal mo, pag nag-renegade ako sa harapan mo?",
-      "follow-button": "Follow",
-      "followers-info": "7 followers • 2 following"
-    },
-    {
-      "user_id": "4",
-      "profile-pic": "images/profile/profile-pics/profile5.jpeg",
-      "name": "Ced",
-      "username": "u/IAmLoaf21",
-      "bio": "Poide bang layu-layuan mo yung crushiecakes honeybunch sugarplum ko?",
-      "follow-button": "Follow",
-      "followers-info": "7 followers • 2 following"
-    }
-  ]
+  {
+    "user_id": "0",
+    "profile_pic": "images/profile/profile_pics/profile1.jpg",
+    "name": "Pochacco",
+    "username": "u/pocchi",
+    "bio": "Hindi gumana ang manifesting kaya gagamit na tayo ng dahas.",
+    "followers_info": "7 followers • 2 following"
+  },
+  {
+    "user_id": "1",
+    "profile_pic": "images/profile/profile_pics/profile2.jpg",
+    "name": "Johann",
+    "username": "u/Lotad_is_Life",
+    "bio": "My dream is to build a paradise for undead in this academy, and then we'll spend a life of degeneracy together!",
+    "followers_info": "7 followers • 2 following"
+  },
+  {
+    "user_id": "2",
+    "profile_pic": "images/profile/profile_pics/profile3.jpeg",
+    "name": "Winnie",
+    "username": "u/DedInComSci",
+    "bio": "I ordered a pizza last YEAR and it hasn't come yet hahaha. i also haven't felt genuine happiness since 2012.",
+    "followers_info": "7 followers • 2 following"
+  },
+  {
+    "user_id": "3",
+    "profile_pic": "images/profile/profile_pics/profile4.jpg",
+    "name": "Nigel",
+    "username": "u/cornbrip69",
+    "bio": "honor student ka lang, tiktoker ako. ano'ng maagagawa ng medal mo, pag nag-renegade ako sa harapan mo?",
+    "followers_info": "7 followers • 2 following"
+  },
+  {
+    "user_id": "4",
+    "profile_pic": "images/profile/profile_pics/profile5.jpeg",
+    "name": "Ced",
+    "username": "u/IAmLoaf21",
+    "bio": "Poide bang layu-layuan mo yung crushiecakes honeybunch sugarplum ko?",
+    "followers_info": "7 followers • 2 following"
+  }
+]
