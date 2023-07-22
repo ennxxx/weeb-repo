@@ -237,8 +237,7 @@ document.addEventListener("DOMContentLoaded",function() {
             } else if (
             scUp.querySelector("img").src.includes("c-upvoted.png")
             ) {
-            scDown.querySelector("img").src =
-                "images/post/clicked/c-downvoted.png";
+            scDown.querySelector("img").src = "../static/images/post/clicked/c-downvoted.png";
             scUp.querySelector("img").src = "../static/images/post/upvote.png";
             scNumVote.textContent--;
             scNumVote.textContent--;
