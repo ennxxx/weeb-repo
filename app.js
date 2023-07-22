@@ -134,6 +134,7 @@ async function importData(data) {
         const posts = await Post.find();
 
         res.render("main-profile", {
+          title: "My Profile",
           posts: posts,
           filters: filters
         });
