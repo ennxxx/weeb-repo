@@ -128,6 +128,8 @@ async function importData() {
         const collection = getDb().collection("PostsCollection");
         const posts = await collection.find().toArray();
 
+        const filterPosts = posts.filter((post) => post.author === currentUser.username);
+        const filterComments = posts.filter((post) => post.post_id === desiredPostId);
         res.render("main-profile", {
           posts: posts,
           filters: filters
@@ -139,7 +141,7 @@ async function importData() {
     });
 
     // This route renders the comments part of the profile page.
-    app.get("/profile/comments", async (req, res) => {
+    app.get("/profile-comments", async (req, res) => {
       try {
         const collection = getDb().collection("PostsCollection");
         const posts = await collection.find().toArray();
