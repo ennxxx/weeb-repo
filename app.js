@@ -35,16 +35,16 @@ async function importData(data) {
     const collectionName = data + "s";
     const dataToParse = fs.readFileSync('public/JSONs/' + data + 's.json');
     const jsonData = JSON.parse(dataToParse);
-    const Model = modelMap[data];
-
-    for (const doc of jsonData) {
-      try {
-        // Check if a document with the same "data_id" already exists in the collection
-        const existingDoc = await Model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
-
-        if (!existingDoc) {
-          // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
-          const result = await Model.create(doc);
+    const model = modelMap[data];
+    
+        for (const doc of jsonData) {
+          try {
+            // Check if a document with the same "data_id" already exists in the collection
+            const existingDoc = await model.findOne({ [`${data}_id`]: doc[`${data}_id`] });
+    
+            if (!existingDoc) {
+              // If the document with the same "data_id" doesn't exist, create a new document using the Mongoose model
+              const result = await model.create(doc);
           console.log(`${data} with id ${doc[`${data}_id`]} inserted.`);
         } else {
           console.log(`${data} with id ${doc[`${data}_id`]} already exists. Skipping insertion.`);
