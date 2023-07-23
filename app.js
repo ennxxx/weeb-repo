@@ -278,6 +278,7 @@ async function importData(data) {
     app.post("/post", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');
+        const users = await User.find().populate('postsMade');
         console.log("POST Request to /post received.");
         console.log(req.body);
         const { title, content, image } = req.body;
@@ -296,6 +297,11 @@ async function importData(data) {
           const result = await Post.collection.insertOne(newPost);
           console.log("New post inserted with _id:", result.insertedId);
 
+          const userIdToUpdate = currentUser._id;
+          await User.updateOne(
+            { _id: userIdToUpdate },
+            { $push: { postsMade: result.insertedId } }
+          );
           res.status(200);
           res.redirect("/");
         }
