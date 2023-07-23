@@ -1,3 +1,5 @@
+import { getCommentsData } from "../../helpers";
+
 function clearDefaultText(element) {
     if (element.value.trim() === element.getAttribute('data-default-value')) {
         element.value = '';
@@ -49,12 +51,18 @@ document.addEventListener("DOMContentLoaded",function() {
     document.querySelector(".submit-button")?.addEventListener("click", async e => {
         e.preventDefault();
 
-        const content = document.querySelector(".comment-area").value;
+        let commentsData = await getCommentsData();
+    
         const author = currentUser.name;
-        const profpic = "../static/images/profile/" + currentUser.name + ".png"; 
-        const post_id = document.querySelector(".post_id").innerText;
+        const content = document.querySelector(".comment-area").value;
+        const profpic = "../static/images/profile/" + currentUser.name + ".png";
+        const comment_id = commentsData.length; 
+        const parentPost = document.querySelector(".post_id").innerText;
+        const parentComment = null;
+        const reply = [];
+        const voteCtr = 0;
 
-        const jString = JSON.stringify({ content, author, profpic, post_id });
+        const jString = JSON.stringify({ content, author, profpic, comment_id, parentPost, parentComment, reply, voteCtr });
 
         const response = await fetch("/comment", {
             method: 'POST',
@@ -64,25 +72,17 @@ document.addEventListener("DOMContentLoaded",function() {
             }
         });
 
-		let comment = new Comment(currentUser, content);
+		let comment = new Comment(currentUser, content);    
         comments.push(comment);
         comCtr++;
 
         if (response.status === 200) {
-            const newCommentData = await response.json();
-            const newComment = {
-                comID: newCommentData.comID, 
-                author: newCommentData.author,
-                content: newCommentData.content,
-                profpic: newCommentData.profpic,
-                replies: [] 
-            };  
-			displayComment(newComment);
+            location.reload();
         } else {
             console.error("Bad request");
         }
 
-		refreshDisplay(comments);
+		
 		resetCreateComment();
 		document.querySelector(".comment-area").value = "Write a Comment...";
     });

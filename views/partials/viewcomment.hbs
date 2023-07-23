@@ -1,5 +1,5 @@
-<div class="single-comment-main" id="{{this.comID}}">
-    <div class="comID" style="display: none;">{{this.comID}}</div>
+<div class="single-comment-main" id="{{comment_id}}">
+    <div class="comID" style="display: none;">{{comment_id}}</div>
     <div class="single-comment">
         <div class="sc-left">
             <img class="sc-picture" src="/static/images/profile/{{profpic}}">
@@ -13,7 +13,7 @@
                 <button class="sc-upvote-button">
                     <img src="/static/images/post/upvote.png" class="sc-upvote">
                 </button>
-                <p class="sc-num-votes">0</p>
+                <p class="sc-num-votes">{{voteCtr}}</p>
                 <button class="sc-downvote-button">
                     <img src="/static/images/post/downvote.png" class="sc-downvote">
                 </button>

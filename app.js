@@ -12,6 +12,7 @@ import fs from 'fs';
 import * as helpers from './helpers.js';
 import { User } from './model/schemas.js';
 import { Post } from './model/schemas.js';
+import { Comment } from './model/schemas.js';
 
 mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
   useNewUrlParser: true,
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
 const modelMap = {
   user: User,
   post: Post,
+  comment: Comment,
 };
 
 // Creates an  instance of the express app.
@@ -77,8 +79,10 @@ async function importData(data) {
 
     // Waits for the data to be imported before starting the Express server.
     // As of now it only imports the data for posts and users.
+    await mongoose.connection.dropDatabase();
     await importData('user');
     await importData('post');
+    await importData('comment');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -100,11 +104,14 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
+    
+    let currentUser = await User.findOne({username: 'u/shellyace'})
+
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');
-
+        
         res.render("index", {
           title: 'Home',
           posts: posts,
@@ -118,10 +125,18 @@ async function importData(data) {
 	
     // This route renders the view page.
     app.get("/view/:post_id", async (req, res) => {
-      const post_id = req.params.post_id;
       try {
-        const posts = await Post.find().populate('author');
-
+      const post_id = req.params.post_id;
+      const posts = await Post.find()
+      .populate('author')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'author',
+          model: 'User',
+          select: 'username' // Only populate the 'username' field of the User document
+        }
+      });
         res.render("view", {
           title: posts[post_id].title,
           post: posts[post_id]
@@ -217,19 +232,22 @@ async function importData(data) {
         const posts = await Post.find().populate('author');
         console.log("POST Request to /post received.");
         console.log(req.body);
-        const { title, author, content, image } = req.body;
-        if (title && author && content) {
+        const { title, content, image } = req.body;
+        if (title && content) {
           const newPost = {
+            post_id: posts.length,
             title: title,
-            author: author,
+            author: currentUser._id,
             content: content,
             image: image,
             comments: [],
-            post_id: posts.length,
             voteCtr: 0,
-            comCtr: 0
+            comCtr: 0,
+            __v: 0
           };
-          posts.push(newPost);
+          const result = await Post.collection.insertOne(newPost);
+          console.log("New post inserted with _id:", result.insertedId);
+
           res.status(200);
           res.redirect("/");
         }
@@ -246,25 +264,26 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const posts = await Post.find().populate('author');;
+        const posts = await Post.find().populate('author');
+        const comments = await Comment.find().populate('author');;
 
         console.log("POST Request to /comment received.");
         console.log(req.body);
-        const { content, author, profpic, post_id } = req.body;
+        const { content, post_id } = req.body;
 
-        if (author && content && post_id) {
+        if (content && post_id) {
           const newComment = {
-            author: author,
+            author: currentUser._id ,
             content: content,
-            profpic: profpic,
-            comID: posts[post_id].comments.length,
+            profpic: currentUser.profpic,
+            comment_id: comments.length,
             reply: []
           };
-          posts[post_id].comments.push(newComment);
-          posts[post_id].comCtr = posts[post_id].comments.length;
-          console.log(posts[post_id].comments);
+          const result = await Comment.collection.insertOne(newComment);
+          console.log("New comment inserted with _id:", result.insertedId);
+
           res.status(200);
-          res.redirect("/view/:post_id");
+        
         }
         else {
           res.status(400);
@@ -288,7 +307,7 @@ async function importData(data) {
           author: author,
           content: replyContent,
           profpic: profpic,
-          comID: posts[post_id].comments.length,
+          comment_id: posts[post_id].comments.length,
           reply: []
         };
         if (newReply && post_id) {

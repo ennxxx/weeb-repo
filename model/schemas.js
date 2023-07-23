@@ -19,9 +19,15 @@ const commentSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     content: { type: String }, 
     profpic: { type: String },
-    comID: { type: Number },
-    reply: [], 
+    comment_id: { type: Number, required: true, unique: true  },
+    parentPost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true },
+    parentComment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true },
+    reply: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true } ], 
+    voteCtr: { type: Number }
 });
+
+const Comment = mongoose.model('Comment', commentSchema);
+export { Comment };
 
 // Define the post schema
 const postSchema = new mongoose.Schema({
@@ -30,7 +36,7 @@ const postSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     content: { type: String },
     image: { type: String },
-    comments: [commentSchema],
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     voteCtr: { type: Number },
     comCtr: { type: Number }
 });
