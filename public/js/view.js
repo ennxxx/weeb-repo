@@ -61,11 +61,6 @@ document.addEventListener("DOMContentLoaded",function() {
                 "Content-Type": "application/json"
             }
         });
-
-		let comment = new Comment(currentUser, content);    
-        comments.push(comment);
-        comCtr++;
-
         if (response.status === 200) {
             location.reload();
         } else {

@@ -239,7 +239,6 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const posts = await Post.find().populate('author');
         const comments = await Comment.find().populate('author');;
 
         console.log("POST Request to /comment received.");
@@ -250,15 +249,18 @@ async function importData(data) {
           const newComment = {
             author: currentUser._id ,
             content: content,
-            profpic: currentUser.profpic,
+            profpic: currentUser.profile_pic,
             comment_id: comments.length,
-            reply: []
+            parentPost: null,
+            parentComment: null,
+            reply: [],
+            voteCtr:0,
+            __v: 0
           };
           const result = await Comment.collection.insertOne(newComment);
           console.log("New comment inserted with _id:", result.insertedId);
 
           res.status(200);
-        
         }
         else {
           res.status(400);
