@@ -17,3 +17,16 @@ export async function importData() {
       console.error('Error importing data:', error);
     }
   }
+
+  export async function getCommentsData() {
+    try {
+      const response = await fetch('/api/comments'); // Replace '/api/comments' with your actual API endpoint to fetch comments
+      if (!response.ok) {
+        throw new Error('Failed to fetch comments data.');
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching comments data:', error);
+      return [];
+    }
+  }

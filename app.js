@@ -73,9 +73,6 @@ async function importData(data) {
   }
 }
 
-
-
-
 // The body of the code, put inside an async to allow for async manipulation of the db.
 (async () => {
   try {
@@ -125,7 +122,7 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-
+	
     // This route renders the view page.
     app.get("/view/:post_id", async (req, res) => {
       try {
@@ -166,6 +163,34 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+
+	// This route renders the search page.
+    app.get("/search/:query", async (req, res) => {
+		try {
+			const query = req.params.query;
+			const search_filters = ['Posts', 'Comments', 'Users'];
+			const posts = await Post.find().populate('author');
+			// const comments = await Comment.find().populate('author');
+			const users = await User.find().populate('postsMade');
+
+			// Logic to filter based on search goes here
+			// filtered_posts
+			// filtered_comments
+			// filtered_users
+				
+			res.render("search", {
+				title: "Search",
+				query: query,
+				search_filters: search_filters,
+				posts: posts,
+				// comments: comments,
+				users: users
+			});
+			} catch (error) {
+			console.error("Error fetching posts:", error);
+			res.status(500).json({ error: "Internal Server Error" });
+			}
+	  });
 
     // This route renders the comments part of the profile page.
     app.get("/profile-comments", async (req, res) => {

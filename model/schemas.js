@@ -27,7 +27,6 @@ const commentSchema = new mongoose.Schema({
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
-
 export { Comment };
 
 // Define the post schema

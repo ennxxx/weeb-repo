@@ -1,3 +1,5 @@
+import { getCommentsData } from "../../helpers";
+
 function clearDefaultText(element) {
     if (element.value.trim() === element.getAttribute('data-default-value')) {
         element.value = '';
@@ -49,10 +51,18 @@ document.addEventListener("DOMContentLoaded",function() {
     document.querySelector(".submit-button")?.addEventListener("click", async e => {
         e.preventDefault();
 
-        const content = document.querySelector(".comment-area").value; 
-        const post_id = document.querySelector(".post_id").innerText;
+        let commentsData = await getCommentsData();
+    
+        const author = currentUser.name;
+        const content = document.querySelector(".comment-area").value;
+        const profpic = "../static/images/profile/" + currentUser.name + ".png";
+        const comment_id = commentsData.length; 
+        const parentPost = document.querySelector(".post_id").innerText;
+        const parentComment = null;
+        const reply = [];
+        const voteCtr = 0;
 
-        const jString = JSON.stringify({ content, post_id });
+        const jString = JSON.stringify({ content, author, profpic, comment_id, parentPost, parentComment, reply, voteCtr });
 
         const response = await fetch("/comment", {
             method: 'POST',
