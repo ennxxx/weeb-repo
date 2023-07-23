@@ -128,9 +128,9 @@ async function importData(data) {
 
     // This route renders the view page.
     app.get("/view/:post_id", async (req, res) => {
-      const post_id = req.params.post_id;
       try {
-    const posts = await Post.find()
+      const post_id = req.params.post_id;
+      const posts = await Post.find()
       .populate('author')
       .populate({
         path: 'comments',
@@ -140,7 +140,6 @@ async function importData(data) {
           select: 'username' // Only populate the 'username' field of the User document
         }
       });
-
         res.render("view", {
           title: posts[post_id].title,
           post: posts[post_id]
@@ -222,10 +221,8 @@ async function importData(data) {
             __v: 0
           };
           const result = await Post.collection.insertOne(newPost);
-
           console.log("New post inserted with _id:", result.insertedId);
 
-    
           res.status(200);
           res.redirect("/");
         }
@@ -242,25 +239,26 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const posts = await Post.find().populate('author');;
+        const posts = await Post.find().populate('author');
+        const comments = await Comment.find().populate('author');;
 
         console.log("POST Request to /comment received.");
         console.log(req.body);
-        const { content, author, profpic, post_id } = req.body;
+        const { content, post_id } = req.body;
 
-        if (author && content && post_id) {
+        if (content && post_id) {
           const newComment = {
-            author: author,
+            author: currentUser._id ,
             content: content,
-            profpic: profpic,
-            comment_id: posts[post_id].comments.length,
+            profpic: currentUser.profpic,
+            comment_id: comments.length,
             reply: []
           };
-          posts[post_id].comments.push(newComment);
-          posts[post_id].comCtr = posts[post_id].comments.length;
-          console.log(posts[post_id].comments);
+          const result = await Comment.collection.insertOne(newComment);
+          console.log("New comment inserted with _id:", result.insertedId);
+
           res.status(200);
-          res.redirect("/view/:post_id");
+        
         }
         else {
           res.status(400);

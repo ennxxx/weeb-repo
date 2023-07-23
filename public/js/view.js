@@ -49,12 +49,10 @@ document.addEventListener("DOMContentLoaded",function() {
     document.querySelector(".submit-button")?.addEventListener("click", async e => {
         e.preventDefault();
 
-        const content = document.querySelector(".comment-area").value;
-        const author = currentUser.name;
-        const profpic = "../static/images/profile/" + currentUser.name + ".png"; 
+        const content = document.querySelector(".comment-area").value; 
         const post_id = document.querySelector(".post_id").innerText;
 
-        const jString = JSON.stringify({ content, author, profpic, post_id });
+        const jString = JSON.stringify({ content, post_id });
 
         const response = await fetch("/comment", {
             method: 'POST',
@@ -64,25 +62,17 @@ document.addEventListener("DOMContentLoaded",function() {
             }
         });
 
-		let comment = new Comment(currentUser, content);
+		let comment = new Comment(currentUser, content);    
         comments.push(comment);
         comCtr++;
 
         if (response.status === 200) {
-            const newCommentData = await response.json();
-            const newComment = {
-                comID: newCommentData.comID, 
-                author: newCommentData.author,
-                content: newCommentData.content,
-                profpic: newCommentData.profpic,
-                replies: [] 
-            };  
-			displayComment(newComment);
+            location.reload();
         } else {
             console.error("Bad request");
         }
 
-		refreshDisplay(comments);
+		
 		resetCreateComment();
 		document.querySelector(".comment-area").value = "Write a Comment...";
     });
