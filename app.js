@@ -14,7 +14,7 @@ import { User } from './model/schemas.js';
 import { Post } from './model/schemas.js';
 import { Comment } from './model/schemas.js';
 
-mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
+mongoose.connect(process.env.MONGODB_URI + process.env.DB_NAME, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -93,8 +93,11 @@ async function importData(data) {
           return string.toUpperCase();
         },
         substring: helpers.substring.apply,
-		isEqual: helpers.isEqual 
+        isEqual: helpers.isEqual,
+        mergeContext: function (context, currentUser) {
+          return { ...context.data.root, currentUser };
       },
+    },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
       },
@@ -105,52 +108,44 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
-	// Example usage of the isEqual function
-    const obj1 = { key1: 'value1', key2: 'value2' };
-    const obj2 = { key1: 'value1', key2: 'value2' };
-    if (helpers.isEqual(obj1, obj2)) {
-      console.log('Objects are equal!');
-    } else {
-      console.log('Objects are not equal!');
-    }
-
-    let currentUser = await User.findOne({username: 'u/shellyace'}).populate('postsMade');
+    let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
-        
+
         res.render("index", {
           title: 'Home',
           posts: posts,
-          toppost: posts[0]
+          toppost: posts[0],
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-	
+
     // This route renders the view page.
     app.get("/view/:post_id", async (req, res) => {
       try {
-      const post_id = req.params.post_id;
-      const posts = await Post.find()
-      .populate('author')
-      .populate({
-        path: 'comments',
-        populate: {
-          path: 'author',
-          model: 'User',
-          select: 'username profile_pic' // Only populate the 'username' field of the User document
-        }
-      });
+        const post_id = req.params.post_id;
+        const posts = await Post.find()
+          .populate('author')
+          .populate({
+            path: 'comments',
+            populate: {
+              path: 'author',
+              model: 'User',
+              select: 'username profile_pic' // Only populate the 'username' field of the User document
+            }
+          });
         res.render("view", {
           title: posts[post_id].title,
           post: posts[post_id],
-		  currentUser: currentUser
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -164,18 +159,18 @@ async function importData(data) {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
         const posts = await Post.find().populate('author');
         const comments = await Comment.find()
-        .populate('author')
-        .populate({
-          path: 'parentPost',
-          populate: {
-            path: 'author',
-            model: 'User',
-            select: 'username title'
-          }
-        });
+          .populate('author')
+          .populate({
+            path: 'parentPost',
+            populate: {
+              path: 'author',
+              model: 'User',
+              select: 'username title'
+            }
+          });
 
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
-        
+
         res.render("main-profile", {
           title: "My Profile",
           user: currentUser,
@@ -187,7 +182,7 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-    
+
     // This route renders the main-profile page.
     app.get("/profile/:name", async (req, res) => {
       try {
@@ -197,88 +192,88 @@ async function importData(data) {
         let userProfile = users.filter(user => user.name.includes(name));
         userProfile[0].populate('postsMade');
         const comments = await Comment.find()
-        .populate('author')
-        .populate({
-          path: 'parentPost',
-          populate: {
-            path: 'author',
-            model: 'User',
-            select: 'username title'
-          }
-        });
-      
-        if(currentUser.username === userProfile[0].username){
+          .populate('author')
+          .populate({
+            path: 'parentPost',
+            populate: {
+              path: 'author',
+              model: 'User',
+              select: 'username title'
+            }
+          });
+
+        if (currentUser.username === userProfile[0].username) {
           res.redirect('/main-profile');
-        } else{
-        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
-        res.render("profile", {
-          title: userProfile[0].name,
-          user: userProfile[0],
-          comments: filtered_comments,
-          filters: filters
-        });
-      }
+        } else {
+          const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
+          res.render("profile", {
+            title: userProfile[0].name,
+            user: userProfile[0],
+            comments: filtered_comments,
+            filters: filters
+          });
+        }
       } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
 
-	  // This route renders the search page.
+    // This route renders the search page.
     app.get("/search/:query", async (req, res) => {
-		try {
-			const query = req.params.query;
-			const search_filters = ['Posts', 'Comments', 'Users'];
-			const posts = await Post.find().populate('author');
-		  	const comments = await Comment.find()
-			.populate('author')
-			.populate({
-				path: 'parentPost',
-				populate: {
-				path: 'author',
-				model: 'User',
-				select: 'username title'
-					}
-      	});
-		const users = await User.find().populate('postsMade');
+      try {
+        const query = req.params.query;
+        const search_filters = ['Posts', 'Comments', 'Users'];
+        const posts = await Post.find().populate('author');
+        const comments = await Comment.find()
+          .populate('author')
+          .populate({
+            path: 'parentPost',
+            populate: {
+              path: 'author',
+              model: 'User',
+              select: 'username title'
+            }
+          });
+        const users = await User.find().populate('postsMade');
 
-      	const search = query.toLowerCase();
-      
-		const filtered_posts = posts.filter(post => post.title.toLowerCase().includes(search) 
-		|| post.content.toLowerCase().includes(search)
-      	|| post.author.username.toLowerCase().includes(search));
+        const search = query.toLowerCase();
 
-		const filtered_comments = comments.filter(comment => comment.content.includes(search) 
-		|| comment.author.username.toLowerCase().includes(search)
-		|| comment.parentPost.title.toLowerCase().includes(search)
-		|| comment.parentPost.author.username.toLowerCase().includes(search));
+        const filtered_posts = posts.filter(post => post.title.toLowerCase().includes(search)
+          || post.content.toLowerCase().includes(search)
+          || post.author.username.toLowerCase().includes(search));
 
-		const filtered_users = users.filter(user => user.username.toLowerCase().includes(search) 
-		|| user.name.toLowerCase().includes(search));
-					
-		res.render("search", {
-			title: "Search",
-			query: query,
-			search_filters: search_filters,
-			posts: filtered_posts,
-			comments: filtered_comments,
-			users: filtered_users
-		});
-		} catch (error) {
-		console.error("Error fetching posts:", error);
-		res.status(500).json({ error: "Internal Server Error" });
-		}
-	});
+        const filtered_comments = comments.filter(comment => comment.content.includes(search)
+          || comment.author.username.toLowerCase().includes(search)
+          || comment.parentPost.title.toLowerCase().includes(search)
+          || comment.parentPost.author.username.toLowerCase().includes(search));
+
+        const filtered_users = users.filter(user => user.username.toLowerCase().includes(search)
+          || user.name.toLowerCase().includes(search));
+
+        res.render("search", {
+          title: "Search",
+          query: query,
+          search_filters: search_filters,
+          posts: filtered_posts,
+          comments: filtered_comments,
+          users: filtered_users
+        });
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
 
     app.get('/register', (req, res) => {
       res.render('register', {
-         noLayout: true 
-        });
+        noLayout: true
+      });
     });
 
     app.get('/signin', (req, res) => {
-      res.render('signin',{ 
-        noLayout: true 
+      res.render('signin', {
+        noLayout: true
       });
     });
 
@@ -331,12 +326,12 @@ async function importData(data) {
       try {
         const posts = await Post.find();
         const comments = await Comment.find().populate('author');
-    
+
         console.log("POST Request to /comment received.");
         const { content, post_id } = req.body;
-    
+
         if (content && post_id) {
-			
+
           const newComment = {
             author: currentUser._id,
             content: content,
@@ -350,13 +345,20 @@ async function importData(data) {
 
           const result = await Comment.collection.insertOne(newComment);
           console.log("New comment inserted with _id:", result.insertedId);
-    
+
           const postIdToUpdate = posts[post_id]._id;
-          await Post.updateOne(
+          console.log(posts[post_id].comCtr);
+          const updatedPost = await Post.findOneAndUpdate(
             { _id: postIdToUpdate },
-            { $push: { comments: result.insertedId } }
+            {
+              $push: { comments: result.insertedId }, // Add the new comment to the comments array
+              $inc: { comCtr: 1 } // Increment the comCtr by 1
+            },
+            { new: true } // Return the updated document after the update is applied
           );
-    
+          
+          console.log(updatedPost);
+          console.log(posts[post_id].comCtr);
           res.status(200).json({ message: "Comment created successfully" });
         } else {
           res.status(400).json({ error: "Invalid content or post_id" });
@@ -366,7 +368,7 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-    
+
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
@@ -397,25 +399,25 @@ async function importData(data) {
       }
     });
 
-	// This route is used for voting on comments.
+    // This route is used for voting on comments.
     app.post("/vote-comment", async (req, res) => {
-		try {
-		  const comments = await Comment.find().populate('author');;
-  
-		  const votes = req.body.votes;
-		  const comment_id = req.body.comment_id;
-  
-		  if (votes && comment_id) {
-			comments[comment_id].voteCtr = votes;
-			res.status(200);
-		  } else {
-			res.status(400);
-		  }
-		} catch (error) {
-		  console.error("Error fetching posts:", error);
-		  res.status(500).json({ error: "Internal Server Error" });
-		}
-	  });
+      try {
+        const comments = await Comment.find().populate('author');;
+
+        const votes = req.body.votes;
+        const comment_id = req.body.comment_id;
+
+        if (votes && comment_id) {
+          comments[comment_id].voteCtr = votes;
+          res.status(200);
+        } else {
+          res.status(400);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
 
     // This route is used for voting on posts.
     app.post("/vote", async (req, res) => {
@@ -439,37 +441,37 @@ async function importData(data) {
     });
 
     // Route for user registration
-  app.post('/register', async (req, res) => {
-    try {
-      const users = await User.find();
-  
-      console.log("POST Request to /register received.");
-      const { username, password } = req.body;
-  
-      if (username && password) { 
-  
-        const newUser = {
-          user_id: users.length,
-          profile_pic: "default.png",
-          name: "Edit Profile to add a name",
-          username: "u/" + username,
-          password: password,
-          bio: "Edit Profile to add a bio",
-          followers_info: "0 followers • 0 following",
-          postsMade: []
-        };
-        const result = await User.collection.insertOne(newUser);
-        console.log("New user inserted with _id:", result.insertedId);
-  
-        res.status(200).json({ message: "User created successfully" });
-      } else {
-        res.status(400).json({ error: "Invalid content or username" });
+    app.post('/register', async (req, res) => {
+      try {
+        const users = await User.find();
+
+        console.log("POST Request to /register received.");
+        const { username, password } = req.body;
+
+        if (username && password) {
+
+          const newUser = {
+            user_id: users.length,
+            profile_pic: "default.png",
+            name: "Edit Profile to add a name",
+            username: "u/" + username,
+            password: password,
+            bio: "Edit Profile to add a bio",
+            followers_info: "0 followers • 0 following",
+            postsMade: []
+          };
+          const result = await User.collection.insertOne(newUser);
+          console.log("New user inserted with _id:", result.insertedId);
+
+          res.status(200).json({ message: "User created successfully" });
+        } else {
+          res.status(400).json({ error: "Invalid content or username" });
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ error: "Internal Server Error" });
       }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-});
+    });
 
     // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));

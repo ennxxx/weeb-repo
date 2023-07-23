@@ -22,15 +22,18 @@
             </a>
         </div>
         <div class="post-actions">
+            {{#if (isEqual @root.currentUser.username author.username)}}
             <button class="edit-button" onclick="openEditPost(this)">
                 <img src="/static/images/post/edit.png" class="edit">
             </button>
             <p class="edit-post">Edit Post</p>
+            {{/if}}
             <a href="/view/{{post_id}}" class="post-clickable">
                 <button class="comment-button">
                     <img src="/static/images/post/comment.png" class="comment">
                 </button>
             </a>
+            
             <p class="comment-num">{{comCtr}} Comments</p>
             <button class="save-button">
                 <img src="/static/images/post/save.png" class="save">
