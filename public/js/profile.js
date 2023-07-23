@@ -39,26 +39,6 @@ document.addEventListener("DOMContentLoaded",function() {
 
 	var selectedContainer = document.getElementById(filterType + "-view");
 	selectedContainer.style.display = "block";
-
-	// Add logic to load posts with user's comments (currently not working)
-    if (filterType === "comments") {
-        // Assume you have access to a variable `posts` containing the posts data from the server
-		
-		
-        
-        const response = await fetch("/profile/comments", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            }
-          });
-
-          console.log(response);
-          if (response.status == 200)
-              location.reload();
-          else
-              console.error("Bad request");
-    }
 }
 
 
