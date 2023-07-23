@@ -11,10 +11,10 @@ function restoreDefaultText(element) {
 }
 
 // .___________________________.
-// ||			                    ||
+// ||			              ||
 // ||      Create Comment     ||
 // ||_________________________||
-// '			                     '
+// '			               '
 
 // Define a named function to handle comment creation
 async function handleCommentCreation() {
@@ -54,103 +54,189 @@ async function handleCommentCreation() {
         } 
       });
 
+
+	document.addEventListener("DOMContentLoaded",function() {
+
 // .________________________.
-// ||			                 ||
+// ||			           ||
 // ||      Save Post       ||
 // ||______________________||
-// '			                  '
-    var saveButtons = document.querySelectorAll(".save-button");
-    
-    saveButtons.forEach(function (saveButton) {
-      var saveImage = saveButton.querySelector(".save");
-      saveButton.addEventListener("click", savePost);
-  
-      function savePost() {
-        if (saveImage.src.includes("save.png")) {
-          saveImage.src = "/static/images/post/clicked/c-saved.png";
-        } else {
-          saveImage.src = "/static/images/post/save.png";
-        }
-      }
-    });
-    
+// '			            '
+
+	var saveButton = document.querySelector(".save-button");
+	var saveImage = saveButton.querySelector(".save");
+
+	saveButton.addEventListener("click", savePost);
+
+	function savePost() {
+		if (saveImage.src.includes("save.png")) {
+			saveImage.src = "/static/images/post/clicked/c-saved.png";
+		} else {
+			saveImage.src = "/static/images/post/save.png";
+		}
+	}
+	
 // .________________________.
-// ||			                 ||
-// ||     Vote Buttons     ||
+// ||			           ||
+// ||       Vote Post      ||
 // ||______________________||
-// '			                  '
-    
-    var upvoteButtons = document.querySelectorAll(".upvote-button");
-  
-    upvoteButtons.forEach(function (upvoteButton, index) {
-      var parentPost = upvoteButton.closest(".view-post-container");
-      var downvoteButton = parentPost.querySelector(".downvote-button");
-      var numVotes = parentPost.querySelector(".num-votes");
-      var post_id = parentPost.post_id;
-  
-      var upvoteImage = upvoteButton.querySelector(".upvote");
-      var downvoteImage = downvoteButton.querySelector(".downvote");
-  
-      upvoteButton.addEventListener("click", upvotePost);
-      downvoteButton.addEventListener("click", downvotePost);
-  
-      async function upvotePost() {
-        if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
-          upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
-          numVotes.textContent++;
-        } 
-        else if (downvoteImage.src.includes("c-downvoted.png")) {
-          upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
-          downvoteImage.src = "/static/images/post/downvote.png"
-          numVotes.textContent++;
-          numVotes.textContent++;
-        } else {
-          upvoteImage.src = "/static/images/post/upvote.png";
-          numVotes.textContent--;
-        }
-        const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
-        const response = await fetch("/vote", {
-        method: 'POST',
-        body: jString,
-        headers: {
-            "Content-Type": "application/json"
-        }
-        });
-        console.log(response);
-        if (response.status == 200)
-            location.reload();
-        else
-            console.error("Bad request");
-      }
-  
-      async function downvotePost() {
-        if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
-          downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
-          upvoteImage.src = "/static/images/post/upvote.png";
-          numVotes.textContent--;
-        }
-        else if (upvoteImage.src.includes("c-upvoted.png")) {
-          downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
-          upvoteImage.src = "/static/images/post/upvote.png";
-          numVotes.textContent--;
-          numVotes.textContent--;
-        }
-        else {
-          downvoteImage.src = "/static/images/post/downvote.png";
-          numVotes.textContent++;
-        }
-        const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
-        const response = await fetch("/vote", {
-        method: 'POST',
-        body: jString,
-        headers: {
-            "Content-Type": "application/json"
-        }
-        });
-        console.log(response);
-        if (response.status == 200)
-            location.reload();
-        else
-            console.error("Bad request");
-      }
-    });
+// '			            '
+	
+	var upvoteButtons = document.querySelectorAll(".upvote-button");
+	
+	upvoteButtons.forEach(function (upvoteButton, index) {
+		var parentPost = upvoteButton.closest(".view-post-container"); // Get the closest parent post container
+		var downvoteButton = parentPost.querySelector(".downvote-button");
+		var numVotes = parentPost.querySelector(".num-votes");
+		var post_id = parentPost.post_id;
+	
+		var upvoteImage = upvoteButton.querySelector(".upvote");
+		var downvoteImage = downvoteButton.querySelector(".downvote");
+	
+		upvoteButton.addEventListener("click", upvotePost);
+		downvoteButton.addEventListener("click", downvotePost);
+	
+		async function upvotePost() {
+		if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+			upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
+			numVotes.textContent++;
+		} 
+		else if (downvoteImage.src.includes("c-downvoted.png")) {
+			upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
+			downvoteImage.src = "/static/images/post/downvote.png"
+			numVotes.textContent++;
+			numVotes.textContent++;
+		} else {
+			upvoteImage.src = "/static/images/post/upvote.png";
+			numVotes.textContent--;
+		}
+		const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
+		const response = await fetch("/vote", {
+		method: 'POST',
+		body: jString,
+		headers: {
+			"Content-Type": "application/json"
+		}
+		});
+		console.log(response);
+		if (response.status == 200)
+			location.reload();
+		else
+			console.error("Bad request");
+		}
+	
+		async function downvotePost() {
+		if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
+			downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
+			upvoteImage.src = "/static/images/post/upvote.png";
+			numVotes.textContent--;
+		}
+		else if (upvoteImage.src.includes("c-upvoted.png")) {
+			downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
+			upvoteImage.src = "/static/images/post/upvote.png";
+			numVotes.textContent--;
+			numVotes.textContent--;
+		}
+		else {
+			downvoteImage.src = "/static/images/post/downvote.png";
+			numVotes.textContent++;
+		}
+		const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
+		const response = await fetch("/vote", {
+		method: 'POST',
+		body: jString,
+		headers: {
+			"Content-Type": "application/json"
+		}
+		});
+		console.log(response);
+		if (response.status == 200)
+			location.reload();
+		else
+			console.error("Bad request");
+		}
+		});
+
+// .________________________.
+// ||			           ||
+// ||     Vote Comment     ||
+// ||______________________||
+// '			            '
+	
+	var upvoteComButtons = document.querySelectorAll(".sc-upvote-button");
+	
+	upvoteComButtons.forEach(function (upvoteComButton, index) {
+		var parentCom = upvoteComButton.closest(".single-comment-main"); // Get the closest parent post container
+		var downvoteComButton = parentCom.querySelector(".sc-downvote-button");
+		var numVotesCom = parentCom.querySelector(".sc-num-votes");
+		var comment_id = parentCom.comment_id;
+	
+		var upvoteComImage = upvoteComButton.querySelector(".sc-upvote");
+		var downvoteComImage = downvoteComButton.querySelector(".sc-downvote");
+	
+		upvoteComButton.addEventListener("click", upvoteComment);
+		downvoteComButton.addEventListener("click", downvoteComment);
+	
+		async function upvoteComment() {
+		if (upvoteComImage.src.includes("upvote.png")  && downvoteComImage.src.includes("downvote.png")) {
+			upvoteComImage.src = "/static/images/post/clicked/c-upvoted.png";
+			numVotesCom.textContent++;
+		} 
+		else if (downvoteComImage.src.includes("c-downvoted.png")) {
+			upvoteComImage.src = "/static/images/post/clicked/c-upvoted.png";
+			downvoteComImage.src = "/static/images/post/downvote.png"
+			numVotesCom.textContent++;
+			numVotesCom.textContent++;
+		} else {
+			upvoteComImage.src = "/static/images/post/upvote.png";
+			numVotesCom.textContent--;
+		}
+		const jString = JSON.stringify({votes: parseInt(numVotesCom.textContent), comment_id});
+		const response = await fetch("/vote-comment", {
+		method: 'POST',
+		body: jString,
+		headers: {
+			"Content-Type": "application/json"
+		}
+		});
+		console.log(response);
+		if (response.status == 200)
+			location.reload();
+		else
+			console.error("Bad request");
+		}
+	
+		async function downvoteComment() {
+		if (downvoteComImage.src.includes("downvote.png") && upvoteComImage.src.includes("upvote.png")) {
+			downvoteComImage.src = "/static/images/post/clicked/c-downvoted.png";
+			upvoteComImage.src = "/static/images/post/upvote.png";
+			numVotesCom.textContent--;
+		}
+		else if (upvoteComImage.src.includes("c-upvoted.png")) {
+			downvoteComImage.src = "/static/images/post/clicked/c-downvoted.png";
+			upvoteComImage.src = "/static/images/post/upvote.png";
+			numVotesCom.textContent--;
+			numVotesCom.textContent--;
+		}
+		else {
+			downvoteComImage.src = "/static/images/post/downvote.png";
+			numVotesCom.textContent++;
+		}
+		const jString = JSON.stringify({votes: parseInt(numVotesCom.textContent), comment_id});
+		const response = await fetch("/vote-comment", {
+		method: 'POST',
+		body: jString,
+		headers: {
+			"Content-Type": "application/json"
+		}
+		});
+		console.log(response);
+		if (response.status == 200)
+			location.reload();
+		else
+			console.error("Bad request");
+		}
+		});
+
+
+	});

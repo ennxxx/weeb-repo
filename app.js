@@ -104,7 +104,6 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
-    
     let currentUser = await User.findOne({username: 'u/shellyace'}).populate('postsMade');
 
     // This route renders the home page.
@@ -140,7 +139,8 @@ async function importData(data) {
       });
         res.render("view", {
           title: posts[post_id].title,
-          post: posts[post_id]
+          post: posts[post_id],
+		  currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -387,7 +387,27 @@ async function importData(data) {
       }
     });
 
-    // This route is used for voting.
+	// This route is used for voting on comments.
+    app.post("/vote-comment", async (req, res) => {
+		try {
+		  const comments = await Comment.find().populate('author');;
+  
+		  const votes = req.body.votes;
+		  const comment_id = req.body.comment_id;
+  
+		  if (votes && comment_id) {
+			comments[comment_id].voteCtr = votes;
+			res.status(200);
+		  } else {
+			res.status(400);
+		  }
+		} catch (error) {
+		  console.error("Error fetching posts:", error);
+		  res.status(500).json({ error: "Internal Server Error" });
+		}
+	  });
+
+    // This route is used for voting on posts.
     app.post("/vote", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');;
