@@ -12,6 +12,7 @@ import fs from 'fs';
 import * as helpers from './helpers.js';
 import { User } from './model/schemas.js';
 import { Post } from './model/schemas.js';
+import { Comment } from './model/schemas.js';
 
 mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
   useNewUrlParser: true,
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URI  + process.env.DB_NAME, {
 const modelMap = {
   user: User,
   post: Post,
+  comment: Comment,
 };
 
 // Creates an  instance of the express app.
@@ -83,6 +85,7 @@ async function importData(data) {
     // As of now it only imports the data for posts and users.
     await importData('user');
     await importData('post');
+    await importData('comment');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -124,7 +127,18 @@ async function importData(data) {
     app.get("/view/:post_id", async (req, res) => {
       const post_id = req.params.post_id;
       try {
-        const posts = await Post.find().populate('author');
+    const posts = await Post.find()
+      .populate('author')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'author',
+          model: 'User',
+          select: 'username' // Only populate the 'username' field of the User document
+        }
+      });
+
+        console.log(posts[post_id].comments[0].author);
 
         res.render("view", {
           title: posts[post_id].title,
@@ -233,7 +247,7 @@ async function importData(data) {
             author: author,
             content: content,
             profpic: profpic,
-            comID: posts[post_id].comments.length,
+            comment_id: posts[post_id].comments.length,
             reply: []
           };
           posts[post_id].comments.push(newComment);
@@ -264,7 +278,7 @@ async function importData(data) {
           author: author,
           content: replyContent,
           profpic: profpic,
-          comID: posts[post_id].comments.length,
+          comment_id: posts[post_id].comments.length,
           reply: []
         };
         if (newReply && post_id) {
