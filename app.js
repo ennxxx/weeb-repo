@@ -134,7 +134,7 @@ async function importData(data) {
         populate: {
           path: 'author',
           model: 'User',
-          select: 'username' // Only populate the 'username' field of the User document
+          select: 'username profile_pic' // Only populate the 'username' field of the User document
         }
       });
         res.render("view", {
