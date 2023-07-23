@@ -181,19 +181,28 @@ async function importData(data) {
         }
       });
 			const users = await User.find().populate('postsMade');
+
+      const search = query.toLowerCase();
       
-			// Logic to filter based on search goes here
-			// filtered_posts
-			// filtered_comments
-			// filtered_users
+			const filtered_posts = posts.filter(post => post.title.toLowerCase().includes(search) 
+      || post.content.toLowerCase().includes(search)
+      || post.author.username.toLowerCase().includes(search));
+
+      const filtered_comments = comments.filter(comment => comment.content.includes(search) 
+      || comment.author.username.toLowerCase().includes(search)
+      || comment.parentPost.title.toLowerCase().includes(search)
+      || comment.parentPost.author.username.toLowerCase().includes(search));
+
+      const filtered_users = users.filter(user => user.username.toLowerCase().includes(search) 
+      || user.name.toLowerCase().includes(search));
 				
 			res.render("search", {
 				title: "Search",
 				query: query,
 				search_filters: search_filters,
-				posts: posts,
-				comments: comments,
-				users: users
+				posts: filtered_posts,
+				comments: filtered_comments,
+				users: filtered_users
 			});
 			} catch (error) {
 			console.error("Error fetching posts:", error);
