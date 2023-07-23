@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		button.addEventListener("click", clickFilter);
 	});
 
-	var overviewButton = document.querySelector(".filter[data-filter='Overview']");
+	var overviewButton = document.querySelector(".filter[data-filter='Posts']");
 	overviewButton.classList.add("clicked");
 
 	var containers = document.querySelectorAll("#overview-container > div[id$='-view']");
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded",function() {
 		container.style.display = "none";
 	});
 
-	var overviewContainer = document.getElementById("Overview-view");
+	var overviewContainer = document.getElementById("Posts-view");
 	overviewContainer.style.display = "block";
 
 	async function clickFilter() {

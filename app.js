@@ -151,7 +151,7 @@ async function importData(data) {
     // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
-        const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
         const posts = await Post.find().populate('author');
         const comments = await Comment.find()
         .populate('author')
@@ -182,7 +182,7 @@ async function importData(data) {
     app.get("/profile/:name", async (req, res) => {
       try {
         const name = req.params.name;
-        const filters = ['Overview', 'Posts', 'Comments'];
+        const filters = ['Posts', 'Comments'];
         const users = await User.find().populate('postsMade');
         let userProfile = users.filter(user => user.name.includes(name));
         userProfile[0].populate('postsMade');
@@ -196,15 +196,18 @@ async function importData(data) {
             select: 'username title'
           }
         });
-       
+      
+        if(currentUser.username === userProfile[0].username){
+          res.redirect('/main-profile');
+        } else{
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
-
         res.render("profile", {
           title: userProfile[0].name,
           user: userProfile[0],
           comments: filtered_comments,
           filters: filters
         });
+      }
       } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
