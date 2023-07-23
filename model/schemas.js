@@ -9,7 +9,8 @@ const userSchema = new mongoose.Schema({
     password: { type: String },
     bio: { type: String },
     followers_info: { type: String },
-    postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }], 
+    postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
+    commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }] 
 });
 
 const User = mongoose.model('User', userSchema);

@@ -23,10 +23,13 @@
                     </button>
                     <button class="sc-reply-button">Reply</button>
                 </div>
+                {{#if (isEqual currentUser author.username)}}
+                <script>console.log(currentUser + author.username);</script>
                 <div class="sc-actions">
                     <button class="sc-edit-button">Edit</button>
                     <button class="sc-delete-button">Delete</button>
                 </div>
+                {{/if}}
             </div>
 
             <div class="reply-form" style="display:none;">

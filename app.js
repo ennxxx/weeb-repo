@@ -92,7 +92,8 @@ async function importData(data) {
         capitalize: function (string) {
           return string.toUpperCase();
         },
-        substring: helpers.substring
+        substring: helpers.substring.apply,
+		isEqual: helpers.isEqual 
       },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
@@ -103,6 +104,15 @@ async function importData(data) {
     app.use("/static", express.static("public"));
     app.set("view engine", "hbs");
     app.set("views", "./views");
+
+	// Example usage of the isEqual function
+    const obj1 = { key1: 'value1', key2: 'value2' };
+    const obj2 = { key1: 'value1', key2: 'value2' };
+    if (helpers.isEqual(obj1, obj2)) {
+      console.log('Objects are equal!');
+    } else {
+      console.log('Objects are not equal!');
+    }
 
     let currentUser = await User.findOne({username: 'u/shellyace'}).populate('postsMade');
 
@@ -326,7 +336,7 @@ async function importData(data) {
         const { content, post_id } = req.body;
     
         if (content && post_id) {
-    
+			
           const newComment = {
             author: currentUser._id,
             content: content,
@@ -338,6 +348,7 @@ async function importData(data) {
             voteCtr: 0,
             __v: 0
           };
+
           const result = await Comment.collection.insertOne(newComment);
           console.log("New comment inserted with _id:", result.insertedId);
     
