@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     profile_pic: { type: String },
     name: { type: String, required: true },
     username: { type: String, required: true },
+    password: { type: String },
     bio: { type: String },
     followers_info: { type: String },
     postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }], 
@@ -18,7 +19,6 @@ export { User };
 const commentSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     content: { type: String }, 
-    profpic: { type: String },
     comment_id: { type: Number, required: true, unique: true  },
     parentPost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true },
     parentComment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true },
@@ -27,6 +27,7 @@ const commentSchema = new mongoose.Schema({
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
+
 export { Comment };
 
 // Define the post schema

@@ -1,16 +1,10 @@
 [{
   "_id": {
-    "$oid": "64bbce8c9e08a4493219f460"
+    "$oid": "64bd44f468b44f474a608ca4"
   },
   "user_id": 0,
-  "profile_pic": "Pochacco.png",
-  "name": "Pochacco",
-  "username": "u/pocchi",
-  "bio": "Hindi gumana ang manifesting kaya gagamit na tayo ng dahas.",
-  "followers_info": "7 followers • 2 following",
-  "postsMade": [
-    "64bbce8c9e08a4493219f472"
-  ],
+  "name": "Anonymous",
+  "username": "u/anonymous",
   "__v": 0
 },
 {
@@ -85,6 +79,21 @@
   "followers_info": "7 followers • 2 following",
   "postsMade": [
     "64bbce8c9e08a4493219f480"
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64bbce8c9e08a4493219f460"
+  },
+  "user_id": 6,
+  "profile_pic": "Pochacco.png",
+  "name": "Pochacco",
+  "username": "u/pocchi",
+  "bio": "Hindi gumana ang manifesting kaya gagamit na tayo ng dahas.",
+  "followers_info": "7 followers • 2 following",
+  "postsMade": [
+    "64bbce8c9e08a4493219f472"
   ],
   "__v": 0
 }]
