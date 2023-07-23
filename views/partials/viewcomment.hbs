@@ -5,21 +5,30 @@
             <img class="sc-picture" src="/static/images/profile/{{author.profile_pic}}">
         </div>
         <div class="sc-right">
-            <div class="sc-name">{{author.username}}</div>
+            <div class="sc-top">
+                <div class="sc-name">{{author.username}}</div>
+                <p class="sc-edited"></p>
+            </div>
             <div class="sc-right-content">
                 <div class="sc-body">{{content}}</div>
             </div>
-            <div class="sc-vote">
-                <button class="sc-upvote-button">
-                    <img src="/static/images/post/upvote.png" class="sc-upvote">
-                </button>
-                <p class="sc-num-votes">{{voteCtr}}</p>
-                <button class="sc-downvote-button">
-                    <img src="/static/images/post/downvote.png" class="sc-downvote">
-                </button>
-                <button class="sc-reply-button">Reply</button>
-
+            <div class="sc-footer">
+                <div class="sc-vote">
+                    <button class="sc-upvote-button">
+                        <img src="/static/images/post/upvote.png" class="sc-upvote">
+                    </button>
+                    <p class="sc-num-votes">{{voteCtr}}</p>
+                    <button class="sc-downvote-button">
+                        <img src="/static/images/post/downvote.png" class="sc-downvote">
+                    </button>
+                    <button class="sc-reply-button">Reply</button>
+                </div>
+                <div class="sc-actions">
+                    <button class="sc-edit-button">Edit</button>
+                    <button class="sc-delete-button">Delete</button>
+                </div>
             </div>
+
             <div class="reply-form" style="display:none;">
                 <textarea class="reply-area" rows="1" placeholder="Write a reply"></textarea>
                 <button class="submit-reply">Submit</button>

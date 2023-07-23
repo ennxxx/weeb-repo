@@ -17,11 +17,15 @@
             <a href="/view/{{post_id}}" class="post-clickable">
                 <p class="text">{{{content}}}</p>
                 {{#if image}}
-                    <img src="/static/images/post/media/{{image}}" class="sample">
+                <img src="/static/images/post/media/{{image}}" class="sample">
                 {{/if}}
             </a>
         </div>
         <div class="post-actions">
+            <button class="edit-button" onclick="openEditPost(this)">
+                <img src="/static/images/post/edit.png" class="edit">
+            </button>
+            <p class="edit-post">Edit Post</p>
             <a href="/view/{{post_id}}" class="post-clickable">
                 <button class="comment-button">
                     <img src="/static/images/post/comment.png" class="comment">
