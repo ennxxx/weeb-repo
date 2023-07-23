@@ -138,8 +138,6 @@ async function importData(data) {
         }
       });
 
-        console.log(posts[post_id].comments[0].author);
-
         res.render("view", {
           title: posts[post_id].title,
           post: posts[post_id]
