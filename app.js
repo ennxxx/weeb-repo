@@ -111,11 +111,12 @@ async function importData(data) {
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');
+        posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
         
         res.render("index", {
           title: 'Home',
           posts: posts,
-          toppost: posts[5]
+          toppost: posts[0]
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
