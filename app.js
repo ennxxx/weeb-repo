@@ -336,7 +336,6 @@ async function importData(data) {
             parentComment: null,
             reply: [],
             voteCtr: 0,
-            __v: 0
           };
           const result = await Comment.collection.insertOne(newComment);
           console.log("New comment inserted with _id:", result.insertedId);
@@ -429,23 +428,36 @@ async function importData(data) {
     });
 
     // Route for user registration
-  app.post('/api/register', async (req, res) => {
-  try {
-    // Extract user registration data from the request body
-    const { username, password, confirmPassword } = req.body;
-
-    // Perform validation checks on the data
-    // ...
-
-    // Store the user data in the database
-    // ...
-
-    // Send a response back to the client
-    res.status(200).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error('Error during registration:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  app.post('/register', async (req, res) => {
+    try {
+      const users = await User.find();
+  
+      console.log("POST Request to /register received.");
+      const { username, password } = req.body;
+  
+      if (username && password) { 
+  
+        const newUser = {
+          user_id: users.length,
+          profile_pic: "default.png",
+          name: "Edit Profile to add a name",
+          username: "u/" + username,
+          password: password,
+          bio: "Edit Profile to add a bio",
+          followers_info: "0 followers • 0 following",
+          postsMade: []
+        };
+        const result = await User.collection.insertOne(newUser);
+        console.log("New user inserted with _id:", result.insertedId);
+  
+        res.status(200).json({ message: "User created successfully" });
+      } else {
+        res.status(400).json({ error: "Invalid content or username" });
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
     // This route is used for connecting to the server.

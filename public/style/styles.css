@@ -1808,6 +1808,12 @@ header {
   text-align: left;
 }
 
+#register-button {
+  background: transparent;
+  outline: transparent;
+  border: none;
+}
+
 /* Registration (Left) */
 
 .registration-left {
