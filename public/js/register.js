@@ -1,74 +1,84 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // .________________________.
-    // ||			           ||
-    // ||       Register       ||
-    // ||______________________||
-    // '			            '
-  
-    /* Declaration of Variables */
-    const usernameInput = document.getElementById('username-input');
-    const passwordInput = document.getElementById('password-input');
-    const confirmPasswordInput = document.getElementById('confirm-password-input');
-    const passwordMatchIcon = document.getElementById('password-match-icon');
-  
-    /* Function for checking if both passwords match */
-    function checkPasswordMatch() {
-      const password = passwordInput.value;
-      const confirmPassword = confirmPasswordInput.value;
-  
-      if (password === confirmPassword) {
-        passwordMatchIcon.textContent = '✓';
-      } else {
-        passwordMatchIcon.textContent = '✕';
-      }
-    }
-  
-    /* Getting the input */
-    usernameInput.addEventListener('input', checkUsername);
-    passwordInput.addEventListener('input', checkPasswordMatch);
-    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+  // .________________________.
+  // ||			           ||
+  // ||       Register       ||
+  // ||______________________||
+  // '			            '
 
-    const registerButton = document.getElementById('register-button');
-    registerButton.addEventListener('click', async function () {
+  /* Declaration of Variables */
+  const usernameInput = document.getElementById('username-input');
+  const passwordInput = document.getElementById('password-input');
+  const confirmPasswordInput = document.getElementById('confirm-password-input');
+  const passwordMatchIcon = document.getElementById('password-match-icon');
+  const passwordWarning = document.getElementById('password-warning');
+
+  /* Function for checking if both passwords match */
+  function checkPasswordMatch() {
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+
+    if (password === confirmPassword) {
+      passwordMatchIcon.textContent = '✓';
+      passwordWarning.textContent = ''; // Clear any previous warning
+    } else {
+      passwordMatchIcon.textContent = '✕';
+      passwordWarning.textContent = 'Passwords do not match'; // Show the warning message
+    }
+  }
+
+  const registerButton = document.getElementById('register-button');
+  registerButton.addEventListener('click', async function () {
+    try {
+      passwordWarning.textContent = '';
       const username = usernameInput.value;
       const password = passwordInput.value;
-  
-      try {
-        // Check if passwords match before sending the registration data
-        checkPasswordMatch();
-  
-        // Check if passwords match before sending the registration data
-        const isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
-        if (!isPasswordMatch) {
-          console.log("Passwords do not match");
-          return; // Exit the function if passwords don't match
-        }
-  
-        // Send the registration data to the server
-        const response = await fetch('/api/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, password })
-        });
-  
-        // Check the response status to see if the registration was successful
-        if (response.status === 200) {
-          console.log("Registration successful");
-          // Perform any other actions here, e.g., show a success message, redirect to another page
-        } else {
-          console.log("Registration failed");
-          // Show an error message or perform other actions for a failed registration attempt
-        }
-      } catch (error) {
-        console.error("Error during registration:", error);
-        // Handle the error as needed
+
+      if (username === '' || password === '' || confirmPasswordInput.value === '') {
+        passwordWarning.textContent = 'Username or password cannot be empty';
+        return; // Exit the function if username or password is empty
       }
-    });
+
+      // Check if passwords match before sending the registration data
+      const isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
+      if (!isPasswordMatch) {
+        passwordWarning.textContent = 'Passwords do not match! Try Again.';
+        // Clear the input fields
+        usernameInput.value = '';
+        passwordInput.value = '';
+        confirmPasswordInput.value = '';
+        return; // Exit the function if passwords don't match
+      }
+
+      const jString = JSON.stringify({ username, password });
+
+      // Send the registration data to the server
+      const response = await fetch('/register', {
+        method: 'POST',
+        body: jString,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      // Check the response status to see if the registration was successful
+      if (response.status === 200) {
+        console.log("Registration successful");
+        window.location.href = '/signin';
+        // Perform any other actions here, e.g., show a success message, redirect to another page
+      } else if (response.status === 400) {
+        passwordWarning.textContent = 'Registration failed! Try Again.';
+        // Show an error message or perform other actions for a failed registration attempt
+      } else if (response.status === 500) {
+        passwordWarning.textContent = 'Username already exists! Try Again.';
+        // Show an error message or perform other actions for a failed registration attempt
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      // Handle the error as needed
+    }
   });
-    
-  });
-  
+});
+
+

@@ -21,7 +21,6 @@ async function handleCommentCreation() {
     try {
       const content = document.querySelector(".comment-area").value;
       const post_id = document.querySelector(".post_id").innerText;
-      console.log("Button clicked");
   
       const jString = JSON.stringify({ content, post_id });
   
