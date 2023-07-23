@@ -82,6 +82,7 @@ async function importData(data) {
 
     // Waits for the data to be imported before starting the Express server.
     // As of now it only imports the data for posts and users.
+    await mongoose.connection.dropDatabase();
     await importData('user');
     await importData('post');
     await importData('comment');
