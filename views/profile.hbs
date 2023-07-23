@@ -1,5 +1,6 @@
 <script src="/static/js/profile.js"></script>
 <script src="/static/js/edit.js"></script>
+<script src="/static/js/post.js"></script>
 
 <!-- Profile Content -->
 <div class="row-content-container">
@@ -9,8 +10,7 @@
         </div>
         <h2 id="name">{{user.name}}</h2>
         <h4 id="profile-username">{{user.username}}</h4>
-        <p id="bio">{{{user.bio}}}</p>
-        <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+        <p id="bio">{{{user.bio}}}</p><br>
         <div id="followers-container">
             <img src="/static/images/icons/followers.png">
             <p>{{{user.followers_info}}}</p>
@@ -25,19 +25,7 @@
         </div>
         <hr id="filter-hr">
 
-        <!-- Overview -->
-        <div id="Overview-view">
-            <div class="posts-container">
-                {{#each user.postsMade}}
-                {{> post this}}
-                {{/each}}
-                {{#each comments}}
-                {{> searchcomment this}}
-                {{/each}}
-            </div>
-        </div>
-
-        <!-- Posts -->
+         <!-- Posts -->
         <div id="Posts-view">
             <div class="posts-container">
                 {{#each user.postsMade}}
