@@ -1,13 +1,12 @@
 <div class="comment-container">
     <div class="comment-details">
-        <img src="images/post/comment.png" class="comment-filter">
-        <p><span id="comment-username">shellyace</span> commented on <span id="comment-post-title">The
-                Ultimate
-                Showdown: Kafka or Himeko</span> • Posted by IAmLoaf21</p>
+        <img src="../static/images/post/comment.png" class="comment-filter">
+        <p><span id="comment-username">{{author.username}}</span> commented on <span
+                id="comment-post-title">{{parentPost.title}}</span> • Posted by {{parentPost.author.username}}</p>
     </div>
     <div class="comment-content">
-        <i>shellyace</i><br>
-        The answer is neither. The real best girl is Silver Wolf.<br>
+        <i>{{author.username}}</i><br>
+        {{content}}<br>
         <button class="reply-button">
             Reply
         </button>

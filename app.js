@@ -170,9 +170,18 @@ async function importData(data) {
 			const query = req.params.query;
 			const search_filters = ['Posts', 'Comments', 'Users'];
 			const posts = await Post.find().populate('author');
-			// const comments = await Comment.find().populate('author');
+		  const comments = await Comment.find()
+      .populate('author')
+      .populate({
+        path: 'parentPost',
+        populate: {
+          path: 'author',
+          model: 'User',
+          select: 'username title'
+        }
+      });
 			const users = await User.find().populate('postsMade');
-
+      
 			// Logic to filter based on search goes here
 			// filtered_posts
 			// filtered_comments
@@ -183,7 +192,7 @@ async function importData(data) {
 				query: query,
 				search_filters: search_filters,
 				posts: posts,
-				// comments: comments,
+				comments: comments,
 				users: users
 			});
 			} catch (error) {
