@@ -105,7 +105,7 @@ async function importData(data) {
     app.set("views", "./views");
 
     
-    let currentUser = await User.findOne({username: 'u/shellyace'})
+    let currentUser = await User.findOne({username: 'u/shellyace'}).populate('postsMade');
 
     // This route renders the home page.
     app.get("/", async (req, res) => {
@@ -151,12 +151,58 @@ async function importData(data) {
     // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
-        const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
+        const filters = ['Overview', 'Posts', 'Comments', 'Upvoted', 'Downvoted'];
         const posts = await Post.find().populate('author');
+        const comments = await Comment.find()
+        .populate('author')
+        .populate({
+          path: 'parentPost',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'username title'
+          }
+        });
 
+        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
+        
         res.render("main-profile", {
           title: "My Profile",
-          posts: posts,
+          user: currentUser,
+          comments: filtered_comments,
+          filters: filters
+        });
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+    
+    // This route renders the main-profile page.
+    app.get("/profile/:name", async (req, res) => {
+      try {
+        const name = req.params.name;
+        const filters = ['Overview', 'Posts', 'Comments'];
+        const users = await User.find().populate('postsMade');
+        let userProfile = users.filter(user => user.name.includes(name));
+        userProfile[0].populate('postsMade');
+        const comments = await Comment.find()
+        .populate('author')
+        .populate({
+          path: 'parentPost',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'username title'
+          }
+        });
+       
+        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
+
+        res.render("profile", {
+          title: userProfile[0].name,
+          user: userProfile[0],
+          comments: filtered_comments,
           filters: filters
         });
       } catch (error) {
@@ -165,7 +211,7 @@ async function importData(data) {
       }
     });
 
-	// This route renders the search page.
+	  // This route renders the search page.
     app.get("/search/:query", async (req, res) => {
 		try {
 			const query = req.params.query;
@@ -211,27 +257,7 @@ async function importData(data) {
 			}
 	  });
 
-    // This route renders the comments part of the profile page.
-    app.get("/profile-comments", async (req, res) => {
-      try {
-        const posts = await Post.find().populate('author');
-        const user = req.body;
-        console.log(user);
-        var postsByAuthor = posts.filter(function (post) {
-          return post.comments.some(function (comment) {
-            return comment.author == user;
-          });
-        });
-
-        res.render("main-profile", {
-          commentPosts: postsByAuthor,
-          filters: filters
-        });
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      }
-    });
+    
     app.get('/register', (req, res) => {
       res.render('register', {
          noLayout: true 

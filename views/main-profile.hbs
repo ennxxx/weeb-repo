@@ -1,21 +1,20 @@
- <script src="/static/js/profile.js"></script>
+<script src="/static/js/profile.js"></script>
 <script src="/static/js/edit.js"></script>
 
 <!-- Profile Content -->
 <div class="row-content-container">
     <div id="profile-container">
         <div id="image-container">
-            <img src="/static/images/profile/cinnamoroll.png" id="profile-pic">
+            <img src="/static/images/profile/{{user.profile_pic}}" id="profile-pic">
             <button id="change-image-btn"></button>
         </div>
-        <h2 id="name">Cinnamoroll</h2>
-        <h4 id="profile-username">u/shellyace</h4>
-        <p id="bio">"meron ka bang mga emotional baggage?"<br><br>"i prefer to carry small bags."
-        </p>
+        <h2 id="name">{{user.name}}</h2>
+        <h4 id="profile-username">{{user.username}}</h4>
+        <p id="bio">{{{user.bio}}}</p>
         <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
         <div id="followers-container">
             <img src="/static/images/icons/followers.png">
-            <p><span class="bold">3</span> followers • <span class="bold">2</span> following</p>
+            <p>{{{user.followers_info}}}</p>
         </div>
     </div>
     <div id="overview-container">
@@ -38,8 +37,11 @@
             </div>
 
             <div class="posts-container">
-                {{#each posts}}
+                {{#each user.postsMade}}
                 {{> post this}}
+                {{/each}}
+                {{#each comments}}
+                {{> searchcomment this}}
                 {{/each}}
             </div>
         </div>
@@ -47,7 +49,7 @@
         <!-- Posts -->
         <div id="Posts-view">
             <div class="posts-container">
-                {{#each posts}}
+                {{#each user.postsMade}}
                 {{> post this}}
                 {{/each}}
             </div>
@@ -56,8 +58,8 @@
         <!-- Comments -->
         <div id="Comments-view">
             <div class="posts-container">
-                {{#each commentPosts}}
-                {{> post this}}
+                {{#each comments}}
+                {{> searchcomment this}}
                 {{/each}}
             </div>
         </div>
@@ -72,14 +74,6 @@
 
         <!-- Downvotes -->
         <div id="Downvoted-view">
-            <div class="empty-container">
-                <img src="/static/images/icons/empty.png" class="empty-icon">
-                <h2 class="empty-text">Looks like there's nothing here</h2>
-            </div>
-        </div>
-
-        <!-- Saved -->
-        <div id="Saved-view">
             <div class="empty-container">
                 <img src="/static/images/icons/empty.png" class="empty-icon">
                 <h2 class="empty-text">Looks like there's nothing here</h2>

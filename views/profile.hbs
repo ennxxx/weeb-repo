@@ -1,154 +1,64 @@
+<script src="/static/js/profile.js"></script>
+<script src="/static/js/edit.js"></script>
+
 <!-- Profile Content -->
-    <div class="row-content-container">
-        <div id="profile-container">
-            <img src="images/profile/pocchi.png" id="profile-pic">
-            <h2 id="name">{{name}}</h2>
-            <h4 id="profile-username">{{username}}</h4>
-            <p id="bio">{{bio}}</p>
-            <input type="button" id="follow-button" value="Follow">
-            <div id="followers-container">
-                <img src="/static/images/icons/followers.png">
-                <p><span class="bold">7</span> followers • <span class="bold">2</span> following</p>
-            </div>
+<div class="row-content-container">
+    <div id="profile-container">
+        <div id="image-container">
+            <img src="/static/images/profile/{{user.profile_pic}}" id="profile-pic">
         </div>
-
-        <div id="overview-container">
-
-            <div id="filters-container">
+        <h2 id="name">{{user.name}}</h2>
+        <h4 id="profile-username">{{user.username}}</h4>
+        <p id="bio">{{{user.bio}}}</p>
+        <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+        <div id="followers-container">
+            <img src="/static/images/icons/followers.png">
+            <p>{{{user.followers_info}}}</p>
+        </div>
+    </div>
+    <div id="overview-container">
+        <!-- Filter Buttons -->
+        <div id="filters-container">
             {{#each filters}}
             <button class="filter" data-filter="{{this}}">{{this}}</button>
             {{/each}}
         </div>
         <hr id="filter-hr">
-            <!-- Overview -->
-            <div id="Overview-view">
 
-                <!-- Sample Post-->
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">25</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=4" class="post-clickable">
-                                <h4 class="title">Lotad BEST POKEMON!</h4>
-                            </a>
-                            <p class="author">by <a href=#>Lotad_is_Life</a></p>
-                            <a href="view.html?id=4" class="post-clickable">
-                                <p class="text">Hey, fellow crafters! I gotta spill the beans about Lotad 'cause it's,
-                                    like,
-                                    the sickest Pokémon in Minecraft! Here's why Lotad is the absolute BEST:<br><br>
-
-                                    Water Splash Master: Lotad is all about those water moves,
-                                    fam! It can use Water
-                                    Gun and
-                                    Bubble Beam to soak enemies like a pro. No one stands a chance against its splashy
-                                    powers!<br><br>
-
-                                    Epic Minecraft Skin: Have you seen Lotad's skin? It's legit
-                                    awesome! The lil'
-                                    blue body
-                                    and the leafy headgear are perfect for any Minecraft adventure. Your pals will be
-                                    jelly,
-                                    trust me!<br><br>
-
-                                    Grass Block Surfing: Lotad's got mad skills on land too! It
-                                    can walk on water and
-                                    even
-                                    surf on grass blocks. It's like riding the coolest wave in Minecraft history.
-                                    Cowabunga!<br><br>
-
-                                    Evolution Quest: Lotad's evolutions are like leveling up in
-                                    Minecraft. It can
-                                    become
-                                    Lombre and then evolve into Ludicolo, and each stage is more epic than the last.
-                                    It's
-                                    like unlocking secret power-ups!<br><br>
-
-                                    Rainy Day MVP: Yo, check this out! Lotad's got a hidden
-                                    ability called Rain Dish.
-                                    When
-                                    it's raining in Minecraft, it regenerates its HP like a boss. It's like having a
-                                    built-in healing potion!
-                                </p>
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=4" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>10 Comments</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <!-- Overview -->
+        <div id="Overview-view">
+            <div class="posts-container">
+                {{#each user.postsMade}}
+                {{> post this}}
+                {{/each}}
+                {{#each comments}}
+                {{> searchcomment this}}
+                {{/each}}
             </div>
+        </div>
 
-            <!-- Posts -->
-            <div id="Posts-view">
-                <div class="post-container">
-                    <div class="vote">
-                        <button class="upvote-button">
-                            <img src="images/post/upvote.png" class="upvote">
-                        </button>
-                        <p class="num-votes">67</p>
-                        <button class="downvote-button">
-                            <img src="images/post/downvote.png" class="downvote">
-                        </button>
-                    </div>
-                    <div class="content">
-                        <div class="post-content">
-                            <a href="view.html?id=1" class="post-clickable">
-                                <h4 class="title">Demon Slayer mid-tier?</h4>
-                            </a>
-                            <p class="author">by <a href="sample-profile.html">pocchi</a></p>
-                            <a href="view.html?id=1" class="post-clickable">
-                                <p class="text">Despite its visually stunning animation and action sequences, Demon
-                                    Slayer
-                                    fails to explore significant thematic depth. It primarily focuses on the battle
-                                    between
-                                    good and evil, neglecting opportunities to delve into complex societal, moral, or
-                                    philosophical themes. The absence of deeper thematic exploration prevents it from
-                                    resonating on a profound and hought-provoking level. So why did I watch it? Inosuke.
-                                </p>
-                                <img src="images/post/media/sample1.jpeg" class="sample">
-                            </a>
-                        </div>
-                        <div class="post-actions">
-                            <a href="view.html?id=1" class="post-clickable">
-                                <button class="comment-button">
-                                    <img src="images/post/comment.png" class="comment">
-                                </button>
-                            </a>
-                            <p>12 Comments</p>
-                            <button class="save-button">
-                                <img src="images/post/save.png" class="save">
-                            </button>
-                        </div>
-                    </div>
-                </div>
+        <!-- Posts -->
+        <div id="Posts-view">
+            <div class="posts-container">
+                {{#each user.postsMade}}
+                {{> post this}}
+                {{/each}}
             </div>
+        </div>
 
-            <!-- Comments -->
-            <div id="Comments-view">
-                <div class="empty-container">
-                    <img src="images/icons/empty.png" class="empty-icon">
-                    <h2 class="empty-text">Looks like there's nothing here</h2>
-                </div>
+        <!-- Comments -->
+        <div id="Comments-view">
+            <div class="posts-container">
+                {{#each comments}}
+                {{> searchcomment this}}
+                {{/each}}
             </div>
         </div>
     </div>
+</div>
 
-    <button class="scroll-up-button">
-        <img src="images/icons/scroll.png" class="scroll-up">
-    </button>
+
+
+<button class="scroll-up-button">
+    <img src="images/icons/scroll.png" class="scroll-up">
+</button>
