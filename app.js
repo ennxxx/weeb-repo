@@ -217,57 +217,58 @@ async function importData(data) {
 			const query = req.params.query;
 			const search_filters = ['Posts', 'Comments', 'Users'];
 			const posts = await Post.find().populate('author');
-		  const comments = await Comment.find()
-      .populate('author')
-      .populate({
-        path: 'parentPost',
-        populate: {
-          path: 'author',
-          model: 'User',
-          select: 'username title'
-        }
-      });
-			const users = await User.find().populate('postsMade');
+		  	const comments = await Comment.find()
+			.populate('author')
+			.populate({
+				path: 'parentPost',
+				populate: {
+				path: 'author',
+				model: 'User',
+				select: 'username title'
+					}
+      	});
+		const users = await User.find().populate('postsMade');
 
-      const search = query.toLowerCase();
+      	const search = query.toLowerCase();
       
-			const filtered_posts = posts.filter(post => post.title.toLowerCase().includes(search) 
-      || post.content.toLowerCase().includes(search)
-      || post.author.username.toLowerCase().includes(search));
+		const filtered_posts = posts.filter(post => post.title.toLowerCase().includes(search) 
+		|| post.content.toLowerCase().includes(search)
+      	|| post.author.username.toLowerCase().includes(search));
 
-      const filtered_comments = comments.filter(comment => comment.content.includes(search) 
-      || comment.author.username.toLowerCase().includes(search)
-      || comment.parentPost.title.toLowerCase().includes(search)
-      || comment.parentPost.author.username.toLowerCase().includes(search));
+		const filtered_comments = comments.filter(comment => comment.content.includes(search) 
+		|| comment.author.username.toLowerCase().includes(search)
+		|| comment.parentPost.title.toLowerCase().includes(search)
+		|| comment.parentPost.author.username.toLowerCase().includes(search));
 
-      const filtered_users = users.filter(user => user.username.toLowerCase().includes(search) 
-      || user.name.toLowerCase().includes(search));
-				
-			res.render("search", {
-				title: "Search",
-				query: query,
-				search_filters: search_filters,
-				posts: filtered_posts,
-				comments: filtered_comments,
-				users: filtered_users
-			});
-			} catch (error) {
-			console.error("Error fetching posts:", error);
-			res.status(500).json({ error: "Internal Server Error" });
-			}
-	  });
+		const filtered_users = users.filter(user => user.username.toLowerCase().includes(search) 
+		|| user.name.toLowerCase().includes(search));
+					
+		res.render("search", {
+			title: "Search",
+			query: query,
+			search_filters: search_filters,
+			posts: filtered_posts,
+			comments: filtered_comments,
+			users: filtered_users
+		});
+		} catch (error) {
+		console.error("Error fetching posts:", error);
+		res.status(500).json({ error: "Internal Server Error" });
+		}
+	});
 
-    
     app.get('/register', (req, res) => {
       res.render('register', {
          noLayout: true 
         });
     });
+
     app.get('/signin', (req, res) => {
       res.render('signin',{ 
         noLayout: true 
       });
     });
+
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
@@ -347,7 +348,6 @@ async function importData(data) {
       }
     });
     
-
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
