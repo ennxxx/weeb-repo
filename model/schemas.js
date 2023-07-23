@@ -23,7 +23,6 @@ const commentSchema = new mongoose.Schema({
     reply: [], 
 });
 
-
 // Define the post schema
 const postSchema = new mongoose.Schema({
     post_id: { type: Number, unique: true },
