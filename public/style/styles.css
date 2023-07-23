@@ -1859,6 +1859,16 @@ header {
 
 /*------------------- SPECIFICATIONS FOR THE VIEW PAGE ---------------------*/
 
+.reply-textarea {
+  width: 100%;
+  margin-top: 5px; /* Add some spacing between the comment and the reply text area */
+}
+
+.italic-light-gray {
+  font-style: italic;
+  color: lightgray;
+}
+
 #view-body {
   color: #2C394B;
   font-size: 14px;
@@ -1924,6 +1934,18 @@ header {
   color: #8F8D8D;
   text-align: left;
 }
+
+.reply-text-area {
+  width: 85%;
+  padding: 10px;
+  margin: 10px 10px 20px 110px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: #8F8D8D;
+  text-align: left;
+}
+
 
 .submit-comment {
   width: auto;
