@@ -283,37 +283,44 @@ async function importData(data) {
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
-        const comments = await Comment.find().populate('author');;
-
+        const posts = await Post.find();
+        const comments = await Comment.find().populate('author');
+    
         console.log("POST Request to /comment received.");
-        console.log(req.body);
         const { content, post_id } = req.body;
-
+    
         if (content && post_id) {
+    
           const newComment = {
-            author: currentUser._id ,
+            author: currentUser._id,
             content: content,
             profpic: currentUser.profile_pic,
             comment_id: comments.length,
-            parentPost: null,
+            parentPost: posts[post_id]._id,
             parentComment: null,
             reply: [],
-            voteCtr:0,
+            voteCtr: 0,
             __v: 0
           };
           const result = await Comment.collection.insertOne(newComment);
           console.log("New comment inserted with _id:", result.insertedId);
-
-          res.status(200);
-        }
-        else {
-          res.status(400);
+    
+          const postIdToUpdate = posts[post_id]._id;
+          await Post.updateOne(
+            { _id: postIdToUpdate },
+            { $push: { comments: result.insertedId } }
+          );
+    
+          res.status(200).json({ message: "Comment created successfully" });
+        } else {
+          res.status(400).json({ error: "Invalid content or post_id" });
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+    
 
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
@@ -365,6 +372,26 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+
+    // Route for user registration
+  app.post('/api/register', async (req, res) => {
+  try {
+    // Extract user registration data from the request body
+    const { username, password, confirmPassword } = req.body;
+
+    // Perform validation checks on the data
+    // ...
+
+    // Store the user data in the database
+    // ...
+
+    // Send a response back to the client
+    res.status(200).json({ message: 'User registered successfully' });
+  } catch (error) {
+    console.error('Error during registration:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
     // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));

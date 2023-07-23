@@ -18,33 +18,38 @@ function restoreDefaultText(element) {
 // ||_________________________||
 // '			               '
 
-document.addEventListener("DOMContentLoaded",function() {
-
-    document.querySelector(".submit-button")?.addEventListener("click", async e => {
-        e.preventDefault();
-    
-        const content = document.querySelector(".comment-area").value;
-        const post_id = document.querySelector(".post_id").innerText
-        
-        const jString = JSON.stringify({ content, post_id });
-
-        const response = await fetch("/comment", {
-            method: 'POST',
-            body: jString,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        if (response.status === 200) {
-            location.reload();
-        } else {
-            console.error("Bad request");
+// Define a named function to handle comment creation
+async function handleCommentCreation() {
+    try {
+      const content = document.querySelector(".comment-area").value;
+      const post_id = document.querySelector(".post_id").innerText;
+      console.log("Button clicked");
+  
+      const jString = JSON.stringify({ content, post_id });
+  
+      const response = await fetch("/comment", {
+        method: 'POST',
+        body: jString,
+        headers: {
+          "Content-Type": "application/json"
         }
+      });
+  
+      if (response.status === 200) {
+        console.log("Comment created");
+        location.reload(); // This will reload the page after successful comment creation
+      } else {
+        console.error("Bad request");
+      }
+  
+      resetCreateComment();
+      document.querySelector(".comment-area").value = "Write a Comment...";
+    } catch (error) {
+      console.error("Error during comment creation:", error);
+    }
+  }
 
-		
-		resetCreateComment();
-		document.querySelector(".comment-area").value = "Write a Comment...";
-    });
+document.addEventListener("DOMContentLoaded",function() {      
 
 	function deleteComment(index) {
         comments.splice(index, 1);
@@ -218,9 +223,7 @@ document.addEventListener("DOMContentLoaded",function() {
           activeElement.blur();
         } 
       });
-});
 
-document.addEventListener("DOMContentLoaded",function() {
 
     // .________________________.
     // ||			           ||
