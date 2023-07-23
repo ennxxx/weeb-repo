@@ -1,9 +1,9 @@
 
 // .________________________.
-// ||			                 ||
+// ||			           ||
 // ||      User Info       ||
 // ||______________________||
-// '			
+// '			            '
 
 const User = function(name) {
   this.name = name;
@@ -217,10 +217,10 @@ function resetCreatePost() {
 document.addEventListener("DOMContentLoaded",function() {
 
   // .________________________.
-  // ||			                 ||
+  // ||			             ||
   // ||      Save Post       ||
   // ||______________________||
-  // '			                  '
+  // '			              '
   var saveButtons = document.querySelectorAll(".save-button");
   
   saveButtons.forEach(function (saveButton) {
@@ -237,10 +237,10 @@ document.addEventListener("DOMContentLoaded",function() {
   });
   
   // .________________________.
-  // ||			                 ||
+  // ||			             ||
   // ||     Vote Buttons     ||
   // ||______________________||
-  // '			                  '
+  // '			              '
   
   var upvoteButtons = document.querySelectorAll(".upvote-button");
 
