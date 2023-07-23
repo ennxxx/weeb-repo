@@ -1,20 +1,4 @@
 
-// .________________________.
-// ||			           ||
-// ||      User Info       ||
-// ||______________________||
-// '			            '
-
-const User = function(name) {
-  this.name = name;
-  this.lname = this.name.toLowerCase();
-  this.uname = this.name.toUpperCase();
-  this.nav = "#nav-" + this.lname;
-  this.img = "./images/" + name + ".png";
-}
-
-let currentUser = new User("shellyace");
-
 // ._____________________________.
 // ||                           ||
 // ||      Text Functions       ||
@@ -217,10 +201,10 @@ function resetCreatePost() {
 document.addEventListener("DOMContentLoaded",function() {
 
   // .________________________.
-  // ||			             ||
+  // ||			                 ||
   // ||      Save Post       ||
   // ||______________________||
-  // '			              '
+  // '			                  '
   var saveButtons = document.querySelectorAll(".save-button");
   
   saveButtons.forEach(function (saveButton) {
@@ -237,10 +221,10 @@ document.addEventListener("DOMContentLoaded",function() {
   });
   
   // .________________________.
-  // ||			             ||
+  // ||			                 ||
   // ||     Vote Buttons     ||
   // ||______________________||
-  // '			              '
+  // '			                  '
   
   var upvoteButtons = document.querySelectorAll(".upvote-button");
 
@@ -330,10 +314,9 @@ document.addEventListener("DOMContentLoaded",function() {
     const content = document.querySelector("#content").innerText;
     const title = document.getElementById("title").value; 
     const image = document.getElementById("url").value;
-    const author = currentUser.name;
 
-    console.log({title, author, content, image});
-    const jString = JSON.stringify({title, author, content, image});
+    console.log({title, content, image});
+    const jString = JSON.stringify({title, content, image});
     console.log(jString);
 
     const response = await fetch("/post", {

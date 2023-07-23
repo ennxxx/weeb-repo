@@ -76,7 +76,6 @@ async function importData(data) {
 
 
 
-
 // The body of the code, put inside an async to allow for async manipulation of the db.
 (async () => {
   try {
@@ -107,11 +106,14 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
+    
+    let currentUser = await User.findOne({username: 'u/shellyace'})
+
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');
-
+        
         res.render("index", {
           title: 'Home',
           posts: posts,
@@ -205,19 +207,24 @@ async function importData(data) {
         const posts = await Post.find().populate('author');
         console.log("POST Request to /post received.");
         console.log(req.body);
-        const { title, author, content, image } = req.body;
-        if (title && author && content) {
+        const { title, content, image } = req.body;
+        if (title && content) {
           const newPost = {
+            post_id: posts.length,
             title: title,
-            author: author,
+            author: currentUser._id,
             content: content,
             image: image,
             comments: [],
-            post_id: posts.length,
             voteCtr: 0,
-            comCtr: 0
+            comCtr: 0,
+            __v: 0
           };
-          posts.push(newPost);
+          const result = await Post.collection.insertOne(newPost);
+
+          console.log("New post inserted with _id:", result.insertedId);
+
+    
           res.status(200);
           res.redirect("/");
         }
