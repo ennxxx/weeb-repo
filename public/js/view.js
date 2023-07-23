@@ -1,5 +1,3 @@
-import { getCommentsData } from "../../helpers";
-
 function clearDefaultText(element) {
     if (element.value.trim() === element.getAttribute('data-default-value')) {
         element.value = '';
@@ -12,33 +10,7 @@ function restoreDefaultText(element) {
     }
 }
 
-// .________________________.
-// ||			           ||
-// ||      User Info       ||
-// ||______________________||
-// '			            '
 
-const User = function(name) {
-    this.name = name;
-    this.lname = this.name.toLowerCase();
-    this.uname = this.name.toUpperCase();
-    this.nav = "#nav-" + this.lname;
-    this.img = "../static/images/profile/" + name + ".png";
-}
-
-const Comment = function(user, content){
-    this.user = user;
-    this.content = content;
-}
-
-// Connect the comment array from posts.json
-let comments = [];
-
-// Get the length of comment array
-let comCtr = 0;
-
-// Has to be whoever is logged in
-let currentUser = new User("cinnamoroll");
 
 // .___________________________.
 // ||			              ||
@@ -50,19 +22,11 @@ document.addEventListener("DOMContentLoaded",function() {
 
     document.querySelector(".submit-button")?.addEventListener("click", async e => {
         e.preventDefault();
-
-        let commentsData = await getCommentsData();
     
-        const author = currentUser.name;
         const content = document.querySelector(".comment-area").value;
-        const profpic = "../static/images/profile/" + currentUser.name + ".png";
-        const comment_id = commentsData.length; 
-        const parentPost = document.querySelector(".post_id").innerText;
-        const parentComment = null;
-        const reply = [];
-        const voteCtr = 0;
-
-        const jString = JSON.stringify({ content, author, profpic, comment_id, parentPost, parentComment, reply, voteCtr });
+        const post_id = document.querySelector(".post_id").innerText
+        
+        const jString = JSON.stringify({ content, post_id });
 
         const response = await fetch("/comment", {
             method: 'POST',
