@@ -246,9 +246,14 @@ document.addEventListener("DOMContentLoaded", function () {
         "Content-Type": "application/json"
       }
     });
-    console.log(response);
+
+    const data = await response.json();
+
+    // Access the post_id from the response data
+    const newPost = data.post_id;
+
     if (response.status == 200)
-      location.reload();
+      window.location.href = '/view/'+ newPost;
     else
       console.error("Bad request");
 

@@ -385,8 +385,8 @@ async function importData(data) {
             { _id: userIdToUpdate },
             { $push: { postsMade: result.insertedId } }
           );
-          res.status(200);
-          res.redirect("/");
+          res.status(200).json({ post_id: newPost.post_id });
+
         }
         else {
           res.status(400);
