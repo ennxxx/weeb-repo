@@ -157,8 +157,18 @@ async function importData(data) {
     // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
-        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-        const posts = await Post.find().populate('author');
+        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const user = await User.findOne({ username: currentUser.username })
+        .populate('postsMade')
+        .populate({
+          path: 'postsMade',
+          populate: {
+            path: 'author',
+            model: 'User',
+            select: 'username'
+          }
+        });
+
         const comments = await Comment.find()
           .populate('author')
           .populate({
@@ -196,13 +206,12 @@ async function importData(data) {
         //console.log(filtered_upvoted);
         res.render("main-profile", {
           title: "My Profile",
-          user: currentUser,
+          user: user,
           comments: filtered_comments,
           upvoted: filtered_upvoted,
           downvoted: filtered_downvoted,
           saved: filtered_saved,
           filters: filters,
-          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -210,7 +219,7 @@ async function importData(data) {
       }
     });
 
-    // This route renders the main-profile page.
+    // This route renders the non main profile page.
     app.get("/profile/:name", async (req, res) => {
       try {
         const name = req.params.name;
