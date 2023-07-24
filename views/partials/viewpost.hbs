@@ -18,11 +18,6 @@
             {{/if}}
         </div>
         <div class="post-actions">
-            {{#if (isEqual @root.currentUser.username author.username)}}
-            <button class="edit-button" id="edit-{{post_id}}"
-                onclick="openEditPost(document.querySelector('#title-{{post_id}}'), document.querySelector('#text-{{post_id}}'), document.querySelector('#sample-{{post_id}}'), '{{post_id}}')">
-                <img src="/static/images/post/edit.png" class="edit">
-            </button>
             <button class="comment-button">
                 <img src="/static/images/post/comment.png" class="comment">
             </button>
