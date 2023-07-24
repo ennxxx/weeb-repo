@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById('password-input');
   const confirmPasswordInput = document.getElementById('confirm-password-input');
   const passwordMatchIcon = document.getElementById('password-match-icon');
-  const passwordWarning = document.getElementById('password-warning');
+  const warning = document.getElementById('warning');
 
   /* Function for checking if both passwords match */
   function checkPasswordMatch() {
@@ -21,29 +21,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (password === confirmPassword) {
       passwordMatchIcon.textContent = '✓';
-      passwordWarning.textContent = ''; // Clear any previous warning
+      warning.textContent = ''; // Clear any previous warning
     } else {
       passwordMatchIcon.textContent = '✕';
-      passwordWarning.textContent = 'Passwords do not match'; // Show the warning message
+      warning.textContent = 'Passwords do not match'; // Show the warning message
     }
   }
 
   const registerButton = document.getElementById('register-button');
   registerButton.addEventListener('click', async function () {
     try {
-      passwordWarning.textContent = '';
+      warning.textContent = '';
       const username = usernameInput.value;
       const password = passwordInput.value;
 
       if (username === '' || password === '' || confirmPasswordInput.value === '') {
-        passwordWarning.textContent = 'Username or password cannot be empty';
+        warning.textContent = 'Username or password cannot be empty';
         return; // Exit the function if username or password is empty
       }
 
       // Check if passwords match before sending the registration data
       const isPasswordMatch = passwordInput.value === confirmPasswordInput.value;
       if (!isPasswordMatch) {
-        passwordWarning.textContent = 'Passwords do not match! Try Again.';
+        warning.textContent = 'Passwords do not match! Try Again.';
         // Clear the input fields
         usernameInput.value = '';
         passwordInput.value = '';
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const jString = JSON.stringify({ username, password });
 
       // Send the registration data to the server
-      const response = await fetch('/register', {
+      const response = await fetch('/registerFunc', {
         method: 'POST',
         body: jString,
         headers: {
@@ -68,10 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = '/signin';
         // Perform any other actions here, e.g., show a success message, redirect to another page
       } else if (response.status === 400) {
-        passwordWarning.textContent = 'Registration failed! Try Again.';
+        warning.textContent = 'Registration failed! Try Again.';
         // Show an error message or perform other actions for a failed registration attempt
       } else if (response.status === 500) {
-        passwordWarning.textContent = 'Username already exists! Try Again.';
+        warning.textContent = 'Username already exists! Try Again.';
         // Show an error message or perform other actions for a failed registration attempt
       }
     } catch (error) {

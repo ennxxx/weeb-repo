@@ -84,6 +84,8 @@ async function importData(data) {
     await importData('post');
     await importData('comment');
 
+    let currentUser = await User.findOne({ username: 'u/shellyace' });
+
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
       extname: "hbs",
@@ -94,9 +96,6 @@ async function importData(data) {
         },
         substring: helpers.substring.apply,
         isEqual: helpers.isEqual,
-        mergeContext: function (context, currentUser) {
-          return { ...context.data.root, currentUser };
-      },
     },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
@@ -108,7 +107,6 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
-    let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
     // This route renders the home page.
     app.get("/", async (req, res) => {
@@ -165,7 +163,7 @@ async function importData(data) {
             populate: {
               path: 'author',
               model: 'User',
-              select: 'username title'
+              select: 'username title',
             }
           });
 
@@ -175,7 +173,8 @@ async function importData(data) {
           title: "My Profile",
           user: currentUser,
           comments: filtered_comments,
-          filters: filters
+          filters: filters,
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -210,7 +209,8 @@ async function importData(data) {
             title: userProfile[0].name,
             user: userProfile[0],
             comments: filtered_comments,
-            filters: filters
+            filters: filters,
+            currentUser: currentUser
           });
         }
       } catch (error) {
@@ -257,7 +257,8 @@ async function importData(data) {
           search_filters: search_filters,
           posts: filtered_posts,
           comments: filtered_comments,
-          users: filtered_users
+          users: filtered_users,
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -350,7 +351,6 @@ async function importData(data) {
           console.log("New comment inserted with _id:", result.insertedId);
 
           const postIdToUpdate = posts[post_id]._id;
-          console.log(posts[post_id].comCtr);
           const updatedPost = await Post.findOneAndUpdate(
             { _id: postIdToUpdate },
             {
@@ -359,9 +359,6 @@ async function importData(data) {
             },
             { new: true } // Return the updated document after the update is applied
           );
-          
-          console.log(updatedPost);
-          console.log(posts[post_id].comCtr);
           res.status(200).json({ message: "Comment created successfully" });
         } else {
           res.status(400).json({ error: "Invalid content or post_id" });
@@ -444,7 +441,7 @@ async function importData(data) {
     });
 
     // Route for user registration
-    app.post('/register', async (req, res) => {
+    app.post('/registerFunc', async (req, res) => {
       try {
         const users = await User.find();
 
@@ -456,7 +453,7 @@ async function importData(data) {
           const newUser = {
             user_id: users.length,
             profile_pic: "default.png",
-            name: "Edit Profile to add a name",
+            name: "User",
             username: "u/" + username,
             password: password,
             bio: "Edit Profile to add a bio",
@@ -476,6 +473,47 @@ async function importData(data) {
       }
     });
 
+    // app.get('/signinFunc', async (req, res) => {
+    //   try {
+    //     // Query the database using Mongoose or any other library
+    //     console.log("GET Request to /signin received.");
+    //     const users = await User.find(); // Replace YourModel with your actual Mongoose model
+
+    //     // Send the data as a response
+    //     res.json(users);
+    //   } catch (error) {
+    //     console.error('Error fetching data from the database:', error);
+    //     res.status(500).json({ error: 'Internal Server Error' });
+    //   }
+    // });
+
+    app.post('/signinFunc', async (req, res) => {
+      const { username, password } = req.body;
+    
+      try {
+        // Query the database to find the user
+        const user = await User.findOne({ username: "u/" + username, password: password });
+        console.log(user);
+        if (user) {
+          // Set the user information in the session
+          currentUser = user;
+          res.status(200).json({ message: 'Sign-in successful' });
+        } else {
+          res.status(401).json({ message: 'User not found! Please register first.' });
+        }
+      } catch (error) {
+        console.error('Error during sign-in:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
+
+    app.get('/getCurrentUser', async (req, res) => {
+
+        // Send the data as a response
+        res.json(currentUser);
+      });
+
+    
     // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));
   } catch (error) {

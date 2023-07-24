@@ -1,3 +1,12 @@
+const response = await fetch('/getCurrentUser');
+
+if (!response.ok) {
+    console.log("Could not get current user");
+    throw new Error('Request failed.');
+}
+
+const currentUser = await response.json();
+
 function insertNav() {
     document.write(`
     <nav>

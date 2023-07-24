@@ -4,9 +4,10 @@
     <title>Sign In</title>
     <link rel="stylesheet" href="/static/style/styles.css">
     <link rel="icon" href="/static/images/icons/icon.png" type="image/png">
+    <script src="/static/js/signin.js"></script>
 
     <!--Inputting Password-->
-    <script>
+    {{!-- <script>
         const passwordInput = document.getElementById('password-input');
         const togglePassword = document.getElementById('toggle-password');
 
@@ -15,7 +16,7 @@
             passwordInput.setAttribute('type', type);
             togglePassword.classList.toggle('active');
         });
-    </script>
+    </script> --}}
 </head>
 
 <body id="signin-body">
@@ -31,8 +32,9 @@
     <!--Sign In Div-->
     <div class="signin-container">
         <form class="signin-form">
-            <input type="text" placeholder="Username" class="textbox" required><br>
-            <input type="password" id="password-input" placeholder="Password" class="textbox" required>
+            <input type="text" id="username-input" class="textbox" required><br>
+            <input type="password" id="password-input" class="textbox" required>
+            <div id="warning" style="color: red;"></div>
             <br>
             <div class="remember-forget-container">
                 <div class="remember">
@@ -44,7 +46,7 @@
                 </div>
             </div>
             <div class="button-container">
-                <input type="button" class="button" value="Sign In" onclick="window.location.href='/'">
+                <input type="button" class="button" value="Sign In" id="signin-button">
                 <input type="button" class="button" value="Register" onclick="window.location.href='/register'">
             <input type="button" class="button" value="Continue Anonymously" onclick="window.location.href='index.html'">
             </div>
