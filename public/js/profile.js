@@ -1,14 +1,14 @@
-document.addEventListener("DOMContentLoaded",function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-// .________________________.
-// ||			           ||
-// ||     Click Filter     ||
-// ||______________________||
-// '			            '
+	// .________________________.
+	// ||			           ||
+	// ||     Click Filter     ||
+	// ||______________________||
+	// '			            '
 
 	var filterButtons = document.querySelectorAll(".filter");
-		
-	filterButtons.forEach(function(button) {
+
+	filterButtons.forEach(function (button) {
 		button.addEventListener("click", clickFilter);
 	});
 
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",function() {
 
 	var containers = document.querySelectorAll("#overview-container > div[id$='-view']");
 
-	containers.forEach(function(container) {
+	containers.forEach(function (container) {
 		container.style.display = "none";
 	});
 
@@ -25,28 +25,28 @@ document.addEventListener("DOMContentLoaded",function() {
 	overviewContainer.style.display = "block";
 
 	async function clickFilter() {
-	var filterType = this.getAttribute("data-filter");
+		var filterType = this.getAttribute("data-filter");
 
-	filterButtons.forEach(function(button) {
-		button.classList.remove("clicked");
-	});
+		filterButtons.forEach(function (button) {
+			button.classList.remove("clicked");
+		});
 
-	this.classList.add("clicked");
+		this.classList.add("clicked");
 
-	containers.forEach(function(container) {
-		container.style.display = "none";
-	});
+		containers.forEach(function (container) {
+			container.style.display = "none";
+		});
 
-	var selectedContainer = document.getElementById(filterType + "-view");
-	selectedContainer.style.display = "block";
-}
+		var selectedContainer = document.getElementById(filterType + "-view");
+		selectedContainer.style.display = "block";
+	}
 
 
-// .________________________.
-// ||			           ||
-// ||    Follow Button     ||
-// ||______________________||
-// '			            '
+	// .________________________.
+	// ||			           ||
+	// ||    Follow Button     ||
+	// ||______________________||
+	// '			            '
 
 	var followButton = document.getElementById("follow-button");
 	var isFollowed = true; // Set the initial state to followed
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded",function() {
 	updateButtonText();
 
 	// Attach click event listener to the button
-	followButton.addEventListener("click", function() {
+	followButton.addEventListener("click", function () {
 		isFollowed = !isFollowed; // Toggle the follow state
 		updateButtonText();
 	});

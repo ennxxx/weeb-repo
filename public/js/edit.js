@@ -6,7 +6,7 @@
 
 /* Change Profile Picture */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     var changeButton = document.querySelector("#change-image-btn");
     changeButton.addEventListener("click", changeProfile);
 
@@ -16,18 +16,18 @@ document.addEventListener("DOMContentLoaded", function() {
         mediaInput.accept = "image/*";
         mediaInput.style.display = "none";
 
-        mediaInput.addEventListener("change", function(event) {
+        mediaInput.addEventListener("change", function (event) {
             var file = event.target.files[0];
             var reader = new FileReader();
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 var newProfileMain = document.getElementById("profile-pic");
 
                 var canvas = document.createElement("canvas");
                 var context = canvas.getContext("2d");
 
                 var image = new Image();
-                image.onload = function() {
+                image.onload = function () {
                     var imageWidth = image.width;
                     var imageHeight = image.height;
 

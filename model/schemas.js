@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema({
     user_id: { type: Number, required: true, unique: true },
     profile_pic: { type: String },
     name: { type: String, required: true },
-    username: { type: String, required: true, unique: true},
+    username: { type: String, required: true, unique: true },
     password: { type: String },
     bio: { type: String },
     followers_info: { type: String },
     postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
-    commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }] 
+    commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }]
 });
 
 const User = mongoose.model('User', userSchema);
@@ -19,11 +19,11 @@ export { User };
 
 const commentSchema = new mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
-    content: { type: String }, 
-    comment_id: { type: Number, required: true, unique: true  },
+    content: { type: String },
+    comment_id: { type: Number, required: true, unique: true },
     parentPost: { type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true },
     parentComment: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true },
-    reply: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true } ], 
+    reply: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     voteCtr: { type: Number }
 });
 
