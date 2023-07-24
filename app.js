@@ -107,6 +107,7 @@ async function importData(data) {
 
     // The following lines of code set up the Express server and handlebars.
     app.use("/static", express.static("public"));
+    app.use(express.json());
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
