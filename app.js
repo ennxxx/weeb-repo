@@ -96,6 +96,9 @@ async function importData(data) {
         },
         substring: helpers.substring.apply,
         isEqual: helpers.isEqual,
+        log: function (context) {
+          console.log(context);
+        }
     },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
