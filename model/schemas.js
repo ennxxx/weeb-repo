@@ -10,7 +10,10 @@ const userSchema = new mongoose.Schema({
     bio: { type: String },
     followers_info: { type: String },
     postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
-    commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }]
+    commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
+    upvotedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
+    downvotedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
+    savedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
 });
 
 const User = mongoose.model('User', userSchema);
@@ -40,10 +43,7 @@ const postSchema = new mongoose.Schema({
     image: { type: String },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     voteCtr: { type: Number },
-    comCtr: { type: Number },
-    upvotedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
-    downvotedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
-    savedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
+    comCtr: { type: Number }    
 });
 
 const Post = mongoose.model('Post', postSchema);
