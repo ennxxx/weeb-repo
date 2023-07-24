@@ -377,7 +377,7 @@ async function importData(data) {
       });
     });
 
-    // This route renders the polls page
+    // This route renders the featured page
     app.get('/featured', async (req, res) => {
       const posts = await Post.find().populate('author')
       res.render('featured', {
@@ -386,6 +386,18 @@ async function importData(data) {
       });
     });
 
+    // This route renders the policy page
+    app.get('/policy', async (req, res) => {
+      res.render('policy', {
+        title: 'Privacy Policy'
+      });
+    });
+    // This route renders the wip page
+    app.get('/wip', async (req, res) => {
+      res.render('wip', {
+        title: 'Work in Progress'
+      });
+    });
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
