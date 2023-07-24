@@ -15,7 +15,10 @@
       "64bcd45ef98f5211d39c0a32"
     ],
     "voteCtr": 69,
-    "comCtr": 4
+    "comCtr": 4,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   },
   {
     "_id": {
@@ -31,7 +34,10 @@
       "64bcd45ef98f5211d39c0a34"
     ],
     "voteCtr": 70,
-    "comCtr": 2
+    "comCtr": 2,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   },
   {
     "_id": {
@@ -46,7 +52,10 @@
       "64bcd45ef98f5211d39c0a35"
     ],
     "voteCtr": 86,
-    "comCtr": 1
+    "comCtr": 1,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   },
   {
     "_id": {
@@ -61,7 +70,10 @@
       "64bcd45ef98f5211d39c0a36"
     ],
     "voteCtr": 24,
-    "comCtr": 1
+    "comCtr": 1,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   },
   {
     "_id": {
@@ -74,7 +86,10 @@
     "image": "sample5.png",
     "comments": [],
     "voteCtr": 57,
-    "comCtr": 0
+    "comCtr": 0,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   },
   {
     "_id": {
@@ -87,6 +102,9 @@
     "image": "top-sample.jpeg",
     "comments": [],
     "voteCtr": 93,
-    "comCtr": 0
+    "comCtr": 0,
+    "upvoted":[],
+    "downvoted":[],
+    "saved":[]
   }
 ]
