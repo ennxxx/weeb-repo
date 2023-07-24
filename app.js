@@ -665,6 +665,9 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes-2}});
           } else if(foundup && founddown){
               await User.updateOne(
                 { _id: user._id },
@@ -674,6 +677,9 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes-2}});
           } else if(!foundup && founddown){
               await User.updateOne(
                 { _id: user._id },
@@ -683,11 +689,17 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes}});
           } else{
               await User.updateOne(
                 { _id: user._id },
                 { $push: { upvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes}});
           }
         } else if (check == "down"){
           const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
@@ -697,6 +709,9 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes+2}});
           } else if(founddown && foundup){
               await User.updateOne(
                 { _id: user._id },
@@ -706,6 +721,9 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes+2}});
             } else if(!founddown && foundup){
               await User.updateOne(
                 { _id: user._id },
@@ -715,19 +733,23 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes}});
           } else{
               await User.updateOne(
                 { _id: user._id },
                 { $push: { downvotedPosts: posts[post_id]._id } }
               )
+              await Post.updateOne(
+                { _id: posts[post_id]}, 
+                { $set: {voteCtr : votes}});
           }
         }
     
         if (votes && post_id) {
-          await Post.updateOne(
-            { _id: posts[post_id]}, 
-            { $set: {voteCtr : votes}});
           res.status(200);
+          res.redirect("/");
         } else {
           res.status(400);
         }

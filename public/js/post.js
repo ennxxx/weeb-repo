@@ -338,23 +338,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     upvoteButton.addEventListener("click", upvotePost);
     downvoteButton.addEventListener("click", downvotePost);
+    var votes= parseInt(numVotes.textContent)
 
     async function upvotePost() {
       if (upvoteImage.src.includes("upvote.png") && downvoteImage.src.includes("downvote.png")) {
         upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
-        numVotes.textContent++;
+        votes++;
       }
       else if (downvoteImage.src.includes("c-downvoted.png")) {
         upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
         downvoteImage.src = "/static/images/post/downvote.png"
-        numVotes.textContent++;
-        numVotes.textContent++;
+        votes++;
+        votes++;
       } else {
         upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
+        votes--;
       }
 
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "up" });
+      const jString = JSON.stringify({ votes, post_id, check: "up" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,
@@ -373,19 +374,19 @@ document.addEventListener("DOMContentLoaded", function () {
       if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
         downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
         upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
+        votes--;
       }
       else if (upvoteImage.src.includes("c-upvoted.png")) {
         downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
         upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
-        numVotes.textContent--;
+        votes--;
+        votes--;
       }
       else {
         downvoteImage.src = "/static/images/post/downvote.png";
-        numVotes.textContent++;
+        votes++;
       }
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "down" });
+      const jString = JSON.stringify({ votes, post_id, check: "down" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,
