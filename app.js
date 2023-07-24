@@ -315,6 +315,13 @@ async function importData(data) {
       });
     });
 
+    app.get('/anime', async (req, res) => {
+      const posts = await Post.find().populate('author')
+      posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+      res.render('anime', {
+        toppost: posts[0]
+      });
+    });
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
@@ -534,17 +541,38 @@ async function importData(data) {
     app.post("/vote", async (req, res) => {
       try {
         const posts = await Post.find().populate('author');;
-
         //console.log("POST Request to /vote received.");
         const votes = req.body.votes;
         const post_id = req.body.post_id;
 
+        const user = User.findOne({ username: currentUser.username });
+        found = user.upvotedPosts.find( _id => posts[post_id]._id);
+        
+        /*
+        if (found) {
+          // ID exists in the array, so remove it using the $pull operator
+          await User.findOneAndUpdate(
+            { _id: user._id },
+            { $pull: { [subArrayField]: idToAddOrDelete } }
+          );
+          console.log('ID removed from the array.');
+        } else {
+          // ID does not exist in the array, so add it using the $addToSet operator
+          await collection.findOneAndUpdate(
+            { _id: documentId },
+            { $addToSet: { [subArrayField]: idToAddOrDelete } }
+          );
+          console.log('ID added to the array.');
+  
+        // Update the user's upvotedPosts array in the database
+        await User.findOneAndUpdate({ _id: userId }, { upvotedPosts: user.upvotedPosts });
+        */
         if (votes && post_id) {
           await Post.updateOne(
+            
           { _id: posts[post_id]}, 
           { $set: {voteCtr : votes}}
           )
-          console.log('slay'); 
           res.status(200);
         } else {
           res.status(400);
