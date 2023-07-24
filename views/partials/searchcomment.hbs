@@ -1,14 +1,15 @@
 <div class="comment-container">
     <div class="comment-details">
         <img src="../static/images/post/comment.png" class="comment-filter">
-        <p><span id="comment-username">{{author.username}}</span> commented on <span
-                id="comment-post-title">{{parentPost.title}}</span> • Posted by {{parentPost.author.username}}</p>
+        <p>
+            <a href="/profile/{{author.name}}" id="comment-username">{{author.username}}</a>
+            commented on <a href="/view/{{parentPost.post_id}}" id="comment-post-title">{{parentPost.title}}</a>
+            • Posted by <a href="/profile/{{parentPost.author.name}}">{{parentPost.author.username}}</a>
+
+        </p>
     </div>
     <div class="comment-content">
         <i>{{author.username}}</i><br>
         {{content}}<br>
-        <button class="reply-button">
-            Reply
-        </button>
     </div>
 </div>

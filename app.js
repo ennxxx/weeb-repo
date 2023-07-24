@@ -232,7 +232,7 @@ async function importData(data) {
             populate: {
               path: 'author',
               model: 'User',
-              select: 'username title'
+              select: 'username title post_id name'
             }
           });
         const users = await User.find().populate('postsMade');
@@ -365,6 +365,37 @@ async function importData(data) {
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+    // Route for deleting a comment
+    app.delete("/comment/:comment_id", async (req, res) => {
+      try {
+          const posts = await Post.find();
+          const commentId = req.params.comment_id;
+          const result = await Comment.deleteOne({ _id: commentId });
+
+          const postIdToUpdate = posts[post_id]._id;
+          const updatedPost = await Post.findOneAndUpdate(
+            { _id: postIdToUpdate },
+            {
+              $pop: { comments: result.insertedId }, // Remove the comment from the comments array
+              $dec: { comCtr: 1 } // Decrement the comCtr by 1
+            },
+            { new: true } // Return the updated document after the update is applied
+          );
+
+          console.log(updatedPost);
+          console.log(posts[post_id].comCtr);
+
+        if (result.deletedCount > 0) {
+          res.status(200).json({ message: "Comment deleted successfully" });
+        } else {
+          res.status(404).json({ error: "Comment not found" });
+        }
+      } catch (error) {
+        console.error("Error deleting comment:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
