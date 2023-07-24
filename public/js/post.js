@@ -271,13 +271,26 @@ document.addEventListener("DOMContentLoaded", function () {
   saveButtons.forEach(function (saveButton) {
     var saveImage = saveButton.querySelector(".save");
     saveButton.addEventListener("click", savePost);
-
-    function savePost() {
+ 
+    async function savePost() {
       if (saveImage.src.includes("save.png")) {
         saveImage.src = "/static/images/post/clicked/c-saved.png";
       } else {
         saveImage.src = "/static/images/post/save.png";
       }
+      const jString = JSON.stringify({ post_id });
+      const response = await fetch("/save", {
+        method: 'POST',
+        body: jString,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      console.log(response);
+      if (response.status == 200)
+        location.reload();
+      else
+        console.error("Bad request");
     }
   });
 
@@ -315,8 +328,8 @@ document.addEventListener("DOMContentLoaded", function () {
         upvoteImage.src = "/static/images/post/upvote.png";
         numVotes.textContent--;
       }
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id });
-      
+
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "up" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,
@@ -347,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
         downvoteImage.src = "/static/images/post/downvote.png";
         numVotes.textContent++;
       }
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id });
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "down" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,
