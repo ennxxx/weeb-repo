@@ -382,7 +382,7 @@ async function importData(data) {
         postToUpdate.image = img;
     
         await postToUpdate.save();
-    
+        
         res.status(200).json({ message: "Post updated successfully" });
       } catch (error) {
         console.error("Error updating post:", error);
@@ -616,20 +616,6 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-
-    // app.get('/signinFunc', async (req, res) => {
-    //   try {
-    //     // Query the database using Mongoose or any other library
-    //     console.log("GET Request to /signin received.");
-    //     const users = await User.find(); // Replace YourModel with your actual Mongoose model
-
-    //     // Send the data as a response
-    //     res.json(users);
-    //   } catch (error) {
-    //     console.error('Error fetching data from the database:', error);
-    //     res.status(500).json({ error: 'Internal Server Error' });
-    //   }
-    // });
 
     app.post('/signinFunc', async (req, res) => {
       const { username, password } = req.body;

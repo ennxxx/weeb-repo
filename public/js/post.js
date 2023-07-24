@@ -40,7 +40,21 @@ function checkTitleLength() {
 // ||                           ||
 // ||     Edit/Delete Posts     ||
 // ||___________________________||
-// '                             '
+// '                    
+
+  // Add event listeners for edit and delete buttons
+  var editButtons = document.querySelectorAll(".edit-button");
+
+  editButtons.forEach(function (editButton) {
+    var title = editButton.closest(".title").querySelector("content");
+    var content = editButton.closest(".text").querySelector("content");
+    var img = editButton.closest(".sample").src;
+    var post_id= editButton.closest(".post-container").id;
+    editButton.addEventListener("click", function () {
+      openEditPost();
+    });
+  });
+
 
 function openEditPost(title, content, img, post_id) {
   const editPostContainer = document.createElement("div");
@@ -110,6 +124,7 @@ function openEditPost(title, content, img, post_id) {
 
       if (response.status === 200) {
         console.log("Post updated");
+        location.reload();
         // Optionally, you can update the post content and image on the page here
       } else {
         console.error("Bad request");
