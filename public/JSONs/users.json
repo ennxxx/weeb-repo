@@ -98,9 +98,15 @@
     "postsMade": [
       "64bbce8c9e08a4493219f480"
     ],
-    "upvotedPosts":[],
-    "downvotedPosts":[],
-    "savedPosts":[],
+    "upvotedPosts":[
+      "64bbce8c9e08a4493219f480"
+    ],
+    "downvotedPosts":[
+      "64bbce8c9e08a4493219f472"
+    ],
+    "savedPosts":[
+      
+    ],
     "__v": 0
   },
   {

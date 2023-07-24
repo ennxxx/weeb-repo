@@ -262,6 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "Content-Type": "application/json"
         }
       });
+      console.log(response);
       if (response.status == 200)
         location.reload();
       else
@@ -292,6 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "Content-Type": "application/json"
         }
       });
+      console.log(response);
       if (response.status == 200)
         location.reload();
       else
@@ -313,7 +315,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const title = document.getElementById("title").value;
     const image = document.getElementById("url").value;
 
+    console.log({ title, content, image });
     const jString = JSON.stringify({ title, content, image });
+    console.log(jString);
 
     const response = await fetch("/post", {
       method: 'POST',
@@ -322,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "Content-Type": "application/json"
       }
     });
+    console.log(response);
     if (response.status == 200)
       location.reload();
     else

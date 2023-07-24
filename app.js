@@ -84,7 +84,7 @@ async function importData(data) {
     await importData('post');
     await importData('comment');
 
-    let currentUser = await User.findOne({ username: 'u/shellyace' });
+    let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -157,7 +157,7 @@ async function importData(data) {
     // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
-        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author');
         const comments = await Comment.find()
           .populate('author')
@@ -169,13 +169,38 @@ async function importData(data) {
               select: 'username title',
             }
           });
-
+        
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
+        var filtered_upvoted = [];
+        var filtered_downvoted = [];
+        var filtered_saved = [];
 
+        for(var i = 0; i < currentUser.upvotedPosts.length; i++ ){
+          const found_post = posts.find(post => post._id.toString() === currentUser.upvotedPosts[i].toString());
+          if (found_post) {
+            filtered_upvoted.push(found_post);
+          }
+        }
+        for(var i = 0; i < currentUser.downvotedPosts.length; i++ ){
+          const found_post = posts.find(post => post._id.toString() === currentUser.downvotedPosts[i].toString());
+          if (found_post) {
+            filtered_downvoted.push(found_post);
+          }
+        }
+        for(var i = 0; i < currentUser.savedPosts.length; i++ ){
+          const found_post = posts.find(post => post._id.toString() === currentUser.savedPosts[i].toString());
+          if (found_post) {
+            filtered_saved.push(found_post);
+          }
+        }
+        //console.log(filtered_upvoted);
         res.render("main-profile", {
           title: "My Profile",
           user: currentUser,
           comments: filtered_comments,
+          upvoted: filtered_upvoted,
+          downvoted: filtered_downvoted,
+          saved: filtered_saved,
           filters: filters,
           currentUser: currentUser
         });
@@ -545,8 +570,25 @@ async function importData(data) {
 
         // Send the data as a response
         res.json(currentUser);
-      });
+    });
 
+    app.post("/upvote", async (req, res) =>{
+      try {
+        // Query the database to find the user
+        const user = await User.findOne({ username: "u/" + username, password: password });
+        console.log(user);
+        if (user) {
+          // Set the user information in the session
+          currentUser = user;
+          res.status(200).json({ message: 'Sign-in successful' });
+        } else {
+          res.status(401).json({ message: 'User not found! Please register first.' });
+        }
+      } catch (error) {
+        console.error('Error during sign-in:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
     
     // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));
