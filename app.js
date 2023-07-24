@@ -363,6 +363,34 @@ async function importData(data) {
       }
     });
 
+    // This route is used for editing posts.
+    app.put("/post/:post_id", async (req, res) => {
+      try {
+        const postIdToUpdate = parseInt(req.params.post_id);
+        const posts = await Post.find().populate('author');
+        const postToUpdate = posts.find(post => post.post_id === postIdToUpdate);
+    
+        if (!postToUpdate) {
+          return res.status(404).json({ error: "Post not found" });
+        }
+    
+        const { title, content, img } = req.body;
+    
+        // Update the properties of the post
+        postToUpdate.title = title;
+        postToUpdate.content = content;
+        postToUpdate.image = img;
+    
+        await postToUpdate.save();
+    
+        res.status(200).json({ message: "Post updated successfully" });
+      } catch (error) {
+        console.error("Error updating post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+    
+
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
