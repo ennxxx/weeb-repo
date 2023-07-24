@@ -516,7 +516,11 @@ async function importData(data) {
         const comment_id = req.body.comment_id;
 
         if (votes && comment_id) {
-          comments[comment_id].voteCtr = votes;
+          await User.updateOne(
+          { _id: comments[comment_id]}, 
+          { $push: {voteCtr : votes}} 
+          )
+      
           res.status(200);
         } else {
           res.status(400);
@@ -537,7 +541,11 @@ async function importData(data) {
         const post_id = req.body.post_id;
 
         if (votes && post_id) {
-          posts[post_id].voteCtr = votes;
+          await Post.updateOne(
+          { _id: posts[post_id]}, 
+          { $set: {voteCtr : votes}}
+          )
+          console.log('slay'); 
           res.status(200);
         } else {
           res.status(400);
