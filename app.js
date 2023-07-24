@@ -158,6 +158,7 @@ async function importData(data) {
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const posts = await Post.find().populate('author');
         const user = await User.findOne({ username: currentUser.username })
         .populate('postsMade')
         .populate({
@@ -563,7 +564,7 @@ async function importData(data) {
             name: "User",
             username: "u/" + username,
             password: password,
-            bio: "Edit Profile to add a bio",
+            bio: "Edit Profile to add a bio and change username",
             followers_info: "0 followers • 0 following",
             postsMade: []
           };
