@@ -1,5 +1,4 @@
 <script src="/static/js/profile.js"></script>
-<script src="/static/js/edit.js"></script>
 <script src="/static/js/post.js"></script>
 
 <!-- Profile Content -->
@@ -12,7 +11,7 @@
         <h2 id="name">{{user.name}}</h2>
         <h4 id="profile-username">{{user.username}}</h4>
         <p id="bio">{{{user.bio}}}</p>
-        <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='edit.html'">
+        <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='/edit'">
         <!-- <div id="followers-container">
             <img src="/static/images/icons/followers.png">
             <p>{{{user.followers_info}}}</p>
@@ -83,7 +82,7 @@
             </div>
             {{/if}}
         </div>
-        
+
         <!-- Saves -->
         <div id="Saved-view">
             {{#if saved}}

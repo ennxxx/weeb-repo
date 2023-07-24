@@ -107,6 +107,7 @@ async function importData(data) {
 
     // The following lines of code set up the Express server and handlebars.
     app.use("/static", express.static("public"));
+    app.use(express.json());
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
@@ -216,6 +217,39 @@ async function importData(data) {
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+    // This route renders the edit profile page.
+    app.get("/edit", async (req, res) => {
+      try {
+        const user = await User.findOne({ username: currentUser.username });
+        
+        res.render("edit", {
+          title: "Edit Profile",
+          user: user
+        });
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+    // This route allows the profile to be edited
+    app.put("/edit-profile", async (req, res) => {
+      try {
+        const user = await User.findOne({ username: currentUser.username });
+        const { name, bio } = req.body;
+        
+        user.name = name;
+        user.bio = bio;
+
+        await user.save();
+
+        res.status(200).json({ message: "Edited profile successfully" });
+      } catch (error) {
+        console.error("Error editing profile:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
@@ -351,6 +385,7 @@ async function importData(data) {
         post: posts[3]
       });
     });
+
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
@@ -385,8 +420,8 @@ async function importData(data) {
             { _id: userIdToUpdate },
             { $push: { postsMade: result.insertedId } }
           );
-          res.status(200);
-          res.redirect("/");
+          res.status(200).json({ post_id: newPost.post_id });
+
         }
         else {
           res.status(400);
@@ -421,6 +456,26 @@ async function importData(data) {
         res.status(200).json({ message: "Post updated successfully" });
       } catch (error) {
         console.error("Error updating post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+    // This route is used for deleting a post.
+    app.delete("/post/:post_id", async (req, res) => {
+      try {
+        const postIdToDelete = parseInt(req.params.post_id);
+        const postToDelete = await Post.findOneAndDelete({ post_id: postIdToDelete });
+
+        if (!postToDelete) {
+          return res.status(404).json({ error: "Post not found" });
+        }
+
+        // Decrement the post_id of all posts with an id greater than the deleted post_id
+        await Post.updateMany({ post_id: { $gt: postIdToDelete } }, { $inc: { post_id: -1 } });
+
+        res.status(200).json({ message: "Post deleted successfully" });
+      } catch (error) {
+        console.error("Error deleting post:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
