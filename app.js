@@ -298,9 +298,9 @@ async function importData(data) {
             comments: [],
             voteCtr: 0,
             comCtr: 0,
-            upvoted:[],
-            downvoted:[],
-            saved:[],
+            upvotedPost:[],
+            downvotedPost:[],
+            savedPost:[],
             __v: 0
           };
           const result = await Post.collection.insertOne(newPost);

@@ -41,9 +41,9 @@ const postSchema = new mongoose.Schema({
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     voteCtr: { type: Number },
     comCtr: { type: Number },
-    upvoted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
-    downvoted: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
-    saved: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
+    upvotedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
+    downvotedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
+    savedPost: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
 });
 
 const Post = mongoose.model('Post', postSchema);
