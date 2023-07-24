@@ -158,7 +158,7 @@ async function importData(data) {
     // This route renders the main-profile page.
     app.get("/main-profile", async (req, res) => {
       try {
-        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author');
         const user = await User.findOne({ username: currentUser.username })
         .populate('postsMade')
@@ -188,24 +188,24 @@ async function importData(data) {
         var filtered_saved = [];
 
         for(var i = 0; i < currentUser.upvotedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() === currentUser.upvotedPosts[i].toString());
+          const found_post = posts.find(post => post._id.toString() == currentUser.upvotedPosts[i].toString());
           if (found_post) {
             filtered_upvoted.push(found_post);
           }
         }
         for(var i = 0; i < currentUser.downvotedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() === currentUser.downvotedPosts[i].toString());
+          const found_post = posts.find(post => post._id.toString() == currentUser.downvotedPosts[i].toString());
           if (found_post) {
             filtered_downvoted.push(found_post);
           }
         }
         for(var i = 0; i < currentUser.savedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() === currentUser.savedPosts[i].toString());
+          const found_post = posts.find(post => post._id.toString() == currentUser.savedPosts[i].toString());
           if (found_post) {
             filtered_saved.push(found_post);
           }
         }
-        //console.log(filtered_upvoted);
+        console.log(filtered_upvoted);
         res.render("main-profile", {
           title: "My Profile",
           user: user,
@@ -780,7 +780,7 @@ async function importData(data) {
         const user = await User.findOne({ username: currentUser.username });
         const foundSave = user.savedPosts.find( _id => posts[post_id]._id);
         console.log(foundSave)
-        /*
+        
         if(foundSave){
           await User.updateOne(
             { _id: user._id },
@@ -794,7 +794,7 @@ async function importData(data) {
           )
           console.log(foundSave)
         }
-        */
+        
         res.status(200); 
       } catch (error){
         console.error("Error fetching posts:", error);
