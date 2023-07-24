@@ -11,10 +11,10 @@ function restoreDefaultText(element) {
 }
 
 // .___________________________.
-// ||			              ||
+// ||			                    ||
 // ||      Create Comment     ||
 // ||_________________________||
-// '			               '
+// '			                     '
 
 // Define a named function to handle comment creation
 async function handleCommentCreation() {
@@ -46,29 +46,6 @@ async function handleCommentCreation() {
   }
 }
 
-async function handleEditComment(comment_id) {
-  try {
-    const jString = JSON.stringify({ content: newContent });
-
-    const response = await fetch(`/comment/${comment_id}`, {
-      method: 'PUT',
-      body: jString,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (response.status === 200) {
-      console.log("Comment updated");
-      location.reload(); // Reload the page after successful comment update
-    } else {
-      console.error("Bad request");
-    }
-  } catch (error) {
-    console.error("Error during comment update:", error);
-  }
-}
-
 async function handleDeleteComment(comment_id) {
   try {
     const jString = JSON.stringify({ comment_id });
@@ -92,7 +69,42 @@ async function handleDeleteComment(comment_id) {
   }
 }
 
+function handleEditComment(display, element, comment_id) {
+    element.contentEditable = true;
+    element.focus();
 
+    element.addEventListener("keydown", async function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            element.contentEditable = false;
+            const updatedContent = element.innerText.trim();
+            if (!updatedContent) {
+                return; // Don't update if the content is empty
+            }
+
+            try {
+                const jString = JSON.stringify({ content: updatedContent });
+
+                const response = await fetch(`/comment/${comment_id}`, {
+                    method: 'PUT',
+                    body: jString,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.status === 200) {
+                    console.log("Comment updated");
+                    display.innerText = "Edited";
+                } else {
+                    console.error("Bad request");
+                }
+            } catch (error) {
+                console.error("Error during comment update:", error);
+            }
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 

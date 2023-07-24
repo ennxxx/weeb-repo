@@ -7,10 +7,10 @@
         <div class="sc-right">
             <div class="sc-top">
                 <div class="sc-name">{{author.username}}</div>
-                <p class="sc-edited"></p>
+                <p class="sc-edited" id="sc-edited-{{comment_id}}"></p>
             </div>
             <div class="sc-right-content">
-                <div class="sc-body">{{content}}</div>
+                <div class="sc-body" id="sc-body-{{comment_id}}">{{content}}</div>
             </div>
             <div class="sc-footer">
                 <div class="sc-vote">
@@ -25,8 +25,9 @@
                 </div>
                 {{#if (isEqual @root.currentUser.username author.username)}}
                 <div class="sc-actions">
-                    <button class="sc-edit-button">Edit</button>
-                    <button class="sc-delete-button">Delete</button>
+                    <button class="sc-edit-button"
+                        onclick="handleEditComment(document.querySelector('#sc-edited-{{comment_id}}'), document.querySelector('#sc-body-{{comment_id}}'), '{{comment_id}}')">Edit</button>
+                    <button class="sc-delete-button" "onclick=handleDeleteComment('{{comment_id}}')">Delete</button>
                 </div>
                 {{/if}}
             </div>

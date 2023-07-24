@@ -415,11 +415,33 @@ async function importData(data) {
       }
     });
     
-
+    app.put("/comment/:comment_id", async (req, res) => {
+      try {
+          const commentIdToUpdate = parseInt(req.params.comment_id);
+          const comments = await Comment.find().populate('parentPost').populate('parentComment');
+          const commentToUpdate = comments.find(comment => comment.comment_id === commentIdToUpdate);
+  
+          if (!commentToUpdate) {
+              return res.status(404).json({ error: "Comment not found" });
+          }
+  
+          const { content } = req.body;
+  
+          if (!content) {
+              return res.status(400).json({ error: "Invalid content" });
+          }
+  
+          commentToUpdate.content = content;
+          commentToUpdate.edited = true; // Add an "edited" flag to indicate that the comment has been edited
+          await commentToUpdate.save();
+  
+          res.status(200).json({ message: "Comment updated successfully" });
+      } catch (error) {
+          console.error("Error updating comment:", error);
+          res.status(500).json({ error: "Internal Server Error" });
+      }
+  });
     
-    
-    
-
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
