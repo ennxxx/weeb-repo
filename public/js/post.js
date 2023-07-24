@@ -42,20 +42,6 @@ function checkTitleLength() {
 // ||___________________________||
 // '                    
 
-  // Add event listeners for edit and delete buttons
-  var editButtons = document.querySelectorAll(".edit-button");
-
-  editButtons.forEach(function (editButton) {
-    var title = editButton.closest(".title").querySelector("content");
-    var content = editButton.closest(".text").querySelector("content");
-    var img = editButton.closest(".sample").src;
-    var post_id= editButton.closest(".post-container").id;
-    editButton.addEventListener("click", function () {
-      openEditPost();
-    });
-  });
-
-
 function openEditPost(title, content, img, post_id) {
   const editPostContainer = document.createElement("div");
   editPostContainer.innerHTML = `<div id="edit-overlay" style="display: none;"></div>
@@ -132,12 +118,29 @@ function openEditPost(title, content, img, post_id) {
     } catch (error) {
       console.error("Error during post update:", error);
     }
-
     closeEditPost();
   });
 
   // Delete Button
-  editDeleteBtn.addEventListener("click", () => {
+  editDeleteBtn.addEventListener("click", async () => {
+    try {
+      const response = await fetch(`/post/${post_id}`, {
+        method: 'DELETE',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.status === 200) {
+        console.log("Post deleted");
+        location.reload();
+        // Optionally, you can remove the deleted post from the page here
+      } else {
+        console.error("Bad request");
+      }
+    } catch (error) {
+      console.error("Error during post deletion:", error);
+    }
     closeEditPost();
   });
 
@@ -156,6 +159,23 @@ function closeEditPost() {
   document.getElementById("edit-overlay").style.display = "none";
   document.getElementById("edit-popup").style.display = "none";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  var editButtons = document.querySelectorAll(".edit-button");
+
+  editButtons.forEach(function (editButton) {
+    editButton.addEventListener("click", function () {
+      var parentPost = editButton.closest(".post-container");
+      var title = parentPost.querySelector("#title-" + parentPost.id);
+      var content = parentPost.querySelector("#text-" + parentPost.id);
+      var image = parentPost.querySelector("#sample-" + parentPost.id);
+      var post_id = parentPost.id;
+
+      openEditPost(title, content, image, post_id);
+    });
+  });
+});
 
 // ._____________________________.
 // ||                           ||

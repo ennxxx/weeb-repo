@@ -424,6 +424,23 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+
+    // This route is used for deleting a post.
+    app.delete("/post/:post_id", async (req, res) => {
+      try {
+        const postIdToDelete = parseInt(req.params.post_id);
+        const postToDelete = await Post.findOneAndDelete({ post_id: postIdToDelete });
+
+        if (!postToDelete) {
+          return res.status(404).json({ error: "Post not found" });
+        }
+
+        res.status(200).json({ message: "Post deleted successfully" });
+      } catch (error) {
+        console.error("Error deleting post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
     
 
     // This route is used for creating comments.
