@@ -5,35 +5,35 @@
 // ||___________________________||
 // '                             '
 
-  // Make text bold
-  function makeBold() {
-    document.execCommand("bold", false, null);
-  }
-  
+// Make text bold
+function makeBold() {
+  document.execCommand("bold", false, null);
+}
+
 // Make text underline
 function makeUnderline() {
-    document.execCommand("underline", false, null);
+  document.execCommand("underline", false, null);
 }
 
 // Make text italic
 function makeItalic() {
-    document.execCommand("italic", false, null);
+  document.execCommand("italic", false, null);
 }
 
 // Make text bullet list
 function makeBullet() {
-    document.execCommand("insertUnorderedList", false, null);
+  document.execCommand("insertUnorderedList", false, null);
 }
 
 // Insert image
 function insertImage() {
-    var url = prompt("Enter the URL of the image:");
-    return url;
+  var url = prompt("Enter the URL of the image:");
+  return url;
 }
 
 function checkTitleLength() {
-    var title = document.getElementById("title").value;
-    document.getElementById("title-count").textContent = title.length + "/50";
+  var title = document.getElementById("title").value;
+  document.getElementById("title-count").textContent = title.length + "/50";
 }
 
 // ._____________________________.
@@ -41,13 +41,13 @@ function checkTitleLength() {
 // ||     Edit/Delete Posts     ||
 // ||___________________________||
 // '                             '
-    
+
 function deletePost(post) {
   const index = posts.indexOf(post);
   if (index > -1) {
-      posts.splice(index, 1);
+    posts.splice(index, 1);
   }
-}    
+}
 
 function closeEditPost() {
   document.getElementById("edit-overlay").style.display = "none";
@@ -102,27 +102,27 @@ function openEditPost(post) {
   editUrlInput.value = post.img;
 
   editSubmitBtn.addEventListener("click", () => {
-      const updatedTitle = editTitleInput.value;
-      const updatedContent = editContentInput.innerHTML;
-      const updatedUrl = editUrlInput.value;
+    const updatedTitle = editTitleInput.value;
+    const updatedContent = editContentInput.innerHTML;
+    const updatedUrl = editUrlInput.value;
 
-      // Update with new values
-      post.title = updatedTitle;
-      post.content = updatedContent;
-      post.img = updatedUrl;
+    // Update with new values
+    post.title = updatedTitle;
+    post.content = updatedContent;
+    post.img = updatedUrl;
 
-      closeEditPost();
-      refreshDisplay(posts);
+    closeEditPost();
+    refreshDisplay(posts);
   });
 
   editDeleteBtn.addEventListener("click", () => {
-      deletePost(post);
-      closeEditPost();
-      refreshDisplay(posts);
+    deletePost(post);
+    closeEditPost();
+    refreshDisplay(posts);
   });
 
   editCloseBtn.addEventListener("click", () => {
-      closeEditPost();
+    closeEditPost();
   });
 
   document.body.appendChild(editPostContainer);
@@ -198,7 +198,7 @@ function resetCreatePost() {
 }
 
 
-document.addEventListener("DOMContentLoaded",function() {
+document.addEventListener("DOMContentLoaded", function () {
 
   // .________________________.
   // ||			                 ||
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded",function() {
   // ||______________________||
   // '			                  '
   var saveButtons = document.querySelectorAll(".save-button");
-  
+
   saveButtons.forEach(function (saveButton) {
     var saveImage = saveButton.querySelector(".save");
     saveButton.addEventListener("click", savePost);
@@ -219,13 +219,13 @@ document.addEventListener("DOMContentLoaded",function() {
       }
     }
   });
-  
+
   // .________________________.
   // ||			                 ||
   // ||     Vote Buttons     ||
   // ||______________________||
   // '			                  '
-  
+
   var upvoteButtons = document.querySelectorAll(".upvote-button");
 
   upvoteButtons.forEach(function (upvoteButton, index) {
@@ -241,10 +241,10 @@ document.addEventListener("DOMContentLoaded",function() {
     downvoteButton.addEventListener("click", downvotePost);
 
     async function upvotePost() {
-      if (upvoteImage.src.includes("upvote.png")  && downvoteImage.src.includes("downvote.png")) {
+      if (upvoteImage.src.includes("upvote.png") && downvoteImage.src.includes("downvote.png")) {
         upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
         numVotes.textContent++;
-      } 
+      }
       else if (downvoteImage.src.includes("c-downvoted.png")) {
         upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
         downvoteImage.src = "/static/images/post/downvote.png"
@@ -254,19 +254,19 @@ document.addEventListener("DOMContentLoaded",function() {
         upvoteImage.src = "/static/images/post/upvote.png";
         numVotes.textContent--;
       }
-      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id });
       const response = await fetch("/vote", {
-      method: 'POST',
-      body: jString,
-      headers: {
+        method: 'POST',
+        body: jString,
+        headers: {
           "Content-Type": "application/json"
-      }
+        }
       });
       console.log(response);
       if (response.status == 200)
-          location.reload();
+        location.reload();
       else
-          console.error("Bad request");
+        console.error("Bad request");
     }
 
     async function downvotePost() {
@@ -285,56 +285,56 @@ document.addEventListener("DOMContentLoaded",function() {
         downvoteImage.src = "/static/images/post/downvote.png";
         numVotes.textContent++;
       }
-      const jString = JSON.stringify({votes: parseInt(numVotes.textContent), post_id});
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id });
       const response = await fetch("/vote", {
-      method: 'POST',
-      body: jString,
-      headers: {
+        method: 'POST',
+        body: jString,
+        headers: {
           "Content-Type": "application/json"
-      }
+        }
       });
       console.log(response);
       if (response.status == 200)
-          location.reload();
+        location.reload();
       else
-          console.error("Bad request");
+        console.error("Bad request");
     }
   });
 });
 
-  // .________________________.
-  // ||			                 ||
-  // ||     submits post     ||
-  // ||______________________||
-  // '			                  '
-document.addEventListener("DOMContentLoaded",function() {
-  document.querySelector("#popup-submit")?.addEventListener("click", async e =>{
+// .________________________.
+// ||			                 ||
+// ||     submits post     ||
+// ||______________________||
+// '			                  '
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector("#popup-submit")?.addEventListener("click", async e => {
     e.preventDefault();
 
     const content = document.querySelector("#content").innerText;
-    const title = document.getElementById("title").value; 
+    const title = document.getElementById("title").value;
     const image = document.getElementById("url").value;
 
-    console.log({title, content, image});
-    const jString = JSON.stringify({title, content, image});
+    console.log({ title, content, image });
+    const jString = JSON.stringify({ title, content, image });
     console.log(jString);
 
     const response = await fetch("/post", {
       method: 'POST',
       body: jString,
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       }
     });
     console.log(response);
     if (response.status == 200)
-        location.reload();
+      location.reload();
     else
-        console.error("Bad request");
+      console.error("Bad request");
 
     resetCreatePost();
     document.getElementById("submit-message").innerHTML = "Post Submitted!";
     document.getElementById("submit-message").style.color = "green";
-    
+
   })
 });

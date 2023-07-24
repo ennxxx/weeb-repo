@@ -1867,7 +1867,8 @@ header {
 
 .reply-textarea {
   width: 100%;
-  margin-top: 5px; /* Add some spacing between the comment and the reply text area */
+  margin-top: 5px;
+  /* Add some spacing between the comment and the reply text area */
 }
 
 .italic-light-gray {
