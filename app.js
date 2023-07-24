@@ -84,7 +84,7 @@ async function importData(data) {
     await importData('post');
     await importData('comment');
 
-    let currentUser = await User.findOne({ username: 'u/shellyace' });
+    let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -372,26 +372,38 @@ async function importData(data) {
       }
     });
 
-    // Route for deleting a comment
     app.delete("/comment/:comment_id", async (req, res) => {
       try {
-          const posts = await Post.find();
-          const commentId = req.params.comment_id;
-          const result = await Comment.deleteOne({ _id: commentId });
-
-          const postIdToUpdate = posts[post_id]._id;
-          const updatedPost = await Post.findOneAndUpdate(
-            { _id: postIdToUpdate },
-            {
-              $pop: { comments: result.insertedId }, // Remove the comment from the comments array
-              $dec: { comCtr: 1 } // Decrement the comCtr by 1
-            },
-            { new: true } // Return the updated document after the update is applied
+        const commentIdToDelete = parseInt(req.params.comment_id); // Convert comment_id to an integer
+        const comments = await Comment.find().populate('parentPost').populate('parentComment');
+        const commentToDelete = comments.find(comment => comment.comment_id === commentIdToDelete);
+    
+        if (!commentToDelete) {
+          return res.status(404).json({ error: "Comment not found" });
+        }
+    
+        const postIdToUpdate = commentToDelete.parentPost;
+        const commentUID = commentToDelete._id;
+    
+        const result = await Comment.deleteOne({ comment_id: commentIdToDelete });
+        const updatedPost = await Post.findOneAndUpdate(
+          { _id: postIdToUpdate },
+          {
+            $pull: { comments: commentUID }, // Remove the comment from the comments array
+            $inc: { comCtr: -1 } // Decrement the comCtr by 1
+          },
+          { new: true } // Return the updated document after the update is applied
+        );
+    
+        if (commentToDelete.parentComment) {
+          const parentCommentIdToUpdate = commentToDelete.parentComment;
+          await Comment.findOneAndUpdate(
+            { _id: parentCommentIdToUpdate },
+            { $pull: { reply: commentUID } },
+            { new: true }
           );
-
-          console.log(updatedPost);
-          console.log(posts[post_id].comCtr);
-
+        }
+    
         if (result.deletedCount > 0) {
           res.status(200).json({ message: "Comment deleted successfully" });
         } else {
@@ -402,6 +414,11 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+    
+
+    
+    
+    
 
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
