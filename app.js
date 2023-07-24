@@ -97,9 +97,14 @@ async function importData(data) {
         substring: helpers.substring.apply,
         isEqual: helpers.isEqual,
         log: function (context) {
+          // Get the name of the current context
+          const contextName = this.name || "Unknown Context";
+
+          // Log the context name and value
+          console.log(`Context Name: ${contextName}`);
           console.log(context);
         }
-    },
+      },
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
       },
@@ -161,15 +166,15 @@ async function importData(data) {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author');
         const user = await User.findOne({ username: currentUser.username })
-        .populate('postsMade')
-        .populate({
-          path: 'postsMade',
-          populate: {
-            path: 'author',
-            model: 'User',
-            select: 'username'
-          }
-        });
+          .populate('postsMade')
+          .populate({
+            path: 'postsMade',
+            populate: {
+              path: 'author',
+              model: 'User',
+              select: 'username'
+            }
+          });
 
         const comments = await Comment.find()
           .populate('author')
@@ -181,26 +186,26 @@ async function importData(data) {
               select: 'username title',
             }
           });
-        
+
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
         var filtered_upvoted = [];
         var filtered_downvoted = [];
         var filtered_saved = [];
 
-        for(var i = 0; i < currentUser.upvotedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() == currentUser.upvotedPosts[i].toString());
+        for (var i = 0; i < currentUser.upvotedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.upvotedPosts[i].toString());
           if (found_post) {
             filtered_upvoted.push(found_post);
           }
         }
-        for(var i = 0; i < currentUser.downvotedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() == currentUser.downvotedPosts[i].toString());
+        for (var i = 0; i < currentUser.downvotedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.downvotedPosts[i].toString());
           if (found_post) {
             filtered_downvoted.push(found_post);
           }
         }
-        for(var i = 0; i < currentUser.savedPosts.length; i++ ){
-          const found_post = posts.find(post => post._id.toString() == currentUser.savedPosts[i].toString());
+        for (var i = 0; i < currentUser.savedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.savedPosts[i].toString());
           if (found_post) {
             filtered_saved.push(found_post);
           }
@@ -214,6 +219,7 @@ async function importData(data) {
           downvoted: filtered_downvoted,
           saved: filtered_saved,
           filters: filters,
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -225,7 +231,7 @@ async function importData(data) {
     app.get("/edit", async (req, res) => {
       try {
         const user = await User.findOne({ username: currentUser.username });
-        
+
         res.render("edit", {
           title: "Edit Profile",
           user: user
@@ -241,7 +247,7 @@ async function importData(data) {
       try {
         const user = await User.findOne({ username: currentUser.username });
         const { name, bio } = req.body;
-        
+
         user.name = name;
         user.bio = bio;
 
@@ -356,7 +362,8 @@ async function importData(data) {
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
       res.render('anime', {
         title: 'Anime',
-        toppost: posts[0]
+        toppost: posts[0],
+        currentUser: currentUser
       });
     });
 
@@ -366,14 +373,16 @@ async function importData(data) {
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
       res.render('games', {
         title: 'Games',
-        toppost: posts[0]
+        toppost: posts[0],
+        currentUser: currentUser
       });
     });
 
     // This route renders the polls page
     app.get('/polls', async (req, res) => {
       res.render('polls', {
-        title: 'Polls'
+        title: 'Polls',
+        currentUser: currentUser
       });
     });
 
@@ -382,7 +391,8 @@ async function importData(data) {
       const posts = await Post.find().populate('author')
       res.render('featured', {
         title: 'Featured',
-        post: posts[3]
+        post: posts[3],
+        currentUser: currentUser
       });
     });
 
@@ -419,9 +429,9 @@ async function importData(data) {
             comments: [],
             voteCtr: 0,
             comCtr: 0,
-            upvotedPost:[],
-            downvotedPost:[],
-            savedPost:[],
+            upvotedPost: [],
+            downvotedPost: [],
+            savedPost: [],
             __v: 0
           };
           const result = await Post.collection.insertOne(newPost);
@@ -451,20 +461,20 @@ async function importData(data) {
         const postIdToUpdate = parseInt(req.params.post_id);
         const posts = await Post.find().populate('author');
         const postToUpdate = posts.find(post => post.post_id === postIdToUpdate);
-    
+
         if (!postToUpdate) {
           return res.status(404).json({ error: "Post not found" });
         }
-    
+
         const { title, content, img } = req.body;
-    
+
         // Update the properties of the post
         postToUpdate.title = title;
         postToUpdate.content = content;
         postToUpdate.image = img;
-    
+
         await postToUpdate.save();
-        
+
         res.status(200).json({ message: "Post updated successfully" });
       } catch (error) {
         console.error("Error updating post:", error);
@@ -491,7 +501,7 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-    
+
 
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
@@ -542,14 +552,14 @@ async function importData(data) {
         const commentIdToDelete = parseInt(req.params.comment_id); // Convert comment_id to an integer
         const comments = await Comment.find().populate('parentPost').populate('parentComment');
         const commentToDelete = comments.find(comment => comment.comment_id === commentIdToDelete);
-    
+
         if (!commentToDelete) {
           return res.status(404).json({ error: "Comment not found" });
         }
-    
+
         const postIdToUpdate = commentToDelete.parentPost;
         const commentUID = commentToDelete._id;
-    
+
         const result = await Comment.deleteOne({ comment_id: commentIdToDelete });
         const updatedPost = await Post.findOneAndUpdate(
           { _id: postIdToUpdate },
@@ -559,7 +569,7 @@ async function importData(data) {
           },
           { new: true } // Return the updated document after the update is applied
         );
-    
+
         if (commentToDelete.parentComment) {
           const parentCommentIdToUpdate = commentToDelete.parentComment;
           await Comment.findOneAndUpdate(
@@ -568,7 +578,7 @@ async function importData(data) {
             { new: true }
           );
         }
-    
+
         if (result.deletedCount > 0) {
           res.status(200).json({ message: "Comment deleted successfully" });
         } else {
@@ -579,34 +589,34 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-    
+
     app.put("/comment/:comment_id", async (req, res) => {
       try {
-          const commentIdToUpdate = parseInt(req.params.comment_id);
-          const comments = await Comment.find().populate('parentPost').populate('parentComment');
-          const commentToUpdate = comments.find(comment => comment.comment_id === commentIdToUpdate);
-  
-          if (!commentToUpdate) {
-              return res.status(404).json({ error: "Comment not found" });
-          }
-  
-          const { content } = req.body;
-  
-          if (!content) {
-              return res.status(400).json({ error: "Invalid content" });
-          }
-  
-          commentToUpdate.content = content;
-          commentToUpdate.edited = true; // Add an "edited" flag to indicate that the comment has been edited
-          await commentToUpdate.save();
-  
-          res.status(200).json({ message: "Comment updated successfully" });
+        const commentIdToUpdate = parseInt(req.params.comment_id);
+        const comments = await Comment.find().populate('parentPost').populate('parentComment');
+        const commentToUpdate = comments.find(comment => comment.comment_id === commentIdToUpdate);
+
+        if (!commentToUpdate) {
+          return res.status(404).json({ error: "Comment not found" });
+        }
+
+        const { content } = req.body;
+
+        if (!content) {
+          return res.status(400).json({ error: "Invalid content" });
+        }
+
+        commentToUpdate.content = content;
+        commentToUpdate.edited = true; // Add an "edited" flag to indicate that the comment has been edited
+        await commentToUpdate.save();
+
+        res.status(200).json({ message: "Comment updated successfully" });
       } catch (error) {
-          console.error("Error updating comment:", error);
-          res.status(500).json({ error: "Internal Server Error" });
+        console.error("Error updating comment:", error);
+        res.status(500).json({ error: "Internal Server Error" });
       }
-  });
-    
+    });
+
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {
       try {
@@ -647,10 +657,10 @@ async function importData(data) {
 
         if (votes && comment_id) {
           await User.updateOne(
-          { _id: comments[comment_id]}, 
-          { $push: {voteCtr : votes}} 
+            { _id: comments[comment_id] },
+            { $push: { voteCtr: votes } }
           )
-      
+
           res.status(200);
         } else {
           res.status(400);
@@ -836,7 +846,7 @@ async function importData(data) {
 
     app.post('/signinFunc', async (req, res) => {
       const { username, password } = req.body;
-    
+
       try {
         // Query the database to find the user
         const user = await User.findOne({ username: "u/" + username, password: password });
@@ -856,11 +866,11 @@ async function importData(data) {
 
     app.get('/getCurrentUser', async (req, res) => {
 
-        // Send the data as a response
-        res.json(currentUser);
+      // Send the data as a response
+      res.json(currentUser);
     });
 
-    app.post("/upvote", async (req, res) =>{
+    app.post("/upvote", async (req, res) => {
       try {
         // Query the database to find the user
         const user = await User.findOne({ username: "u/" + username, password: password });
@@ -877,7 +887,7 @@ async function importData(data) {
         res.status(500).json({ error: 'Internal Server Error' });
       }
     });
-    
+
     // This route is used for connecting to the server.
     app.listen(3000, () => console.log("Server is running on port 3000"));
   } catch (error) {

@@ -5,11 +5,11 @@
 <div class="row-content-container">
     <div id="profile-container">
         <div id="image-container">
-            <img src="/static/images/profile/{{user.profile_pic}}" id="profile-pic">
+            <img src="/static/images/profile/{{currentUser.profile_pic}}" id="profile-pic">
             <button id="change-image-btn"></button>
         </div>
-        <h2 id="name">{{user.name}}</h2>
-        <h4 id="profile-username">{{user.username}}</h4>
+        <h2 id="name">{{currentUser.name}}</h2>
+        <h4 id="profile-username">{{currentUser.username}}</h4>
         <p id="bio">{{{user.bio}}}</p>
         <input type="button" id="edit-button" value="Edit Profile" onclick="window.location.href='/edit'">
         <!-- <div id="followers-container">

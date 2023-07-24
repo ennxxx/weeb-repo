@@ -18,6 +18,12 @@
             {{/if}}
         </div>
         <div class="post-actions">
+                        {{#if (isEqual @root.currentUser.username author.username)}}
+            <button type="button" class="edit-button" id="edit-{{post_id}}" onclick="openEditPost('{{title}}', '{{content}}', {{image}}, '{{post_id}}')">
+                <img src="/static/images/post/edit.png" class="edit">
+            </button>
+            <p class="edit-post">Edit Post</p>
+            {{/if}}
             <button class="comment-button">
                 <img src="/static/images/post/comment.png" class="comment">
             </button>

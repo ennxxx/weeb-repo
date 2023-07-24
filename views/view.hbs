@@ -1,4 +1,5 @@
 <script src="/static/js/view.js"></script>
+<script src="/static/js/viewpost.js"></script>
 
 <div class="post_id" style="display: none;">{{post.post_id}}</div>
 <div class="view-container">
@@ -7,7 +8,7 @@
             {{> viewpost post}}
         </div>
         <div class="add-comment">
-            <img src="/static/images/profile/cinnamoroll.png" class="post-profile">
+            <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
             <textarea class="comment-area" onclick="clearDefaultText(this)" onblur="restoreDefaultText(this)"
                 data-default-value="Write a Comment...">Write a Comment...</textarea>
             <button onclick="handleCommentCreation()" class="submit-button">
