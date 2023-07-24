@@ -158,6 +158,7 @@ async function importData(data) {
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted'];
+        const posts = await Post.find().populate('author');
         const user = await User.findOne({ username: currentUser.username })
         .populate('postsMade')
         .populate({
@@ -368,6 +369,34 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+
+    // This route is used for editing posts.
+    app.put("/post/:post_id", async (req, res) => {
+      try {
+        const postIdToUpdate = parseInt(req.params.post_id);
+        const posts = await Post.find().populate('author');
+        const postToUpdate = posts.find(post => post.post_id === postIdToUpdate);
+    
+        if (!postToUpdate) {
+          return res.status(404).json({ error: "Post not found" });
+        }
+    
+        const { title, content, img } = req.body;
+    
+        // Update the properties of the post
+        postToUpdate.title = title;
+        postToUpdate.content = content;
+        postToUpdate.image = img;
+    
+        await postToUpdate.save();
+        
+        res.status(200).json({ message: "Post updated successfully" });
+      } catch (error) {
+        console.error("Error updating post:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+    
 
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
@@ -599,7 +628,7 @@ async function importData(data) {
             name: "User",
             username: "u/" + username,
             password: password,
-            bio: "Edit Profile to add a bio",
+            bio: "Edit Profile to add a bio and change username",
             followers_info: "0 followers • 0 following",
             postsMade: []
           };
@@ -615,20 +644,6 @@ async function importData(data) {
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
-
-    // app.get('/signinFunc', async (req, res) => {
-    //   try {
-    //     // Query the database using Mongoose or any other library
-    //     console.log("GET Request to /signin received.");
-    //     const users = await User.find(); // Replace YourModel with your actual Mongoose model
-
-    //     // Send the data as a response
-    //     res.json(users);
-    //   } catch (error) {
-    //     console.error('Error fetching data from the database:', error);
-    //     res.status(500).json({ error: 'Internal Server Error' });
-    //   }
-    // });
 
     app.post('/signinFunc', async (req, res) => {
       const { username, password } = req.body;

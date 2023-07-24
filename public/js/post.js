@@ -40,21 +40,23 @@ function checkTitleLength() {
 // ||                           ||
 // ||     Edit/Delete Posts     ||
 // ||___________________________||
-// '                             '
+// '                    
 
-function deletePost(post) {
-  const index = posts.indexOf(post);
-  if (index > -1) {
-    posts.splice(index, 1);
-  }
-}
+  // Add event listeners for edit and delete buttons
+  var editButtons = document.querySelectorAll(".edit-button");
 
-function closeEditPost() {
-  document.getElementById("edit-overlay").style.display = "none";
-  document.getElementById("edit-popup").style.display = "none";
-}
+  editButtons.forEach(function (editButton) {
+    var title = editButton.closest(".title").querySelector("content");
+    var content = editButton.closest(".text").querySelector("content");
+    var img = editButton.closest(".sample").src;
+    var post_id= editButton.closest(".post-container").id;
+    editButton.addEventListener("click", function () {
+      openEditPost();
+    });
+  });
 
-function openEditPost(post) {
+
+function openEditPost(title, content, img, post_id) {
   const editPostContainer = document.createElement("div");
   editPostContainer.innerHTML = `<div id="edit-overlay" style="display: none;"></div>
   <div id="edit-popup" style="display: none;">
@@ -88,37 +90,55 @@ function openEditPost(post) {
       </div>
   </div>`;
 
-  // Edit post elements
+  // Get the information
   const editTitleInput = editPostContainer.querySelector("#edit-title");
   const editContentInput = editPostContainer.querySelector("#edit-content");
   const editUrlInput = editPostContainer.querySelector("#edit-url");
+
+  // Fill with original values
+  editTitleInput.value = title.innerText;
+  editContentInput.innerHTML = content.innerText;
+  editUrlInput.value = img.innerText;
+
+  // Get the buttons
   const editSubmitBtn = editPostContainer.querySelector("#edit-popup-submit");
   const editDeleteBtn = editPostContainer.querySelector("#edit-popup-delete");
   const editCloseBtn = editPostContainer.querySelector("#edit-close");
 
-  // Get the original values
-  editTitleInput.value = post.title;
-  editContentInput.innerHTML = post.content;
-  editUrlInput.value = post.img;
-
-  editSubmitBtn.addEventListener("click", () => {
+  // Edit Button
+  editSubmitBtn.addEventListener("click", async () => {
     const updatedTitle = editTitleInput.value;
     const updatedContent = editContentInput.innerHTML;
     const updatedUrl = editUrlInput.value;
 
-    // Update with new values
-    post.title = updatedTitle;
-    post.content = updatedContent;
-    post.img = updatedUrl;
+    try {
+      const jString = JSON.stringify({ title: updatedTitle, content: updatedContent, img: updatedUrl });
+
+      const response = await fetch(`/post/${post_id}`, {
+        method: 'PUT',
+        body: jString,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (response.status === 200) {
+        console.log("Post updated");
+        location.reload();
+        // Optionally, you can update the post content and image on the page here
+      } else {
+        console.error("Bad request");
+      }
+    } catch (error) {
+      console.error("Error during post update:", error);
+    }
 
     closeEditPost();
-    refreshDisplay(posts);
   });
 
+  // Delete Button
   editDeleteBtn.addEventListener("click", () => {
-    deletePost(post);
     closeEditPost();
-    refreshDisplay(posts);
   });
 
   editCloseBtn.addEventListener("click", () => {
@@ -130,6 +150,11 @@ function openEditPost(post) {
   // Display the popup
   document.getElementById("edit-overlay").style.display = "";
   document.getElementById("edit-popup").style.display = "";
+}
+
+function closeEditPost() {
+  document.getElementById("edit-overlay").style.display = "none";
+  document.getElementById("edit-popup").style.display = "none";
 }
 
 // ._____________________________.
@@ -197,6 +222,42 @@ function resetCreatePost() {
   titleCtr.innerText = "0/50";
 }
 
+// .________________________.
+// ||			                 ||
+// ||     Submits Post     ||
+// ||______________________||
+// '			                  '
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelector("#popup-submit")?.addEventListener("click", async e => {
+    e.preventDefault();
+
+    const content = document.querySelector("#content").innerText;
+    const title = document.getElementById("title").value;
+    const image = document.getElementById("url").value;
+
+    console.log({ title, content, image });
+    const jString = JSON.stringify({ title, content, image });
+    console.log(jString);
+
+    const response = await fetch("/post", {
+      method: 'POST',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(response);
+    if (response.status == 200)
+      location.reload();
+    else
+      console.error("Bad request");
+
+    resetCreatePost();
+    document.getElementById("submit-message").innerHTML = "Post Submitted!";
+    document.getElementById("submit-message").style.color = "green";
+
+  })
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -303,39 +364,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// .________________________.
-// ||			                 ||
-// ||     submits post     ||
-// ||______________________||
-// '			                  '
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelector("#popup-submit")?.addEventListener("click", async e => {
-    e.preventDefault();
-
-    const content = document.querySelector("#content").innerText;
-    const title = document.getElementById("title").value;
-    const image = document.getElementById("url").value;
-
-    console.log({ title, content, image });
-    const jString = JSON.stringify({ title, content, image });
-    console.log(jString);
-
-    const response = await fetch("/post", {
-      method: 'POST',
-      body: jString,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    console.log(response);
-    if (response.status == 200)
-      location.reload();
-    else
-      console.error("Bad request");
-
-    resetCreatePost();
-    document.getElementById("submit-message").innerHTML = "Post Submitted!";
-    document.getElementById("submit-message").style.color = "green";
-
-  })
-});
