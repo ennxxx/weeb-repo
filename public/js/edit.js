@@ -1,13 +1,40 @@
 // .________________________.
 // ||			           ||
-// ||     Edit Profile     ||
+// ||      Edit Profile    ||
 // ||______________________||
 // '			            ' 
 
-/* Change Profile Picture */
+async function editProfile() {
+    const newName = document.getElementById("new-name").value;
+    const newBio = document.getElementById("new-bio").value;
 
+    try {
+        const jString = JSON.stringify({ name: newName, bio: newBio });
+  
+        const response = await fetch(`/edit-profile`, {
+          method: 'PUT',
+          body: jString,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+  
+        if (response.status === 200) {
+          console.log("Post updated");
+          window.location.href = "/main-profile";
+          // Optionally, you can update the post content and image on the page here
+        } else {
+          console.error("Bad request");
+        }
+      } catch (error) {
+        console.error("Error during post update:", error);
+    }
+
+}
+
+// Changing Profile Picture
 document.addEventListener("DOMContentLoaded", function () {
-    var changeButton = document.querySelector("#change-image-btn");
+    var changeButton = document.querySelector("#edit-change-image-btn");
     changeButton.addEventListener("click", changeProfile);
 
     function changeProfile() {
@@ -65,3 +92,4 @@ document.addEventListener("DOMContentLoaded", function () {
         mediaInput.click();
     }
 });
+

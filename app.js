@@ -220,6 +220,39 @@ async function importData(data) {
       }
     });
 
+    // This route renders the edit profile page.
+    app.get("/edit", async (req, res) => {
+      try {
+        const user = await User.findOne({ username: currentUser.username });
+        
+        res.render("edit", {
+          title: "Edit Profile",
+          user: user
+        });
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
+    // This route allows the profile to be edited
+    app.put("/edit-profile", async (req, res) => {
+      try {
+        const user = await User.findOne({ username: currentUser.username });
+        const { name, bio } = req.body;
+        
+        user.name = name;
+        user.bio = bio;
+
+        await user.save();
+
+        res.status(200).json({ message: "Edited profile successfully" });
+      } catch (error) {
+        console.error("Error editing profile:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
+    });
+
     // This route renders the non main profile page.
     app.get("/profile/:name", async (req, res) => {
       try {
@@ -351,6 +384,7 @@ async function importData(data) {
         post: posts[3]
       });
     });
+
     // intercept all requests with the content-type, application/json
     app.use(express.json());
 
@@ -434,6 +468,9 @@ async function importData(data) {
         if (!postToDelete) {
           return res.status(404).json({ error: "Post not found" });
         }
+
+        // Decrement the post_id of all posts with an id greater than the deleted post_id
+        await Post.updateMany({ post_id: { $gt: postIdToDelete } }, { $inc: { post_id: -1 } });
 
         res.status(200).json({ message: "Post deleted successfully" });
       } catch (error) {
