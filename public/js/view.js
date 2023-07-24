@@ -11,10 +11,10 @@ function restoreDefaultText(element) {
 }
 
 // .___________________________.
-// ||			              ||
+// ||			                    ||
 // ||      Create Comment     ||
 // ||_________________________||
-// '			               '
+// '			                     '
 
 // Define a named function to handle comment creation
 async function handleCommentCreation() {
@@ -46,67 +46,87 @@ async function handleCommentCreation() {
   }
 }
 
-async function handleEditComment(comment_id) {
-	try {
-	  const jString = JSON.stringify({ content: newContent });
-  
-	  const response = await fetch(`/comment/${comment_id}`, {
-		method: 'PUT',
-		body: jString,
-		headers: {
-		  "Content-Type": "application/json"
-		}
-	  });
-  
-	  if (response.status === 200) {
-		console.log("Comment updated");
-		location.reload(); // Reload the page after successful comment update
-	  } else {
-		console.error("Bad request");
-	  }
-	} catch (error) {
-	  console.error("Error during comment update:", error);
-	}
-  }
-  
-  async function handleDeleteComment(comment_id) {
-	try {
-	  const response = await fetch(`/comment/${comment_id}`, {
-		method: 'DELETE',
-	  });
-  
-	  if (response.status === 200) {
-		console.log("Comment deleted");
-		location.reload(); // Reload the page after successful comment deletion
-	  } else {
-		console.error("Bad request");
-	  }
-	} catch (error) {
-	  console.error("Error during comment deletion:", error);
-	}
-  }
+async function handleDeleteComment(comment_id) {
+  try {
+    const jString = JSON.stringify({ comment_id });
+    
+    const response = await fetch(`/comment/${comment_id}`, {
+      method: 'DELETE',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
 
-  document.addEventListener("DOMContentLoaded", function () {
-  
-	// Add event listeners for edit and delete buttons
-	var editButtons = document.querySelectorAll(".sc-edit-button");
-	var deleteButtons = document.querySelectorAll(".sc-delete-button");
-  
-	editButtons.forEach(function (editButton) {
-	  var comment_id = editButton.closest(".single-comment-main").id;
-	  editButton.addEventListener("click", function () {
-		handleEditComment(comment_id);
-	  });
-	});
-  
-	deleteButtons.forEach(function (deleteButton) {
-	  var comment_id = deleteButton.closest(".single-comment-main").id;
-	  deleteButton.addEventListener("click", function () {
-		handleDeleteComment(comment_id);
-	  });
-	});
-  
+    if (response.status === 200) {
+      console.log("Comment deleted");
+      location.reload(); // Reload the page after successful comment deletion
+    } else {
+      console.error("Bad request");
+    }
+  } catch (error) {
+    console.error("Error during comment deletion:", error);
+  }
+}
+
+function handleEditComment(display, element, comment_id) {
+    element.contentEditable = true;
+    element.focus();
+
+    element.addEventListener("keydown", async function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            element.contentEditable = false;
+            const updatedContent = element.innerText.trim();
+            if (!updatedContent) {
+                return; // Don't update if the content is empty
+            }
+
+            try {
+                const jString = JSON.stringify({ content: updatedContent });
+
+                const response = await fetch(`/comment/${comment_id}`, {
+                    method: 'PUT',
+                    body: jString,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                if (response.status === 200) {
+                    console.log("Comment updated");
+                    display.innerText = "Edited";
+                } else {
+                    console.error("Bad request");
+                }
+            } catch (error) {
+                console.error("Error during comment update:", error);
+            }
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Add event listeners for edit and delete buttons
+  var editButtons = document.querySelectorAll(".sc-edit-button");
+  var deleteButtons = document.querySelectorAll(".sc-delete-button");
+
+  editButtons.forEach(function (editButton) {
+    var comment_id = editButton.closest(".single-comment-main").id;
+    editButton.addEventListener("click", function () {
+      handleEditComment(comment_id);
+    });
   });
+
+  deleteButtons.forEach(function (deleteButton) {
+    var comment_id = deleteButton.closest(".single-comment-main").id;
+    deleteButton.addEventListener("click", function () {
+      handleDeleteComment(comment_id);
+    });
+  });
+
+});
 
 document.addEventListener("visibilitychange", function () {
   var activeElement = document.activeElement;

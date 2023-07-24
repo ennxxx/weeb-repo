@@ -11,10 +11,10 @@
         <h2 id="name">{{user.name}}</h2>
         <h4 id="profile-username">{{user.username}}</h4>
         <p id="bio">{{{user.bio}}}</p><br>
-        <div id="followers-container">
+        <!-- <div id="followers-container">
             <img src="/static/images/icons/followers.png">
             <p>{{{user.followers_info}}}</p>
-        </div>
+        </div> -->
     </div>
     <div id="overview-container">
         <!-- Filter Buttons -->
@@ -25,7 +25,7 @@
         </div>
         <hr id="filter-hr">
 
-         <!-- Posts -->
+        <!-- Posts -->
         <div id="Posts-view">
             <div class="posts-container">
                 {{#each user.postsMade}}
