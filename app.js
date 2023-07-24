@@ -316,11 +316,39 @@ async function importData(data) {
       });
     });
 
+    // This route renders the anime page
     app.get('/anime', async (req, res) => {
       const posts = await Post.find().populate('author')
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
       res.render('anime', {
+        title: 'Anime',
         toppost: posts[0]
+      });
+    });
+
+    // This route renders the games page
+    app.get('/games', async (req, res) => {
+      const posts = await Post.find().populate('author')
+      posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+      res.render('games', {
+        title: 'Games',
+        toppost: posts[0]
+      });
+    });
+
+    // This route renders the polls page
+    app.get('/polls', async (req, res) => {
+      res.render('polls', {
+        title: 'Polls'
+      });
+    });
+
+    // This route renders the polls page
+    app.get('/featured', async (req, res) => {
+      const posts = await Post.find().populate('author')
+      res.render('featured', {
+        title: 'Featured',
+        post: posts[3]
       });
     });
     // intercept all requests with the content-type, application/json
