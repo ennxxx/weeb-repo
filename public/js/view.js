@@ -1,14 +1,3 @@
-function clearDefaultText(element) {
-  if (element.value.trim() === element.getAttribute('data-default-value')) {
-    element.value = '';
-  }
-}
-
-function restoreDefaultText(element) {
-  if (element.value.trim() === '') {
-    element.value = element.getAttribute('data-default-value');
-  }
-}
 
 // .___________________________.
 // ||			                    ||

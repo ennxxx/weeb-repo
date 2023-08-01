@@ -9,8 +9,7 @@
         </div>
         <div class="add-comment">
             <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
-            <textarea class="comment-area" onclick="clearDefaultText(this)" onblur="restoreDefaultText(this)"
-                data-default-value="Write a Comment...">Write a Comment...</textarea>
+            <textarea class="comment-area" placeholder="Write a Comment..."></textarea>
             <button onclick="handleCommentCreation()" class="submit-button">
                 <img src="/static/images/icons/send.png" class="submit-comment">
             </button>
