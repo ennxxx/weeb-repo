@@ -680,6 +680,7 @@ async function importData(data) {
         const user = await User.findOne({ username: currentUser.username });
         
         if(check == "up"){
+          //user side
           const foundup = user.upvotedPosts.find( _id => posts[post_id]._id);
           const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
           if(foundup && !founddown){
@@ -688,7 +689,7 @@ async function importData(data) {
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
               await Post.updateOne(
-                { _id: posts[post_id]}, 
+                { _id: posts[post_id]._id}, 
                 { $set: {voteCtr : votes-2}});
           } else if(foundup && founddown){
               await User.updateOne(
@@ -700,7 +701,7 @@ async function importData(data) {
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
               await Post.updateOne(
-                { _id: posts[post_id]}, 
+                { _id: posts[post_id]._id}, 
                 { $set: {voteCtr : votes-2}});
           } else if(!foundup && founddown){
               await User.updateOne(
@@ -712,7 +713,7 @@ async function importData(data) {
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
               await Post.updateOne(
-                { _id: posts[post_id]}, 
+                { _id: posts[post_id]._id}, 
                 { $set: {voteCtr : votes}});
           } else{
               await User.updateOne(
@@ -720,9 +721,44 @@ async function importData(data) {
                 { $push: { upvotedPosts: posts[post_id]._id } }
               )
               await Post.updateOne(
-                { _id: posts[post_id]}, 
+                { _id: posts[post_id]._id}, 
                 { $set: {voteCtr : votes}});
           }
+          //post side
+
+          const foundupUser = posts[post_id].upvotedBy.find( _id => currentUser._id);
+          const founddownUser = posts[post_id].downvotedBy.find( _id => currentUser._id);
+          if(foundupUser && !founddownUser){
+              await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $pull: { upvotedBy: currentUser._id } }
+              )
+          } else if(foundupUser && founddownUser){
+              await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $pull: { upvotedBy: currentUser._id } }
+              )
+              await postToUpdate.updateOne(
+                { _id: posts[post_id]._id },
+                { $pull: { downvotedBy: currentUser._id } }
+              )
+          } else if(!foundupUser && founddownUser){
+              await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $push: { upvotedBy: currentUser._id } }
+              )
+              await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $pull: { downvotedBy: currentUser._id } }
+              )
+          } else{
+              await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $push: { upvotedBy: currentUser._id } }
+              )
+          }
+
+
         } else if (check == "down"){
           const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
           const foundup = user.upvotedPosts.find( _id => posts[post_id]._id);
@@ -767,13 +803,45 @@ async function importData(data) {
                 { _id: posts[post_id]}, 
                 { $set: {voteCtr : votes}});
           }
+           //post side
+
+           const foundupUser = posts[post_id].upvotedBy.find( _id => currentUser._id);
+           const founddownUser = posts[post_id].downvotedBy.find( _id => currentUser._id);
+           if(foundupUser && !founddownUser){
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $pull: { downvotedBy: currentUser._id } }
+               )
+           } else if(foundupUser && founddownUser){
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $pull: { downvotedBy: currentUser._id } }
+               )
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $pull: { upvotedBy: currentUser._id } }
+               )
+           } else if(!foundupUser && founddownUser){
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $push: { downvotedBy: currentUser._id } }
+               )
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $pull: { upvotedBy: currentUser._id } }
+               )
+           } else{
+               await Post.updateOne(
+                 { _id: posts[post_id]._id },
+                 { $push: { downvotedBy: currentUser._id } }
+               )
+           }
         }
     
         if (votes && post_id) {
-          res.status(200);
-          res.redirect("/");
+          res.status(200).send();
         } else {
-          res.status(400);
+          res.status(400).send();
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -805,7 +873,7 @@ async function importData(data) {
           console.log(foundSave)
         }
         
-        res.status(200); 
+        res.status(200).send(); 
       } catch (error){
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });

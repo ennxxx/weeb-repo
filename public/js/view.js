@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       console.log(response);
-      if (response.status == 200)
+      if (response.ok)
         location.reload();
       else
         console.error("Bad request");
@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
       console.log(response);
-      if (response.status == 200)
+      if (response.ok)
         location.reload();
       else
         console.error("Bad request");
