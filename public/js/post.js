@@ -72,7 +72,6 @@ function openEditPost(title, content, img, post_id) {
 
       <div id="edit-actions">
           <button id="edit-popup-submit">Submit</button>
-          <button id="edit-popup-delete">Delete</button>
       </div>
   </div>`;
 
@@ -88,7 +87,6 @@ function openEditPost(title, content, img, post_id) {
 
   // Get the buttons
   const editSubmitBtn = editPostContainer.querySelector("#edit-popup-submit");
-  const editDeleteBtn = editPostContainer.querySelector("#edit-popup-delete");
   const editCloseBtn = editPostContainer.querySelector("#edit-close");
 
   // Edit Button
@@ -117,29 +115,6 @@ function openEditPost(title, content, img, post_id) {
       }
     } catch (error) {
       console.error("Error during post update:", error);
-    }
-    closeEditPost();
-  });
-
-  // Delete Button
-  editDeleteBtn.addEventListener("click", async () => {
-    try {
-      const response = await fetch(`/post/${post_id}`, {
-        method: 'DELETE',
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      if (response.status === 200) {
-        console.log("Post deleted");
-        location.reload();
-        // Optionally, you can remove the deleted post from the page here
-      } else {
-        console.error("Bad request");
-      }
-    } catch (error) {
-      console.error("Error during post deletion:", error);
     }
     closeEditPost();
   });
@@ -273,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newPost = data.post_id;
 
     if (response.status == 200)
-      window.location.href = '/view/'+ newPost;
+      window.location.href = '/view/' + newPost;
     else
       console.error("Bad request");
 
@@ -296,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveButtons.forEach(function (saveButton) {
     var saveImage = saveButton.querySelector(".save");
     saveButton.addEventListener("click", savePost);
- 
+
     async function savePost() {
       if (saveImage.src.includes("save.png")) {
         saveImage.src = "/static/images/post/clicked/c-saved.png";
@@ -338,7 +313,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     upvoteButton.addEventListener("click", upvotePost);
     downvoteButton.addEventListener("click", downvotePost);
-    var votes= parseInt(numVotes.textContent)
+    var votes = parseInt(numVotes.textContent)
 
     async function upvotePost() {
       if (upvoteImage.src.includes("upvote.png") && downvoteImage.src.includes("downvote.png")) {

@@ -23,18 +23,20 @@
         </div>
         <div class="post-actions">
             {{#if (isEqual @root.currentUser.username author.username)}}
+            <button class="delete-button" id="delete-{{post_id}}">
+                <img src="/static/images/post/delete.png" class="delete">
+            </button>
+            <p class="delete-post">Delete</p>
             <button class="edit-button" id="edit-{{post_id}}">
-                {{!-- onclick="openEditPost(document.querySelector('#title-{{post_id}}'), document.querySelector('#text-{{post_id}}'), document.querySelector('#sample-{{post_id}}'), '{{post_id}}')"> --}}
                 <img src="/static/images/post/edit.png" class="edit">
             </button>
-            <p class="edit-post">Edit Post</p>
+            <p class="edit-post">Edit</p>
             {{/if}}
             <a href="/view/{{post_id}}" class="post-clickable">
                 <button class="comment-button">
                     <img src="/static/images/post/comment.png" class="comment">
                 </button>
             </a>
-
             <p class="comment-num">{{comCtr}} Comments</p>
             <button class="save-button">
                 <img src="/static/images/post/save.png" class="save">
