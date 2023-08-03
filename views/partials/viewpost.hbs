@@ -1,12 +1,24 @@
 <div class="view-post-container" id="{{post_id}}">
     <div class="vote">
-        <button class="upvote-button">
-            <img src="/static/images/post/upvote.png" class="upvote">
-        </button>
+        {{#if @root.upvoteStatus}}
+            <button class="upvote-button">
+                <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
+            </button>
+        {{else}}
+            <button class="upvote-button">
+                <img src="/static/images/post/upvote.png" class="upvote">
+            </button>
+        {{/if}}
         <p class="num-votes">{{voteCtr}}</p>
-        <button class="downvote-button">
-            <img src="/static/images/post/downvote.png" class="downvote">
-        </button>
+        {{#if @root.downvoteStatus}}
+            <button class="downvote-button">
+                <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
+            </button>
+        {{else}}
+            <button class="downvote-button">
+                <img src="/static/images/post/downvote.png" class="downvote">
+            </button>
+        {{/if}}
     </div>
     <div class="content">
         <div class="post-content">
@@ -33,9 +45,15 @@
                 <img src="/static/images/post/comment.png" class="comment">
             </button>
             <p class="comment-num">{{comCtr}} Comments</p>
-            <button class="save-button">
-                <img src="/static/images/post/save.png" class="save">
-            </button>
+            {{#if @root.saveStatus}}
+                <button class="save-button">
+                    <img src="/static/images/post/clicked/c-saved.png" class="save">
+                </button>
+            {{else}}
+                <button class="save-button">
+                    <img src="/static/images/post/save.png" class="save">
+                </button>
+            {{/if}}
         </div>
     </div>
 </div>

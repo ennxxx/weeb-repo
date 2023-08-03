@@ -128,104 +128,120 @@ document.addEventListener("visibilitychange", function () {
 document.addEventListener("DOMContentLoaded", function () {
 
   // .________________________.
-  // ||			           ||
+  // ||			                 ||
   // ||      Save Post       ||
   // ||______________________||
-  // '			            '
-
+  // '			                  '
   var saveButton = document.querySelector(".save-button");
-  var saveImage = saveButton.querySelector(".save");
+  var parentPost = document.querySelector(".view-post-container");
+  var currentPost = parentPost;
 
+  var saveImage = saveButton.querySelector(".save");
   saveButton.addEventListener("click", savePost);
 
-  function savePost() {
+  async function savePost() {
     if (saveImage.src.includes("save.png")) {
       saveImage.src = "/static/images/post/clicked/c-saved.png";
     } else {
       saveImage.src = "/static/images/post/save.png";
     }
-  }
+    
+    const jString = JSON.stringify({ post_id: currentPost.id });
+    const response = await fetch("/save", {
+      method: 'POST',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(response);
+    if (response.status == 200)
+      console.log("success");
+    else
+      console.error("Bad request");
+  };
 
   // .________________________.
-  // ||			           ||
-  // ||       Vote Post      ||
+  // ||			                 ||
+  // ||     Vote Buttons     ||
   // ||______________________||
-  // '			            '
+  // '			                  '
 
-  var upvoteButtons = document.querySelectorAll(".upvote-button");
+  
+  var upvoteButton = document.querySelector(".upvote-button");
+  var parentPost = document.querySelector(".view-post-container");
+  var downvoteButton = document.querySelector(".downvote-button");
+  var numVotes = document.querySelector(".num-votes");
+  var post_id = parentPost.id;
 
-  upvoteButtons.forEach(function (upvoteButton, index) {
-    var parentPost = upvoteButton.closest(".view-post-container"); // Get the closest parent post container
-    var downvoteButton = parentPost.querySelector(".downvote-button");
-    var numVotes = parentPost.querySelector(".num-votes");
-    var post_id = parentPost.id;
+  var upvoteImage = upvoteButton.querySelector(".upvote");
+  var downvoteImage = downvoteButton.querySelector(".downvote");
 
-    var upvoteImage = upvoteButton.querySelector(".upvote");
-    var downvoteImage = downvoteButton.querySelector(".downvote");
+  upvoteButton.addEventListener("click", upvotePost);
+  downvoteButton.addEventListener("click", downvotePost);
+  //var votes = parseInt(numVotes.textContent)
 
-    upvoteButton.addEventListener("click", upvotePost);
-    downvoteButton.addEventListener("click", downvotePost);
-
-    async function upvotePost() {
-      if (upvoteImage.src.includes("upvote.png") && downvoteImage.src.includes("downvote.png")) {
-        upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
-        numVotes.textContent++;
-      }
-      else if (downvoteImage.src.includes("c-downvoted.png")) {
-        upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
-        downvoteImage.src = "/static/images/post/downvote.png"
-        numVotes.textContent++;
-        numVotes.textContent++;
-      } else {
-        upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
-      }
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "up" });
-      const response = await fetch("/vote", {
-        method: 'POST',
-        body: jString,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      console.log(response);
-      if (response.ok)
-        location.reload();
-      else
-        console.error("Bad request");
+  async function upvotePost() {
+    if (upvoteImage.src.includes("upvote.png") && downvoteImage.src.includes("downvote.png")) {
+      upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
+      numVotes.textContent++;
+    }
+    else if (downvoteImage.src.includes("c-downvoted.png")) {
+      upvoteImage.src = "/static/images/post/clicked/c-upvoted.png";
+      downvoteImage.src = "/static/images/post/downvote.png"
+      numVotes.textContent++;
+      numVotes.textContent++;
+    } else {
+      upvoteImage.src = "/static/images/post/upvote.png";
+      numVotes.textContent--;
     }
 
-    async function downvotePost() {
-      if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
-        downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
-        upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
+    const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "up" });
+    const response = await fetch("/vote", {
+      method: 'POST',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
       }
-      else if (upvoteImage.src.includes("c-upvoted.png")) {
-        downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
-        upvoteImage.src = "/static/images/post/upvote.png";
-        numVotes.textContent--;
-        numVotes.textContent--;
-      }
-      else {
-        downvoteImage.src = "/static/images/post/downvote.png";
-        numVotes.textContent++;
-      }
-      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "down"});
-      const response = await fetch("/vote", {
-        method: 'POST',
-        body: jString,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      console.log(response);
-      if (response.ok)
-        location.reload();
-      else
-        console.error("Bad request");
+    });
+    console.log(response);
+    if (response.status == 200)
+      console.log("Success");
+    else
+      console.error("Bad request");
+  };
+
+  async function downvotePost() {
+    if (downvoteImage.src.includes("downvote.png") && upvoteImage.src.includes("upvote.png")) {
+      downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
+      upvoteImage.src = "/static/images/post/upvote.png";
+      numVotes.textContent--;
     }
-  });
+    else if (upvoteImage.src.includes("c-upvoted.png")) {
+      downvoteImage.src = "/static/images/post/clicked/c-downvoted.png";
+      upvoteImage.src = "/static/images/post/upvote.png";
+      numVotes.textContent--;
+      numVotes.textContent--;
+    }
+    else {
+      downvoteImage.src = "/static/images/post/downvote.png";
+      numVotes.textContent++;
+    }
+    const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "down" });
+    const response = await fetch("/vote", {
+      method: 'POST',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(response);
+    if (response.status == 200)
+      console.log("Success");
+    else
+      console.error("Bad request");
+  };
+
 
   // .________________________.
   // ||			           ||

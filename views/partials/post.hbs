@@ -1,12 +1,24 @@
 <div class="post-container" id="{{post_id}}">
     <div class="vote">
-        <button class="upvote-button">
-            <img src="/static/images/post/upvote.png" class="upvote">
-        </button>
+        {{#if (getUpvoteStatus @root.upvoteStatusArray @index)}}
+            <button class="upvote-button">
+                <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
+            </button>
+        {{else}}
+            <button class="upvote-button">
+                <img src="/static/images/post/upvote.png" class="upvote">
+            </button>
+        {{/if}}
         <p class="num-votes">{{voteCtr}}</p>
-        <button class="downvote-button">
-            <img src="/static/images/post/downvote.png" class="downvote">
-        </button>
+        {{#if (getDownvoteStatus @root.downvoteStatusArray @index)}}
+            <button class="downvote-button">
+                <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
+            </button>
+        {{else}}
+            <button class="downvote-button">
+                <img src="/static/images/post/downvote.png" class="downvote">
+            </button>
+        {{/if}}
     </div>
     <div class="content">
         <div class="post-content">
@@ -38,9 +50,15 @@
                 </button>
             </a>
             <p class="comment-num">{{comCtr}} Comments</p>
-            <button class="save-button">
-                <img src="/static/images/post/save.png" class="save">
-            </button>
+            {{#if (getSaveStatus @root.saveStatusArray @index)}}
+                <button class="save-button">
+                    <img src="/static/images/post/clicked/c-saved.png" class="save">
+                </button>
+            {{else}}
+                <button class="save-button">
+                    <img src="/static/images/post/save.png" class="save">
+                </button>
+            {{/if}}
         </div>
     </div>
 </div>

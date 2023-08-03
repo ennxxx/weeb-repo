@@ -35,10 +35,14 @@ export function isEqual(obj1, obj2) {
   return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
-export function notEqual(obj1, obj2) {
-  return JSON.stringify(obj1) != JSON.stringify(obj2);
-}
+export function getUpvoteStatus(upvoteStatusArray, index) {
+  return upvoteStatusArray[index].upvoteStatus;
+};
 
-export function breakLoop(){
+export function getDownvoteStatus(downvoteStatusArray, index) {
+  return downvoteStatusArray[index].downvoteStatus;
+};
 
-}
+export function getSaveStatus(saveStatusArray, index) {
+  return saveStatusArray[index].saveStatus;
+};

@@ -96,6 +96,9 @@ async function importData(data) {
         },
         substring: helpers.substring.apply,
         isEqual: helpers.isEqual,
+        getUpvoteStatus: helpers.getUpvoteStatus,
+        getDownvoteStatus: helpers.getDownvoteStatus,
+        getSaveStatus: helpers.getSaveStatus,
         log: function (context) {
           // Get the name of the current context
           const contextName = this.name || "Unknown Context";
@@ -120,14 +123,36 @@ async function importData(data) {
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
-        const posts = await Post.find().populate('author');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
+        
+        const upvoteStatusArray = posts.map(post => ({
+          post: post,
+          upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
+
+        const downvoteStatusArray = posts.map(post => ({
+          post: post,
+          downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
+
+        const saveStatusArray = posts.map(post => ({
+          post: post,
+          saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
+        
+        upvoteStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
+        downvoteStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
+        saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
         res.render("index", {
           title: 'Home',
           posts: posts,
           toppost: posts[0],
-          currentUser: currentUser
+          currentUser: currentUser,
+          upvoteStatusArray: upvoteStatusArray,
+          downvoteStatusArray: downvoteStatusArray,
+          saveStatusArray: saveStatusArray
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -149,10 +174,18 @@ async function importData(data) {
               select: 'username profile_pic' // Only populate the 'username' field of the User document
             }
           });
+
+        const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+
         res.render("view", {
           title: posts[post_id].title,
           post: posts[post_id],
-          currentUser: currentUser
+          currentUser: currentUser,
+          upvoteStatus: upvoteStatus,
+          downvoteStatus: downvoteStatus,
+          saveStatus: saveStatus
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -219,7 +252,10 @@ async function importData(data) {
           downvoted: filtered_downvoted,
           saved: filtered_saved,
           filters: filters,
-          currentUser: currentUser
+          currentUser: currentUser,
+          upvoteStatusArray: upvoteStatusArray,
+          downvoteStatusArray: downvoteStatusArray,
+          saveStatusArray: saveStatusArray
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -288,7 +324,10 @@ async function importData(data) {
             user: userProfile[0],
             comments: filtered_comments,
             filters: filters,
-            currentUser: currentUser
+            currentUser: currentUser,
+            upvoteStatusArray: upvoteStatusArray,
+            downvoteStatusArray: downvoteStatusArray,
+            saveStatusArray: saveStatusArray
           });
         }
       } catch (error) {
@@ -336,7 +375,10 @@ async function importData(data) {
           posts: filtered_posts,
           comments: filtered_comments,
           users: filtered_users,
-          currentUser: currentUser
+          currentUser: currentUser,
+          upvoteStatusArray: upvoteStatusArray,
+          downvoteStatusArray: downvoteStatusArray,
+          saveStatusArray: saveStatusArray
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -358,7 +400,7 @@ async function importData(data) {
 
     // This route renders the anime page
     app.get('/anime', async (req, res) => {
-      const posts = await Post.find().populate('author')
+      const posts = await Post.find().populate('author');
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
       res.render('anime', {
         title: 'Anime',
@@ -369,7 +411,7 @@ async function importData(data) {
 
     // This route renders the games page
     app.get('/games', async (req, res) => {
-      const posts = await Post.find().populate('author')
+      const posts = await Post.find().populate('author');
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
       res.render('games', {
         title: 'Games',
@@ -388,12 +430,28 @@ async function importData(data) {
 
     // This route renders the featured page
     app.get('/featured', async (req, res) => {
-      const posts = await Post.find().populate('author')
+      try {
+      const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
+      posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+
+      const randi = Math.floor(Math.random() * posts.length);
+      console.log(randi);
+      const upvoteStatus = posts[randi].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+      const downvoteStatus = posts[randi].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+      const saveStatus = posts[randi].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+      
       res.render('featured', {
         title: 'Featured',
-        post: posts[3],
-        currentUser: currentUser
+        post: posts[randi],
+        currentUser: currentUser,
+        upvoteStatus: upvoteStatus,
+        downvoteStatus: downvoteStatus,
+        saveStatus: saveStatus
       });
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
     });
 
     // This route renders the policy page
@@ -678,19 +736,19 @@ async function importData(data) {
         //console.log("POST Request to /vote received.");
         const {votes, post_id, check} = req.body;
         const user = await User.findOne({ username: currentUser.username });
-        
+        const foundup = user.upvotedPosts.find( _id => posts[post_id]._id);
+        const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
+        const foundupUser = posts[post_id].upvotedBy.find( _id => currentUser._id);
+        const founddownUser = posts[post_id].downvotedBy.find( _id => currentUser._id);
+
         if(check == "up"){
           //user side
-          const foundup = user.upvotedPosts.find( _id => posts[post_id]._id);
-          const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
           if(foundup && !founddown){
               await User.updateOne(
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]._id}, 
-                { $set: {voteCtr : votes-2}});
+              
           } else if(foundup && founddown){
               await User.updateOne(
                 { _id: user._id },
@@ -700,9 +758,7 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]._id}, 
-                { $set: {voteCtr : votes-2}});
+              
           } else if(!foundup && founddown){
               await User.updateOne(
                 { _id: user._id },
@@ -712,64 +768,51 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]._id}, 
-                { $set: {voteCtr : votes}});
+             
           } else{
               await User.updateOne(
                 { _id: user._id },
                 { $push: { upvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]._id}, 
-                { $set: {voteCtr : votes}});
+              
           }
           //post side
-
-          const foundupUser = posts[post_id].upvotedBy.find( _id => currentUser._id);
-          const founddownUser = posts[post_id].downvotedBy.find( _id => currentUser._id);
           if(foundupUser && !founddownUser){
               await Post.updateOne(
                 { _id: posts[post_id]._id },
-                { $pull: { upvotedBy: currentUser._id } }
+                { $pull: { upvotedBy: user._id } }
               )
           } else if(foundupUser && founddownUser){
               await Post.updateOne(
                 { _id: posts[post_id]._id },
-                { $pull: { upvotedBy: currentUser._id } }
+                { $pull: { upvotedBy: user._id } }
               )
               await postToUpdate.updateOne(
                 { _id: posts[post_id]._id },
-                { $pull: { downvotedBy: currentUser._id } }
+                { $pull: { downvotedBy: user._id } }
               )
           } else if(!foundupUser && founddownUser){
               await Post.updateOne(
                 { _id: posts[post_id]._id },
-                { $push: { upvotedBy: currentUser._id } }
+                { $push: { upvotedBy: user._id } }
               )
               await Post.updateOne(
                 { _id: posts[post_id]._id },
-                { $pull: { downvotedBy: currentUser._id } }
+                { $pull: { downvotedBy: user._id } }
               )
           } else{
               await Post.updateOne(
                 { _id: posts[post_id]._id },
-                { $push: { upvotedBy: currentUser._id } }
+                { $push: { upvotedBy: user._id } }
               )
           }
-
-
         } else if (check == "down"){
-          const founddown = user.downvotedPosts.find( _id => posts[post_id]._id);
-          const foundup = user.upvotedPosts.find( _id => posts[post_id]._id);
           if(founddown && !foundup){
               await User.updateOne(
                 { _id: user._id },
                 { $pull: { downvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]}, 
-                { $set: {voteCtr : votes+2}});
+             
           } else if(founddown && foundup){
               await User.updateOne(
                 { _id: user._id },
@@ -779,9 +822,7 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]}, 
-                { $set: {voteCtr : votes+2}});
+             
             } else if(!founddown && foundup){
               await User.updateOne(
                 { _id: user._id },
@@ -791,54 +832,50 @@ async function importData(data) {
                 { _id: user._id },
                 { $pull: { upvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]}, 
-                { $set: {voteCtr : votes}});
+              
           } else{
               await User.updateOne(
                 { _id: user._id },
                 { $push: { downvotedPosts: posts[post_id]._id } }
               )
-              await Post.updateOne(
-                { _id: posts[post_id]}, 
-                { $set: {voteCtr : votes}});
+              
           }
            //post side
-
-           const foundupUser = posts[post_id].upvotedBy.find( _id => currentUser._id);
-           const founddownUser = posts[post_id].downvotedBy.find( _id => currentUser._id);
-           if(foundupUser && !founddownUser){
+           if(founddownUser && !foundupUser){
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $pull: { downvotedBy: currentUser._id } }
+                 { $pull: { downvotedBy: user._id } }
                )
-           } else if(foundupUser && founddownUser){
+           } else if(founddownUser && foundupUser){
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $pull: { downvotedBy: currentUser._id } }
+                 { $pull: { downvotedBy: user._id } }
                )
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $pull: { upvotedBy: currentUser._id } }
+                 { $pull: { upvotedBy: user._id } }
                )
-           } else if(!foundupUser && founddownUser){
+           } else if(!founddownUser && foundupUser){
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $push: { downvotedBy: currentUser._id } }
+                 { $push: { downvotedBy: user._id } }
                )
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $pull: { upvotedBy: currentUser._id } }
+                 { $pull: { upvotedBy: user._id } }
                )
            } else{
                await Post.updateOne(
                  { _id: posts[post_id]._id },
-                 { $push: { downvotedBy: currentUser._id } }
+                 { $push: { downvotedBy: user._id } }
                )
            }
         }
     
         if (votes && post_id) {
+          await Post.updateOne(
+            { _id: posts[post_id]}, 
+            { $set: {voteCtr : votes}});
           res.status(200).send();
         } else {
           res.status(400).send();
@@ -857,22 +894,49 @@ async function importData(data) {
         const post_id = req.body.post_id;
         const user = await User.findOne({ username: currentUser.username });
         const foundSave = user.savedPosts.find( _id => posts[post_id]._id);
-        console.log(foundSave)
+        const foundUser = posts[post_id].savedBy.find( _id => user._id);
+        
         
         if(foundSave){
           await User.updateOne(
             { _id: user._id },
             { $pull: { savedPosts: posts[post_id]._id } }
+            
           )
-          console.log(foundSave)
+          if(foundUser){
+            await Post.updateOne(
+              { _id: posts[post_id]._id },
+              { $pull: { savedBy: user._id } }
+            )
+            console.log("found user");
+          }
+          else if(!foundUser){
+            await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $push: { savedBy: user._id } }
+              )
+              console.log("not found user");
+          }
+          
         } else{
           await User.updateOne(
             { _id: user._id },
             { $push: { savedPosts: posts[post_id]._id } }
           )
-          console.log(foundSave)
+          if(foundUser){
+            await Post.updateOne(
+              { _id: posts[post_id]._id },
+              { $pull: { savedBy: user._id } }
+            )
+          }
+          else if(!foundUser){
+            await Post.updateOne(
+                { _id: posts[post_id]._id },
+                { $push: { savedBy: user._id } }
+              )
+          }
         }
-        
+        //console.log(foundSave); 
         res.status(200).send(); 
       } catch (error){
         console.error("Error fetching posts:", error);
