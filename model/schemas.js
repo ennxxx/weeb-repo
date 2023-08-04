@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String },
     bio: { type: String },
-    followers_info: { type: String },
     postsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
     commentsMade: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     upvotedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post', autopopulate: true }],
@@ -48,7 +47,8 @@ const postSchema = new mongoose.Schema({
     downvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     savedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     voteCtr: { type: Number },
-    comCtr: { type: Number }    
+    comCtr: { type: Number },
+    date: { type: Date, default: Date.now },
 });
 
 const Post = mongoose.model('Post', postSchema);

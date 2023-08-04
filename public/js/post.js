@@ -38,15 +38,14 @@ function checkTitleLength() {
 
 // ._____________________________.
 // ||                           ||
-// ||     Edit/Delete Posts     ||
+// ||    Edit Post Interface    ||
 // ||___________________________||
 // '                    
 
-function openEditPost(title, content, img, post_id) {
-  const editPostContainer = document.createElement("div");
-  editPostContainer.innerHTML = `<div id="edit-overlay" style="display: none;"></div>
+const editPostContainer = document.createElement("div");
+editPostContainer.innerHTML = `<div id="edit-overlay" style="display: none;"></div>
   <div id="edit-popup" style="display: none;">
-      <span id="edit-close">✕</span>
+      <span id="edit-close" onclick="closeEditPopup()">✕</span>
       <h2>Edit a post</h2>
       <div id="edit-title-container">
           <textarea id="edit-title" placeholder="Title" maxlength="50" oninput="checkEditTitleLength()"></textarea>
@@ -75,21 +74,37 @@ function openEditPost(title, content, img, post_id) {
       </div>
   </div>`;
 
-  // Get the information
+function openEditPopup() {
+  document.getElementById("edit-overlay").style.display = "";
+  document.getElementById("edit-popup").style.display = "";
+}
+
+function closeEditPopup() {
+  document.getElementById("edit-overlay").style.display = "none";
+  document.getElementById("edit-popup").style.display = "none";
+}
+
+function openEditPost(post_id) {
+
+  // Get the information of popup
   const editTitleInput = editPostContainer.querySelector("#edit-title");
   const editContentInput = editPostContainer.querySelector("#edit-content");
   const editUrlInput = editPostContainer.querySelector("#edit-url");
+
+  // Get submit button
+  const editSubmitBtn = editPostContainer.querySelector("#edit-popup-submit");
+
+  // Get information from document
+  var title = document.querySelector("#title-" + post_id);
+  var content = document.querySelector("#text-" + post_id);
+  var img = document.querySelector("#sample-" + post_id);
 
   // Fill with original values
   editTitleInput.value = title.innerText;
   editContentInput.innerHTML = content.innerText;
   editUrlInput.value = img.innerText;
 
-  // Get the buttons
-  const editSubmitBtn = editPostContainer.querySelector("#edit-popup-submit");
-  const editCloseBtn = editPostContainer.querySelector("#edit-close");
-
-  // Edit Button
+  // Edit Button (Not working correctly)
   editSubmitBtn.addEventListener("click", async () => {
     const updatedTitle = editTitleInput.value;
     const updatedContent = editContentInput.innerHTML;
@@ -109,30 +124,17 @@ function openEditPost(title, content, img, post_id) {
       if (response.status === 200) {
         console.log("Post updated");
         location.reload();
-        // Optionally, you can update the post content and image on the page here
       } else {
         console.error("Bad request");
       }
     } catch (error) {
       console.error("Error during post update:", error);
     }
-    closeEditPost();
+    closeEditPopup();
   });
-
-  editCloseBtn.addEventListener("click", () => {
-    closeEditPost();
-  });
-
-  document.body.appendChild(editPostContainer);
 
   // Display the popup
-  document.getElementById("edit-overlay").style.display = "";
-  document.getElementById("edit-popup").style.display = "";
-}
-
-function closeEditPost() {
-  document.getElementById("edit-overlay").style.display = "none";
-  document.getElementById("edit-popup").style.display = "none";
+  document.body.appendChild(editPostContainer);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -140,17 +142,54 @@ document.addEventListener("DOMContentLoaded", function () {
   var editButtons = document.querySelectorAll(".edit-button");
 
   editButtons.forEach(function (editButton) {
+    var post_id = editButton.closest(".post-container").id;
     editButton.addEventListener("click", function () {
-      var parentPost = editButton.closest(".post-container");
-      var title = parentPost.querySelector("#title-" + parentPost.id);
-      var content = parentPost.querySelector("#text-" + parentPost.id);
-      var image = parentPost.querySelector("#sample-" + parentPost.id);
-      var post_id = parentPost.id;
+      openEditPost(post_id);
+    })
+  })
+})
 
-      openEditPost(title, content, image, post_id);
+// ._____________________________.
+// ||                           ||
+// ||        Delete Post        ||
+// ||___________________________||
+// '                    
+
+async function deletePost(post_id) {
+  try {
+    const response = await fetch(`/post/${post_id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
-  });
-});
+
+    if (response.status === 200) {
+      console.log("Post deleted");
+      location.reload();
+      // Optionally, you can remove the deleted post from the page here
+    } else {
+      console.error("Bad request");
+    }
+  } catch (error) {
+    console.error("Error during post deletion:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  var deleteButtons = document.querySelectorAll(".delete-button");
+
+  deleteButtons.forEach(function (deleteButton) {
+    var post_id = deleteButton.closest(".post-container").id;
+    deleteButton.addEventListener("click", function () {
+      deletePost(post_id);
+    })
+  })
+})
+
+
+
 
 // ._____________________________.
 // ||                           ||
@@ -271,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveButtons.forEach(function (saveButton) {
     var parentPost = saveButton.closest(".post-container"); // Get the closest parent post container
     var currentPost = parentPost;
-    
+
     var saveImage = saveButton.querySelector(".save");
     saveButton.addEventListener("click", savePost);
 
@@ -281,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         saveImage.src = "/static/images/post/save.png";
       }
-      
+
       const jString = JSON.stringify({ post_id: currentPost.id });
       const response = await fetch("/save", {
         method: 'POST',
@@ -311,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var downvoteButton = parentPost.querySelector(".downvote-button");
     var numVotes = parentPost.querySelector(".num-votes");
     var post_id = parentPost.id;
-    
+
     var upvoteImage = upvoteButton.querySelector(".upvote");
     var downvoteImage = downvoteButton.querySelector(".downvote");
 
@@ -334,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
         numVotes.textContent--;
       }
 
-      const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "up" });
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "up" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,
@@ -365,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
         downvoteImage.src = "/static/images/post/downvote.png";
         numVotes.textContent++;
       }
-      const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "down" });
+      const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "down" });
       const response = await fetch("/vote", {
         method: 'POST',
         body: jString,

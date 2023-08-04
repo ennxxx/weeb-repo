@@ -1,23 +1,23 @@
 <div class="view-post-container" id="{{post_id}}">
     <div class="vote">
         {{#if @root.upvoteStatus}}
-            <button class="upvote-button">
-                <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
-            </button>
+        <button class="upvote-button">
+            <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
+        </button>
         {{else}}
-            <button class="upvote-button">
-                <img src="/static/images/post/upvote.png" class="upvote">
-            </button>
+        <button class="upvote-button">
+            <img src="/static/images/post/upvote.png" class="upvote">
+        </button>
         {{/if}}
         <p class="num-votes">{{voteCtr}}</p>
         {{#if @root.downvoteStatus}}
-            <button class="downvote-button">
-                <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
-            </button>
+        <button class="downvote-button">
+            <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
+        </button>
         {{else}}
-            <button class="downvote-button">
-                <img src="/static/images/post/downvote.png" class="downvote">
-            </button>
+        <button class="downvote-button">
+            <img src="/static/images/post/downvote.png" class="downvote">
+        </button>
         {{/if}}
     </div>
     <div class="content">
@@ -31,28 +31,28 @@
         </div>
         <div class="post-actions">
             {{#if (isEqual @root.currentUser.username author.username)}}
-            <button class="delete-button" id="delete-{{post_id}}">
-                <img src="/static/images/post/delete.png" class="delete">
-            </button>
-            <p class="delete-post">Delete</p>
             <button type="button" class="edit-button" id="edit-{{post_id}}"
                 onclick="openEditPost({{title}}, {{content}}, '/static/images/post/media/{{image}}'', {{post_id}})">
                 <img src="/static/images/post/edit.png" class="edit">
             </button>
             <p class="edit-post">Edit</p>
+            <button class="delete-button" id="delete-{{post_id}}">
+                <img src="/static/images/post/delete.png" class="delete">
+            </button>
+            <p class="delete-post">Delete</p>
             {{/if}}
             <button class="comment-button">
                 <img src="/static/images/post/comment.png" class="comment">
             </button>
             <p class="comment-num">{{comCtr}} Comments</p>
             {{#if @root.saveStatus}}
-                <button class="save-button">
-                    <img src="/static/images/post/clicked/c-saved.png" class="save">
-                </button>
+            <button class="save-button">
+                <img src="/static/images/post/clicked/c-saved.png" class="save">
+            </button>
             {{else}}
-                <button class="save-button">
-                    <img src="/static/images/post/save.png" class="save">
-                </button>
+            <button class="save-button">
+                <img src="/static/images/post/save.png" class="save">
+            </button>
             {{/if}}
         </div>
     </div>

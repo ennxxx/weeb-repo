@@ -894,8 +894,7 @@ hr {
 }
 
 #popup-submit,
-#edit-popup-submit,
-#edit-popup-delete {
+#edit-popup-submit {
   /*Submit and Delete Button*/
   background-color: #FF4C29;
   color: #ffffff;
@@ -910,10 +909,6 @@ hr {
 
 #edit-popup-submit:hover {
   background-color: #1E883E;
-}
-
-#edit-popup-delete:hover {
-  background-color: #2C394B;
 }
 
 /* ---- ANIMATION FOR ICONS -----*/
