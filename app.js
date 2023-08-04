@@ -1020,8 +1020,8 @@ async function importData(data) {
       }
     });
 
-    // This route is used for connecting to the server.
-    app.listen(3000, () => console.log("Server is running on port 3000"));
+    // This route is used for connecting to the server. changed from 3000 to below for render
+    app.listen(process.env.PORT, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);
