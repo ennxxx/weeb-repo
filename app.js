@@ -1,5 +1,5 @@
 const url = "mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.mongodb.net/ccapdev-weeblib?retryWrites=true";
-const client = new mongodb.MongoClient(url, { 
+const client = new mongoose.MongoClient(url, { 
   serverApip: 
   {
     version:mongodb.ServerApiVersion.v1,
