@@ -2,7 +2,7 @@ const url = "mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.
 const client = new mongoose.MongoClient(url, { 
   serverApip: 
   {
-    version:mongodb.ServerApiVersion.v1,
+    version:mongoose.ServerApiVersion.v1,
     strict:true,
     deprecationErrors:true
   }, 
