@@ -1,13 +1,3 @@
-const url = "mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.mongodb.net/ccapdev-weeblib?retryWrites=true";
-const client = new mongoose.MongoClient(url, { 
-  serverApip: 
-  {
-    version:mongoose.ServerApiVersion.v1,
-    strict:true,
-    deprecationErrors:true
-  }, 
-  useUnifiedTopology: true 
-});
 
 
 
