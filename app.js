@@ -31,6 +31,15 @@ const modelMap = {
   comment: Comment,
 };
 
+
+mongoose.connect(process.env.MONGODB_URI + process.env.DB_NAME, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  writeConcern: { w: 'majority' }, // Add this line for write concern
+})
+  .then(() => console.log('Connected to MongoDB!'))
+  .catch((err) => console.error('Error connecting to MongoDB! Error Details:', err));
+  
 // Creates an  instance of the express app.
 const app = express();
 
