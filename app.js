@@ -1,6 +1,3 @@
-
-
-
 // Import express, express-handlebars, mongodb NodeJS modules.
 import express from 'express';
 import exphbs from 'express-handlebars';
@@ -8,7 +5,7 @@ import mongoose from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 
 // Import environment variables from .env file. and fs module.
-//import 'dotenv/config';
+import 'dotenv/config';
 import fs from 'fs';
 
 // Import functions from other local files.
@@ -31,15 +28,6 @@ const modelMap = {
   comment: Comment,
 };
 
-
-mongoose.connect(process.env.MONGODB_URI + process.env.DB_NAME, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  writeConcern: { w: 'majority' }, // Add this line for write concern
-})
-  .then(() => console.log('Connected to MongoDB!'))
-  .catch((err) => console.error('Error connecting to MongoDB! Error Details:', err));
-  
 // Creates an  instance of the express app.
 const app = express();
 
@@ -353,7 +341,7 @@ async function importData(data) {
       try {
         const query = req.params.query;
         const search_filters = ['Posts', 'Comments', 'Users'];
-        const posts = await Post.find().populate('author');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
         const comments = await Comment.find()
           .populate('author')
           .populate({
@@ -379,6 +367,22 @@ async function importData(data) {
 
         const filtered_users = users.filter(user => user.username.toLowerCase().includes(search)
           || user.name.toLowerCase().includes(search));
+
+
+        const upvoteStatusArray = filtered_posts.map(post => ({
+          post: post,
+          upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
+
+        const downvoteStatusArray = filtered_posts.map(post => ({
+          post: post,
+          downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
+
+        const saveStatusArray = filtered_posts.map(post => ({
+          post: post,
+          saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+        }));
 
         res.render("search", {
           title: "Search",
@@ -1032,8 +1036,8 @@ async function importData(data) {
       }
     });
 
-    // This route is used for connecting to the server. changed from 3000 to below for render
-    app.listen(process.env.PORT, () => console.log("Server is running on port 3000"));
+    // This route is used for connecting to the server.
+    app.listen(3000, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);
