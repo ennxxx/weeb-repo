@@ -11,6 +11,10 @@
         "reply": [
             "64bcd45ef98f5211d39c0a30"
         ],
+        "upvotedBy":[
+            "64bbce8c9e08a4493219f46f"
+        ],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -23,6 +27,10 @@
         "parentPost": "64bbce8c9e08a4493219f472",
         "parentComment": "64bcd45ef98f5211d39c0a2f",
         "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[
+            "64bbce8c9e08a4493219f46f"
+        ],
         "voteCtr": 0
     },
     {
@@ -37,6 +45,8 @@
         "reply": [
             "64bcd45ef98f5211d39c0a32"
         ],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -49,6 +59,8 @@
         "parentPost": "64bbce8c9e08a4493219f472",
         "parentComment": "64bcd45ef98f5211d39c0a31",
         "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -63,6 +75,8 @@
         "reply": [
             "64bcd45ef98f5211d39c0a34"
         ],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -75,6 +89,8 @@
         "parentPost": "64bbce8c9e08a4493219f477",
         "parentComment": "64bcd45ef98f5211d39c0a33",
         "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -87,6 +103,8 @@
         "parentPost": "64bbce8c9e08a4493219f47a",
         "parentComment": null,
         "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     },
     {
@@ -99,6 +117,8 @@
         "parentPost": "64bbce8c9e08a4493219f47d",
         "parentComment": null,
         "reply": [],
+        "upvotedBy":[],
+        "downvotedBy":[],
         "voteCtr": 0
     }
 ]
