@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 
 // Import environment variables from .env file. and fs module.
-import 'dotenv/config';
+//import 'dotenv/config';
 import fs from 'fs';
 
 // Import functions from other local files.
