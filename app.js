@@ -1,3 +1,16 @@
+const url = "mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.mongodb.net/ccapdev-weeblib?retryWrites=true";
+const client = new Mongodb.MongoClient(url, { 
+  serverApip: 
+  {
+    version:mongodb.ServerApiVersion.v1,
+    strict:true,
+    deprecationErrors:true
+  }, 
+  useUnifiedTopology: true 
+});
+
+
+
 // Import express, express-handlebars, mongodb NodeJS modules.
 import express from 'express';
 import exphbs from 'express-handlebars';
