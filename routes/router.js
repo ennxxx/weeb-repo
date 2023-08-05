@@ -964,8 +964,6 @@ router.post('/signinFunc', async (req, res) => {
 });
 
 router.get('/getCurrentUser', async (req, res) => {
-
-    // Send the data as a response
     res.json(currentUser);
 });
 
