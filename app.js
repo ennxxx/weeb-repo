@@ -123,6 +123,7 @@ async function importData(data) {
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const users = await User.find().populate('postsMade');
 
         posts.forEach(post => {
           post.date = post.date.toLocaleString("en-US", {
@@ -155,6 +156,24 @@ async function importData(data) {
         saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
+        const userVotes = [];
+
+        for (const user of users) {
+          let totalVotes = 0;
+
+          for (const post of user.postsMade) {
+            totalVotes += post.voteCount;
+          }
+
+          userVotes.push({ username: user.username, totalVotes });
+        }
+
+        // Sort users by total votes in descending order
+        userVotes.sort((a, b) => b.totalVotes - a.totalVotes);
+
+        // Get the top 3 users
+        const top3Users = userVotes.slice(0, 3);
+        console.log(top3Users);
         res.render("index", {
           title: 'Home',
           posts: posts,
@@ -185,6 +204,7 @@ async function importData(data) {
             }
           });
 
+          
         const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
