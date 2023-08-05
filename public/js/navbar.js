@@ -5,8 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // ||        Sign In       ||
   // ||______________________||
   // '			                  '
+async function navbarSwitcher() {
 
-  var signedIn = true;
+    const response = await fetch(`/getCurrentUser`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  
+  var userData = await response.json();
+  var signedIn = userData.name != "Anonymous";
   var userDropdown = document.getElementById("user-dropdown");
   var profilePic = document.getElementById("profile");
   var signinLink = document.getElementById("signin-link");
@@ -19,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
     userDropdown.style.display = "none";
     profilePic.style.display = "none";
     signinLink.style.display = "block";
-  }
+  }}
+
+  navbarSwitcher();
 
   // .________________________.
   // ||			                 ||

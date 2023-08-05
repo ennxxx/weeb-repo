@@ -92,6 +92,7 @@ async function main() {
         },
         substring: helpers.substring.apply,
         isEqual: helpers.isEqual,
+        isAnonymous: helpers.isAnonymous,
         getUpvoteStatus: helpers.getUpvoteStatus,
         getDownvoteStatus: helpers.getDownvoteStatus,
         getSaveStatus: helpers.getSaveStatus,
@@ -112,6 +113,18 @@ async function main() {
       resave: false,
       saveUninitialized: true
     }));
+
+    app.use((req, res, next) => {
+      // Check if user is already set in session
+      if (!req.session.user) {
+        req.session.user = {
+          user_id: 0,
+          name: 'Anonymous',
+          username: 'u/anonymous'
+        };
+      }
+      next(); // Continue to the next middleware or route handler
+    });
 
     // The following lines of code set up the Express server and handlebars.
     app.use("/static", express.static("public"));

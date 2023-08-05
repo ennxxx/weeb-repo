@@ -8,14 +8,6 @@ import { Comment } from '../models/schemas.js';
 
 const router = Router();
 
-// let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
-
-let currentUser =
-{
-    user_id: 0,
-    name: 'Anonymous',
-    username: 'u/anonymous'
-};
 // This route renders the home page.
 router.get("/", async (req, res) => {
     try {
@@ -24,17 +16,17 @@ router.get("/", async (req, res) => {
 
         const upvoteStatusArray = posts.map(post => ({
             post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            upvoteStatus: post.upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const downvoteStatusArray = posts.map(post => ({
             post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            downvoteStatus: post.downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const saveStatusArray = posts.map(post => ({
             post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            saveStatus: post.savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         upvoteStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
@@ -64,7 +56,7 @@ router.get("/", async (req, res) => {
             title: 'Home',
             posts: posts,
             toppost: posts[0],
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
             saveStatusArray: saveStatusArray
@@ -90,14 +82,14 @@ router.get("/view/:post_id", async (req, res) => {
                 }
             });
 
-        const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
 
         res.render("view", {
             title: posts[post_id].title,
             post: posts[post_id],
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatus: upvoteStatus,
             downvoteStatus: downvoteStatus,
             saveStatus: saveStatus
@@ -113,7 +105,7 @@ router.get("/main-profile", async (req, res) => {
     try {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
-        const user = await User.findOne({ username: currentUser.username })
+        const user = await User.findOne({ username: req.session.user.username })
             .populate('postsMade')
             .populate({
                 path: 'postsMade',
@@ -136,7 +128,7 @@ router.get("/main-profile", async (req, res) => {
             });
 
         const filtered_postMade = [];
-        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
+        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(req.session.user.username));
         var filtered_upvoted = [];
         var filtered_downvoted = [];
         var filtered_saved = [];
@@ -169,17 +161,17 @@ router.get("/main-profile", async (req, res) => {
         }
         const upvoteStatusArray = filtered_upvoted.map(post => ({
             post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            upvoteStatus: post.upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const downvoteStatusArray = posts.map(post => ({
             post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            downvoteStatus: post.downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const saveStatusArray = posts.map(post => ({
             post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            saveStatus: post.savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         res.render("main-profile", {
@@ -191,7 +183,7 @@ router.get("/main-profile", async (req, res) => {
             downvoted: filtered_downvoted,
             saved: filtered_saved,
             filters: filters,
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
             saveStatusArray: saveStatusArray
@@ -205,7 +197,7 @@ router.get("/main-profile", async (req, res) => {
 // This route renders the edit profile page.
 router.get("/edit", async (req, res) => {
     try {
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
 
         res.render("edit", {
             title: "Edit Profile",
@@ -220,7 +212,7 @@ router.get("/edit", async (req, res) => {
 // This route allows the profile to be edited
 router.put("/edit-profile", async (req, res) => {
     try {
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
         const { name, bio } = req.body;
 
         user.name = name;
@@ -254,7 +246,7 @@ router.get("/profile/:name", async (req, res) => {
                 }
             });
 
-        if (currentUser.username === userProfile[0].username) {
+        if (req.session.user.username === userProfile[0].username) {
             res.redirect('/main-profile');
         } else {
             const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
@@ -269,17 +261,17 @@ router.get("/profile/:name", async (req, res) => {
 
             const upvoteStatusArray = posts.map(post => ({
                 post: post,
-                upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                upvoteStatus: post.upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
             }));
 
             const downvoteStatusArray = posts.map(post => ({
                 post: post,
-                downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                downvoteStatus: post.downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
             }));
 
             const saveStatusArray = posts.map(post => ({
                 post: post,
-                saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                saveStatus: post.savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
             }));
 
 
@@ -288,7 +280,7 @@ router.get("/profile/:name", async (req, res) => {
                 user: userProfile[0],
                 comments: filtered_comments,
                 filters: filters,
-                currentUser: currentUser,
+                currentUser: req.session.user,
                 upvoteStatusArray: upvoteStatusArray,
                 downvoteStatusArray: downvoteStatusArray,
                 saveStatusArray: saveStatusArray
@@ -335,17 +327,17 @@ router.get("/search/:query", async (req, res) => {
 
         const upvoteStatusArray = filtered_posts.map(post => ({
             post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            upvoteStatus: post.upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const downvoteStatusArray = filtered_posts.map(post => ({
             post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            downvoteStatus: post.downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         const saveStatusArray = filtered_posts.map(post => ({
             post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            saveStatus: post.savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0
         }));
 
         res.render("search", {
@@ -355,7 +347,7 @@ router.get("/search/:query", async (req, res) => {
             posts: filtered_posts,
             comments: filtered_comments,
             users: filtered_users,
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
             saveStatusArray: saveStatusArray
@@ -385,7 +377,7 @@ router.get('/anime', async (req, res) => {
     res.render('anime', {
         title: 'Anime',
         toppost: posts[0],
-        currentUser: currentUser
+        currentUser: req.session.user
     });
 });
 
@@ -396,7 +388,7 @@ router.get('/games', async (req, res) => {
     res.render('games', {
         title: 'Games',
         toppost: posts[0],
-        currentUser: currentUser
+        currentUser: req.session.user
     });
 });
 
@@ -404,7 +396,7 @@ router.get('/games', async (req, res) => {
 router.get('/polls', async (req, res) => {
     res.render('polls', {
         title: 'Polls',
-        currentUser: currentUser
+        currentUser: req.session.user
     });
 });
 
@@ -416,14 +408,14 @@ router.get('/featured', async (req, res) => {
 
         const randi = Math.floor(Math.random() * posts.length);
         console.log(randi);
-        const upvoteStatus = posts[randi].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const downvoteStatus = posts[randi].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const saveStatus = posts[randi].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const upvoteStatus = posts[randi].upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const downvoteStatus = posts[randi].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const saveStatus = posts[randi].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
 
         res.render('featured', {
             title: 'Featured',
             post: posts[randi],
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatus: upvoteStatus,
             downvoteStatus: downvoteStatus,
             saveStatus: saveStatus
@@ -462,7 +454,7 @@ router.post("/post", async (req, res) => {
             const newPost = {
                 post_id: posts.length,
                 title: title,
-                author: currentUser._id,
+                author: req.session.user._id,
                 content: content,
                 image: image,
                 comments: [],
@@ -476,7 +468,7 @@ router.post("/post", async (req, res) => {
             const result = await Post.collection.insertOne(newPost);
             console.log("New post inserted with _id:", result.insertedId);
 
-            const userIdToUpdate = currentUser._id;
+            const userIdToUpdate = req.session.user._id;
             await User.updateOne(
                 { _id: userIdToUpdate },
                 { $push: { postsMade: result.insertedId } }
@@ -553,9 +545,9 @@ router.post("/comment", async (req, res) => {
         if (content && post_id) {
 
             const newComment = {
-                author: currentUser._id,
+                author: req.session.user._id,
                 content: content,
-                profpic: currentUser.profile_pic,
+                profpic: req.session.user.profile_pic,
                 comment_id: comments.length,
                 parentPost: posts[post_id]._id,
                 parentComment: null,
@@ -709,11 +701,11 @@ router.post("/vote", async (req, res) => {
         const posts = await Post.find().populate('author');;
         //console.log("POST Request to /vote received.");
         const { votes, post_id, check } = req.body;
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
         const foundup = user.upvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
         const founddown = user.downvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
-        const foundupUser = posts[post_id].upvotedBy.find(_id => currentUser._id);
-        const founddownUser = posts[post_id].downvotedBy.find(_id => currentUser._id);
+        const foundupUser = posts[post_id].upvotedBy.find(_id => req.session.user._id);
+        const founddownUser = posts[post_id].downvotedBy.find(_id => req.session.user._id);
         console.log("post:" + foundup);
         console.log("post:" + founddown);
         console.log("user:" + foundupUser);
@@ -865,7 +857,7 @@ router.post('/save', async (req, res) => {
         const posts = await Post.find().populate('author');;
         //console.log("POST Request to /vote received.");
         const post_id = req.body.post_id;
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
         const foundSave = user.savedPosts.find(_id => posts[post_id]._id);
         const foundUser = posts[post_id].savedBy.find(_id => user._id);
 
@@ -958,7 +950,7 @@ router.post('/signinFunc', async (req, res) => {
         console.log(user);
         if (user) {
             // Set the user information in the session
-            currentUser = user;
+            req.session.user = user;
             res.status(200).json({ message: 'Sign-in successful' });
         } else {
             res.status(401).json({ message: 'User not found! Please register first.' });
@@ -970,7 +962,8 @@ router.post('/signinFunc', async (req, res) => {
 });
 
 router.get('/getCurrentUser', async (req, res) => {
-    res.json(currentUser);
+    res.json(req.session.user);
+    console.log(req.session.user);
 });
 
 router.post("/upvote", async (req, res) => {
