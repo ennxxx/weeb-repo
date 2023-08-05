@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import autopopulate from 'mongoose-autopopulate';
 
 // Import environment variables from .env file. and fs module.
-import 'dotenv/config';
+//import 'dotenv/config';
 import fs from 'fs';
 
 // Import functions from other local files.
@@ -14,7 +14,7 @@ import { User } from './model/schemas.js';
 import { Post } from './model/schemas.js';
 import { Comment } from './model/schemas.js';
 
-mongoose.connect(process.env.MONGODB_URI + process.env.DB_NAME, {
+mongoose.connect(process.env.PORT, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -1096,7 +1096,7 @@ async function importData(data) {
     });
 
     // This route is used for connecting to the server.
-    app.listen(3000, () => console.log("Server is running on port 3000"));
+    app.listen(process.env.PORT, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);
