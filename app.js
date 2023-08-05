@@ -328,6 +328,7 @@ async function importData(data) {
         const users = await User.find().populate('postsMade');
         let userProfile = users.filter(user => user.name.includes(name));
         userProfile[0].populate('postsMade');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
         const comments = await Comment.find()
           .populate('author')
           .populate({
@@ -345,7 +346,7 @@ async function importData(data) {
           const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
 
           for (var i = 0; i < userProfile[0].postsMade.length; i++) {
-            const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
+            const found_post = posts.find(post => post._id.toString() === userProfile[0].postsMade[i].toString());
             if (found_post) {
               filtered_postMade.push(found_post);
             }
@@ -354,17 +355,17 @@ async function importData(data) {
 
           const upvoteStatusArray = posts.map(post => ({
             post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            upvoteStatus: post.upvotedBy.some(user => user._id.equals(userProfile[0]._id)) ? 1 : 0
           }));
 
           const downvoteStatusArray = posts.map(post => ({
             post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            downvoteStatus: post.downvotedBy.some(user => user._id.equals(userProfile[0]._id)) ? 1 : 0
           }));
 
           const saveStatusArray = posts.map(post => ({
             post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            saveStatus: post.savedBy.some(user => user._id.equals(userProfile[0]._id)) ? 1 : 0
           }));
 
 
