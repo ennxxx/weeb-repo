@@ -203,7 +203,8 @@ router.get("/edit", async (req, res) => {
 
         res.render("edit", {
             title: "Edit Profile",
-            user: user
+            user: user,
+            currentUser: currentUser
         });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -508,7 +509,7 @@ router.put("/post/:post_id", async (req, res) => {
 
         await postToUpdate.save();
 
-        res.status(200).json({ message: "Post updated successfully" });
+        res.status(200).json({ message: "Post updated successfully", edited: true });
     } catch (error) {
         console.error("Error updating post:", error);
         res.status(500).json({ error: "Internal Server Error" });

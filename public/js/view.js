@@ -85,13 +85,12 @@ async function handleEditComment(display, element, comment_id) {
         if (response.status === 200) {
           console.log("Comment updated");
           const comment = await response.json();
-          const editedFlag = document.getElementById(`sc-edited-${comment_id}`);
           if (comment.edited) {
-            editedFlag.setAttribute('data-edited', 'true');
-            editedFlag.innerText = 'Edited';
+            display.setAttribute('data-edited', 'true');
+            display.innerText = 'Edited';
           } else {
-            editedFlag.setAttribute('data-edited', 'false');
-            editedFlag.innerText = '';
+            display.setAttribute('data-edited', 'false');
+            display.innerText = '';
           }
         } else {
           console.error("Bad request");

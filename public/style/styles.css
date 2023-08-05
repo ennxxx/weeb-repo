@@ -501,6 +501,12 @@ hr {
   height: auto;
 }
 
+.post-edited {
+  margin-top: 15px;
+  text-align: right;
+  color: #1E883E;
+}
+
 .edit,
 .comment,
 .delete {
@@ -770,6 +776,11 @@ hr {
   z-index: 999;
 }
 
+#edit-overlay,
+#edit-popup {
+  display: none;
+}
+
 #popup,
 #edit-popup {
   /*Popup Display */
@@ -892,13 +903,13 @@ hr {
   margin-right: 20px;
 }
 
-#edit-actions {
+.edit-actions {
   display: flex;
   justify-content: space-between;
 }
 
 #popup-submit,
-#edit-popup-submit {
+.edit-popup-submit {
   /*Submit and Delete Button*/
   background-color: #FF4C29;
   color: #ffffff;
@@ -911,7 +922,7 @@ hr {
   margin-right: 10px;
 }
 
-#edit-popup-submit:hover {
+.edit-popup-submit:hover {
   background-color: #1E883E;
 }
 

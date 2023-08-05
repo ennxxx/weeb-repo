@@ -41,42 +41,12 @@ function checkTitleLength() {
 // ||    Edit Post Interface    ||
 // ||___________________________||
 // '                    
+let currentPostId;
 
-const editPostContainer = document.createElement("div");
-editPostContainer.innerHTML = `<div id="edit-overlay" style="display: none;"></div>
-  <div id="edit-popup" style="display: none;">
-      <span id="edit-close" onclick="closeEditPopup()">✕</span>
-      <h2>Edit a post</h2>
-      <div id="edit-title-container">
-          <textarea id="edit-title" placeholder="Title" maxlength="50" oninput="checkEditTitleLength()"></textarea>
-          <span id="edit-title-count">0/50</span>
-      </div>
-
-      <div id="edit-toolbar">
-          <button class="edit-toolbar-buttons" onclick="makeBold()"><strong>B</strong></button>
-          <button class="edit-toolbar-buttons" onclick="makeUnderline()"><u>U</u></button>
-          <button class="edit-toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
-          <button class="edit-toolbar-buttons" onclick="makeBullet()"><img src="/static/images/icons/bullet.png" alt="Bullet Form"></button>
-          <button class="edit-toolbar-buttons" onclick="insertImage()"><img src="/static/images/icons/image.png" alt="Insert Image"></button>
-      </div>
-
-      <div id="edit-content" contenteditable="true" placeholder="Content" style="border: 1px solid #ccc; padding: 5px;"></div>
-      <br>
-
-      <div>
-          <label for="edit-url">URL:</label>
-          <input type="text" id="edit-url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
-      </div>
-      <br>
-
-      <div id="edit-actions">
-          <button id="edit-popup-submit">Submit</button>
-      </div>
-  </div>`;
 
 function openEditPopup() {
-  document.getElementById("edit-overlay").style.display = "";
-  document.getElementById("edit-popup").style.display = "";
+  document.getElementById("edit-overlay").style.display = "block";
+  document.getElementById("edit-popup").style.display = "block";
 }
 
 function closeEditPopup() {
@@ -85,66 +55,79 @@ function closeEditPopup() {
 }
 
 function openEditPost(post_id) {
+  currentPostId = post_id;
 
   // Get the information of popup
+  const editPostContainer = document.getElementById("edit-popup");
   const editTitleInput = editPostContainer.querySelector("#edit-title");
   const editContentInput = editPostContainer.querySelector("#edit-content");
   const editUrlInput = editPostContainer.querySelector("#edit-url");
 
-  // Get submit button
-  const editSubmitBtn = editPostContainer.querySelector("#edit-popup-submit");
-
   // Get information from document
-  var title = document.querySelector("#title-" + post_id);
-  var content = document.querySelector("#text-" + post_id);
-  var img = document.querySelector("#sample-" + post_id);
+  const title = document.querySelector("#title-" + post_id);
+  const content = document.querySelector("#text-" + post_id);
+  const img = document.querySelector("#sample-" + post_id);
 
   // Fill with original values
   editTitleInput.value = title.innerText;
   editContentInput.innerHTML = content.innerText;
   editUrlInput.value = img.innerText;
+}
 
-  // Edit Button (Not working correctly)
-  editSubmitBtn.addEventListener("click", async () => {
-    const updatedTitle = editTitleInput.value;
-    const updatedContent = editContentInput.innerHTML;
-    const updatedUrl = editUrlInput.value;
+async function editPost() {
+  try {
+    const post_id = currentPostId;
+    const updatedTitle = document.getElementById('edit-title').value;
+    const updatedContent = document.getElementById('edit-content').innerHTML;
+    const updatedUrl = document.getElementById('edit-url').value;
 
-    try {
-      const jString = JSON.stringify({ title: updatedTitle, content: updatedContent, img: updatedUrl });
+    const jString = JSON.stringify({ title: updatedTitle, content: updatedContent, img: updatedUrl });
 
-      const response = await fetch(`/post/${post_id}`, {
-        method: 'PUT',
-        body: jString,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      if (response.status === 200) {
-        console.log("Post updated");
-        location.reload();
-      } else {
-        console.error("Bad request");
+    const response = await fetch(`/post/${post_id}`, {
+      method: 'PUT',
+      body: jString,
+      headers: {
+        "Content-Type": "application/json"
       }
-    } catch (error) {
-      console.error("Error during post update:", error);
-    }
-    closeEditPopup();
-  });
+    });
 
-  // Display the popup
-  document.body.appendChild(editPostContainer);
+    if (response.status === 200) {
+      console.log("Post updated");
+      const post = await response.json();
+      const editedFlag = document.getElementById(`post-edited-${post_id}`);
+      if (post.edited) {
+        editedFlag.setAttribute('data-edited', 'true');
+        editedFlag.innerText = 'Edited';
+      } else {
+        editedFlag.setAttribute('data-edited', 'false');
+        editedFlag.innerText = '';
+      }
+      location.reload();
+    } else {
+      console.error("Bad request");
+    }
+  } catch (error) {
+    console.error("Error during post update:", error);
+  }
+  closeEditPopup();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
 
   var editButtons = document.querySelectorAll(".edit-button");
+  var editPostButtons = document.querySelectorAll(".edit-popup-submit");
 
   editButtons.forEach(function (editButton) {
     var post_id = editButton.closest(".post-container").id;
     editButton.addEventListener("click", function () {
       openEditPost(post_id);
+    })
+  })
+
+  editPostButtons.forEach(function (editPopupButton) {
+    var post_id = editPopupButton.closest(".edit-popup-submit").id;
+    editPopupButton.addEventListener("click", function () {
+      editPost(post_id);
     })
   })
 })
@@ -167,7 +150,6 @@ async function deletePost(post_id) {
     if (response.status === 200) {
       console.log("Post deleted");
       location.reload();
-      // Optionally, you can remove the deleted post from the page here
     } else {
       console.error("Bad request");
     }

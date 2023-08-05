@@ -13,8 +13,8 @@
             <a href="/view/{{post_id}}" class="post-clickable">
                 <h4 class="title" id="title-{{post_id}}">{{title}}</h4>
             </a>
-            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a> • Posted on
-                {{date}}</p>
+            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a> <span id="grey-text">•
+                    Posted 32 days ago</span> </p>
             <a href="/view/{{post_id}}" class="post-clickable">
                 <p class="text" id="text-{{post_id}}">{{{content}}}</p>
                 {{#if image}}
@@ -43,7 +43,7 @@
             <button class="save-button">
                 <img src="/static/images/post/save.png" class="save">
             </button>
-            
+
         </div>
     </div>
 </div>
