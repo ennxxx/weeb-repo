@@ -13,7 +13,7 @@ import * as helpers from './helpers.js';
 import { User } from './model/schemas.js';
 import { Post } from './model/schemas.js';
 import { Comment } from './model/schemas.js';
-const url='mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.mongodb.net/ccapdev-weeblib?retryWrites=true&w=majority';
+const url='mongodb+srv://nigelvalero:XloSADr3TnVr5S4C@ccapdev-weeblib.5vjgoqs.mongodb.net/ccapdev-weeblib?retryWrites=true&w=majority'
 mongoose.connect(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
