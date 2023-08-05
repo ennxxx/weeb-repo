@@ -1,6 +1,7 @@
 // Import express, express-handlebars, mongodb NodeJS modules.
 import express from 'express';
 import exphbs from 'express-handlebars';
+import session from 'express-session';
 import mongoose from 'mongoose';
 
 // Import environment variables from .env file. and fs module.
@@ -76,11 +77,10 @@ async function main() {
 
     // Waits for the data to be imported before starting the Express server.
     mongoose.connection.dropDatabase();
-    importData('user');
-    importData('post');
-    importData('comment');
-
-    // let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
+    console.log('WeebDB Database dropped and prepped for data insertion...');
+    await importData('user');
+    await importData('post');
+    await importData('comment');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
@@ -104,6 +104,13 @@ async function main() {
       runtimeOptions: {
         allowProtoPropertiesByDefault: true,
       },
+    }));
+
+    // Configure express-session
+    app.use(session({
+      secret: 'a186684b6439ce08d7e48d27b73aea241f52b5f5784c48b43182e965762bc753',
+      resave: false,
+      saveUninitialized: true
     }));
 
     // The following lines of code set up the Express server and handlebars.
