@@ -55,3 +55,13 @@ const postSchema = new mongoose.Schema({
 const Post = mongoose.model('Post', postSchema);
 
 export { Post };
+
+const imgSchema = new mongoose.Schema({
+    user_id: { type: Number, required: true, unique: true },
+    image: { type: Buffer },
+    name: { type: String, required: true }
+});
+
+const Image = mongoose.model('Image', imgSchema);
+
+export { Image };

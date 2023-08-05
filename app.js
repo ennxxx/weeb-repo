@@ -26,6 +26,7 @@ const modelMap = {
   user: User,
   post: Post,
   comment: Comment,
+  image: Image,
 };
 
 // Creates an  instance of the express app.
@@ -119,6 +120,21 @@ async function importData(data) {
     app.set("view engine", "hbs");
     app.set("views", "./views");
 
+    // for saving imgs into byte
+    app.post('/upload', upload.single('image'), (req, res) => {
+      const imageBuffer = req.file.buffer;
+      
+      // Store the imageBuffer in your MongoDB Atlas database
+      db.collection('images').insertOne({ image: imageBuffer }, (err, result) => {
+          if (err) {
+              console.error('Error storing image in database:', err);
+              res.status(500).json({ message: 'Internal server error' });
+          } else {
+              res.json({ message: 'Image uploaded and stored successfully.' });
+          }
+      });
+  });
+  
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
