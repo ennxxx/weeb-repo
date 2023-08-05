@@ -207,7 +207,7 @@ async function importData(data) {
     app.get("/main-profile", async (req, res) => {
       try {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const posts = await Post.find().populate('author');
         const user = await User.findOne({ username: currentUser.username })
           .populate('postsMade')
           .populate({
@@ -229,59 +229,34 @@ async function importData(data) {
               select: 'username title',
             }
           });
-        
-        const filtered_postMade = [];
+
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
         var filtered_upvoted = [];
         var filtered_downvoted = [];
         var filtered_saved = [];
 
-
-        for (var i = 0; i < user.postsMade.length; i++) {
-          const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
-          if (found_post) {
-            filtered_postMade.push(found_post);
-          }
-          console.log(found_post);
-        }
-        
-        for (var i = 0; i < user.upvotedPosts.length; i++) {
-          const found_post = posts.find(post => post._id.toString() === user.upvotedPosts[i].toString());
+        for (var i = 0; i < currentUser.upvotedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.upvotedPosts[i].toString());
           if (found_post) {
             filtered_upvoted.push(found_post);
           }
         }
-        for (var i = 0; i < user.downvotedPosts.length; i++) {
-          const found_post = posts.find(post => post._id.toString() === user.downvotedPosts[i].toString());
+        for (var i = 0; i < currentUser.downvotedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.downvotedPosts[i].toString());
           if (found_post) {
             filtered_downvoted.push(found_post);
           }
         }
-        for (var i = 0; i < user.savedPosts.length; i++) {
-          const found_post = posts.find(post => post._id.toString() === user.savedPosts[i].toString());
+        for (var i = 0; i < currentUser.savedPosts.length; i++) {
+          const found_post = posts.find(post => post._id.toString() === currentUser.savedPosts[i].toString());
           if (found_post) {
             filtered_saved.push(found_post);
           }
         }
-        const upvoteStatusArray = filtered_upvoted.map(post => ({
-          post: post,
-          upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-        }));
-
-        const downvoteStatusArray = posts.map(post => ({
-          post: post,
-          downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-        }));
-
-        const saveStatusArray = posts.map(post => ({
-          post: post,
-          saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-        }));
-        
+        console.log(filtered_upvoted);
         res.render("main-profile", {
           title: "My Profile",
           user: user,
-          postsMade: filtered_postMade,
           comments: filtered_comments,
           upvoted: filtered_upvoted,
           downvoted: filtered_downvoted,
@@ -354,31 +329,6 @@ async function importData(data) {
           res.redirect('/main-profile');
         } else {
           const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
-          
-          for (var i = 0; i < userProfile[0].postsMade.length; i++) {
-            const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
-            if (found_post) {
-              filtered_postMade.push(found_post);
-            }
-            console.log(found_post);
-          }
-          
-          const upvoteStatusArray = posts.map(post => ({
-            post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-          }));
-  
-          const downvoteStatusArray = posts.map(post => ({
-            post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-          }));
-  
-          const saveStatusArray = posts.map(post => ({
-            post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
-          }));
-
-
           res.render("profile", {
             title: userProfile[0].name,
             user: userProfile[0],
@@ -813,14 +763,10 @@ async function importData(data) {
         //console.log("POST Request to /vote received.");
         const { votes, post_id, check } = req.body;
         const user = await User.findOne({ username: currentUser.username });
-        const foundup = user.upvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
-        const founddown = user.downvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());        
+        const foundup = user.upvotedPosts.find(_id => posts[post_id]._id);
+        const founddown = user.downvotedPosts.find(_id => posts[post_id]._id);
         const foundupUser = posts[post_id].upvotedBy.find(_id => currentUser._id);
         const founddownUser = posts[post_id].downvotedBy.find(_id => currentUser._id);
-        console.log("post:"+foundup);
-        console.log("post:"+founddown);
-        console.log("user:"+foundupUser);
-        console.log("user:"+founddownUser);
 
         if (check == "up") {
           //user side
@@ -829,6 +775,7 @@ async function importData(data) {
               { _id: user._id },
               { $pull: { upvotedPosts: posts[post_id]._id } }
             )
+
           } else if (foundup && founddown) {
             await User.updateOne(
               { _id: user._id },
@@ -892,6 +839,7 @@ async function importData(data) {
               { _id: user._id },
               { $pull: { downvotedPosts: posts[post_id]._id } }
             )
+
           } else if (founddown && foundup) {
             await User.updateOne(
               { _id: user._id },
@@ -901,6 +849,7 @@ async function importData(data) {
               { _id: user._id },
               { $pull: { upvotedPosts: posts[post_id]._id } }
             )
+
           } else if (!founddown && foundup) {
             await User.updateOne(
               { _id: user._id },
@@ -910,11 +859,13 @@ async function importData(data) {
               { _id: user._id },
               { $pull: { upvotedPosts: posts[post_id]._id } }
             )
+
           } else {
             await User.updateOne(
               { _id: user._id },
               { $push: { downvotedPosts: posts[post_id]._id } }
             )
+
           }
           //post side
           if (founddownUser && !foundupUser) {
