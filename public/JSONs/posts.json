@@ -77,7 +77,9 @@
     ],
     "upvotedBy": [],
     "downvotedBy": [],
-    "savedBy": [],
+    "savedBy": [
+      "64bbce8c9e08a4493219f46f"
+    ],
     "voteCtr": 24,
     "comCtr": 1
   },
