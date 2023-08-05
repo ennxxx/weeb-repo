@@ -42,24 +42,7 @@ router.get("/", async (req, res) => {
         saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
-        const userVotes = [];
-
-        for (const user of users) {
-            let totalVotes = 0;
-
-            for (const post of user.postsMade) {
-                totalVotes += post.voteCount;
-            }
-
-            userVotes.push({ username: user.username, totalVotes });
-        }
-
-        // Sort users by total votes in descending order
-        userVotes.sort((a, b) => b.totalVotes - a.totalVotes);
-
-        // Get the top 3 users
-        const top3Users = userVotes.slice(0, 3);
-        console.log(top3Users);
+        
         res.render("index", {
             title: 'Home',
             posts: posts,
@@ -114,15 +97,7 @@ router.get("/main-profile", async (req, res) => {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
         const user = await User.findOne({ username: currentUser.username })
-            .populate('postsMade')
-            .populate({
-                path: 'postsMade',
-                populate: {
-                    path: 'author',
-                    model: 'User',
-                    select: 'username'
-                }
-            });
+            .populate('postsMade');
 
         const comments = await Comment.find()
             .populate('author')
@@ -136,17 +111,29 @@ router.get("/main-profile", async (req, res) => {
             });
 
         const filtered_postMade = [];
-        const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
+        const filtered_comments = [];
         var filtered_upvoted = [];
         var filtered_downvoted = [];
         var filtered_saved = [];
 
+        for (var i = 0; i < user.commentsMade.length; i++) {
+            const found_comment = comments.find(comment => comment._id.toString() === user.commentsMade[i]._id.toString());
+            if (found_comment) {
+                filtered_comments.push(found_comment);
+            }
+        }
         for (var i = 0; i < user.postsMade.length; i++) {
-            const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
+            const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
             if (found_post) {
                 filtered_postMade.push(found_post);
             }
-            console.log(found_post);
+        }
+
+        for (var i = 0; i < user.postsMade.length; i++) {
+            const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
+            if (found_post) {
+                filtered_postMade.push(found_post);
+            }
         }
 
         for (var i = 0; i < user.upvotedPosts.length; i++) {
@@ -166,20 +153,41 @@ router.get("/main-profile", async (req, res) => {
             if (found_post) {
                 filtered_saved.push(found_post);
             }
+            console.log(found_post);
         }
-        const upvoteStatusArray = filtered_upvoted.map(post => ({
+        const upvoteStatPostMade = filtered_postMade.map(post => ({
             post: post,
-            upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            upvoteStatus: post.upvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
         }));
 
-        const downvoteStatusArray = posts.map(post => ({
+        const downvoteStatPostMade = filtered_postMade.map(post => ({
             post: post,
-            downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            downvoteStatus: post.downvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
         }));
 
-        const saveStatusArray = posts.map(post => ({
+        const saveStatPostMade = filtered_postMade.map(post => ({
             post: post,
-            saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+            saveStatus: post.savedBy.some(users => users._id.equals(user._id)) ? 1 : 0
+        }));
+
+        const saveStatUpvote = filtered_upvoted.map(post => ({
+            post: post,
+            saveStatus: post.savedBy.some(users => users._id.equals(user._id)) ? 1 : 0
+        }));
+
+        const saveStatDownvote = filtered_downvoted.map(post => ({
+            post: post,
+            saveStatus: post.savedBy.some(users => users._id.equals(user._id)) ? 1 : 0
+        }));
+
+        const upvoteStatSave = filtered_saved.map(post => ({
+            post: post,
+            upvoteStatus: post.upvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
+        }));
+
+        const downvoteStatSave = filtered_saved.map(post => ({
+            post: post,
+            downvoteStatus: post.downvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
         }));
 
         res.render("main-profile", {
@@ -192,9 +200,13 @@ router.get("/main-profile", async (req, res) => {
             saved: filtered_saved,
             filters: filters,
             currentUser: currentUser,
-            upvoteStatusArray: upvoteStatusArray,
-            downvoteStatusArray: downvoteStatusArray,
-            saveStatusArray: saveStatusArray
+            upvoteStatusArray: upvoteStatPostMade,
+            downvoteStatusArray: downvoteStatPostMade,
+            saveStatusArray: saveStatPostMade,
+            saveStatusUpvote: saveStatUpvote,
+            saveStatusDownvote: saveStatDownvote,
+            upvoteStatusSave: upvoteStatSave,
+            downvoteStatusSave: downvoteStatSave
         });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -241,8 +253,9 @@ router.get("/profile/:name", async (req, res) => {
         const name = req.params.name;
         const filters = ['Posts', 'Comments'];
         const users = await User.find().populate('postsMade');
-        let userProfile = users.filter(user => user.name.includes(name));
-        userProfile[0].populate('postsMade');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const user = await User.findOne({ name: name })
+            .populate('postsMade');
         const comments = await Comment.find()
             .populate('author')
             .populate({
@@ -254,41 +267,51 @@ router.get("/profile/:name", async (req, res) => {
                 }
             });
 
-        if (currentUser.username === userProfile[0].username) {
+        if (currentUser.username === user.username) {
             res.redirect('/main-profile');
         } else {
-            const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
+            const filtered_comments = [];
+            var filtered_postMade = [];
 
-            for (var i = 0; i < userProfile[0].postsMade.length; i++) {
-                const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
+            for (var i = 0; i < user.commentsMade.length; i++) {
+                const found_comment = comments.find(comment => comment._id.toString() === user.commentsMade[i]._id.toString());
+                if (found_comment) {
+                    filtered_comments.push(found_comment);
+                }
+            }
+            
+            console.log(filtered_comments);
+            for (var i = 0; i < user.postsMade.length; i++) {
+                const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
                 if (found_post) {
                     filtered_postMade.push(found_post);
                 }
                 console.log(found_post);
             }
 
-            const upvoteStatusArray = posts.map(post => ({
+            const upvoteStatusArray = filtered_postMade.map(post => ({
                 post: post,
-                upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                upvoteStatus: post.upvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
             }));
 
-            const downvoteStatusArray = posts.map(post => ({
+            const downvoteStatusArray = filtered_postMade.map(post => ({
                 post: post,
-                downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                downvoteStatus: post.downvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
             }));
 
-            const saveStatusArray = posts.map(post => ({
+            const saveStatusArray = filtered_postMade.map(post => ({
                 post: post,
-                saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
+                saveStatus: post.savedBy.some(users => users._id.equals(user._id)) ? 1 : 0
             }));
 
 
             res.render("profile", {
-                title: userProfile[0].name,
-                user: userProfile[0],
+                title: user.name,
+                user: user,
                 comments: filtered_comments,
                 filters: filters,
                 currentUser: currentUser,
+                postsMade: filtered_postMade,
                 upvoteStatusArray: upvoteStatusArray,
                 downvoteStatusArray: downvoteStatusArray,
                 saveStatusArray: saveStatusArray
@@ -712,8 +735,8 @@ router.post("/vote", async (req, res) => {
         const user = await User.findOne({ username: currentUser.username });
         const foundup = user.upvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
         const founddown = user.downvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
-        const foundupUser = posts[post_id].upvotedBy.find(_id => currentUser._id);
-        const founddownUser = posts[post_id].downvotedBy.find(_id => currentUser._id);
+        const foundupUser = posts[post_id].upvotedBy.find(id => id.toString() === user._id.toString());
+        const founddownUser = posts[post_id].downvotedBy.find(id => id.toString() === user._id.toString());
         console.log("post:" + foundup);
         console.log("post:" + founddown);
         console.log("user:" + foundupUser);
@@ -745,7 +768,7 @@ router.post("/vote", async (req, res) => {
                     { _id: user._id },
                     { $pull: { downvotedPosts: posts[post_id]._id } }
                 )
-
+               
             } else {
                 await User.updateOne(
                     { _id: user._id },
@@ -862,13 +885,11 @@ router.post("/vote", async (req, res) => {
 // Route for save buttons
 router.post('/save', async (req, res) => {
     try {
-        const posts = await Post.find().populate('author');;
-        //console.log("POST Request to /vote received.");
+        const posts = await Post.find().populate('author');
         const post_id = req.body.post_id;
         const user = await User.findOne({ username: currentUser.username });
-        const foundSave = user.savedPosts.find(_id => posts[post_id]._id);
-        const foundUser = posts[post_id].savedBy.find(_id => user._id);
-
+        const foundSave = user.savedPosts.includes(posts[post_id]._id);
+        const foundUser = posts[post_id].savedBy.includes(user._id);;
 
         if (foundSave) {
             await User.updateOne(
@@ -881,14 +902,14 @@ router.post('/save', async (req, res) => {
                     { _id: posts[post_id]._id },
                     { $pull: { savedBy: user._id } }
                 )
-                console.log("found user");
+
             }
             else if (!foundUser) {
                 await Post.updateOne(
                     { _id: posts[post_id]._id },
                     { $push: { savedBy: user._id } }
                 )
-                console.log("not found user");
+
             }
 
         } else {
@@ -907,6 +928,7 @@ router.post('/save', async (req, res) => {
                     { _id: posts[post_id]._id },
                     { $push: { savedBy: user._id } }
                 )
+
             }
         }
         //console.log(foundSave); 

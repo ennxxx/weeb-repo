@@ -40,9 +40,15 @@
                 </button>
             </a>
             <p class="comment-num">{{comCtr}} Comments</p>
+            {{#if (getSaveStatus @root.saveStatusDownvote @index)}}
+            <button class="save-button">
+                <img src="/static/images/post/clicked/c-saved.png" class="save">
+            </button>
+            {{else}}
             <button class="save-button">
                 <img src="/static/images/post/save.png" class="save">
             </button>
+            {{/if}}
         </div>
     </div>
 </div>
