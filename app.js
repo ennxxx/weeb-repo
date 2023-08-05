@@ -616,7 +616,7 @@ async function importData(data) {
 
         await postToUpdate.save();
 
-        res.status(200).json({ message: "Post updated successfully" });
+        res.status(200).json({ message: "Post updated successfully", edited: true });
       } catch (error) {
         console.error("Error updating post:", error);
         res.status(500).json({ error: "Internal Server Error" });
