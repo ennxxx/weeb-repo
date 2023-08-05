@@ -193,7 +193,6 @@ async function importData(data) {
             }
           });
 
-
         const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
@@ -244,7 +243,6 @@ async function importData(data) {
         var filtered_upvoted = [];
         var filtered_downvoted = [];
         var filtered_saved = [];
-
 
         for (var i = 0; i < user.postsMade.length; i++) {
           const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
@@ -644,7 +642,6 @@ async function importData(data) {
       }
     });
 
-
     // This route is used for creating comments.
     app.post("/comment", async (req, res) => {
       try {
@@ -664,7 +661,7 @@ async function importData(data) {
             parentPost: posts[post_id]._id,
             parentComment: null,
             reply: [],
-            voteCtr: 0,
+            voteCtr: 0
           };
 
           const result = await Comment.collection.insertOne(newComment);
@@ -735,29 +732,23 @@ async function importData(data) {
     app.put("/comment/:comment_id", async (req, res) => {
       try {
         const commentIdToUpdate = parseInt(req.params.comment_id);
-        const comments = await Comment.find().populate('parentPost').populate('parentComment');
-        const commentToUpdate = comments.find(comment => comment.comment_id === commentIdToUpdate);
+        const commentToUpdate = await Comment.findOneAndUpdate(
+          { comment_id: commentIdToUpdate },
+          { content: req.body.content, edited: true },
+          { new: true }
+        );
 
         if (!commentToUpdate) {
           return res.status(404).json({ error: "Comment not found" });
         }
 
-        const { content } = req.body;
-
-        if (!content) {
-          return res.status(400).json({ error: "Invalid content" });
-        }
-
-        commentToUpdate.content = content;
-        commentToUpdate.edited = true; // Add an "edited" flag to indicate that the comment has been edited
-        await commentToUpdate.save();
-
-        res.status(200).json({ message: "Comment updated successfully" });
+        res.status(200).json({ message: "Comment updated successfully", edited: true });
       } catch (error) {
         console.error("Error updating comment:", error);
         res.status(500).json({ error: "Internal Server Error" });
       }
     });
+
 
     // This route is used for creating replies.
     app.post("/reply", async (req, res) => {

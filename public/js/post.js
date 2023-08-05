@@ -188,9 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 })
 
-
-
-
 // ._____________________________.
 // ||                           ||
 // ||   Create Post Interface   ||

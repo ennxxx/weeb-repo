@@ -38,7 +38,7 @@ async function handleCommentCreation() {
 async function handleDeleteComment(comment_id) {
   try {
     const jString = JSON.stringify({ comment_id });
-    
+
     const response = await fetch(`/comment/${comment_id}`, {
       method: 'DELETE',
       body: jString,
@@ -58,41 +58,49 @@ async function handleDeleteComment(comment_id) {
   }
 }
 
-function handleEditComment(display, element, comment_id) {
-    element.contentEditable = true;
-    element.focus();
+async function handleEditComment(display, element, comment_id) {
+  element.contentEditable = true;
+  element.focus();
 
-    element.addEventListener("keydown", async function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            element.contentEditable = false;
-            const updatedContent = element.innerText.trim();
-            if (!updatedContent) {
-                return; // Don't update if the content is empty
-            }
+  element.addEventListener("keydown", async function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      element.contentEditable = false;
+      const updatedContent = element.innerText.trim();
+      if (!updatedContent) {
+        return; // Don't update if the content is empty
+      }
 
-            try {
-                const jString = JSON.stringify({ content: updatedContent });
+      try {
+        const jString = JSON.stringify({ content: updatedContent });
 
-                const response = await fetch(`/comment/${comment_id}`, {
-                    method: 'PUT',
-                    body: jString,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
+        const response = await fetch(`/comment/${comment_id}`, {
+          method: 'PUT',
+          body: jString,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
 
-                if (response.status === 200) {
-                    console.log("Comment updated");
-                    display.innerText = "Edited";
-                } else {
-                    console.error("Bad request");
-                }
-            } catch (error) {
-                console.error("Error during comment update:", error);
-            }
+        if (response.status === 200) {
+          console.log("Comment updated");
+          const comment = await response.json();
+          const editedFlag = document.getElementById(`sc-edited-${comment_id}`);
+          if (comment.edited) {
+            editedFlag.setAttribute('data-edited', 'true');
+            editedFlag.innerText = 'Edited';
+          } else {
+            editedFlag.setAttribute('data-edited', 'false');
+            editedFlag.innerText = '';
+          }
+        } else {
+          console.error("Bad request");
         }
-    });
+      } catch (error) {
+        console.error("Error during comment update:", error);
+      }
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       saveImage.src = "/static/images/post/save.png";
     }
-    
+
     const jString = JSON.stringify({ post_id: currentPost.id });
     const response = await fetch("/save", {
       method: 'POST',
@@ -167,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // ||______________________||
   // '			                  '
 
-  
+
   var upvoteButton = document.querySelector(".upvote-button");
   var parentPost = document.querySelector(".view-post-container");
   var downvoteButton = document.querySelector(".downvote-button");
@@ -196,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
       numVotes.textContent--;
     }
 
-    const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "up" });
+    const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "up" });
     const response = await fetch("/vote", {
       method: 'POST',
       body: jString,
@@ -227,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
       downvoteImage.src = "/static/images/post/downvote.png";
       numVotes.textContent++;
     }
-    const jString = JSON.stringify({ votes : parseInt(numVotes.textContent), post_id, check: "down" });
+    const jString = JSON.stringify({ votes: parseInt(numVotes.textContent), post_id, check: "down" });
     const response = await fetch("/vote", {
       method: 'POST',
       body: jString,

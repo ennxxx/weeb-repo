@@ -28,7 +28,8 @@ const commentSchema = new mongoose.Schema({
     reply: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     upvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     downvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
-    voteCtr: { type: Number }
+    voteCtr: { type: Number },
+    edited: { type: Boolean, default: false }
 });
 
 const Comment = mongoose.model('Comment', commentSchema);

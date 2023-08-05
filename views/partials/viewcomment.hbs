@@ -7,7 +7,11 @@
         <div class="sc-right">
             <div class="sc-top">
                 <div class="sc-name">{{author.username}}</div>
-                <p class="sc-edited" id="sc-edited-{{comment_id}}"></p>
+                {{#if edited}}
+                <p class="sc-edited" id="sc-edited-{{comment_id}}" data-edited="true">Edited</p>
+                {{else}}
+                <p class="sc-edited" id="sc-edited-{{comment_id}}" data-edited="false"></p>
+                {{/if}}
             </div>
             <div class="sc-right-content">
                 <div class="sc-body" id="sc-body-{{comment_id}}">{{content}}</div>
