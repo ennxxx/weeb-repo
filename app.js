@@ -312,7 +312,8 @@ async function importData(data) {
 
         res.render("edit", {
           title: "Edit Profile",
-          user: user
+          user: user,
+          currentUser: currentUser
         });
       } catch (error) {
         console.error("Error fetching posts:", error);
