@@ -145,24 +145,6 @@ async function importData(data) {
         saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
-        const userVotes = [];
-
-        for (const user of users) {
-          let totalVotes = 0;
-
-          for (const post of user.postsMade) {
-            totalVotes += post.voteCount;
-          }
-
-          userVotes.push({ username: user.username, totalVotes });
-        }
-
-        // Sort users by total votes in descending order
-        userVotes.sort((a, b) => b.totalVotes - a.totalVotes);
-
-        // Get the top 3 users
-        const top3Users = userVotes.slice(0, 3);
-        console.log(top3Users);
         res.render("index", {
           title: 'Home',
           posts: posts,
