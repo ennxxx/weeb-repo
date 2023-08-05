@@ -122,19 +122,8 @@ async function importData(data) {
     // This route renders the home page.
     app.get("/", async (req, res) => {
       try {
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
         const users = await User.find().populate('postsMade');
-
-        posts.forEach(post => {
-          post.date = post.date.toLocaleString("en-US", {
-            month: "2-digit",
-            day: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-          }).replace(",", "");
-        });
 
         const upvoteStatusArray = posts.map(post => ({
           post: post,
@@ -204,7 +193,7 @@ async function importData(data) {
             }
           });
 
-          
+
         const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
@@ -249,7 +238,7 @@ async function importData(data) {
               select: 'username title',
             }
           });
-        
+
         const filtered_postMade = [];
         const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(currentUser.username));
         var filtered_upvoted = [];
@@ -264,7 +253,7 @@ async function importData(data) {
           }
           console.log(found_post);
         }
-        
+
         for (var i = 0; i < user.upvotedPosts.length; i++) {
           const found_post = posts.find(post => post._id.toString() === user.upvotedPosts[i].toString());
           if (found_post) {
@@ -297,7 +286,7 @@ async function importData(data) {
           post: post,
           saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
         }));
-        
+
         res.render("main-profile", {
           title: "My Profile",
           user: user,
@@ -374,7 +363,7 @@ async function importData(data) {
           res.redirect('/main-profile');
         } else {
           const filtered_comments = comments.filter(comment => comment.author.username.toLowerCase().includes(userProfile[0].username));
-          
+
           for (var i = 0; i < userProfile[0].postsMade.length; i++) {
             const found_post = posts.find(post => post._id.toString() === user.postsMade[i].toString());
             if (found_post) {
@@ -382,17 +371,17 @@ async function importData(data) {
             }
             console.log(found_post);
           }
-          
+
           const upvoteStatusArray = posts.map(post => ({
             post: post,
             upvoteStatus: post.upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
           }));
-  
+
           const downvoteStatusArray = posts.map(post => ({
             post: post,
             downvoteStatus: post.downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
           }));
-  
+
           const saveStatusArray = posts.map(post => ({
             post: post,
             saveStatus: post.savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0
@@ -586,7 +575,6 @@ async function importData(data) {
             upvotedPost: [],
             downvotedPost: [],
             savedPost: [],
-            date: date,
             __v: 0
           };
           const result = await Post.collection.insertOne(newPost);
@@ -598,7 +586,6 @@ async function importData(data) {
             { $push: { postsMade: result.insertedId } }
           );
           res.status(200).json({ post_id: newPost.post_id });
-
         }
         else {
           res.status(400);
@@ -834,13 +821,13 @@ async function importData(data) {
         const { votes, post_id, check } = req.body;
         const user = await User.findOne({ username: currentUser.username });
         const foundup = user.upvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
-        const founddown = user.downvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());        
+        const founddown = user.downvotedPosts.find(id => id.toString() === posts[post_id]._id.toString());
         const foundupUser = posts[post_id].upvotedBy.find(_id => currentUser._id);
         const founddownUser = posts[post_id].downvotedBy.find(_id => currentUser._id);
-        console.log("post:"+foundup);
-        console.log("post:"+founddown);
-        console.log("user:"+foundupUser);
-        console.log("user:"+founddownUser);
+        console.log("post:" + foundup);
+        console.log("post:" + founddown);
+        console.log("user:" + foundupUser);
+        console.log("user:" + founddownUser);
 
         if (check == "up") {
           //user side

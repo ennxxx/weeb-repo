@@ -47,8 +47,7 @@ const postSchema = new mongoose.Schema({
     downvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     savedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     voteCtr: { type: Number },
-    comCtr: { type: Number },
-    date: { type: Date, default: Date.now },
+    comCtr: { type: Number }
 });
 
 const Post = mongoose.model('Post', postSchema);
