@@ -8,7 +8,7 @@ import { Comment } from '../models/schemas.js';
 
 const router = Router();
 
-let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
+// let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
 // This route renders the home page.
 router.get("/", async (req, res) => {

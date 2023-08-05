@@ -11,27 +11,22 @@ import * as helpers from './helpers.js';
 import { connectToDB } from './models/db.js';
 import router from './routes/router.js';
 
-
-async function startApp() {
-  try {
-    await connectToDB();
-    // Your other application logic here
-  } catch (error) {
-    console.error('An error occurred:', error);
-  }
-}
-
 // Main function
 async function main() {
   try {
-    console.log('Launching Express...');
+
+    // Connecting to DB
+    console.info('Launching Express...');
     const app = express();
-    startApp();
+    connectToDB();
+
     // Waits for the data to be imported before starting the Express server.
     await mongoose.connection.dropDatabase();
     await importData('user');
     await importData('post');
     await importData('comment');
+
+    // let currentUser = await User.findOne({ username: 'u/shellyace' }).populate('postsMade');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({

@@ -5,7 +5,8 @@ export async function connectToDB() {
     try {
         await mongoose.connect(process.env.DB_URI, {
             useNewUrlParser: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            bufferTimeoutMS: 30000,
         });
         console.log('Connected to MongoDB');
     } catch (error) {
