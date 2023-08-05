@@ -612,6 +612,7 @@ async function importData(data) {
         postToUpdate.title = title;
         postToUpdate.content = content;
         postToUpdate.image = img;
+        postToUpdate.edited = true;
 
         await postToUpdate.save();
 

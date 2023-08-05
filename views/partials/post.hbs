@@ -25,7 +25,9 @@
             <a href="/view/{{post_id}}" class="post-clickable">
                 <h4 class="title" id="title-{{post_id}}">{{title}}</h4>
             </a>
-            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a></p>
+            <p class="author">by <a href="/profile/{{author.name}}">{{author.username}}</a>
+                <span id="grey-text">• Posted on 08/05/23 14:05</span>
+            </p>
             <a href="/view/{{post_id}}" class="post-clickable">
                 <p class="text" id="text-{{post_id}}">{{{content}}}</p>
                 {{#if image}}

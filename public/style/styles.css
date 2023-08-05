@@ -326,6 +326,10 @@ hr {
   background-color: #DEE3E7;
 }
 
+#grey-text {
+  color: #858E99;
+}
+
 /*-------------- SPECIFICATIONS FOR THE INDEX (HOME) PAGE ------------------*/
 /*  Contains Carousel Section, Post&Poll Section, Create post pop up, etc.  */
 
