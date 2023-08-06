@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
             posts: posts,
             toppost: posts[0],
             topusers: top3users,
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
             saveStatusArray: saveStatusArray
@@ -232,7 +232,8 @@ router.get("/edit", async (req, res) => {
 
         res.render("edit", {
             title: "Edit Profile",
-            user: user
+            user: user,
+            currentUser: req.session.user
         });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -411,7 +412,7 @@ router.get('/signin', (req, res) => {
 });
 
 // This route renders the anime page
-app.get('/anime', async (req, res) => {
+router.get('/anime', async (req, res) => {
     const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
     const posts = await Post.find().populate('author');
     posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
@@ -429,12 +430,12 @@ app.get('/anime', async (req, res) => {
         title: 'Anime',
         toppost: posts[0],
         topusers: top3users,
-        currentUser: currentUser
+        currentUser: req.session.user
     });
 });
 
 // This route renders the games page
-app.get('/games', async (req, res) => {
+router.get('/games', async (req, res) => {
     const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
     const posts = await Post.find().populate('author');
     posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
@@ -452,7 +453,7 @@ app.get('/games', async (req, res) => {
         title: 'Games',
         toppost: posts[0],
         topusers: top3users,
-        currentUser: currentUser
+        currentUser: req.session.user
     });
 });
 
