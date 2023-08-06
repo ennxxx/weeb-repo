@@ -827,7 +827,7 @@ router.post("/vote-comment", async (req, res) => {
         }
 
         if (comVotes && comment_id) {
-            await User.updateOne(
+            await Comment.updateOne(
                 { _id: comments[comment_id] },
                 { $push: { voteCtr: votes } }
             )
