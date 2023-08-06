@@ -6,6 +6,9 @@ import { User } from '../models/schemas.js';
 import { Post } from '../models/schemas.js';
 import { Comment } from '../models/schemas.js';
 
+// Importing hashing module
+import bcrypt from 'bcrypt';
+
 const router = Router();
 
 // This route renders the home page.
@@ -213,7 +216,7 @@ router.get("/main-profile", async (req, res) => {
             downvoteStatusSave: downvoteStatSave
         });
 
-        
+
     } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -1045,20 +1048,32 @@ router.post('/registerFunc', async (req, res) => {
         const { username, password } = req.body;
 
         if (username && password) {
+            // Hash the password
+            bcrypt.hash(password, 10, async (err, hash) => {
+                if (err) {
+                    console.error('Error hashing password:', err);
+                    return res.status(500).json({ error: "Internal Server Error" });
+                }
 
-            const newUser = {
-                user_id: users.length,
-                profile_pic: "default.png",
-                name: "User",
-                username: "u/" + username,
-                password: password,
-                bio: "Edit Profile to add a bio and change username",
-                postsMade: []
-            };
-            const result = await User.collection.insertOne(newUser);
-            console.log("New user inserted with _id:", result.insertedId);
+                const newUser = {
+                    user_id: users.length,
+                    profile_pic: "default.png",
+                    name: "User",
+                    username: "u/" + username,
+                    password: hash, // Store the hashed password
+                    bio: "Edit Profile to add a bio and change username",
+                    postsMade: []
+                };
 
-            res.status(200).json({ message: "User created successfully" });
+                try {
+                    const result = await User.collection.insertOne(newUser);
+                    console.log("New user inserted with _id:", result.insertedId);
+                    res.status(200).json({ message: "User created successfully" });
+                } catch (insertError) {
+                    console.error("Error inserting user:", insertError);
+                    res.status(500).json({ error: "Internal Server Error" });
+                }
+            });
         } else {
             res.status(400).json({ error: "Invalid content or username" });
         }
@@ -1073,12 +1088,19 @@ router.post('/signinFunc', async (req, res) => {
 
     try {
         // Query the database to find the user
-        const user = await User.findOne({ username: "u/" + username, password: password });
-        console.log(user);
+        const user = await User.findOne({ username: "u/" + username});
+
         if (user) {
-            // Set the user information in the session
-            req.session.user = user;
-            res.status(200).json({ message: 'Sign-in successful' });
+            // Compare the provided plain password with the hashed password
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            console.log("passwordMatch: " + passwordMatch + " " + user.password + " " + password);
+
+            if (passwordMatch) {
+                // Set the user information in the session
+                req.session.user = user;
+                res.status(200).json({ message: 'Sign-in successful' });
+            } else
+                res.status(401).json({ message: 'Incorrect password! Please try again.' });
         } else {
             res.status(401).json({ message: 'User not found! Please register first.' });
         }
@@ -1108,6 +1130,21 @@ router.put('/signinAnon', async (req, res) => {
         console.error("Error editing profile:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
+});
+
+
+// Logout route
+router.get('/logout', (req, res) => {
+    // Destroy the user session
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).json({ error: 'Internal Server Error' });
+            return;
+        }
+
+        res.redirect('/signin');
+    });
 });
 
 export default router;

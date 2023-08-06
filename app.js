@@ -3,6 +3,7 @@ import express from 'express';
 import exphbs from 'express-handlebars';
 import session from 'express-session';
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 // Import environment variables from .env file. and fs module.
 import 'dotenv/config';
@@ -39,6 +40,12 @@ async function importData(data) {
         // Convert the '_id' field to the correct format (string representation of 'ObjectId')
         if (doc._id && doc._id['$oid']) {
           doc._id = doc._id['$oid'];
+        }
+
+        // Hash the password if the document has a 'password' field
+        if (doc.password) {
+          const hashedPassword = await bcrypt.hash(doc.password, 10);
+          doc.password = hashedPassword;
         }
 
         // Check if a document with the same "data_id" already exists in the collection
