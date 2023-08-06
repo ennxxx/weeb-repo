@@ -251,18 +251,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   // .________________________.
-  // ||			           ||
+  // ||			                 ||
   // ||     Vote Comment     ||
   // ||______________________||
-  // '			            '
+  // '			                  '
 
   var upvoteComButtons = document.querySelectorAll(".sc-upvote-button");
 
-  upvoteComButtons.forEach(function (upvoteComButton, index) {
+  upvoteComButtons.forEach(function (upvoteComButton) {
     var parentCom = upvoteComButton.closest(".single-comment-main"); // Get the closest parent post container
     var downvoteComButton = parentCom.querySelector(".sc-downvote-button");
     var numVotesCom = parentCom.querySelector(".sc-num-votes");
-    var comment_id = parentCom.comment_id;
+    var comment_id = parentCom.id;
 
     var upvoteComImage = upvoteComButton.querySelector(".sc-upvote");
     var downvoteComImage = downvoteComButton.querySelector(".sc-downvote");
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function () {
         upvoteComImage.src = "/static/images/post/upvote.png";
         numVotesCom.textContent--;
       }
-      const jString = JSON.stringify({ votes: parseInt(numVotesCom.textContent), comment_id });
+      const jString = JSON.stringify({ comVotes: parseInt(numVotesCom.textContent), comment_id, check: "up"  });
       const response = await fetch("/vote-comment", {
         method: 'POST',
         body: jString,
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       console.log(response);
       if (response.status == 200)
-        location.reload();
+        console.log("Success");
       else
         console.error("Bad request");
     }
@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
         downvoteComImage.src = "/static/images/post/downvote.png";
         numVotesCom.textContent++;
       }
-      const jString = JSON.stringify({ votes: parseInt(numVotesCom.textContent), comment_id });
+      const jString = JSON.stringify({ comVotes: parseInt(numVotesCom.textContent), comment_id, check: "down"  });
       const response = await fetch("/vote-comment", {
         method: 'POST',
         body: jString,
@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       console.log(response);
       if (response.status == 200)
-        location.reload();
+        console.log("Success");
       else
         console.error("Bad request");
     }

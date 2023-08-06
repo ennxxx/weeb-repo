@@ -72,10 +72,16 @@ router.get("/view/:post_id", async (req, res) => {
                     select: 'username profile_pic' // Only populate the 'username' field of the User document
                 }
             });
+        const comments = await Comment.find().populate('author').populate('parentPost').populate('parentComment').populate('upvotedBy').populate('downvotedBy').populate('reply').lean();
 
         const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
         const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+
+        const upvoteStatusCom = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const downvoteStatusCom = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const saveStatusCom = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+
 
         res.render("view", {
             title: posts[post_id].title,
@@ -83,7 +89,10 @@ router.get("/view/:post_id", async (req, res) => {
             currentUser: currentUser,
             upvoteStatus: upvoteStatus,
             downvoteStatus: downvoteStatus,
-            saveStatus: saveStatus
+            saveStatus: saveStatus,
+            upvoteStatusCom: upvoteStatusCom,
+            downvoteStatusCom: downvoteStatusCom,
+            saveStatusCom: saveStatusCom,
         });
     } catch (error) {
         console.error("Error fetching posts:", error);
@@ -279,7 +288,7 @@ router.get("/profile/:name", async (req, res) => {
                     filtered_comments.push(found_comment);
                 }
             }
-            
+
             console.log(filtered_comments);
             for (var i = 0; i < user.postsMade.length; i++) {
                 const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
@@ -705,12 +714,77 @@ router.post("/reply", async (req, res) => {
 // This route is used for voting on comments.
 router.post("/vote-comment", async (req, res) => {
     try {
-        const comments = await Comment.find().populate('author');;
+        const comments = await Comment.find().populate('author');;;
+        const { comVotes, comment_id, check } = req.body;
+        const user = await User.findOne({ username: currentUser.username });
+        const foundupUser = comments[comment_id].upvotedBy.find(id => id.toString() === user._id.toString());
+        const founddownUser = comments[comment_id].downvotedBy.find(id => id.toString() === user._id.toString());
+        console.log("userUp:" + foundupUser);
+        console.log("userDown:" + founddownUser);
 
-        const votes = req.body.votes;
-        const comment_id = req.body.comment_id;
+        if (check == "up") {
+            if (foundupUser && !founddownUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { upvotedBy: user._id } }
+                )
+            } else if (foundupUser && founddownUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { upvotedBy: user._id } }
+                )
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { downvotedBy: user._id } }
+                )
+            } else if (!foundupUser && founddownUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $push: { upvotedBy: user._id } }
+                )
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { downvotedBy: user._id } }
+                )
+            } else {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $push: { upvotedBy: user._id } }
+                )
+            }
+        } else if (check == "down") {
+            if (founddownUser && !foundupUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { downvotedBy: user._id } }
+                )
+            } else if (founddownUser && foundupUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { downvotedBy: user._id } }
+                )
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { upvotedBy: user._id } }
+                )
+            } else if (!founddownUser && foundupUser) {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $push: { downvotedBy: user._id } }
+                )
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $pull: { upvotedBy: user._id } }
+                )
+            } else {
+                await Comment.updateOne(
+                    { _id: comments[comment_id]._id },
+                    { $push: { downvotedBy: user._id } }
+                )
+            }
+        }
 
-        if (votes && comment_id) {
+        if (comVotes && comment_id) {
             await User.updateOne(
                 { _id: comments[comment_id] },
                 { $push: { voteCtr: votes } }
