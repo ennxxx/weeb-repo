@@ -123,7 +123,7 @@ var signedIn = userData.name != "Anonymous";
 var addComment = document.getElementById("add-comment");
 
 
-if (signedIn) {
+if (!signedIn) {
   addComment.remove();
 }}
 
