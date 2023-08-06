@@ -140,13 +140,6 @@ router.get("/main-profile", async (req, res) => {
             }
         }
 
-        for (var i = 0; i < user.postsMade.length; i++) {
-            const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
-            if (found_post) {
-                filtered_postMade.push(found_post);
-            }
-        }
-
         for (var i = 0; i < user.upvotedPosts.length; i++) {
             const found_post = posts.find(post => post._id.toString() === user.upvotedPosts[i].toString());
             if (found_post) {
@@ -219,6 +212,8 @@ router.get("/main-profile", async (req, res) => {
             upvoteStatusSave: upvoteStatSave,
             downvoteStatusSave: downvoteStatSave
         });
+
+        
     } catch (error) {
         console.error("Error fetching posts:", error);
         res.status(500).json({ error: "Internal Server Error" });
@@ -1040,6 +1035,7 @@ router.post('/save', async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 })
+
 // Route for user registration
 router.post('/registerFunc', async (req, res) => {
     try {
@@ -1057,7 +1053,6 @@ router.post('/registerFunc', async (req, res) => {
                 username: "u/" + username,
                 password: password,
                 bio: "Edit Profile to add a bio and change username",
-                followers_info: "0 followers • 0 following",
                 postsMade: []
             };
             const result = await User.collection.insertOne(newUser);
