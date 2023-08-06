@@ -123,7 +123,7 @@ async function importData(data) {
     app.get("/", async (req, res) => {
       try {
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
-        const users = await User.find().populate('postsMade');
+        const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
 
         const upvoteStatusArray = posts.map(post => ({
           post: post,
@@ -145,28 +145,20 @@ async function importData(data) {
         saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
-        const userVotes = [];
-
-        for (const user of users) {
-          let totalVotes = 0;
-
-          for (const post of user.postsMade) {
-            totalVotes += post.voteCount;
-          }
-
-          userVotes.push({ username: user.username, totalVotes });
-        }
-
-        // Sort users by total votes in descending order
-        userVotes.sort((a, b) => b.totalVotes - a.totalVotes);
+        const topusers = users.map(user => {
+          const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+          return { ...user.toObject(), contributions: contributions || 0 };
+        });
 
         // Get the top 3 users
-        const top3Users = userVotes.slice(0, 3);
-        console.log(top3Users);
+        topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+        const top3users = topusers.slice(0, 3);
+
         res.render("index", {
           title: 'Home',
           posts: posts,
           toppost: posts[0],
+          topusers: top3users,
           currentUser: currentUser,
           upvoteStatusArray: upvoteStatusArray,
           downvoteStatusArray: downvoteStatusArray,
@@ -420,7 +412,7 @@ async function importData(data) {
               select: 'username title post_id name'
             }
           });
-        const users = await User.find().populate('postsMade');
+        const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
 
         const search = query.toLowerCase();
 
@@ -436,6 +428,10 @@ async function importData(data) {
         const filtered_users = users.filter(user => user.username.toLowerCase().includes(search)
           || user.name.toLowerCase().includes(search));
 
+        const filter_users = filtered_users.map(user => {
+          const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+          return { ...user.toObject(), contributions: contributions || 0 };
+        });
 
         const upvoteStatusArray = filtered_posts.map(post => ({
           post: post,
@@ -458,7 +454,7 @@ async function importData(data) {
           search_filters: search_filters,
           posts: filtered_posts,
           comments: filtered_comments,
-          users: filtered_users,
+          users: filter_users,
           currentUser: currentUser,
           upvoteStatusArray: upvoteStatusArray,
           downvoteStatusArray: downvoteStatusArray,
@@ -484,22 +480,46 @@ async function importData(data) {
 
     // This route renders the anime page
     app.get('/anime', async (req, res) => {
+      const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
       const posts = await Post.find().populate('author');
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+
+      const topusers = users.map(user => {
+        const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+        return { ...user.toObject(), contributions: contributions || 0 };
+      });
+
+      // Get the top 3 users
+      topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+      const top3users = topusers.slice(0, 3);
+
       res.render('anime', {
         title: 'Anime',
         toppost: posts[0],
+        topusers: top3users,
         currentUser: currentUser
       });
     });
 
     // This route renders the games page
     app.get('/games', async (req, res) => {
+      const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
       const posts = await Post.find().populate('author');
       posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+
+      const topusers = users.map(user => {
+        const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+        return { ...user.toObject(), contributions: contributions || 0 };
+      });
+
+      // Get the top 3 users
+      topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+      const top3users = topusers.slice(0, 3);
+
       res.render('games', {
         title: 'Games',
         toppost: posts[0],
+        topusers: top3users,
         currentUser: currentUser
       });
     });

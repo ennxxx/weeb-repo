@@ -600,6 +600,7 @@ hr {
 
 .check-users {
   display: flex;
+  align-items: center;
   flex-direction: row;
   margin-bottom: 25px;
 }
@@ -623,16 +624,10 @@ hr {
   font-weight: bold;
 }
 
-.follow-btn {
-  border: none;
-  background-color: transparent;
-  font-weight: 600;
-  color: #6C8CA4;
+.upvote-count {
+  color: #1E883E;
   margin-left: auto;
-}
-
-.follow-btn:hover {
-  color: #2C394B;
+  margin-right: 15px;
 }
 
 .top-post-container {
@@ -968,6 +963,7 @@ hr {
 
 .font-animesec {
   font-size: 40px;
+  margin-bottom: 20px;
   color: #2C394B;
 }
 
@@ -993,6 +989,7 @@ hr {
 
 .font-gamingsec {
   font-size: 40px;
+  margin-bottom: 20px;
   color: #2C394B;
 }
 
@@ -2152,6 +2149,7 @@ header {
 
 .search-user {
   display: flex;
+  align-items: center;
   flex-direction: row;
   border-radius: 10px;
   border: 0.75px solid #858E99;

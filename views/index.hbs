@@ -53,7 +53,6 @@
     <div class="postpoll-container">
         <!-- left post -->
         <div class="left-post">
-
             <!-- Create a Post -->
             <div class="user-post-container">
                 <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
@@ -72,30 +71,12 @@
         <div class="polls-container">
 
             <!-- Check This Out -->
-            <h3>Check this out</h3>
+            <h3>Top Contributors</h3>
             <hr>
             <div class="check-container">
-                <div class="check-users">
-                    <img src="/static/images/profile/Pochacco.png" class="post-profile">
-                    <div class="name-container">
-                        <h5><a href="/profile/Pochacco">Pochacco</a></h5>
-                        <p><a href="/profile/Pochacco">u/pocchi</a></p>
-                    </div>
-                </div>
-                <div class="check-users">
-                    <img src="/static/images/profile/Johann.png" class="post-profile">
-                    <div class="name-container">
-                        <h5><a href="/profile/Johann">Johann</a></h5>
-                        <p><a href="/profile/Johann">u/Lotad_is_Life</a></p>
-                    </div>
-                </div>
-                <div class="check-users">
-                    <img src="/static/images/profile/Eugene.png" class="post-profile">
-                    <div class="name-container">
-                        <h5><a href="/profile/Eugene">Eugene</a></h5>
-                        <p><a href="/profile/Eugene">u/DedInComSci</a></p>
-                    </div>
-                </div>
+                {{#each topusers}}
+                {{> topUsers}}
+                {{/each}}
             </div>
 
             <!-- Top Post -->
