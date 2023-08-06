@@ -24,19 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return; // Exit the function if username or password is empty
             }
 
-            // const response = await fetch('/signinFunc'); // Replace '/api/data' with the actual endpoint on your server
-            // if (!response.ok) {
-            //     warning.textContent = 'Sign-in failed! Try Again.';
-            //     usernameInput.value = '';
-            //     passwordInput.value = '';
-            //     throw new Error('Request failed.');
-            // }
-            // const userDB = await response.json();
-            // // Check if passwords match before sending the registration data
-            // console.log(username, password);
-            // const userFound = userDB.find(user => user.username === ("u/" + username) && user.password === password);
-            // console.log(userFound);
-
             const response = await fetch('/signinFunc', {
                 method: 'POST',
                 headers: {
@@ -64,6 +51,24 @@ document.addEventListener("DOMContentLoaded", function () {
             // Handle the error as needed
         }
     });
+
+    const anonButton = document.getElementById('anonButton');
+    anonButton.addEventListener('click', async function () {
+        console.log("Anonymous sign-in");
+        const response = await fetch(`/signinAnon`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                user_id: 0,
+                name: 'Anonymous',
+                username: 'u/anonymous'
+            })
+        });
+
+    window.location.href='/';
+    })
 });
 
 

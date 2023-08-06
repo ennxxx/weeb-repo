@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // .________________________.
   // ||			                 ||
-  // ||        Sign In       ||
+  // ||       Anon User      ||
   // ||______________________||
   // '			                  '
 async function navbarSwitcher() {

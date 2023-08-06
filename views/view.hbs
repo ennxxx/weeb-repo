@@ -7,7 +7,7 @@
         <div class="actual-post">
             {{> viewpost post}}
         </div>
-        <div class="add-comment">
+        <div class="add-comment" id="add-comment">
             <img src="/static/images/profile/{{currentUser.profile_pic}}" class="post-profile">
             <textarea class="comment-area" placeholder="Write a Comment..."></textarea>
             <button onclick="handleCommentCreation()" class="submit-button">

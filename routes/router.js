@@ -70,9 +70,9 @@ router.get("/view/:post_id", async (req, res) => {
         const downvoteStatus = posts[post_id].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
         const saveStatus = posts[post_id].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
 
-        const upvoteStatusCom = posts[post_id].upvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const downvoteStatusCom = posts[post_id].downvotedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
-        const saveStatusCom = posts[post_id].savedBy.some(user => user._id.equals(currentUser._id)) ? 1 : 0;
+        const upvoteStatusCom = posts[post_id].upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const downvoteStatusCom = posts[post_id].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
+        const saveStatusCom = posts[post_id].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
 
 
         res.render("view", {
@@ -97,7 +97,7 @@ router.get("/main-profile", async (req, res) => {
     try {
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
-        const user = await User.findOne({ username: currentUser.username })
+        const user = await User.findOne({ username: req.session.user.username })
             .populate('postsMade');
 
         const comments = await Comment.find()
@@ -154,7 +154,6 @@ router.get("/main-profile", async (req, res) => {
             if (found_post) {
                 filtered_saved.push(found_post);
             }
-            console.log(found_post);
         }
         const upvoteStatPostMade = filtered_postMade.map(post => ({
             post: post,
@@ -200,7 +199,7 @@ router.get("/main-profile", async (req, res) => {
             downvoted: filtered_downvoted,
             saved: filtered_saved,
             filters: filters,
-            currentUser: currentUser,
+            currentUser: req.session.user,
             upvoteStatusArray: upvoteStatPostMade,
             downvoteStatusArray: downvoteStatPostMade,
             saveStatusArray: saveStatPostMade,
@@ -268,7 +267,7 @@ router.get("/profile/:name", async (req, res) => {
                 }
             });
 
-        if (currentUser.username === user.username) {
+        if (req.session.user.username === user.username) {
             res.redirect('/main-profile');
         } else {
             const filtered_comments = [];
@@ -281,13 +280,11 @@ router.get("/profile/:name", async (req, res) => {
                 }
             }
 
-            console.log(filtered_comments);
             for (var i = 0; i < user.postsMade.length; i++) {
                 const found_post = posts.find(post => post._id.toString() === user.postsMade[i]._id.toString());
                 if (found_post) {
                     filtered_postMade.push(found_post);
                 }
-                console.log(found_post);
             }
 
             const upvoteStatusArray = filtered_postMade.map(post => ({
@@ -311,7 +308,7 @@ router.get("/profile/:name", async (req, res) => {
                 user: user,
                 comments: filtered_comments,
                 filters: filters,
-                currentUser: currentUser,
+                currentUser: req.session.user,
                 postsMade: filtered_postMade,
                 upvoteStatusArray: upvoteStatusArray,
                 downvoteStatusArray: downvoteStatusArray,
@@ -439,7 +436,6 @@ router.get('/featured', async (req, res) => {
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
         const randi = Math.floor(Math.random() * posts.length);
-        console.log(randi);
         const upvoteStatus = posts[randi].upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
         const downvoteStatus = posts[randi].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
         const saveStatus = posts[randi].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
@@ -480,7 +476,6 @@ router.post("/post", async (req, res) => {
         const posts = await Post.find().populate('author');
         const users = await User.find().populate('postsMade');
         console.log("POST Request to /post received.");
-        console.log(req.body);
         const { title, content, image } = req.body;
         if (title && content) {
             const newPost = {
@@ -524,6 +519,8 @@ router.put("/post/:post_id", async (req, res) => {
         const posts = await Post.find().populate('author');
         const postToUpdate = posts.find(post => post.post_id === postIdToUpdate);
 
+        console.log("PUT Request to /post/" + postIdToUpdate +  " received.");
+
         if (!postToUpdate) {
             return res.status(404).json({ error: "Post not found" });
         }
@@ -550,6 +547,8 @@ router.delete("/post/:post_id", async (req, res) => {
     try {
         const postIdToDelete = parseInt(req.params.post_id);
         const postToDelete = await Post.findOneAndDelete({ post_id: postIdToDelete });
+
+        console.log("DELETE Request to /post/" + postIdToDelete + " received.");
 
         if (!postToDelete) {
             return res.status(404).json({ error: "Post not found" });
@@ -708,7 +707,7 @@ router.post("/vote-comment", async (req, res) => {
     try {
         const comments = await Comment.find().populate('author');;;
         const { comVotes, comment_id, check } = req.body;
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
         const foundupUser = comments[comment_id].upvotedBy.find(id => id.toString() === user._id.toString());
         const founddownUser = comments[comment_id].downvotedBy.find(id => id.toString() === user._id.toString());
         console.log("userUp:" + foundupUser);
@@ -953,7 +952,7 @@ router.post('/save', async (req, res) => {
     try {
         const posts = await Post.find().populate('author');
         const post_id = req.body.post_id;
-        const user = await User.findOne({ username: currentUser.username });
+        const user = await User.findOne({ username: req.session.user.username });
         const foundSave = user.savedPosts.includes(posts[post_id]._id);
         const foundUser = posts[post_id].savedBy.includes(user._id);;
 
@@ -1062,21 +1061,20 @@ router.get('/getCurrentUser', async (req, res) => {
     console.log(req.session.user);
 });
 
-router.post("/upvote", async (req, res) => {
+router.put('/signinAnon', async (req,res) => {
     try {
-        // Query the database to find the user
-        const user = await User.findOne({ username: "u/" + username, password: password });
-        console.log(user);
-        if (user) {
-            // Set the user information in the session
-            currentUser = user;
-            res.status(200).json({ message: 'Sign-in successful' });
-        } else {
-            res.status(401).json({ message: 'User not found! Please register first.' });
-        }
+        console.log("PUT Request to /signinAnon received.");
+
+        // Assuming req.body contains the new user data
+        const newUser = req.body;
+        console.log("signinAnon received:" + req.body);
+
+        req.session.user = newUser;
+
+        res.status(200).json({ message: "Edited profile successfully" });
     } catch (error) {
-        console.error('Error during sign-in:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error("Error editing profile:", error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 

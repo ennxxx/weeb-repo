@@ -1,4 +1,30 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // .________________________.
+  // ||			                 ||
+  // ||       Anon User      ||
+  // ||______________________||
+  // '			                  '
+  async function anonSwitcher() {
 
+    const response = await fetch(`/getCurrentUser`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  
+  var userData = await response.json();
+  var signedIn = userData.name != "Anonymous";
+
+  var userPostContainer = document.getElementById("user-post-container");
+
+
+  if (!signedIn) {
+    userPostContainer.remove();
+  }}
+
+  anonSwitcher();
+});
 // ._____________________________.
 // ||                           ||
 // ||      Text Functions       ||
