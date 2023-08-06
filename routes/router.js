@@ -18,7 +18,8 @@ const upload = multer({ dest: 'public/images/profile' });
 // This route renders the about us page.
 router.get('/aboutus', (req, res) => {
     res.render('aboutus', {
-        title: 'About Us'
+        title: 'About Us',
+        currentUser: req.session.user
     });
 });
 
