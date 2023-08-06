@@ -29,7 +29,26 @@ const commentSchema = new mongoose.Schema({
     upvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     downvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     voteCtr: { type: Number },
-    edited: { type: Boolean, default: false }
+    edited: { type: Boolean, default: false },
+    dateMade: { type: Date, default: Date.now }
+});
+
+commentSchema.virtual('formattedDateComment').get(function () {
+    return this.dateMade.toLocaleString('en-US', {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: undefined,
+        minute: undefined,
+        hour12: false
+    }).replace(",", "");
+});
+
+commentSchema.pre('save', function (next) {
+    if (this.isNew) {
+        this.dateMade = new Date();
+    }
+    next();
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
@@ -49,7 +68,30 @@ const postSchema = new mongoose.Schema({
     savedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     voteCtr: { type: Number },
     comCtr: { type: Number },
-    edited: { type: Boolean, default: false }
+    edited: { type: Boolean, default: false },
+    dateMade: { type: Date, default: Date.now }
+});
+
+postSchema.virtual('formattedDate').get(function () {
+    return this.dateMade.toLocaleString('en-US', {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+    }).replace(",", "");
+});
+
+postSchema.pre('save', function (next) {
+    // Check if this is a new post (i.e., not an existing one being updated)
+    if (this.isNew) {
+        console.log('New post being created. Setting dateMade to:', new Date());
+        this.dateMade = new Date(); // Set the dateMade to the current date and time
+    } else {
+        console.log('Existing post being updated. dateMade:', this.dateMade);
+    }
+    next();
 });
 
 const Post = mongoose.model('Post', postSchema);

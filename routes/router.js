@@ -14,7 +14,7 @@ const router = Router();
 // This route renders the home page.
 router.get("/", async (req, res) => {
     try {
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').populate('dateMade');
         const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
 
         const upvoteStatusArray = posts.map(post => ({
@@ -75,7 +75,8 @@ router.get("/view/:post_id", async (req, res) => {
                     model: 'User',
                     select: 'username profile_pic' // Only populate the 'username' field of the User document
                 }
-            });
+            })
+            .populate('dateMade');
         const comments = await Comment.find().populate('author').populate('parentPost').populate('parentComment').populate('upvotedBy').populate('downvotedBy').populate('reply').lean();
 
         const upvoteStatus = posts[post_id].upvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
@@ -109,7 +110,7 @@ router.get("/main-profile", async (req, res) => {
     try {
 
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').populate('dateMade');
         const user = await User.findOne({ username: req.session.user.username })
             .populate('postsMade');
 
@@ -263,7 +264,7 @@ router.get("/profile/:name", async (req, res) => {
         const name = req.params.name;
         const filters = ['Posts', 'Comments'];
         const users = await User.find().populate('postsMade');
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').populate('dateMade');
         const user = await User.findOne({ name: name })
             .populate('postsMade');
         const comments = await Comment.find()
@@ -312,7 +313,6 @@ router.get("/profile/:name", async (req, res) => {
                 saveStatus: post.savedBy.some(users => users._id.equals(user._id)) ? 1 : 0
             }));
 
-
             res.render("profile", {
                 title: user.name,
                 user: user,
@@ -336,7 +336,7 @@ router.get("/search/:query", async (req, res) => {
     try {
         const query = req.params.query;
         const search_filters = ['Posts', 'Comments', 'Users'];
-        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
+        const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').populate('dateMade');
         const comments = await Comment.find()
             .populate('author')
             .populate({
@@ -510,14 +510,16 @@ router.post("/post", async (req, res) => {
         const posts = await Post.find().populate('author');
         const users = await User.find().populate('postsMade');
         console.log("POST Request to /post received.");
-        const { title, content, image } = req.body;
+        const { title, content, image, dateMade } = req.body;
         if (title && content) {
+            const currentDate = new Date();
             const newPost = {
                 post_id: posts.length,
                 title: title,
                 author: req.session.user._id,
                 content: content,
                 image: image,
+                dateMade: (dateMade !== undefined) ? dateMade : currentDate,
                 comments: [],
                 voteCtr: 0,
                 comCtr: 0,
@@ -527,6 +529,7 @@ router.post("/post", async (req, res) => {
                 edited: false,
                 __v: 0
             };
+
             const result = await Post.collection.insertOne(newPost);
             console.log("New post inserted with _id:", result.insertedId);
 
@@ -606,10 +609,10 @@ router.post("/comment", async (req, res) => {
         const comments = await Comment.find().populate('author');
         const user = await User.findOne({ username: req.session.user.username });
         console.log("POST Request to /comment received.");
-        const { content, post_id } = req.body;
+        const { content, post_id, dateMade } = req.body;
 
         if (content && post_id) {
-
+            const currentDate = new Date();
             const newComment = {
                 author: req.session.user._id,
                 content: content,
@@ -617,6 +620,7 @@ router.post("/comment", async (req, res) => {
                 comment_id: comments.length,
                 parentPost: posts[post_id]._id,
                 parentComment: null,
+                dateMade: (dateMade !== undefined) ? dateMade : currentDate,
                 reply: [],
                 voteCtr: 0
             };
@@ -1100,7 +1104,7 @@ router.post('/signinFunc', async (req, res) => {
 
     try {
         // Query the database to find the user
-        const user = await User.findOne({ username: "u/" + username});
+        const user = await User.findOne({ username: "u/" + username });
 
         if (user) {
             // Compare the provided plain password with the hashed password
