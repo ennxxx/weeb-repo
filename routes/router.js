@@ -604,7 +604,7 @@ router.post("/comment", async (req, res) => {
     try {
         const posts = await Post.find();
         const comments = await Comment.find().populate('author');
-
+        const user = await User.findOne({ username: req.session.user.username });
         console.log("POST Request to /comment received.");
         const { content, post_id } = req.body;
 
@@ -623,6 +623,16 @@ router.post("/comment", async (req, res) => {
 
             const result = await Comment.collection.insertOne(newComment);
             console.log("New comment inserted with _id:", result.insertedId);
+
+            const updatedUser = await User.findOneAndUpdate(
+                { _id: user._id },
+                {
+                    $push: { commentsMade: result.insertedId } // Add the new comment to the comments arrayd
+                },
+                { new: true } // Return the updated document after the update is routerlied
+            );
+            console.log("New comment inserted with _id:", result.insertedId);
+
 
             const postIdToUpdate = posts[post_id]._id;
             const updatedPost = await Post.findOneAndUpdate(
