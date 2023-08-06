@@ -829,7 +829,7 @@ router.post("/vote-comment", async (req, res) => {
         if (comVotes && comment_id) {
             await Comment.updateOne(
                 { _id: comments[comment_id] },
-                { $push: { voteCtr: comVotes } }
+                { $set: { voteCtr: comVotes } }
             )
 
             res.status(200);
