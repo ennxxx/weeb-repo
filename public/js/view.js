@@ -104,6 +104,31 @@ async function handleEditComment(display, element, comment_id) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    // .________________________.
+  // ||			                 ||
+  // ||       Anon User      ||
+  // ||______________________||
+  // '			                  '
+async function anonSwitcher() {
+
+  const response = await fetch(`/getCurrentUser`, {
+  method: 'GET',
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
+
+var userData = await response.json();
+var signedIn = userData.name != "Anonymous";
+var addComment = document.getElementById("add-comment");
+
+
+if (signedIn) {
+  addComment.remove();
+}}
+
+anonSwitcher();
+
   // Add event listeners for edit and delete buttons
   var editButtons = document.querySelectorAll(".sc-edit-button");
   var deleteButtons = document.querySelectorAll(".sc-delete-button");

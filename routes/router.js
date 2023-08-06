@@ -643,6 +643,7 @@ router.post("/comment", async (req, res) => {
     }
 });
 
+// This route is for deleting comments.
 router.delete("/comment/:comment_id", async (req, res) => {
     try {
         const commentIdToDelete = parseInt(req.params.comment_id); // Convert comment_id to an integer
@@ -686,6 +687,7 @@ router.delete("/comment/:comment_id", async (req, res) => {
     }
 });
 
+// This route is for editing comments.
 router.put("/comment/:comment_id", async (req, res) => {
     try {
         const commentIdToUpdate = parseInt(req.params.comment_id);
