@@ -347,7 +347,7 @@ router.get("/search/:query", async (req, res) => {
                     select: 'username title post_id name'
                 }
             });
-        const users = await User.find().populate('postsMade');
+        const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
 
         const search = query.toLowerCase();
 
@@ -363,6 +363,10 @@ router.get("/search/:query", async (req, res) => {
         const filtered_users = users.filter(user => user.username.toLowerCase().includes(search)
             || user.name.toLowerCase().includes(search));
 
+        const filter_users = filtered_users.map(user => {
+            const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+            return { ...user.toObject(), contributions: contributions || 0 };
+        });
 
         const upvoteStatusArray = filtered_posts.map(post => ({
             post: post,
@@ -385,7 +389,7 @@ router.get("/search/:query", async (req, res) => {
             search_filters: search_filters,
             posts: filtered_posts,
             comments: filtered_comments,
-            users: filtered_users,
+            users: filter_users,
             currentUser: req.session.user,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
