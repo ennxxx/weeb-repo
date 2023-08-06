@@ -18,18 +18,21 @@ document.addEventListener("DOMContentLoaded", function () {
             warning.textContent = '';
             const username = usernameInput.value;
             const password = passwordInput.value;
+            const rememberMe = document.getElementById('remember-me').checked;
 
             if (username === '' || password === '') {
                 warning.textContent = 'Username or password cannot be empty';
                 return; // Exit the function if username or password is empty
             }
 
+            const body = JSON.stringify({username, password, rememberMe} );
+
             const response = await fetch('/signinFunc', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: body
             });
 
             if (!response.ok) {

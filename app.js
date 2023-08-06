@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 
 // Import environment variables from .env file. and fs module.
 import 'dotenv/config';
@@ -127,17 +128,58 @@ async function main() {
       saveUninitialized: true
     }));
 
-    app.use((req, res, next) => {
+    app.use(cookieParser());
+
+
+    app.use(async (req, res, next) => {
       // Check if user is already set in session
+    
       if (!req.session.user) {
-        req.session.user = {
-          user_id: 0,
-          name: 'Anonymous',
-          username: 'u/anonymous'
-        };
+        // Check for the 'rememberMe' cookie
+        const rememberMeCookie = req.cookies.rememberMe;
+    
+        if (rememberMeCookie) {
+          try {
+            // Split the JWT into its components: header, payload, and signature
+            const parts = rememberMeCookie.split('.');
+    
+            if (parts.length !== 3) {
+              console.error('Invalid JWT format');
+              return;
+            }
+    
+            // Decode and parse the payload
+            const payload = JSON.parse(Buffer.from(parts[1], 'base64').toString('utf-8'));
+            console.log('Payload:', payload.userId);
+    
+            // Extract user information from the payload
+            const user_id = payload.userId;
+    
+            // Fetch user document from the database
+            const user = await User.findOne({ _id: user_id }).exec();
+            console.log('User information from JWT:', user);
+    
+            if (user) {
+              // Log in the user using the information from the JWT
+              req.session.user = user;
+            } else {
+              console.log('User not found');
+            }
+          } catch (error) {
+            console.error('Error parsing rememberMe cookie:', error);
+          }
+        } else {
+          // Set default user information for anonymous user
+          req.session.user = {
+            user_id: 0,
+            name: 'Anonymous',
+            username: 'u/anonymous'
+          };
+        }
       }
-      next(); // Continue to the next middleware or route handler
+      next();
     });
+    
 
     // Configure static file serving for the 'profile' folder
     app.use('/static/images/profile', express.static(path.join(__dirname, 'profile')));

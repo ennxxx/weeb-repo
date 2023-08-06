@@ -7,8 +7,10 @@ import { User } from '../models/schemas.js';
 import { Post } from '../models/schemas.js';
 import { Comment } from '../models/schemas.js';
 
-// Importing hashing module
+// Importing hashing module and cookie thing
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser';
 
 const router = Router();
 const upload = multer({ dest: 'public/images/profile' });
@@ -1126,25 +1128,57 @@ router.post('/registerFunc', async (req, res) => {
 });
 
 router.post('/signinFunc', async (req, res) => {
-    const { username, password } = req.body;
-
+    const { username, password, rememberMe } = req.body;
+    console.log(username + " " + password + " " + rememberMe)
     try {
-        // Query the database to find the user
-        const user = await User.findOne({ username: "u/" + username });
+        // Check if the rememberMe cookie exists;
+        const rememberMeToken = req.cookies.rememberMe;
+        if (rememberMeToken) {
+            try {
+                // Verify the remember me token
+                const decodedToken = jwt.verify(rememberMeToken, 'a186684b6439ce08d7e48d27b73aea241f52b5f5784c48b43182e965762bc753');
+                // Query the database to find the user
+                const user = await User.findById(decodedToken.userId);
 
-        if (user) {
-            // Compare the provided plain password with the hashed password
-            const passwordMatch = await bcrypt.compare(password, user.password);
-            console.log("passwordMatch: " + passwordMatch + " " + user.password + " " + password);
+                if (user) {
+                    // Set the user information in the session
+                    req.session.user = user;
+                    return res.status(200).json({ message: 'Sign-in successful' });
+                }
+            } catch (tokenError) {
+                // Token verification failed, continue with regular login
+            }
+        }
 
-            if (passwordMatch) {
-                // Set the user information in the session
-                req.session.user = user;
-                res.status(200).json({ message: 'Sign-in successful' });
-            } else
-                res.status(401).json({ message: 'Incorrect password! Please try again.' });
-        } else {
-            res.status(401).json({ message: 'User not found! Please register first.' });
+        try {
+            // Query the database to find the user
+            const user = await User.findOne({ username: "u/" + username });
+
+            if (user) {
+                // Compare the provided plain password with the hashed password
+                const passwordMatch = await bcrypt.compare(password, user.password);
+                console.log("passwordMatch: " + passwordMatch + " " + user.password + " " + password);
+
+                if (passwordMatch) {
+
+                    if (rememberMe) {
+                        const rememberMeToken = jwt.sign({ userId: user._id }, "a186684b6439ce08d7e48d27b73aea241f52b5f5784c48b43182e965762bc753", {
+                            expiresIn: '21d'
+                        });
+                        res.cookie('rememberMe', rememberMeToken, { maxAge: 21 * 24 * 60 * 60 * 1000, httpOnly: true });
+                    }
+
+                    // Set the user information in the session
+                    req.session.user = user;
+                    res.status(200).json({ message: 'Sign-in successful' });
+                } else
+                    res.status(401).json({ message: 'Incorrect password! Please try again.' });
+            } else {
+                res.status(401).json({ message: 'User not found! Please register first.' });
+            }
+        } catch (error) {
+            console.error('Error during sign-in:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
         }
     } catch (error) {
         console.error('Error during sign-in:', error);
@@ -1174,7 +1208,6 @@ router.put('/signinAnon', async (req, res) => {
     }
 });
 
-
 // Logout route
 router.get('/logout', (req, res) => {
     // Destroy the user session
@@ -1184,7 +1217,7 @@ router.get('/logout', (req, res) => {
             res.status(500).json({ error: 'Internal Server Error' });
             return;
         }
-
+        res.clearCookie('rememberMe');
         res.redirect('/signin');
     });
 });
