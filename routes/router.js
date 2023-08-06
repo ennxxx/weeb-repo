@@ -95,6 +95,7 @@ router.get("/view/:post_id", async (req, res) => {
 // This route renders the main-profile page.
 router.get("/main-profile", async (req, res) => {
     try {
+
         const filters = ['Posts', 'Comments', 'Upvoted', 'Downvoted', 'Saved'];
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy').lean();
         const user = await User.findOne({ username: req.session.user.username })
@@ -155,6 +156,7 @@ router.get("/main-profile", async (req, res) => {
                 filtered_saved.push(found_post);
             }
         }
+
         const upvoteStatPostMade = filtered_postMade.map(post => ({
             post: post,
             upvoteStatus: post.upvotedBy.some(users => users._id.equals(user._id)) ? 1 : 0
@@ -487,9 +489,10 @@ router.post("/post", async (req, res) => {
                 comments: [],
                 voteCtr: 0,
                 comCtr: 0,
-                upvotedPost: [],
-                downvotedPost: [],
-                savedPost: [],
+                upvotedBy: [],
+                downvotedBy: [],
+                savedBy: [],
+                edited: false,
                 __v: 0
             };
             const result = await Post.collection.insertOne(newPost);
