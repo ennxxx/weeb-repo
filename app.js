@@ -82,12 +82,12 @@ async function main() {
     const app = express();
     connectToDB();
 
-    // Waits for the data to be imported before starting the Express server.
-    mongoose.connection.dropDatabase();
-    console.log('WeebDB Database dropped and prepped for data insertion...');
-    await importData('user');
-    await importData('post');
-    await importData('comment');
+    // Used for dropping and populating the DB in a local environment..
+    // mongoose.connection.dropDatabase();
+    // console.log('WeebDB Database dropped and prepped for data insertion...');
+    // await importData('user');
+    // await importData('post');
+    // await importData('comment');
 
     // Start the Express server after importing the data
     app.engine('hbs', exphbs.engine({
