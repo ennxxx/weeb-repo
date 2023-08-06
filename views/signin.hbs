@@ -29,49 +29,14 @@
                     <input type="checkbox" id="remember-me">
                     <label for="remember-me">Remember Me</label>
                 </div>
-                <div class="forget">
-                    <a href="#" id="forget-password">Forget Password?</a>
-                </div>
             </div>
             <div class="button-container">
                 <input type="button" class="button" value="Sign In" id="signin-button">
                 <input type="button" class="button" value="Register" onclick="window.location.href='/register'">
-            <input type="button" class="button" value="Continue Anonymously" id="anonButton">
+                <input type="button" class="button" value="Continue Anonymously" id="anonButton">
             </div>
         </form>
     </div>
-
-    <!--Forget Password Div-->
-    <div id="forget-popup">
-        <div class="forget-popup-content">
-            <button id="forget-close-button">✕</button>
-            <h2>Reset your password</h2>
-            <p> Enter your username associated with<br>
-                the account to reset your password.</p>
-            <form>
-                <input type="text" placeholder="Username" id="username">
-                <input type="submit" value="Reset" id="reset">
-            </form>
-        </div>
-    </div>
-
-    <!--Forget Password Popup-->
-    <script>
-        var forgetPasswordLink = document.getElementById('forget-password');
-        var popup = document.getElementById('forget-popup');
-        var closeButton = document.getElementById('forget-close-button');
-
-        // Open the pop-up window when the forget password link is clicked
-        forgetPasswordLink.addEventListener('click', function (e) {
-            e.preventDefault();
-            popup.style.display = 'flex';
-        });
-
-        // Close the pop-up window when the user clicks the close button
-        closeButton.addEventListener('click', function () {
-            popup.style.display = 'none';
-        });
-    </script>
 
 </body>
 
