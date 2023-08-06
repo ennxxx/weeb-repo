@@ -7,22 +7,21 @@ document.addEventListener("DOMContentLoaded", function () {
   async function anonSwitcher() {
 
     const response = await fetch(`/getCurrentUser`, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    var userData = await response.json();
-    var signedIn = userData.name != "Anonymous";
-
-    var userPostContainer = document.getElementById("user-post-container");
-
-
-    if (!signedIn) {
-      userPostContainer.remove();
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json"
     }
-  }
+  });
+  
+  var userData = await response.json();
+  var signedIn = userData.name != "Anonymous";
+
+  var userPostContainer = document.getElementById("user-post-container");
+
+
+  if (!signedIn) {
+    userPostContainer.remove();
+  }}
 
   anonSwitcher();
 });
@@ -374,7 +373,6 @@ document.addEventListener("DOMContentLoaded", function () {
         downvoteImage.src = "/static/images/post/downvote.png"
         numVotes.textContent++;
         numVotes.textContent++;
-
       } else {
         upvoteImage.src = "/static/images/post/upvote.png";
         numVotes.textContent--;
