@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // Import environment variables from .env file. and fs module.
-import 'dotenv/config';
+// import 'dotenv/config';
 import fs from 'fs';
 
 // Import helpers, DB, and router
@@ -141,7 +141,7 @@ async function main() {
     app.use(router);
 
     // This route is used for connecting to the server.
-    app.listen(3000, () => console.log("Server is running on port 3000"));
+    app.listen(process.env.PORT, () => console.log("Server is running on port 3000"));
   } catch (error) {
     console.error("Error:", error);
     process.exit(1);

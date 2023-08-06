@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 export async function connectToDB() {
     try {
-        await mongoose.connect(process.env.MONGODB_URI + process.env.DB_NAME, {
+        await mongoose.connect(process.env.PORT, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
