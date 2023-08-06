@@ -12,7 +12,7 @@ const router = Router();
 router.get("/", async (req, res) => {
     try {
         const posts = await Post.find().populate('author').populate('comments').populate('upvotedBy').populate('downvotedBy').populate('savedBy');
-        const users = await User.find().populate('postsMade');
+        const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
 
         const upvoteStatusArray = posts.map(post => ({
             post: post,
@@ -34,12 +34,21 @@ router.get("/", async (req, res) => {
         saveStatusArray.sort((post1, post2) => post2.post.voteCtr - post1.post.voteCtr);
         posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
 
-        
+        const topusers = users.map(user => {
+            const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+            return { ...user.toObject(), contributions: contributions || 0 };
+        });
+
+        // Get the top 3 users
+        topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+        const top3users = topusers.slice(0, 3);
+
         res.render("index", {
             title: 'Home',
             posts: posts,
             toppost: posts[0],
-            currentUser: req.session.user,
+            topusers: top3users,
+            currentUser: currentUser,
             upvoteStatusArray: upvoteStatusArray,
             downvoteStatusArray: downvoteStatusArray,
             saveStatusArray: saveStatusArray
@@ -402,24 +411,48 @@ router.get('/signin', (req, res) => {
 });
 
 // This route renders the anime page
-router.get('/anime', async (req, res) => {
+app.get('/anime', async (req, res) => {
+    const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
     const posts = await Post.find().populate('author');
     posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+
+    const topusers = users.map(user => {
+        const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+        return { ...user.toObject(), contributions: contributions || 0 };
+    });
+
+    // Get the top 3 users
+    topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+    const top3users = topusers.slice(0, 3);
+
     res.render('anime', {
         title: 'Anime',
         toppost: posts[0],
-        currentUser: req.session.user
+        topusers: top3users,
+        currentUser: currentUser
     });
 });
 
 // This route renders the games page
-router.get('/games', async (req, res) => {
+app.get('/games', async (req, res) => {
+    const users = await User.find().populate('postsMade').populate('commentsMade').populate('upvotedPosts').populate('downvotedPosts');
     const posts = await Post.find().populate('author');
     posts.sort((post1, post2) => post2.voteCtr - post1.voteCtr);
+
+    const topusers = users.map(user => {
+        const contributions = user.postsMade.length + user.commentsMade.length + user.upvotedPosts.length + user.downvotedPosts.length;
+        return { ...user.toObject(), contributions: contributions || 0 };
+    });
+
+    // Get the top 3 users
+    topusers.sort((user1, user2) => user2.contributions - user1.contributions);
+    const top3users = topusers.slice(0, 3);
+
     res.render('games', {
         title: 'Games',
         toppost: posts[0],
-        currentUser: req.session.user
+        topusers: top3users,
+        currentUser: currentUser
     });
 });
 
@@ -522,7 +555,7 @@ router.put("/post/:post_id", async (req, res) => {
         const posts = await Post.find().populate('author');
         const postToUpdate = posts.find(post => post.post_id === postIdToUpdate);
 
-        console.log("PUT Request to /post/" + postIdToUpdate +  " received.");
+        console.log("PUT Request to /post/" + postIdToUpdate + " received.");
 
         if (!postToUpdate) {
             return res.status(404).json({ error: "Post not found" });
@@ -836,7 +869,7 @@ router.post("/vote", async (req, res) => {
                     { _id: user._id },
                     { $pull: { downvotedPosts: posts[post_id]._id } }
                 )
-               
+
             } else {
                 await User.updateOne(
                     { _id: user._id },
@@ -1064,7 +1097,7 @@ router.get('/getCurrentUser', async (req, res) => {
     console.log(req.session.user);
 });
 
-router.put('/signinAnon', async (req,res) => {
+router.put('/signinAnon', async (req, res) => {
     try {
         console.log("PUT Request to /signinAnon received.");
 
