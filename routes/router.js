@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import express from 'express';
+import multer from 'multer';
 
 // Import the schemas
 import { User } from '../models/schemas.js';
@@ -10,6 +11,14 @@ import { Comment } from '../models/schemas.js';
 import bcrypt from 'bcrypt';
 
 const router = Router();
+const upload = multer({ dest: 'public/images/profile' });
+
+// This route renders the about us page.
+router.get('/aboutus', (req, res) => {
+    res.render('aboutus', {
+        title: 'About Us'
+    });
+});
 
 // This route renders the home page.
 router.get("/", async (req, res) => {
@@ -227,11 +236,8 @@ router.get("/main-profile", async (req, res) => {
 // This route renders the edit profile page.
 router.get("/edit", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.session.user.username });
-
         res.render("edit", {
             title: "Edit Profile",
-            user: user,
             currentUser: req.session.user
         });
     } catch (error) {
@@ -243,17 +249,37 @@ router.get("/edit", async (req, res) => {
 // This route allows the profile to be edited
 router.put("/edit-profile", async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.session.user.username });
+        const currentUser = await User.findOne({ username: req.session.user.username });
         const { name, bio } = req.body;
 
-        user.name = name;
-        user.bio = bio;
+        req.session.user.name = name;
+        req.session.user.bio = bio;
 
-        await user.save();
+        currentUser.name = name;
+        currentUser.bio = bio;
+
+        await currentUser.save();
 
         res.status(200).json({ message: "Edited profile successfully" });
     } catch (error) {
         console.error("Error editing profile:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// This route allows the profile picture to be uploaded
+router.post("/upload-profile-pic", upload.single('profilePic'), async (req, res) => {
+    try {
+        const currentUser = await User.findOne({ username: req.session.user.username });
+        req.session.user.profile_pic = req.file.filename;
+
+        currentUser.profile_pic = req.file.filename;
+
+        await currentUser.save();
+
+        res.status(200).json({ message: "Profile picture uploaded successfully", filename: req.file.filename });
+    } catch (error) {
+        console.error("Error uploading profile picture:", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });

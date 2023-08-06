@@ -3,7 +3,7 @@ import autopopulate from 'mongoose-autopopulate';
 
 const userSchema = new mongoose.Schema({
     user_id: { type: Number, required: true, unique: true },
-    profile_pic: { type: String },
+    profile_pic: { type: mongoose.Schema.Types.Mixed },
     name: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     password: { type: String },

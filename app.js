@@ -4,6 +4,8 @@ import exphbs from 'express-handlebars';
 import session from 'express-session';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Import environment variables from .env file. and fs module.
 import 'dotenv/config';
@@ -13,6 +15,10 @@ import fs from 'fs';
 import * as helpers from './helpers.js';
 import { connectToDB } from './models/db.js';
 import router from './routes/router.js';
+
+// Get the current module's file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Import the schemas
 import { User } from './models/schemas.js';
@@ -132,6 +138,9 @@ async function main() {
       }
       next(); // Continue to the next middleware or route handler
     });
+
+    // Configure static file serving for the 'profile' folder
+    app.use('/static/images/profile', express.static(path.join(__dirname, 'profile')));
 
     // The following lines of code set up the Express server and handlebars.
     app.use("/static", express.static("public"));

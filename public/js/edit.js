@@ -1,8 +1,8 @@
 // .________________________.
-// ||			           ||
+// ||			                 ||
 // ||      Edit Profile    ||
 // ||______________________||
-// '			            ' 
+// '			                  ' 
 
 async function editProfile() {
   const newName = document.getElementById("new-name").value;
@@ -31,65 +31,91 @@ async function editProfile() {
   }
 }
 
+// .________________________.
+// ||			                 ||
+// ||   Profile Picture    ||
+// ||______________________||
+// '			                  ' 
 
-// Changing Profile Picture
-document.addEventListener("DOMContentLoaded", function () {
-  var changeButton = document.querySelector("#edit-change-image-btn");
-  changeButton.addEventListener("click", changeProfile);
+document.addEventListener('DOMContentLoaded', () => {
+  const imageInput = document.getElementById('image-input');
+  const changeImageBtn = document.getElementById('edit-change-image-btn');
+  const profilePics = document.getElementsByClassName('edit-profile');
 
-  function changeProfile() {
-    var mediaInput = document.createElement("input");
-    mediaInput.type = "file";
-    mediaInput.accept = "image/*";
-    mediaInput.style.display = "none";
+  Array.from(profilePics).forEach(profilePic => {
+    imageInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const image = new Image();
+          image.onload = function () {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
 
-    mediaInput.addEventListener("change", function (event) {
-      var file = event.target.files[0];
-      var reader = new FileReader();
+            const imageWidth = image.width;
+            const imageHeight = image.height;
 
-      reader.onload = function (e) {
-        var newProfileMain = document.getElementById("profile-pic");
+            const cropSize = 800; // Adjust this value to change the crop size
 
-        var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
+            const cropX = Math.max(0, (imageWidth - cropSize) / 2);
+            const cropY = Math.max(0, (imageHeight - cropSize) / 2);
+            const cropWidth = Math.min(cropSize, imageWidth);
+            const cropHeight = Math.min(cropSize, imageHeight);
 
-        var image = new Image();
-        image.onload = function () {
-          var imageWidth = image.width;
-          var imageHeight = image.height;
+            canvas.width = 300;
+            canvas.height = 300;
 
-          var cropSize = 800; // Adjust this value to change the crop size
+            context.drawImage(
+              image,
+              cropX,
+              cropY,
+              cropWidth,
+              cropHeight,
+              0,
+              0,
+              300,
+              300
+            );
 
-          var cropX = Math.max(0, (imageWidth - cropSize) / 2);
-          var cropY = Math.max(0, (imageHeight - cropSize) / 2);
-          var cropWidth = Math.min(cropSize, imageWidth);
-          var cropHeight = Math.min(cropSize, imageHeight);
+            const formData = new FormData();
+            formData.append('profilePic', dataURItoBlob(canvas.toDataURL()));
 
-          canvas.width = 300;
-          canvas.height = 300;
-
-          context.drawImage(
-            image,
-            cropX,
-            cropY,
-            cropWidth,
-            cropHeight,
-            0,
-            0,
-            300,
-            300
-          );
-
-          newProfileMain.src = canvas.toDataURL();
+            fetch('/upload-profile-pic', {
+              method: 'POST',
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                profilePic.src = `/static/images/profile/${data.filename}`;
+              })
+              .catch((error) => {
+                console.error('Error uploading image:', error);
+              });
+          };
+          image.src = e.target.result;
         };
-
-        image.src = e.target.result;
-      };
-
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
     });
+  });
 
-    mediaInput.click();
-  }
+  // When the "Change Image" button is clicked, trigger the file input click
+  changeImageBtn.addEventListener('click', () => {
+    imageInput.click();
+  });
 });
+
+// Function to convert Data URI to Blob
+function dataURItoBlob(dataURI) {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}
+
 
