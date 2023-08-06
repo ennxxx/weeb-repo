@@ -31,9 +31,6 @@
             </p>
             <a href="/view/{{post_id}}" class="post-clickable">
                 <p class="text" id="text-{{post_id}}">{{{content}}}</p>
-                {{#if image}}
-                <img src="/static/images/post/media/{{image}}" class="sample" id="sample-{{post_id}}">
-                {{/if}}
             </a>
             {{#if edited}}
             <p class="post-edited" id="post-edited-{{post_id}}" data-edited="true">Edited</p>

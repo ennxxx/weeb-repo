@@ -96,7 +96,6 @@ router.get("/view/:post_id", async (req, res) => {
         const downvoteStatusCom = posts[post_id].downvotedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
         const saveStatusCom = posts[post_id].savedBy.some(user => user._id.equals(req.session.user._id)) ? 1 : 0;
 
-
         res.render("view", {
             title: posts[post_id].title,
             post: posts[post_id],
@@ -540,7 +539,7 @@ router.post("/post", async (req, res) => {
         const posts = await Post.find().populate('author');
         const users = await User.find().populate('postsMade');
         console.log("POST Request to /post received.");
-        const { title, content, image, dateMade } = req.body;
+        const { title, content, dateMade } = req.body;
         if (title && content) {
             const currentDate = new Date();
             const newPost = {
@@ -548,7 +547,6 @@ router.post("/post", async (req, res) => {
                 title: title,
                 author: req.session.user._id,
                 content: content,
-                image: image,
                 dateMade: (dateMade !== undefined) ? dateMade : currentDate,
                 comments: [],
                 voteCtr: 0,
@@ -598,7 +596,6 @@ router.put("/post/:post_id", async (req, res) => {
         // Update the properties of the post
         postToUpdate.title = title;
         postToUpdate.content = content;
-        postToUpdate.image = img;
         postToUpdate.edited = true;
 
         await postToUpdate.save();
@@ -666,7 +663,6 @@ router.post("/comment", async (req, res) => {
                 { new: true } // Return the updated document after the update is routerlied
             );
             console.log("New comment inserted with _id:", result.insertedId);
-
 
             const postIdToUpdate = posts[post_id]._id;
             const updatedPost = await Post.findOneAndUpdate(

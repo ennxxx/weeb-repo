@@ -61,7 +61,6 @@ const postSchema = new mongoose.Schema({
     title: { type: String },
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true },
     content: { type: String },
-    image: { type: String },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', autopopulate: true }],
     upvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],
     downvotedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', autopopulate: true }],

@@ -52,12 +52,6 @@ function makeBullet() {
   document.execCommand("insertUnorderedList", false, null);
 }
 
-// Insert image
-function insertImage() {
-  var url = prompt("Enter the URL of the image:");
-  return url;
-}
-
 function checkTitleLength() {
   var title = document.getElementById("title").value;
   document.getElementById("title-count").textContent = title.length + "/50";
@@ -69,7 +63,6 @@ function checkTitleLength() {
 // ||___________________________||
 // '                    
 let currentPostId;
-
 
 function openEditPopup() {
   document.getElementById("edit-overlay").style.display = "block";
@@ -88,17 +81,14 @@ function openEditPost(post_id) {
   const editPostContainer = document.getElementById("edit-popup");
   const editTitleInput = editPostContainer.querySelector("#edit-title");
   const editContentInput = editPostContainer.querySelector("#edit-content");
-  const editUrlInput = editPostContainer.querySelector("#edit-url");
 
   // Get information from document
   const title = document.querySelector("#title-" + post_id);
   const content = document.querySelector("#text-" + post_id);
-  const img = document.querySelector("#sample-" + post_id);
 
   // Fill with original values
   editTitleInput.value = title.innerText;
   editContentInput.innerHTML = content.innerText;
-  editUrlInput.value = img.innerText;
 }
 
 async function editPost() {
@@ -106,9 +96,8 @@ async function editPost() {
     const post_id = currentPostId;
     const updatedTitle = document.getElementById('edit-title').value;
     const updatedContent = document.getElementById('edit-content').innerHTML;
-    const updatedUrl = document.getElementById('edit-url').value;
 
-    const jString = JSON.stringify({ title: updatedTitle, content: updatedContent, img: updatedUrl });
+    const jString = JSON.stringify({ title: updatedTitle, content: updatedContent });
 
     const response = await fetch(`/post/${post_id}`, {
       method: 'PUT',
@@ -231,19 +220,13 @@ function openCreatePost() {
           <button class="toolbar-buttons" onclick="makeItalic()"><em>I</em></button>
           <button class="toolbar-buttons" onclick="makeBullet()"><img src="/static/images/icons/bullet.png"
                   alt="Bullet Form"></button>
-          <button class="toolbar-buttons" onclick="insertImage()"><img src="/static/images/icons/image.png"
-                  alt="Insert Image"></button>
       </div>
 
       <div id="content" contenteditable="true" placeholder="Content"
-          style="border: 1px solid #ccc; padding: 5px;"></div>
-      <br>
-
-      <div>
-          <label for="url">URL:</label>
-          <input type="text" id="url" placeholder="Enter URL" style="padding: 15px 10px; margin: 0;">
+          style="border: 1px solid #ccc; padding: 5px;">
       </div>
       <br>
+
       <button id="popup-submit">Submit</button>
   </div>`;
 
@@ -273,10 +256,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const content = document.querySelector("#content").innerText;
     const title = document.getElementById("title").value;
-    const image = document.getElementById("url").value;
 
-    console.log({ title, content, image });
-    const jString = JSON.stringify({ title, content, image });
+    console.log({ title, content });
+    const jString = JSON.stringify({ title, content });
     console.log(jString);
 
     const response = await fetch("/post", {

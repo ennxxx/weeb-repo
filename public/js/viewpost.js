@@ -25,12 +25,6 @@ function makeBullet() {
   document.execCommand("insertUnorderedList", false, null);
 }
 
-// Insert image
-function insertImage() {
-  var url = prompt("Enter the URL of the image:");
-  return url;
-}
-
 function checkTitleLength() {
   var title = document.getElementById("title").value;
   document.getElementById("title-count").textContent = title.length + "/50";
@@ -61,17 +55,14 @@ function openEditPost(post_id) {
   const editPostContainer = document.getElementById("edit-popup");
   const editTitleInput = editPostContainer.querySelector("#edit-title");
   const editContentInput = editPostContainer.querySelector("#edit-content");
-  const editUrlInput = editPostContainer.querySelector("#edit-url");
 
   // Get information from document
   const title = document.querySelector(".title");
   const content = document.querySelector(".text");
-  const img = document.querySelector(".class");
 
   // Fill with original values
   editTitleInput.value = title.innerText;
   editContentInput.innerHTML = content.innerText;
-  editUrlInput.value = img.innerText;
 }
 
 async function editPost() {
@@ -79,9 +70,8 @@ async function editPost() {
     const post_id = currentPostId;
     const updatedTitle = document.getElementById('edit-title').value;
     const updatedContent = document.getElementById('edit-content').innerHTML;
-    const updatedUrl = document.getElementById('edit-url').value;
 
-    const jString = JSON.stringify({ title: updatedTitle, content: updatedContent, img: updatedUrl });
+    const jString = JSON.stringify({ title: updatedTitle, content: updatedContent });
 
     const response = await fetch(`/post/${post_id}`, {
       method: 'PUT',
