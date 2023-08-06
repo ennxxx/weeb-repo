@@ -1,6 +1,6 @@
 <div class="post-container" id="{{post_id}}">
     <div class="vote">
-        {{#if (getUpvoteStatus @root.upvoteStatusArray @index)}}
+        {{#if (getUpvoteStatus @root.upvoteStatusSave @index)}}
         <button class="upvote-button">
             <img src="/static/images/post/clicked/c-upvoted.png" class="upvote">
         </button>
@@ -10,7 +10,7 @@
         </button>
         {{/if}}
         <p class="num-votes">{{voteCtr}}</p>
-        {{#if (getDownvoteStatus @root.downvoteStatusArray @index)}}
+        {{#if (getDownvoteStatus @root.downvoteStatusSave @index)}}
         <button class="downvote-button">
             <img src="/static/images/post/clicked/c-downvoted.png" class="downvote">
         </button>

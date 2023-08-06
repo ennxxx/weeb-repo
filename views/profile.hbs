@@ -27,20 +27,34 @@
 
         <!-- Posts -->
         <div id="Posts-view">
+            {{#if postsMade}}
             <div class="posts-container">
-                {{#each user.postsMade}}
+                {{#each postsMade}}
                 {{> post this}}
                 {{/each}}
             </div>
+            {{else}}
+            <div class="empty-container">
+                <img src="/static/images/icons/empty.png" class="empty-icon">
+                <h2 class="empty-text">Looks like there's nothing here</h2>
+            </div>
+            {{/if}}
         </div>
 
         <!-- Comments -->
         <div id="Comments-view">
+            {{#if comments}}
             <div class="posts-container">
                 {{#each comments}}
                 {{> searchcomment this}}
                 {{/each}}
             </div>
+            {{else}}
+            <div class="empty-container">
+                <img src="/static/images/icons/empty.png" class="empty-icon">
+                <h2 class="empty-text">Looks like there's nothing here</h2>
+            </div>
+            {{/if}}
         </div>
     </div>
 </div>
