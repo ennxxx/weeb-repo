@@ -1616,6 +1616,14 @@ header {
   text-align: center;
 }
 
+#anonButton {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #858E99;
+  margin-top: 10px;
+}
+
 /* Username and Password */
 
 .textbox {
